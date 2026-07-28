@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 # SPDX-License-Identifier: MIT
 # Copyright (C) 2026, Advanced Micro Devices, Inc. All rights reserved.
 """Main-vs-branch A/B for MHA bench CSVs written by bench_mha.py -o.
@@ -17,7 +16,7 @@ several rows (the extra columns distinguish them) all matches are shown.
 
 Stdlib only, no GPU: runs on a plain CPU runner or locally. Always exits 0.
 
-Usage: compare_mha.py BASELINE_CSV CURRENT_CSV
+Usage: python3 compare_mha.py BASELINE_CSV CURRENT_CSV
 """
 
 from __future__ import annotations
@@ -25,7 +24,7 @@ from __future__ import annotations
 import argparse
 import csv
 import sys
-from typing import List, NamedTuple, Tuple
+from typing import NamedTuple
 
 # The metric column is the unit header bench_mha's _CsvWriter writes as the last column.
 _METRIC_UNITS = ("TFLOPS", "GB/s", "ms", "us")
@@ -40,11 +39,11 @@ class BenchTable(NamedTuple):
     """A parsed bench CSV: its columns, its metric column, and its raw rows."""
 
     metric: str  # metric (unit) column name: TFLOPS / GB/s / ms / us
-    fields: Tuple[str, ...]  # all column names, in file order
-    rows: List[Row]  # raw rows (all values are strings, as read)
+    fields: tuple[str, ...]  # all column names, in file order
+    rows: list[Row]  # raw rows (all values are strings, as read)
 
 
-def _detect_metric_col(fieldnames: List[str]) -> str:
+def _detect_metric_col(fieldnames: list[str]) -> str:
     """The metric column is the unit header (TFLOPS/GB/s/ms/us); everything else is a key."""
     found = [c for c in fieldnames if c in _METRIC_UNITS]
     if len(found) != 1:
@@ -74,7 +73,7 @@ def parse_csv(path: str) -> BenchTable:
     return BenchTable(metric, fields, rows)
 
 
-def _group(rows: List[Row], key_cols: List[str]) -> dict:
+def _group(rows: list[Row], key_cols: list[str]) -> dict:
     """Group rows by their value tuple over key_cols (a key may map to several rows)."""
     grouped: dict = {}
     for r in rows:
@@ -205,10 +204,15 @@ def main(argv: list[str] | None = None) -> int:
     args = parser.parse_args(argv)
     try:
         compare_csvs(args.baseline_csv, args.current_csv)
-    except (SystemExit, Exception) as e:
+    except (SystemExit, Exception) as e:  # noqa: BLE001
         # Report-only: a malformed or incompatible CSV (bad metric column, mismatched
         # metrics, unreadable file) must not fail the caller -- the CI compare step runs
-        # under `set -euo pipefail`. Warn to stderr and still exit 0.
+        # under `set -euo pipefail` with no continue-on-error, so ANY escaping exception
+        # turns a perf report into a red build. The blind catch is the contract ("Always
+        # exits 0"), not an oversight, so BLE001 is suppressed rather than narrowed:
+        # enumerating the expected errors would let an unforeseen one fail the job.
+        # SystemExit is listed explicitly because it derives from BaseException, not
+        # Exception -- it is how this module reports "these two CSVs cannot be compared".
         print(f"compare_mha: skipping compare ({e})", file=sys.stderr)
     return 0
 
