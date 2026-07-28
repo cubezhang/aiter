@@ -255,8 +255,7 @@ def _gemm_a4w4_asm(
     beta: float = 0.0,
     bpreshuffle: int = 1,
     log2_k_split: int = 0,
-) -> None:
-    ...
+) -> None: ...
 
 
 def gemm_a4w4_asm(
@@ -302,8 +301,7 @@ def _mxfp4_gemm_asm(
     out_scale: Tensor | None = None,  # mxfp8 only: E8M0 [M, N/128] (None otherwise)
     kernelName: str | None = None,
     a_preshuffle: int = 1,
-) -> None:
-    ...
+) -> None: ...
 
 
 @compile_ops(
@@ -322,8 +320,7 @@ def _nvfp4_gemm_asm(
     out_scale: Tensor | None = None,  # mxfp8 only: E8M0 [M, N/128] (None otherwise)
     kernelName: str | None = None,
     a_preshuffle: int = 1,
-) -> None:
-    ...
+) -> None: ...
 
 
 # gfx1250 f4gemm mxfp8-output block size along N: the kernel dynamically
@@ -592,8 +589,7 @@ def gemm_a4w4_blockscale(
     Out: torch.Tensor,
     splitK: int = 0,
     kernelName: str = "",
-) -> Tensor:
-    ...
+) -> Tensor: ...
 
 
 @compile_ops(
@@ -609,5 +605,4 @@ def gemm_a4w4_blockscale_tune(
     Out: torch.Tensor,
     kernelId: int,
     splitK: int = 0,
-) -> Tensor:
-    ...
+) -> Tensor: ...
