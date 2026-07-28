@@ -205,7 +205,8 @@ def gemm_a4w4(
         splitK = ck_config.get("splitK", None)
         kernelName = ck_config["kernelName"]
     if (
-        ck_config is not None and kernelName.find("_ZN") == -1
+        ck_config is not None
+        and kernelName.find("_ZN") == -1
         # or bias is None
     ):
         splitK = 0 if splitK is None else splitK
@@ -218,9 +219,9 @@ def gemm_a4w4(
             splitK=splitK,
             kernelName=kernelName,
         )[:m]
-    assert out.shape[0] % 32 == 0, (
-        "Dim0 of gemm_a4w4_asm output needs to be padded to multiples of 32!"
-    )
+    assert (
+        out.shape[0] % 32 == 0
+    ), "Dim0 of gemm_a4w4_asm output needs to be padded to multiples of 32!"
     gemm_a4w4_asm(
         A.view(m, k // 2),
         B,
@@ -254,7 +255,8 @@ def _gemm_a4w4_asm(
     beta: float = 0.0,
     bpreshuffle: int = 1,
     log2_k_split: int = 0,
-) -> None: ...
+) -> None:
+    ...
 
 
 def gemm_a4w4_asm(
@@ -300,7 +302,8 @@ def _mxfp4_gemm_asm(
     out_scale: Tensor | None = None,  # mxfp8 only: E8M0 [M, N/128] (None otherwise)
     kernelName: str | None = None,
     a_preshuffle: int = 1,
-) -> None: ...
+) -> None:
+    ...
 
 
 @compile_ops(
@@ -319,7 +322,8 @@ def _nvfp4_gemm_asm(
     out_scale: Tensor | None = None,  # mxfp8 only: E8M0 [M, N/128] (None otherwise)
     kernelName: str | None = None,
     a_preshuffle: int = 1,
-) -> None: ...
+) -> None:
+    ...
 
 
 # gfx1250 f4gemm mxfp8-output block size along N: the kernel dynamically
@@ -352,9 +356,9 @@ def _alloc_f4gemm_out_scale(
     ``(M/64, N//128, 16, 4)`` layout -- unpack via :func:`unpack_mxfp8_out_scale`."""
     if not _is_mxfp8_out(dtype):
         return None
-    assert N % MXFP8_OUT_SCALE_BLOCK == 0, (
-        f"mxfp8 output requires N % {MXFP8_OUT_SCALE_BLOCK} == 0, got N={N}"
-    )
+    assert (
+        N % MXFP8_OUT_SCALE_BLOCK == 0
+    ), f"mxfp8 output requires N % {MXFP8_OUT_SCALE_BLOCK} == 0, got N={N}"
     assert M % 64 == 0, f"mxfp8 output-scale packing requires M % 64 == 0, got M={M}"
     return torch.empty(
         (M, N // MXFP8_OUT_SCALE_BLOCK), dtype=dtypes.fp8_e8m0, device=device
@@ -366,9 +370,9 @@ def unpack_mxfp8_out_scale(packed: Tensor, M: int, N: int) -> Tensor:
     ``(M/64, N//128, 16, 4)`` layout to row-major ``[M, N//128]`` (requires
     ``M % 64 == 0``)."""
     assert M % 64 == 0, f"mxfp8 output-scale packing requires M % 64 == 0, got M={M}"
-    assert N % MXFP8_OUT_SCALE_BLOCK == 0, (
-        f"mxfp8 output requires N % {MXFP8_OUT_SCALE_BLOCK} == 0, got N={N}"
-    )
+    assert (
+        N % MXFP8_OUT_SCALE_BLOCK == 0
+    ), f"mxfp8 output requires N % {MXFP8_OUT_SCALE_BLOCK} == 0, got N={N}"
     scaleN = N // MXFP8_OUT_SCALE_BLOCK
     u8 = packed.reshape(-1).view(torch.uint8)[: (M // 64) * scaleN * 16 * 4]
     rm = u8.reshape(M // 64, scaleN, 16, 4).permute(0, 3, 2, 1).reshape(M, scaleN)
@@ -488,9 +492,9 @@ def gemm_a4w4o4(
 ) -> torch.Tensor:
     """A4W4 GEMM with packed FP4 (e2m1, cvt_scale=1) output ``[*lead, N//2]``.
     gfx1250 only. MXFP4 vs NVFP4 by global-scale presence (see :func:`gemm_a4w4`)."""
-    assert get_gfx() in _GFX1250, (
-        f"gemm_a4w4o4 (packed FP4 output) is only supported on gfx1250, got {get_gfx()}"
-    )
+    assert (
+        get_gfx() in _GFX1250
+    ), f"gemm_a4w4o4 (packed FP4 output) is only supported on gfx1250, got {get_gfx()}"
     out = _f4gemm_asm_dispatch(
         A,
         B,
@@ -546,9 +550,9 @@ def gemm_a4w4o8(
     scale)``. The scale is in the PACKED ``(M/64, N//128, 16, 4)`` layout --
     unpack via :func:`unpack_mxfp8_out_scale`. gfx1250 only. MXFP4 vs NVFP4 by
     global-scale presence (see :func:`gemm_a4w4`)."""
-    assert get_gfx() in _GFX1250, (
-        f"gemm_a4w4o8 (mxfp8 output) is only supported on gfx1250, got {get_gfx()}"
-    )
+    assert (
+        get_gfx() in _GFX1250
+    ), f"gemm_a4w4o8 (mxfp8 output) is only supported on gfx1250, got {get_gfx()}"
     o, s = _f4gemm_asm_dispatch(
         A,
         B,
@@ -588,7 +592,8 @@ def gemm_a4w4_blockscale(
     Out: torch.Tensor,
     splitK: int = 0,
     kernelName: str = "",
-) -> Tensor: ...
+) -> Tensor:
+    ...
 
 
 @compile_ops(
@@ -604,4 +609,5 @@ def gemm_a4w4_blockscale_tune(
     Out: torch.Tensor,
     kernelId: int,
     splitK: int = 0,
-) -> Tensor: ...
+) -> Tensor:
+    ...
