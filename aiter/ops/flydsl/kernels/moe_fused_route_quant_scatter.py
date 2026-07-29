@@ -449,6 +449,173 @@ def _emit_quant_one_k_group(c: SimpleNamespace, mx_group) -> None:
     _emit_quant_block_loop(SimpleNamespace(**d))
 
 
+def _emit_fp8_gather_preshuffle(c) -> None:
+    """Emit one warp's fp8 payload copy + e8m0 scale-preshuffle (NO quant).
+
+    The store side is byte-identical to :func:`_emit_quant_block_loop` (same
+    grouped payload byte layout + preshuffled e8m0 dword/byte position), but the
+    source is an already-quantized per-token fp8 payload + plain e8m0 scale
+    (arrival order) instead of bf16 to be quantized. Only the gfx1250 pk8 fp8
+    path is supported (payload_bytes_per_lane == 8).
+    """
+    i32 = c.i32
+    mx_group_base = getattr(c, "mx_group_base", None)
+    if mx_group_base is None:
+        mx_group_base = arith.constant(0, type=i32)
+    PB_block = c.payload_bytes_per_block  # python int (32 for pk8 fp8)
+    PB_lane = c.payload_bytes_per_lane  # python int (8 for pk8 fp8)
+    assert PB_lane == 8, "fp8 gather-preshuffle supports gfx1250 pk8 (8B/lane) only"
+    for it in range_constexpr(c.block_iters):
+        mx_block = (mx_group_base + arith.constant(it, type=i32)) * arith.constant(
+            c.mx_blocks_per_wave_iter, type=i32
+        ) + c.block_in_wave
+        block_in_range = arith.cmpi(
+            CmpIPredicate.ult, mx_block, arith.constant(c.mx_blocks_per_row, type=i32)
+        )
+        _if_block = scf.IfOp(block_in_range)
+        with ir.InsertionPoint(_if_block.then_block):
+            byte_off_in_row = mx_block * arith.constant(
+                PB_block, type=i32
+            ) + c.lane_in_block * arith.constant(PB_lane, type=i32)
+            # dtype-i32 buffer index is in dwords; all bases are 4B-aligned.
+            src_dword = arith.divui(
+                ArithValue(c.src_payload_byte_base) + ArithValue(byte_off_in_row),
+                c.c4_i32,
+            )
+            dst_dword = arith.divui(
+                ArithValue(c.dst.payload_row_byte_base) + ArithValue(byte_off_in_row),
+                c.c4_i32,
+            )
+            v2 = buffer_ops.buffer_load(
+                c.src_payload_rsrc, src_dword, vec_width=2, dtype=i32
+            )
+            buffer_ops.buffer_store(v2, c.dst_payload_rsrc, dst_dword)
+
+            # one e8m0 byte per block, copied by the block's lead lane, into the
+            # preshuffled destination position (same formula as the quant loop).
+            _if_lead = scf.IfOp(c.is_block_lead)
+            with ir.InsertionPoint(_if_lead.then_block):
+                scale_dword = arith.divui(mx_block, c.c4_i32)
+                byte_in_dword = mx_block - scale_dword * c.c4_i32
+                src_e8m0 = buffer_ops.buffer_load(
+                    c.src_scale_rsrc,
+                    ArithValue(c.src_scale_byte_base) + ArithValue(mx_block),
+                    vec_width=1,
+                    dtype=T.i8,
+                )
+                dst_scale_dword = c.dst.scale_row_dword_base + scale_dword * c.c_wmma_rep
+                dst_scale_byte = dst_scale_dword * c.c4_i32 + byte_in_dword
+                buffer_ops.buffer_store(src_e8m0, c.dst_scale_rsrc, dst_scale_byte)
+                scf.YieldOp([])
+            scf.YieldOp([])
+
+
+def emit_per_token_mx_quant(
+    *,
+    hidden_rsrc,
+    payload_rsrc,
+    scale_rsrc,
+    feat_elem_base,
+    dest_row,
+    lane,
+    feat_dim: int,
+    quant_mode: str,
+):
+    """Emit one warp's per-token MX quant (fp8/fp4) into a per-token (arrival
+    order) destination — NOT preshuffled (wmma_rep=1). Reuses the shared quant
+    math (:func:`_emit_quant_block_loop`).
+
+    Must be called inside an active kernel InsertionPoint where the *whole warp*
+    is co-operating on one source token (the amax reduction shuffles across the
+    MX block's lanes). All args except the compile-time ``feat_dim``/``quant_mode``
+    are IR values:
+
+      hidden_rsrc  : buffer resource over the source bf16 token base
+      payload_rsrc : buffer resource over the destination fp8/fp4 payload base
+      scale_rsrc   : buffer resource over the destination e8m0 scale base
+      feat_elem_base : bf16 element base of this token in hidden_rsrc
+                       (src_tok * feat_dim)
+      dest_row     : arrival-order row index in the destination
+                       (payload byte base = dest_row*payload_bytes_per_row;
+                        scale dword base = dest_row*scale_dwords_per_row)
+      lane         : this thread's lane id within the wavefront
+
+    Destination layouts (per token ``r``):
+      payload[r*feat_dim ...]                 (fp8: feat_dim B; fp4: feat_dim/2 B)
+      scale  [r*(feat_dim//32) + mx_block]    (one e8m0 byte per 1x32 block)
+    """
+    L = _quant_layout(feat_dim, quant_mode, 1)  # wmma_rep=1 -> no preshuffle spread
+    i32 = T.i32
+    f32 = T.f32
+
+    if isinstance(feat_elem_base, int):
+        feat_elem_base = arith.constant(feat_elem_base, type=i32)
+
+    c0_i32 = arith.constant(0, type=i32)
+    c1_i32 = arith.constant(1, type=i32)
+    c4_i32 = arith.constant(4, type=i32)
+    c23_i32 = arith.constant(23, type=i32)
+    c254_i32 = arith.constant(254, type=i32)
+    c0_f32 = arith.constant(0.0, type=f32)
+    c_wave = arith.constant(L.wave_size, type=i32)
+    c_elems_per_lane = arith.constant(L.elems_per_lane, type=i32)
+    c_payload_bytes_per_block = arith.constant(L.payload_bytes_per_block, type=i32)
+    c_payload_bytes_per_lane = arith.constant(L.payload_bytes_per_lane, type=i32)
+    c_wmma_rep = arith.constant(1, type=i32)
+    c_lanes_per_block = arith.constant(L.lanes_per_mx_block, type=i32)
+
+    lane_v = ArithValue(lane)
+    block_in_wave = arith.divui(lane_v, c_lanes_per_block)
+    lane_in_block = lane_v - ArithValue(block_in_wave) * c_lanes_per_block
+    is_block_lead = arith.cmpi(CmpIPredicate.eq, lane_in_block, c0_i32)
+
+    dest_row_v = ArithValue(dest_row)
+    payload_row_byte_base = dest_row_v * arith.constant(
+        L.payload_bytes_per_row, type=i32
+    )
+    scale_row_dword_base = dest_row_v * arith.constant(
+        L.scale_dwords_per_row, type=i32
+    )
+
+    c = SimpleNamespace(
+        i32=i32,
+        f32=f32,
+        block_iters=L.block_iters,
+        mx_blocks_per_wave_iter=L.mx_blocks_per_wave_iter,
+        mx_blocks_per_row=L.mx_blocks_per_row,
+        amax_shuffle_dists=L.amax_shuffle_dists,
+        is_fp8=L.is_fp8,
+        use_native=L.use_native,
+        use_pk8=L.use_pk8,
+        mx_dtype=L.mx_dtype,
+        c0_i32=c0_i32,
+        c1_i32=c1_i32,
+        c4_i32=c4_i32,
+        c23_i32=c23_i32,
+        c254_i32=c254_i32,
+        c0_f32=c0_f32,
+        c_wave=c_wave,
+        c_elems_per_lane=c_elems_per_lane,
+        c_payload_bytes_per_block=c_payload_bytes_per_block,
+        c_payload_bytes_per_lane=c_payload_bytes_per_lane,
+        c_wmma_rep=c_wmma_rep,
+        block_in_wave=block_in_wave,
+        lane_in_block=lane_in_block,
+        is_block_lead=is_block_lead,
+        dests=[
+            SimpleNamespace(
+                payload_row_byte_base=payload_row_byte_base,
+                scale_row_dword_base=scale_row_dword_base,
+            )
+        ],
+        feat_elem_base=ArithValue(feat_elem_base),
+        hidden_rsrc=hidden_rsrc,
+        payload_rsrc=payload_rsrc,
+        scale_rsrc=scale_rsrc,
+    )
+    _emit_quant_block_loop(c)
+
+
 def build_moe_fused_route_quant_scatter_module(
     model_dim: int,
     topk: int,
@@ -1477,6 +1644,213 @@ def build_moe_fused_quant_preshuffle_route_ksplit_module(
         )
         fused_kernel(
             grouped_in,
+            grouped_payload,
+            grouped_scale,
+            topids_to_rows,
+            row_starts,
+            route_max_m,
+            numel,
+            num_valid_routes,
+        ).launch(
+            grid=(grid_x, grid_y, 1),
+            block=(BLOCK_THREADS, 1, 1),
+            stream=stream,
+        )
+
+    launch_fused.compile_hints = {
+        "llvm_options": {
+            "amdgpu-kernarg-preload": AITER_FLYDSL_KERNARG_PRELOAD,
+            "amdgpu-kernarg-preload-count": AITER_FLYDSL_KERNARG_PRELOAD_COUNT,
+        },
+    }
+
+    return launch_fused
+
+
+def build_moe_fp8_gather_preshuffle_route_ksplit_module(
+    feat_dim: int,
+    wmma_rep: int,
+    source_topk: int = 0,
+    remap_rows: bool = False,
+    ksplit: bool = True,
+):
+    """Route-indexed fp8 payload gather + e8m0 scale-preshuffle (NO quant).
+
+    fp8 counterpart of :func:`build_moe_fused_quant_preshuffle_route_ksplit_module`:
+    the source is a per-token (arrival order) fp8 payload + plain e8m0 scale
+    (e.g. produced by the fused dispatch recv path) instead of bf16 to quantize.
+    Gathers by ``topids_to_rows`` (source_row = route // source_topk) and writes
+    the contiguous grouped fp8 payload + preshuffled e8m0 scale that GEMM1 reads.
+    """
+    L = _quant_layout(feat_dim, "fp8", wmma_rep)
+    if not L.use_pk8:
+        raise NotImplementedError("fp8 gather-preshuffle enabled only for gfx1250 pk8")
+
+    payload_bytes_per_row = L.payload_bytes_per_row  # == feat_dim (fp8)
+    scale_bytes_per_row = L.mx_blocks_per_row  # feat_dim // 32
+    payload_bytes_per_block = L.payload_bytes_per_block
+    payload_bytes_per_lane = L.payload_bytes_per_lane
+    wave_size = L.wave_size
+    warps_per_block = L.warps_per_block
+    mx_blocks_per_wave_iter = L.mx_blocks_per_wave_iter
+    mx_blocks_per_row = L.mx_blocks_per_row
+    rows_per_tile = L.rows_per_tile
+    dst_scale_dwords_per_row = L.dst_scale_dwords_per_row
+    block_iters = L.block_iters
+
+    source_tag = f"srctk{source_topk}" if source_topk > 0 else "srcrow"
+    remap_tag = "_remap" if remap_rows else ""
+    ksplit_tag = "" if ksplit else "_noKS"
+    source_topk_is_pow2 = source_topk > 0 and (source_topk & (source_topk - 1)) == 0
+    source_topk_shift = source_topk.bit_length() - 1 if source_topk_is_pow2 else 0
+
+    module_name = (
+        f"moe_fp8_gather_preshuffle_routeks_fd{feat_dim}_r{wmma_rep}"
+        f"_{L.native_tag}_{source_tag}{remap_tag}{ksplit_tag}"
+    )
+
+    @flyc.kernel(name=module_name)
+    def fused_kernel(
+        in_payload: fx.Pointer,  # (T*feat_dim,) uint8 per-token fp8 payload
+        in_scale: fx.Pointer,  # (T*feat_dim//32,) uint8 per-token e8m0
+        grouped_payload: fx.Pointer,
+        grouped_scale: fx.Pointer,
+        topids_to_rows: fx.Pointer,
+        row_starts: fx.Pointer,
+        route_max_m: Int32,
+        numel: Int32,
+        num_valid_routes: fx.Pointer,
+    ):
+        i32 = T.i32
+        f32 = T.f32
+        c0_i32 = arith.constant(0, type=i32)
+        c4_i32 = arith.constant(4, type=i32)
+        c16_i32 = arith.constant(16, type=i32)
+        c_wave = arith.constant(wave_size, type=i32)
+        c_feat_dim = arith.constant(feat_dim, type=i32)
+        c_scale_bytes_per_row = arith.constant(scale_bytes_per_row, type=i32)
+        c_payload_bytes_per_row = arith.constant(payload_bytes_per_row, type=i32)
+        c_dst_scale_dwords_per_row = arith.constant(dst_scale_dwords_per_row, type=i32)
+        c_wmma_rep = arith.constant(wmma_rep, type=i32)
+        c_rows_per_tile = arith.constant(rows_per_tile, type=i32)
+        c_lanes_per_block = arith.constant(L.lanes_per_mx_block, type=i32)
+        c_source_topk = arith.constant(source_topk, type=i32)
+        c_source_topk_shift = arith.constant(source_topk_shift, type=i32)
+
+        tid = ArithValue(fx.thread_idx.x)
+        bid = ArithValue(fx.block_idx.x)
+        warp_in_block = tid // c_wave
+        lane = tid - warp_in_block * c_wave
+        route = bid * arith.constant(warps_per_block, type=i32) + warp_in_block
+
+        nvr = ArithValue(
+            buffer_ops.buffer_load(
+                ptr_rsrc(num_valid_routes), c0_i32, vec_width=1, dtype=i32
+            )
+        )
+        route_in_range = arith.cmpi(CmpIPredicate.ult, route, nvr)
+        _if_route = scf.IfOp(route_in_range)
+        with ir.InsertionPoint(_if_route.then_block):
+            rows_rsrc = ptr_rsrc(topids_to_rows)
+            row = ArithValue(
+                buffer_ops.buffer_load(rows_rsrc, route, vec_width=1, dtype=i32)
+            )
+            if const_expr(remap_rows):
+                m = ArithValue(route_max_m)
+                expert = ArithValue(arith.divui(row, m))
+                slot = row - expert * m
+                starts_rsrc = ptr_rsrc(row_starts)
+                row = (
+                    ArithValue(
+                        buffer_ops.buffer_load(
+                            starts_rsrc, expert, vec_width=1, dtype=i32
+                        )
+                    )
+                    + slot
+                )
+                is_lane0 = arith.cmpi(CmpIPredicate.eq, lane, c0_i32)
+                if const_expr(ksplit):
+                    k_group = ArithValue(fx.block_idx.y)
+                    is_k0 = arith.cmpi(CmpIPredicate.eq, k_group, c0_i32)
+                    store_cond = arith.andi(is_lane0, is_k0)
+                else:
+                    store_cond = is_lane0
+                _if_store = scf.IfOp(store_cond)
+                with ir.InsertionPoint(_if_store.then_block):
+                    buffer_ops.buffer_store(row, rows_rsrc, route)
+                    scf.YieldOp([])
+
+            scale_tile = arith.divui(row, c_rows_per_tile)
+            row_in_tile = row - scale_tile * c_rows_per_tile
+            wmma_row = arith.divui(row_in_tile, c16_i32)
+            row_lane16 = row_in_tile - wmma_row * c16_i32
+            out_row = scale_tile * c16_i32 + row_lane16
+            scale_row_dword_base = out_row * c_dst_scale_dwords_per_row + wmma_row
+            payload_row_byte_base = row * c_payload_bytes_per_row
+
+            if const_expr(source_topk > 0):
+                if const_expr(source_topk_is_pow2):
+                    source_row = route >> c_source_topk_shift
+                else:
+                    source_row = arith.divui(route, c_source_topk)
+            else:
+                source_row = row
+            src_payload_byte_base = ArithValue(source_row) * c_payload_bytes_per_row
+            src_scale_byte_base = ArithValue(source_row) * c_scale_bytes_per_row
+
+            block_in_wave = arith.divui(lane, c_lanes_per_block)
+            lane_in_block = lane - block_in_wave * c_lanes_per_block
+            is_block_lead = arith.cmpi(CmpIPredicate.eq, lane_in_block, c0_i32)
+
+            gc = SimpleNamespace(
+                i32=i32,
+                block_iters=1 if ksplit else block_iters,
+                mx_blocks_per_wave_iter=mx_blocks_per_wave_iter,
+                mx_blocks_per_row=mx_blocks_per_row,
+                payload_bytes_per_block=payload_bytes_per_block,
+                payload_bytes_per_lane=payload_bytes_per_lane,
+                c4_i32=c4_i32,
+                c_wmma_rep=c_wmma_rep,
+                block_in_wave=block_in_wave,
+                lane_in_block=lane_in_block,
+                is_block_lead=is_block_lead,
+                src_payload_byte_base=src_payload_byte_base,
+                src_scale_byte_base=src_scale_byte_base,
+                src_payload_rsrc=ptr_rsrc(in_payload),
+                src_scale_rsrc=ptr_rsrc(in_scale),
+                dst_payload_rsrc=ptr_rsrc(grouped_payload),
+                dst_scale_rsrc=ptr_rsrc(grouped_scale),
+                dst=SimpleNamespace(
+                    payload_row_byte_base=payload_row_byte_base,
+                    scale_row_dword_base=scale_row_dword_base,
+                ),
+            )
+            if const_expr(ksplit):
+                gc.mx_group_base = ArithValue(fx.block_idx.y)
+            _emit_fp8_gather_preshuffle(gc)
+            scf.YieldOp([])
+
+    _grid_y_dim = block_iters if ksplit else 1
+
+    @flyc.jit
+    def launch_fused(
+        in_payload: fx.Pointer,
+        in_scale: fx.Pointer,
+        grouped_payload: fx.Pointer,
+        grouped_scale: fx.Pointer,
+        topids_to_rows: fx.Pointer,
+        row_starts: fx.Pointer,
+        route_max_m: fx.Int32,
+        numel: fx.Int32,
+        num_valid_routes: fx.Pointer,
+        grid_route_blocks: fx.Int32,
+        stream: fx.Stream = fx.Stream(None),
+    ):
+        grid_x = arith.index_cast(T.index, grid_route_blocks)
+        grid_y = arith.index_cast(T.index, arith.constant(_grid_y_dim, type=T.i32))
+        fused_kernel(
+            in_payload,
+            in_scale,
             grouped_payload,
             grouped_scale,
             topids_to_rows,

@@ -2266,6 +2266,27 @@ def _get_compiled_fused_quant_preshuffle_route_ksplit(
     )
 
 
+@functools.cache
+def _get_compiled_fp8_gather_preshuffle_route_ksplit(
+    feat_dim: int,
+    wmma_rep: int,
+    source_topk: int = 0,
+    remap_rows: bool = False,
+    ksplit: bool = True,
+):
+    from aiter.ops.flydsl.kernels.moe_fused_route_quant_scatter import (
+        build_moe_fp8_gather_preshuffle_route_ksplit_module,
+    )
+
+    return build_moe_fp8_gather_preshuffle_route_ksplit_module(
+        feat_dim=feat_dim,
+        wmma_rep=wmma_rep,
+        source_topk=source_topk,
+        remap_rows=remap_rows,
+        ksplit=ksplit,
+    )
+
+
 def flydsl_moe_fused_quant_preshuffle(
     grouped_in: torch.Tensor,  # (E, max_m, feat_dim) or (E*max_m, feat_dim) bf16
     E: int,
@@ -2281,22 +2302,37 @@ def flydsl_moe_fused_quant_preshuffle(
     out_payload: Optional[torch.Tensor] = None,  # (E, max_m, Pb) uint8
     out_scale: Optional[torch.Tensor] = None,  # (E, max_m//wmma_rep, Ws*wmma_rep)
     num_valid_routes: Optional[torch.Tensor] = None,  # (1,) int32; route-branch only: skip routes >= this (EP dead-tail)
+    in_fp8_payload: Optional[torch.Tensor] = None,  # (T, feat_dim) uint8 per-token fp8
+    in_fp8_scale: Optional[torch.Tensor] = None,  # (T, feat_dim//32) uint8 per-token e8m0
 ):
     """Fused grouped quant + e8m0 scale-preshuffle in one kernel pass.
 
     Returns (payload, scale_preshuffle). Pass masked_m to skip padding rows.
+
+    When ``in_fp8_payload``/``in_fp8_scale`` are given (route branch only), the
+    input is already per-token fp8 payload + plain e8m0 scale (e.g. from the
+    fused dispatch recv path): the kernel skips quantization and only gathers +
+    preshuffles into the grouped GEMM1 input. ``grouped_in`` is ignored/None then.
     """
     if quant_mode not in ("fp4", "fp8"):
         raise NotImplementedError(
             f"flydsl_moe_fused_quant_preshuffle: quant_mode={quant_mode!r} "
             "unsupported (expected 'fp4' or 'fp8')."
         )
-    assert grouped_in.dtype == torch.bfloat16, (
-        "fused grouped quant+preshuffle requires bf16 input "
-        f"(got {grouped_in.dtype})"
-    )
-    device = grouped_in.device
-    feat_dim = grouped_in.shape[-1]
+    in_is_fp8 = in_fp8_payload is not None
+    if in_is_fp8:
+        assert quant_mode == "fp8", "fp8 gather-preshuffle input requires quant_mode=fp8"
+        assert topids_to_rows is not None, "fp8 gather-preshuffle is a route-branch mode"
+        assert in_fp8_scale is not None, "in_fp8_payload requires in_fp8_scale"
+        device = in_fp8_payload.device
+        feat_dim = in_fp8_payload.shape[-1]
+    else:
+        assert grouped_in.dtype == torch.bfloat16, (
+            "fused grouped quant+preshuffle requires bf16 input "
+            f"(got {grouped_in.dtype})"
+        )
+        device = grouped_in.device
+        feat_dim = grouped_in.shape[-1]
     rows_per_tile = wmma_rep * 16
     assert (
         max_m % rows_per_tile == 0
@@ -2342,6 +2378,38 @@ def flydsl_moe_fused_quant_preshuffle(
             row_starts_i32 = masked_m
             route_max_m_arg = 1
         use_ksplit = grid_blocks < _ROUTEKS_KSPLIT_GRID_THRESHOLD
+        if in_is_fp8:
+            launch_fp8 = _get_compiled_fp8_gather_preshuffle_route_ksplit(
+                feat_dim=feat_dim,
+                wmma_rep=wmma_rep,
+                source_topk=source_topk,
+                remap_rows=remap_rows,
+                ksplit=use_ksplit,
+            )
+            if num_valid_routes is None:
+                num_valid_routes_i32 = torch.tensor(
+                    [numel], dtype=torch.int32, device=device
+                )
+            else:
+                num_valid_routes_i32 = (
+                    num_valid_routes.reshape(-1)[:1].to(
+                        device=device, dtype=torch.int32
+                    )
+                ).contiguous()
+            launch_fp8(
+                ptr_arg(in_fp8_payload.contiguous().view(-1)),
+                ptr_arg(in_fp8_scale.contiguous().view(-1)),
+                ptr_arg(out_payload.view(-1)),
+                ptr_arg(out_scale.view(-1)),
+                ptr_arg(topids_to_rows_i32),
+                ptr_arg(row_starts_i32),
+                route_max_m_arg,
+                numel,
+                ptr_arg(num_valid_routes_i32),
+                grid_blocks,
+                stream=torch.cuda.current_stream(),
+            )
+            return out_payload, out_scale
         launch = _get_compiled_fused_quant_preshuffle_route_ksplit(
             feat_dim=feat_dim,
             wmma_rep=wmma_rep,

@@ -420,6 +420,7 @@ def _grouped_a8w4_tdm_moe(
     expert_mask=None, num_local_tokens=None,
     ep_scatter=False, ep_arena_handle=0, ep_comb_inp_off=0, ep_wire_nbytes=0,
     ep_rank=0, ep_max_tok=0, ep_topk=0, ep_tis=None,
+    ep_disp_q_payload=None, ep_disp_q_scale=None,
 ):
     import functools
     import torch
@@ -552,12 +553,31 @@ def _grouped_a8w4_tdm_moe(
     _quant_mode = "fp4" if _is_fp4 else "fp8"
     _a_is_fp4 = 1 if _is_fp4 else 0
 
-    a1_payload, a1_scale = flydsl_moe_fused_quant_preshuffle(
-        hidden_states.reshape(1, token_num, model_dim), 1, contiguous_m,
-        wmma_rep=wmma_rep, quant_mode=_quant_mode, masked_m=None,
-        topids_to_rows=topids_to_rows, source_topk=topk,
-        num_valid_routes=_ep_nvr,
+    # Dispatch->GEMM1 fusion (Phase 1a): when the fused dispatch has already
+    # written per-token fp8 payload + e8m0 (arrival order == hidden_states row
+    # order), skip the bf16 re-read + re-quant here and only gather+preshuffle
+    # from the fp8 payload. Falls back to the bf16 quant path otherwise.
+    _use_disp_q = (
+        (not _is_fp4)
+        and ep_disp_q_payload is not None
+        and ep_disp_q_scale is not None
     )
+    if _use_disp_q:
+        a1_payload, a1_scale = flydsl_moe_fused_quant_preshuffle(
+            None, 1, contiguous_m,
+            wmma_rep=wmma_rep, quant_mode="fp8", masked_m=None,
+            topids_to_rows=topids_to_rows, source_topk=topk,
+            num_valid_routes=_ep_nvr,
+            in_fp8_payload=ep_disp_q_payload.reshape(-1, model_dim),
+            in_fp8_scale=ep_disp_q_scale.reshape(-1, model_dim // 32),
+        )
+    else:
+        a1_payload, a1_scale = flydsl_moe_fused_quant_preshuffle(
+            hidden_states.reshape(1, token_num, model_dim), 1, contiguous_m,
+            wmma_rep=wmma_rep, quant_mode=_quant_mode, masked_m=None,
+            topids_to_rows=topids_to_rows, source_topk=topk,
+            num_valid_routes=_ep_nvr,
+        )
 
     # Fuse gemm1 silu/swiglu + fp8 quantization + scale preshuffle into the
     # kernel epilogue (a8w4 only), eliminating the standalone
@@ -707,6 +727,8 @@ def _maybe_grouped_gfx1250_a8w4_moe(
     ep_max_tok: int = 0,
     ep_topk: int = 0,
     ep_tis: Optional[torch.Tensor] = None,
+    ep_disp_q_payload: Optional[torch.Tensor] = None,
+    ep_disp_q_scale: Optional[torch.Tensor] = None,
 ):
     def _grouped_dbg(msg: str, stacklevel: int = 1):
         if os.environ.get("AITER_GROUPED_DEBUG", "0") not in (
@@ -1029,6 +1051,8 @@ def _maybe_grouped_gfx1250_a8w4_moe(
             ep_max_tok=ep_max_tok,
             ep_topk=ep_topk,
             ep_tis=ep_tis,
+            ep_disp_q_payload=ep_disp_q_payload,
+            ep_disp_q_scale=ep_disp_q_scale,
             **_tdm_kw,
         )
 

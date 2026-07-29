@@ -54,6 +54,25 @@ def _align_up(x, a):
     return (x + a - 1) // a * a
 
 
+def _fused_q_regions(cfg):
+    """Per-token fp8 payload + e8m0 scale regions (arrival order), added only when
+    dispatch->gemm1 quant fusion is enabled. Returns [] otherwise so the default
+    arena layout is byte-for-byte unchanged.
+
+    Layout is per-token (indexed by dest_tok_id, same as disp_out) and NOT
+    preshuffled: the a1 prep kernel gathers+preshuffles from these into the
+    contiguous grouped GEMM1 input.
+    """
+    if not cfg.fuse_dispatch_gemm1:
+        return []
+    cap = cfg.effective_max_recv
+    h = cfg.hidden_dim
+    return [
+        ("disp_out_q", cap * h),  # uint8 fp8 payload, [recv_cap, hidden]
+        ("disp_out_qscale", cap * (h // 32)),  # uint8 e8m0, [recv_cap, hidden//32]
+    ]
+
+
 class SymmArena:
     """One cco symmetric window carved into named, aligned sub-regions. A kernel
     reaches peer pe's copy of region R via cco.Window(handle).lsa_ptr(pe, off_R)."""
@@ -241,6 +260,18 @@ class EpDispatchCombineConfig:
         """gemm2-fused scatter: gemm2 P2P-writes weighted per-(token,k) results into
         comb_inp; combine only barriers + sums. No Stage-1 write, no gather_reduce."""
         return self.combine_mode == "scatter_fused"
+
+    @property
+    def fuse_dispatch_gemm1(self) -> bool:
+        """a8w4 gfx1250: fold per-token bf16->fp8 quant into the dispatch recv path
+        so GEMM1 input prep no longer re-reads bf16 hidden_states. Off by default."""
+        return os.environ.get("AITER_EP_FUSE_DISPATCH_GEMM1", "0") in (
+            "1",
+            "true",
+            "True",
+            "yes",
+            "on",
+        )
 
     @property
     def fp8_direct_cast(self):
@@ -521,6 +552,7 @@ class EpDispatchCombineOp:
                             * 4,
                         )
                     )
+        regions += _fused_q_regions(cfg)
         self.arena = SymmArena(comm, regions)
         self.arena.zero()
 
@@ -615,6 +647,13 @@ class EpDispatchCombineOp:
             scale_dim=cfg.scale_dim,
             scale_type_size=cfg.scale_type_size,
             fp4=is_fp4,
+            fuse_quant=cfg.fuse_dispatch_gemm1,
+            off_disp_out_q=(
+                arena.offset("disp_out_q") if cfg.fuse_dispatch_gemm1 else 0
+            ),
+            off_disp_out_qscale=(
+                arena.offset("disp_out_qscale") if cfg.fuse_dispatch_gemm1 else 0
+            ),
         )
         # (block, warp) -> compiled dispatch / combine kernel.
         self._dispatch_variants = {
@@ -770,6 +809,20 @@ class EpDispatchCombineOp:
             (self._recv_cap, cols),
             self.cfg.dispatch_dtype,
         )
+
+    def disp_out_q_view(self):
+        """Per-token fp8 payload + e8m0 scale produced by the fused dispatch recv
+        path (arrival order, same index as disp_out). payload: [recv_cap, hidden]
+        uint8; scale: [recv_cap, hidden//32] uint8 (NOT preshuffled). Only valid
+        when cfg.fuse_dispatch_gemm1 (regions exist)."""
+        cap, h = self._recv_cap, self.cfg.hidden_dim
+        payload = from_gpu_ptr(
+            self.arena.local_ptr("disp_out_q"), (cap, h), torch.uint8
+        )
+        scale = from_gpu_ptr(
+            self.arena.local_ptr("disp_out_qscale"), (cap, h // 32), torch.uint8
+        )
+        return payload, scale
 
     def combine_in_view(self):
         """comb_stg as combine dtype [max_recv, hidden] — combine()'s copy target."""

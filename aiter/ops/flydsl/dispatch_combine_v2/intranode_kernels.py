@@ -112,6 +112,9 @@ def make_dispatch(
     enable_signal=True,
     replay=False,
     fp4=False,
+    fuse_quant=False,
+    off_disp_out_q=0,
+    off_disp_out_qscale=0,
 ):
     # fp4 (e2m1) packs 2 values/byte -> token is hidden_dim/2 bytes; dispatch is a
     # pure byte mover (no fp4 decode).
@@ -123,6 +126,12 @@ def make_dispatch(
     scale_bytes = scale_dim * scale_type_size
     scale_num_i32 = (scale_bytes + 3) // 4
     enable_scales = scale_bytes > 0
+
+    if fuse_quant:
+        # per-token bf16->fp8 MX quant folded into the dispatch recv path.
+        from aiter.ops.flydsl.kernels.moe_fused_route_quant_scatter import (
+            emit_per_token_mx_quant,
+        )
 
     @flyc.kernel(known_block_size=[warp_num_per_block * WAVE, 1, 1])
     def ep_dispatch(
@@ -295,6 +304,25 @@ def make_dispatch(
                 for chunk in range(lane_i32_off, copy_end_small, _LANE_STRIDE_I32):
                     vec_a = buffer_load(rsrc_src, chunk, vec_width=4, dtype=T.i32())
                     buffer_store(vec_a, rsrc_dst, chunk)
+
+            # Fused GEMM1 prep: per-token bf16->fp8 MX quant into the dest peer's
+            # disp_out_q / disp_out_qscale (arrival order, slot = dest_tok_id, NOT
+            # preshuffled). do_publish is warp-uniform so the amax cross-lane
+            # shuffles stay well-defined. Reuses the shared quant math.
+            if const_expr(fuse_quant):
+                if do_publish:
+                    peer_q = fx.Int64(window.lsa_ptr(dest_pe, off_disp_out_q))
+                    peer_qs = fx.Int64(window.lsa_ptr(dest_pe, off_disp_out_qscale))
+                    emit_per_token_mx_quant(
+                        hidden_rsrc=create_buffer_resource_from_addr(local_tok_addr),
+                        payload_rsrc=create_buffer_resource_from_addr(peer_q),
+                        scale_rsrc=create_buffer_resource_from_addr(peer_qs),
+                        feat_elem_base=0,
+                        dest_row=dest_tok_id,
+                        lane=lane,
+                        feat_dim=hidden_dim,
+                        quant_mode="fp8",
+                    )
 
         if const_expr(enable_signal):
             # Self-reset total_recv (warp 0 zeros it here + release-fence; only warp 0

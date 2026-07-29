@@ -476,6 +476,8 @@ def fused_moe(
     ep_max_tok: int = 0,
     ep_topk: int = 0,
     ep_tis: Optional[torch.Tensor] = None,
+    ep_disp_q_payload: Optional[torch.Tensor] = None,
+    ep_disp_q_scale: Optional[torch.Tensor] = None,
 ):
     if not block_size_M:
         block_size_M = -1
@@ -511,6 +513,8 @@ def fused_moe(
         ep_max_tok=ep_max_tok,
         ep_topk=ep_topk,
         ep_tis=ep_tis,
+        ep_disp_q_payload=ep_disp_q_payload,
+        ep_disp_q_scale=ep_disp_q_scale,
     )
 
 
@@ -548,6 +552,8 @@ def fused_moe_fake(
     ep_max_tok: int = 0,
     ep_topk: int = 0,
     ep_tis: Optional[torch.Tensor] = None,
+    ep_disp_q_payload: Optional[torch.Tensor] = None,
+    ep_disp_q_scale: Optional[torch.Tensor] = None,
 ) -> torch.Tensor:
     device = topk_ids.device
     M, topk = topk_ids.shape
@@ -592,6 +598,8 @@ def fused_moe_(
     ep_max_tok: int = 0,
     ep_topk: int = 0,
     ep_tis: Optional[torch.Tensor] = None,
+    ep_disp_q_payload: Optional[torch.Tensor] = None,
+    ep_disp_q_scale: Optional[torch.Tensor] = None,
 ) -> torch.Tensor:
     # We do such convert since custom_op schema restriction on block_size_M, and Enum type
     activation = ActivationType(activation)
@@ -697,6 +705,8 @@ def fused_moe_(
                 ep_max_tok=ep_max_tok,
                 ep_topk=ep_topk,
                 ep_tis=ep_tis,
+                ep_disp_q_payload=ep_disp_q_payload,
+                ep_disp_q_scale=ep_disp_q_scale,
             )
 
     if grouped_a8w4_out is not None:

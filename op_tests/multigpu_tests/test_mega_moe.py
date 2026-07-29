@@ -529,6 +529,12 @@ class DeviceMoEPipeline:
                 ep_topk=ep_kwargs["ep_topk"],
                 ep_tis=ep_tis,
             )
+            # Dispatch->GEMM1 fusion: hand GEMM1 prep the per-token fp8 payload the
+            # fused dispatch already wrote (skips the bf16 re-read + re-quant).
+            if getattr(self.op.cfg, "fuse_dispatch_gemm1", False):
+                _dq_payload, _dq_scale = self.op.disp_out_q_view()
+                ep_kwargs["ep_disp_q_payload"] = _dq_payload
+                ep_kwargs["ep_disp_q_scale"] = _dq_scale
         out = moe_forward(
             recv_x, self.w1_a, self.w2_a, self.w1_s, self.w2_s,
             recv_w, recv_idx.to(dtypes.i32), self.expert_mask, self.spec,
