@@ -72,11 +72,11 @@ def get_kernel_config(m, n, k, routing_data):
     num_xcds = 8
     xcd_swizzle = num_xcds
     w_cache_modifier = ".cg" if block_m <= 32 else None
-    num_stages = 2
+    num_stages = 1  # MI325 gfx942: LDS limit is 64 KiB
 
     split_k = 1
     if block_m == 16:
-        block_n = 256
+        block_n = 128  # MI325 gfx942: reduce LDS footprint
         block_k = 128
         num_warps = 4
 
@@ -90,7 +90,7 @@ def get_kernel_config(m, n, k, routing_data):
             grid = grid_m * grid_n * split_k
     else:
         # for scale preshuffling
-        block_n = 256
+        block_n = 128  # MI325 gfx942: reduce LDS footprint
         block_k = 128
         num_warps = 8
 
