@@ -563,13 +563,22 @@ def _grouped_a8w4_tdm_moe(
         and ep_disp_q_scale is not None
     )
     if _use_disp_q:
+        # fp8-transport (1a-v2): recv_x arrives as fp8 (1 B/elem) and out_scales
+        # as e8m0 bytes; the gather kernel reads raw bytes, so coerce both to a
+        # uint8 view (byte-identical, no copy) before reshaping.
+        _dq_p = ep_disp_q_payload
+        if _dq_p.dtype != torch.uint8:
+            _dq_p = _dq_p.view(torch.uint8)
+        _dq_s = ep_disp_q_scale
+        if _dq_s.dtype != torch.uint8:
+            _dq_s = _dq_s.view(torch.uint8)
         a1_payload, a1_scale = flydsl_moe_fused_quant_preshuffle(
             None, 1, contiguous_m,
             wmma_rep=wmma_rep, quant_mode="fp8", masked_m=None,
             topids_to_rows=topids_to_rows, source_topk=topk,
             num_valid_routes=_ep_nvr,
-            in_fp8_payload=ep_disp_q_payload.reshape(-1, model_dim),
-            in_fp8_scale=ep_disp_q_scale.reshape(-1, model_dim // 32),
+            in_fp8_payload=_dq_p.reshape(-1, model_dim),
+            in_fp8_scale=_dq_s.reshape(-1, model_dim // 32),
         )
     else:
         a1_payload, a1_scale = flydsl_moe_fused_quant_preshuffle(

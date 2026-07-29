@@ -227,6 +227,47 @@ def quant_tokens_fp8(tokens, spec):
     return quant_func(tokens, quant_dtype=spec["fp8_dtype"])
 
 
+def quantize_mxfp8_for_dispatch(x_bf16):
+    """1a-v2 (T-A) upstream quant: per-token MX-fp8 of [T,H] bf16 -> (x_fp8[T,H]
+    fp8, e8m0[T,H//32] uint8), the exact layout dispatch transports and GEMM1's
+    fp8-gather consumes. Uses the SAME FlyDSL per-1x32 MX-fp8 quant as the bf16
+    a1 path (wmma_rep=1 => plain per-token scale), so the fp8-transport a1 is
+    byte-identical to the bf16-transport baseline."""
+    from aiter.ops.flydsl.moe_kernels import flydsl_moe_fused_quant_preshuffle
+
+    T, H = x_bf16.shape
+    p, s = flydsl_moe_fused_quant_preshuffle(
+        x_bf16.reshape(1, T, H), 1, T, wmma_rep=1, quant_mode="fp8",
+    )
+    p = p.reshape(T, H)
+    s = s.reshape(T, H // 32)
+    x_fp8 = (p if p.dtype != torch.uint8 else p.view(torch.uint8)).view(
+        torch.float8_e4m3fn
+    )
+    e8m0 = s if s.dtype == torch.uint8 else s.view(torch.uint8)
+    return x_fp8, e8m0
+
+
+_RMS_ONES_CACHE = {}
+
+
+def rmsnorm_mxfp8_for_dispatch(x, eps=1e-6):
+    """T-A opt: fuse RMSNorm (no gain) + MX-fp8 quant into ONE Triton launch,
+    reading x once and emitting (x_fp8[M,K], e8m0[M,K//32]) directly. Replaces
+    the torch `_rmsnorm` + the separate 216us flydsl quant pass. Uses a ones
+    weight to match `_rmsnorm` (which has no learnable gain)."""
+    from aiter.ops.triton.quant import fused_rms_mxfp8_quant
+
+    K = x.shape[-1]
+    key = (K, x.device, x.dtype)
+    w = _RMS_ONES_CACHE.get(key)
+    if w is None:
+        w = torch.ones(K, dtype=x.dtype, device=x.device)
+        _RMS_ONES_CACHE[key] = w
+    y, s = fused_rms_mxfp8_quant(x, w, eps)
+    return y, s.view(torch.uint8) if s.dtype != torch.uint8 else s
+
+
 def moe_forward(hidden, w1_a, w2_a, w1_s, w2_s, topk_weights, topk_ids,
                 expert_mask, spec, a1_scale=None, num_local_tokens=None,
                 ep_kwargs=None):
@@ -475,7 +516,19 @@ class DeviceMoEPipeline:
         self.expert_mask = torch.zeros((self.E,), dtype=dtypes.i32, device=dev)
         self.expert_mask[self.EPR * r : self.EPR * (r + 1)] = 1
 
-        self.transport_dtype = torch.bfloat16  # bf16 transport (mxfp4 path)
+        self.transport_dtype = torch.bfloat16  # combine (return) dtype
+
+        # 1a-v2 (T-A) fp8 transport: quantize once upstream and send ONLY fp8+e8m0
+        # on dispatch (half the wire vs bf16), GEMM1 consumes recv_x/out_scales
+        # directly. The op rejects fp8 token dtype + scatter, and asymmetric
+        # (fp8 dispatch / bf16 combine) is gather-only, so this path forces gather
+        # combine (gemm2+combine scatter_fused is deferred to a later step). Off
+        # by default -> unchanged bf16 transport.
+        self._fp8_transport = (
+            os.environ.get("AITER_EP_FP8_TRANSPORT", "0")
+            in ("1", "true", "True", "yes", "on")
+            and self.spec["key"] == "a8w4_mxfp4"
+        )
 
         # cco rendezvous + op (ONE op, reused by every layer; config is per-layer
         # identical). max_num_inp_token_per_rank = ct.
@@ -488,30 +541,79 @@ class DeviceMoEPipeline:
         self.comm = Communicator.init(
             self.dist_ctx.world, r, uid
         )
-        cfg = EpDispatchCombineConfig(
-            rank=r,
-            world_size=self.dist_ctx.world,
-            hidden_dim=self.hdim,
-            max_num_inp_token_per_rank=self.ct,
-            num_experts_per_rank=self.EPR,
-            num_experts_per_token=self.topk,
-            data_type=self.transport_dtype,
-            combine_mode=self.combine_mode,  # gather | scatter | scatter_fused
-        )
+        if self._fp8_transport:
+            cfg = EpDispatchCombineConfig(
+                rank=r,
+                world_size=self.dist_ctx.world,
+                hidden_dim=self.hdim,
+                max_num_inp_token_per_rank=self.ct,
+                num_experts_per_rank=self.EPR,
+                num_experts_per_token=self.topk,
+                dispatch_data_type=torch.float8_e4m3fn,  # fp8 on the wire
+                combine_data_type=torch.bfloat16,        # bf16 back (gather-only)
+                scale_dim=self.hdim // 32,               # per-1x32 e8m0 block scale
+                scale_type_size=1,
+                combine_mode="gather",
+            )
+        else:
+            cfg = EpDispatchCombineConfig(
+                rank=r,
+                world_size=self.dist_ctx.world,
+                hidden_dim=self.hdim,
+                max_num_inp_token_per_rank=self.ct,
+                num_experts_per_rank=self.EPR,
+                num_experts_per_token=self.topk,
+                data_type=self.transport_dtype,
+                combine_mode=self.combine_mode,  # gather | scatter | scatter_fused
+            )
         self.op = EpDispatchCombineOp(cfg, self.comm)
         self.comm.barrier()
 
     # ---- one graph-capturable layer + full chain (calls grouped together) ---- #
     def _layer_step(self, x, l):
         ids, wts = self.routings[l]
-        xn = _rmsnorm(x)  # keep a8w4 fp8 activations in range across 61 layers
         # Recompute routing every layer (mode A: atomic routing inside dispatch)
         # instead of replaying a precomputed handle. return_routing=True hands
         # back this layer's forward dest-slot map, which combine then consumes.
+        ep_kwargs = None
+        if self._fp8_transport:
+            # T-A: quantize once here (rmsnorm+quant), send ONLY fp8+e8m0. When
+            # no shared FFN needs the bf16 xn, fuse rmsnorm+MX-fp8 into one pass
+            # (drops the separate quant kernel); else keep bf16 xn for the FFN.
+            if self.sw1 is None:
+                xn = None
+                x_disp, e8m0 = rmsnorm_mxfp8_for_dispatch(x)
+            else:
+                xn = _rmsnorm(x)
+                x_disp, e8m0 = quantize_mxfp8_for_dispatch(xn)
+            recv_x, recv_w, recv_scales, recv_idx, total_recv_t, handle = (
+                self.op.dispatch(x_disp, wts, e8m0, ids, return_routing=True)
+            )
+            # recv_x is fp8 [cap,H]; out_scales is packed i32 -> e8m0 bytes
+            # [cap, H//32] (arrival order == recv_x). Hand both to GEMM1 a1 prep
+            # so it gathers+preshuffles the fp8 directly (no bf16 re-read/re-quant).
+            recv_scale_u8 = recv_scales.view(torch.uint8)[:, : self.hdim // 32]
+            ep_kwargs = dict(
+                ep_disp_q_payload=recv_x,
+                ep_disp_q_scale=recv_scale_u8,
+            )
+            out = moe_forward(
+                recv_x, self.w1_a, self.w2_a, self.w1_s, self.w2_s,
+                recv_w, recv_idx.to(dtypes.i32), self.expert_mask, self.spec,
+                num_local_tokens=total_recv_t,
+                ep_kwargs=ep_kwargs,
+            )
+            combine_out, _ = self.op.combine(
+                out.to(self.transport_dtype), routing=handle
+            )
+            y = combine_out[: self.ct].to(dtypes.bf16)
+            if self.sw1 is not None:
+                y = y + _device_shared_ffn(xn, self.sw1, self.sw2)
+            return x + y
+        xn = _rmsnorm(x)  # keep a8w4 fp8 activations in range across layers
         recv_x, recv_w, _rs, recv_idx, total_recv_t, handle = self.op.dispatch(
             xn, wts, None, ids, return_routing=True
         )
-        ep_kwargs = None
         if self.op.cfg.is_fused:
             # gemm2-fused scatter: zero the per-(token,k) comb_inp before gemm2's
             # P2P writes (dropped/unwritten slots must read 0 in the combine sum),

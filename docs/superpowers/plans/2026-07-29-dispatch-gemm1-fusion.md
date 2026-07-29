@@ -1,6 +1,80 @@
-# Dispatch + GEMM1 融合 (Phase 1 / 方案 C, R1 contiguous) Implementation Plan
+# Dispatch + GEMM1 融合 (Phase 1a-v2 / fp8 transport) Implementation Plan
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+
+## ⚠️ 路线修正（2026-07-29 实测后）—— 本 plan 现行路线为 1a-v2
+
+原 1a（把 per-token bf16→fp8 量化折进 dispatch 接收路径、双写 `disp_out_q`/`disp_out_qscale`）**已实测为负优化并废弃**：它在照常 P2P 传 bf16 之上又加了一份 fp8 跨 rank 写，`ep_dispatch` +572us、整层 +18%（详见 spec §8.5）。对照 DeepGEMM（spec §8.6）：量化在 dispatch **之前**、**传输即 fp8**、dispatch 是**纯 fp8 mover**。
+
+**现行路线 = 1a-v2（fp8 transport，spec §8.7）**：让 fp8 **取代** bf16 上线，而非并存。
+
+- **T-A（打底，收益为正、可测）**：dispatch 前把层输入量化成 fp8+e8m0（每源 token 一次）→ dispatch 用 `data_type=fp8`+`scale_dim=hidden//32` **只发 fp8+e8m0（传输减半）** → GEMM1 a1 prep 消费 fp8 `recv_x`+`out_scales`，**复用已落地的 fp8-gather**（`build_moe_fp8_gather_preshuffle_route_ksplit_module` / `flydsl_moe_fused_quant_preshuffle(in_fp8_payload=,in_fp8_scale=)`）。
+- **T-B（真·dispatch+GEMM1 融合，用户目标的收益点）**：把 a1 的 gather+preshuffle **折进 GEMM1 的 A-load prologue**，消除独立 a1 kernel launch + grouped a1 的一整趟 HBM 往返（写 `contiguous_m×hidden` fp8 再读回）。改动集中在 `batched_gemm_mxfp4` 的 TDM a8w4 A-loader。
+- **T-C**：端到端 `MEGA-CHECK PASS` + profile A/B（dispatch 字节减半、a1 kernel 消失）。
+- **终极**：Phase 3 整层巨核（spec §7），dispatch warps 直喂 GEMM1 ring。
+
+**复用产物（已落地并验证）**：`_emit_fp8_gather_preshuffle` + fp8-gather route-ksplit builder + `flydsl_moe_fused_quant_preshuffle` 的 fp8-in 分支（原 Task 3）。**弃用**：`emit_per_token_mx_quant` 在 `make_dispatch` 内的调用 + `disp_out_q`/`disp_out_qscale` region（`AITER_EP_FUSE_DISPATCH_GEMM1`，默认关，保留作负结果实证）。
+
+> 下方"## Global Constraints"及"## Task 1–4"为**已废弃的原 1a 设计**，保留作历史与对照，勿据其实现；实现请依下方 **1a-v2 Tasks（T-A/T-B/T-C）**。
+
+---
+
+## 1a-v2 Tasks（现行路线，bite-sized）
+
+### 复用/事实（实现前必读，勿再造轮子）
+
+- **dispatch 已支持 fp8 传输**：`EpDispatchCombineConfig(data_type=fp8, scale_dim=hidden//32, scale_type_size=1)` ⇒ `is_fp8=True`，`op.dispatch(x_fp8, wts, scale_e8m0, ids)` 会把 per-token fp8 payload + per-token e8m0 scale 一并 P2P 到目标 rank，接收端产出 `recv_x`(fp8) + `out_scales`(e8m0，到达序)。**不是新写代码，是启用现有分支**。
+- **a1 fp8-gather 已落地并验证**（原 Task 3）：`build_moe_fp8_gather_preshuffle_route_ksplit_module` / `flydsl_moe_fused_quant_preshuffle(in_fp8_payload=, in_fp8_scale=)`——输入 per-token fp8+e8m0，输出 grouped 预混洗 `a1_payload`/`a1_scale`，直接喂 `flydsl_grouped_gemm_a8w4_masked`。
+- **gemm1 消费点**：`grouped_moe_gfx1250.py:602/615` `flydsl_grouped_gemm_a8w4_masked(out, a1_payload, w1_u8, a1_scale, w1s_i32, psum, ...)`。
+- **gemm 已有 gather 钩子先例**：`flydsl_grouped_gemm_a8w4_masked` 已有 `ep_tdm_gather` + `ep_rowmap`（gemm2→combine 侧 P2P store 用），T-B 在 A-load 侧对称新增"按 rowmap gather A"。
+- **量化数值基准**：`_quantize_mxfp8_payload` / `per_token_mx_fp8` 参考实现（`grouped_moe_gfx1250.py` 内）——T-A 的 dispatch 前量化必须与它 byte 级一致（e4m3 + RoundUp e8m0，1×32 block）。
+
+### Task T-A：fp8 transport 打底（收益为正、可测）
+
+**目标**：dispatch 只传 fp8+e8m0（传输减半），a1 复用 fp8-gather，数值与基线等价（同样单次量化，只是提前到 dispatch 前）。**不改 kernel 边界**。
+
+**Files**：`op_tests/multigpu_tests/test_mega_moe.py`（`_layer_step`）、`aiter/ops/flydsl/grouped_moe_gfx1250.py`（`_grouped_a8w4_tdm_moe` 入口）、EP dispatch config 构造处。
+
+- [x] **T-A.1 传输往返单测（红→绿）**：`op_tests/flydsl_tests/test_fp8_transport.py::test_fp8_transport_roundtrip_byte_exact`——单 rank，`data_type=torch.float8_e4m3fn, scale_dim=H//32, scale_type_size=1`；`per_token_mx_fp8` 预量化 → dispatch → 用 `handle.disp_tok_id_to_src_tok_id_local`（recv-slot→src）反查，断言 `recv_x` fp8 payload 与 `out_scales` e8m0 **逐字节**对齐（`atol=0,rtol=0`）。**PASS**。锁定：dispatch 是纯 fp8+e8m0 byte-mover，scale 走 `out_scales`(packed i32→view uint8 取前 H//32)。
+- [x] **T-A.2 dispatch 前量化 helper**：**选型 = 复用 `aiter.ops.triton.quant.dynamic_mxfp8_quant`**（即 moe a1 naive 路径 `_quantize_mxfp8_payload` 内部用的同一 per-1x32 MXFP8 量化，产 `(y_fp8[T,H], e8m0[T,H//32] uint8)`）。理由：与 GEMM1 fp8-gather 消费布局**天然同源**，dispatch 传的就是 GEMM1 输入字节，下游不 requant。helper `quantize_mxfp8_for_dispatch` 落在 `test_fp8_transport.py`。**判据修正**：`dynamic_mxfp8_quant` 的 e8m0 舍入与 RoundUp 参考在 ~1% block 差 1（约定差异，非 bug；因 fp8-gather 逐字节透传、不 requant，只需 pair 自洽）。故断言从"字节匹配"改为**反量化还原度**：`test_dispatch_quant_helper_roundtrips` 断言 `(payload,e8m0)` 反量化回 x 的 mean rel err <3%、max <20%（fp8-e4m3 3 尾数位）。**PASS**。
+- [x] **T-A.3 a1 消费 fp8 recv**：**代码**——`_grouped_a8w4_tdm_moe` 的 `_use_disp_q` 分支（Task-3 已建）新增 uint8 coercion：`recv_x`(fp8, 1B/elem) 与 `out_scales`(e8m0 bytes) 非 uint8 时 `.view(torch.uint8)`（零拷贝），再 reshape 喂 fp8-gather，取代 `:575` 的 bf16 量化。**parity 单测** = `test_dispatch_quant_helper_byte_exact_vs_bf16_a1`：上游 helper 量化 → fp8-gather+preshuffle 的 `a1_payload/a1_scale` 与 baseline bf16 量化+gather+preshuffle **逐字节相等**（`atol=0,rtol=0`），即该分支实际发起的 kernel 调用。**PASS**。**全栈 fp8-hidden 接受性**：代码走查确认无阻塞（`M,topk`←`topk_ids`、`model_dim/inter_dim`←权重、`dtype` assert 仅针对输出 bf16、`_use_disp_q` 不读 hidden 做量化），live 实证并入 T-A.4。
+- [x] **T-A.4 e2e 接线 + A/B**：**代码**——`DeviceMoEPipeline.setup` 加 `AITER_EP_FP8_TRANSPORT` 门控（默认关）：开时用 `dispatch_data_type=fp8, combine_data_type=bf16, scale_dim=H//32, combine_mode=gather`（**约束发现**：op 拒绝 fp8+scatter，非对称 dtype 仅 gather，故 scatter_fused 延后）。`_layer_step` fp8 分支：`quantize_mxfp8_for_dispatch(xn)` → `dispatch(x_fp8, wts, e8m0, ids)` → `recv_x/out_scales` 经 `ep_disp_q_payload/scale` 透传给 moe。
+  - **正确性**：2-rank 与 4-rank `MEGA-CHECK PASS`，**logits_diff 与 baseline 逐位相同**（2r:0.002060、4r:0.003119）——证实 byte-exact e2e 等价（flydsl 量化选型正确）。
+  - **A/B profile (hd=7168, 2-rank)**：`ep_dispatch` **986.3→776.4us（-210us/-21%）**——fp8 传输带宽减半的收益**真实可测**，无 1a 双写回归。但新增独立上游量化 pass（215.6us over ct 全宽 bf16 读）+ a1 fp8-gather(89.5us) 拆散了 baseline 的融合 a1(78.5us)，故**整层 total 近似持平**（1091.7→1097.5us）。
+  - **结论**：T-A 打底达成（fp8 transport 正确 + dispatch 带宽 -21% 实测），但净收益被"独立量化 pass"抵消。**净正收益需 T-B**（消除 a1 gather + grouped-a1 HBM 往返）与/或把上游量化融进 `_rmsnorm`。
+
+- [x] **T-A.4b rmsnorm+量化融合（净转正）**：把 `_rmsnorm`(torch) + 独立 flydsl 量化(216us) 两趟替换成单个 `aiter.ops.triton.quant.fused_rms_mxfp8_quant(x, ones, eps)`（`helper rmsnorm_mxfp8_for_dispatch`，一趟读 x 直出 fp8+e8m0；ones weight 匹配无 gain 的 `_rmsnorm`）。仅在 `sw1 is None`（无 shared FFN 需 bf16 xn）时启用，否则回退 `_rmsnorm`+`quantize_mxfp8_for_dispatch`。
+  - **正确性**：2/4-rank `MEGA-CHECK PASS`，logits_diff 0.002133/0.003176（Triton rmsnorm+量化约定与 byte-exact 微差，远在 tol=0.1 内）。
+  - **A/B (hd=7168, 2-rank, 复现×2)**：独立量化 216us → `_fused_rms_mxfp8_kernel` **30.5us**；`ep_dispatch` 保持 ~797us（-21%）。**整层 total baseline ~1090us → fp8+rmsfuse ~873us，稳定 -217us (-20%)**。
+  - **结论**：**T-A 净收益转正（-20% 整层）**，即用户要的"可测收益"。dispatch 带宽减半的收益经 rmsnorm 融合流到底线；T-B 在此之上继续消除 a1 gather + grouped-a1 HBM 往返。
+
+**约束**：保留 `topids_to_rows`/`contiguous_psum_remap`/`ep_rowmap` 与 gemm2+combine `scatter_fused` 融合零改动；只把传输 dtype 从 bf16 换成 fp8；`AITER_EP_FP8_TRANSPORT=0`（默认）必须与主线逐 kernel 一致。
+
+### Task T-B：真·dispatch+GEMM1 融合（消除 a1 kernel + grouped a1 HBM 往返）
+
+**目标**：gemm1 的 A-tile 直接从 fp8 `recv_x` **按 route map gather**（每行 = 连续 K 向量，行间用 rowmap 重定基址）并**内联** e8m0 预混洗，取消独立 a1 fp8-gather kernel launch 与 `grouped_a1`(`E×max_m×hidden` fp8) 的写出+读回一整趟 HBM。前置：T-A 已绿。
+
+**Files**：`aiter/ops/flydsl/batched_gemm_mxfp4.py`（`flydsl_grouped_gemm_a8w4_masked` 及其 kernel builder 的 A-load / scale(SFA)-load 发射处）、`aiter/ops/flydsl/grouped_moe_gfx1250.py`（`_grouped_a8w4_tdm_moe` gemm1 调用处）。
+
+- [x] **T-B.1 定位 A-load / scale-load 发射点（探查完成，feasibility verdict）**：
+  - **A-tile 载入**：`gemm_mxscale_gfx1250.py:928-947`（`make_desc_a`）+ `:3056-3068`（`issue_tdm_loads`）——**单次连续 TDM 2D 矩形块** `[tile_m, packed_tile_k]`，行基址 `flat_m_base_input`（连续 grouped rows），行 stride `K_packed_a`。grouped 行由 psum(`arg_m_tile_map`) bisect 出 expert（contiguous: `:3900-4011`，`layout_row=flat_m_tile*tile_m` 作 `flat_m_base_override`）。**非逐行寻址**。
+  - **scale(SFA) 载入**：`:970-997`（`make_desc_as`）——同样单块 TDM，`a_scale_row_base = flat_m_base // wmma_m_rep`，**假定 A 行连续**。
+  - **ep_rowmap 先例**：仅在 **GEMM2 输出 scatter** 侧（`:1877-1957` epilogue P2P，`moe_contiguous_psum.py:830-843` host 构建）；A 输入侧**无** gather/rowmap。
+  - **⚠️ Feasibility verdict**：B1（把 gather 折进 A-load）与现有"单块 TDM + wave-specialized 4-stream 流水线"架构**根本冲突**。要 gather 分散 `recv_x` 行需 (a) 逐 WMMA 行发独立 TDM（破坏流水线/coalescing）或 (b) 新建 load 侧 TDM gather（大工程，scale 须按同一 rowmap 同步 gather，不能复用单块 `make_desc_as`）。当前架构本就靠"GEMM 前 pre-gather 到 contiguous"（即 a1 kernel）规避此问题。收益面：a1 gather ~89us + grouped-a1(`contiguous_m×hidden` fp8) 一趟 HBM 往返；成本面：高风险大重写。**结论：B1 非 bite-sized，需重新决策（见下）**。
+- [x] **T-B.2 确认活跃 builder + load 侧 gather 原语**：活跃路径 = **TDM batched**（`mxfp4_preshuffle_gfx1250_tdm.py`，`_use_a8w4_tdm_path/_ep` 默认 ON）。**load 侧 gather 原语已备**：`tdm_gather_shim.py::tensor_load_gather` + `make_tensor_gather_descriptor`（行 i 地址 = base + rowidx[i]*stride，32b≤8 索引/条），已用于 store 侧 `ep_tdm_gather`。A payload 载入 = `:290 add_tdm_loads(gA_base, blk_m*A_KROW, ...)` 连续块；scale 载入 = `:294` preshuffled 布局。
+- [ ] **T-B.3 设计（务实 B1，scale 拆分降风险）**：scale 的 preshuffle（`_grouped_a8w4_preshuffle_e8m0_scale` 的 wmma_rep 交织置换）在 gemm 内从 plain out_scales 重建**极复杂高风险**，故**只把大头 payload gather 折进 gemm1 A-load**（消除 `contiguous_m×hidden` fp8 物化+回读），**scale 仍用现成廉价 scale-only preshuffle kernel**（`flydsl_moe_scatter_preshuffle_scale`，仅 payload 1/32 字节）。grouped 行序不变 ⇒ A(gather) 与 scale(pre-preshuffled) 天然一致。gemm 增参 `ep_a_gather` + `ep_a_rowmap`(grouped_row→source_row) + `recv_x` base；A-load 分支用 `tensor_load_gather`（rowidx = `ep_a_rowmap[blk_m:blk_m+tile_m]`，row_width=A_ROW_B，per-k-tile global_byte_off=kt*A_KSTEP），写进现有 A LDS 布局（stride A_LDS_ROW），HW row-index OOB drop 处理 pad 行。
+- [ ] **T-B.3 gemm1-only parity（红→绿）**：单测——同一批 `recv_x/out_scales`，(a) T-A 路径（独立 fp8-gather 产 a1_payload/a1_scale 再 gemm1）vs (b) T-B 路径（gemm1 内联 gather），断言 gemm1 输出 `y`/`a2_payload` 相等（或 fp8 舍入内一致）。
+- [ ] **T-B.4 接线消除 a1 kernel**：`_grouped_a8w4_tdm_moe` 在 T-B 模式下**跳过** `:566/:575` 的 a1 prep，直接以 `ep_a_gather=1`+rowmap+`recv_x`+`out_scales` 调 `flydsl_grouped_gemm_a8w4_masked`（`:602/:615`）。确认 `grouped_a1`/`grouped_a1_scale` HBM buffer 不再分配。
+- [ ] **T-B.5 e2e + 收益证明**：`test_mega_moe --acc_verify 1` 2/4 rank `MEGA-CHECK PASS`；profile A/B：a1 fp8-gather kernel **消失**、少一趟 `E×max_m×hidden` fp8 HBM 写+读，gemm1 耗时不显著劣化（gather 只在 M 行粒度重定基址，K 仍连续），整层 device time 相对 T-A 再降。
+- [ ] **T-B fallback（若 gather-load 引入 coalescing 回退）**：退化为"在 dispatch 现有 grid 内做第二遍把到达序 fp8 拷成 grouped 连续 a1"（省 kernel launch，不省 HBM 往返），或直接推进 Phase 3 整层巨核（spec §7）。二选一并记录实测依据。
+
+### Task T-C：端到端正确性 + 性能验收
+
+- [ ] **T-C.1 正确性**：2 rank 与 4 rank 均 `MEGA-CHECK PASS`，logits 与基线（`AITER_EP_FP8_TRANSPORT=0`）同量级。
+- [ ] **T-C.2 性能 A/B 表**：基线 vs T-A vs T-B，列 `ep_dispatch`、a1 prep kernel、gemm1、整层 device time；确认 (1) T-A dispatch 传输减半且无 1a 双写回归，(2) T-B a1 kernel 消失 + 少一趟 HBM 往返。写回 spec §8.7 结果区。
+- [ ] **T-C.3 回归门**：`AITER_EP_FP8_TRANSPORT=0` 默认路径与主线逐 kernel 一致（CI/手测）。
+
+---
 
 **Goal:** 在默认的 a8w4 TDM contiguous 路径上，把"bf16→fp8 量化 + e8m0 scale"折进 dispatch 接收路径，让 gemm1 的输入准备不再对 `hidden_states` 做 bf16 全宽读回。分两个增量：**1a**（安全，先落地）把 per-token 量化搬进 dispatch，把 `_grouped_a8w4_tdm_moe:555` 的 a1 `flydsl_moe_fused_quant_preshuffle` 降级为"读已量化 fp8 + gather + preshuffle"（省 bf16 全宽读 + 省量化算）；**1b**（后续里程碑）让 dispatch 接管 grouped 行分配 + 路由图，彻底消除该 kernel launch。
 

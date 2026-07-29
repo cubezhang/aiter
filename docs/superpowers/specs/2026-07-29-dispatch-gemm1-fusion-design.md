@@ -258,3 +258,48 @@ Phase 3(A+):       [dispatch + L1 + SwiGLU + L2 + combine]  单一 persistent �
 ### 8.4 对 plan 的影响
 
 若选 R1：plan **Task 1** 的 `experts_per_rank` 属性删除（用现有 `num_experts_per_rank`）、`quant_mode` 固定 `"fp8"`、grouped region 改 **contiguous 容量** `[contiguous_m, ...]`（非 `[E,max_m]`）；**Task 2** dispatch epilogue 改为"两阶段（接收量化 scratch → grid-sync 前缀和 remap）"，保留 `topids_to_rows`/`contiguous_psum_remap`；**Task 3** 改为"只把 line-555 的 a1 quant_preshuffle 换成读 dispatch 产出的 contiguous a1_payload/a1_scale"，不动 psum/ep_rowmap。
+
+---
+
+## 8.5 1a 实测结论（2026-07-29，4×gfx1250，e384/k6/hd7168/id3072/scatter_fused）
+
+R1-1a（到达序 per-token 量化折进 dispatch）已完整落地并逐层验证正确（单 rank 数值门禁、fp8-gather 与 bf16 路径逐字节一致、2/4-rank `MEGA-CHECK PASS` 且 logits 与基线相同）。但**性能是负优化**，A/B（self device time，avg/4 ranks）：
+
+| kernel | 融合 OFF | 融合 ON | Δ |
+|---|---|---|---|
+| `ep_dispatch_0` | 754.0us | **1326.2us** | **+572** |
+| a1 prep（`quant_preshuffle` bf16 → `fp8_gather` fp8） | 75.2us | 78.6us | +3 |
+| gemm1 `...K7168` | 1176.8 | 1177.3 | ~0 |
+| gemm2 / combine | 802/226 | 809/257 | +小 |
+| **TOTAL device / layer** | **570.3us** | **673.4us** | **+103 (+18%)** |
+
+**根因**：1a 在**照常 P2P 跨 rank 写 bf16 token（14KB）之上，又额外 P2P 写 fp8（7KB）+ e8m0**，跨 rank 写流量 +50%，而这条 P2P 写正是 dispatch 瓶颈 → `ep_dispatch` +572us；而 a1 端本来读的是**本地** bf16、量化用廉价原生 pk8，换成本地 fp8 只省了本地半带宽，**几乎无收益**。
+
+**结论**：只要 dispatch 仍发 bf16，"bf16+fp8 并存"结构上就赢不了。1a **废弃**（代码保留 `AITER_EP_FUSE_DISPATCH_GEMM1` 开关，默认关，不影响主线；作为负结果实证）。
+
+## 8.6 DeepGEMM 对照（`/app/DeepGEMM/.../sm100_fp8_fp4_mega_moe.cuh`）
+
+逐行核对 DeepGEMM 的整层 mega MoE，其做法与 1a 正相反：
+
+1. **激活 FP8(e4m3)、权重 FP4(e2m1)**（L143-144）；mega kernel 的输入 `input_token_buffer` **本就是 fp8** + `input_sf_buffer`（scale）。⇒ **量化发生在 dispatch 之前**（上游/上一层输出即产 fp8），每源 token 只量化一次。
+2. **传输即 fp8**：dispatch warps（L414-575）用 TMA 把远端 **fp8 token 字节 + SF** 拉进本地 L1 ring —— **纯字节搬运，pull 路径零量化**；网络上跑 fp8（bf16 的一半），**不传 bf16**。
+3. **唯一的"计算中量化"是 L1→L2 requant**（GEMM1 输出→fp8 喂 GEMM2），在 epilogue warps 用片上 amax 归约完成，数据不出芯片。
+4. **形态**是 warp-specialized 持久巨核：dispatch warps 拉 fp8 ring / MMA warps 算 GEMM1 / epilogue warps 做 SwiGLU+requant+GEMM2+combine（对应本 spec §7 Phase 3）。
+
+DeepGEMM 的赢点：**fp8 取代 bf16 上线**（传输减半）+ **dispatch 是纯 fp8 mover（零量化开销）** + **GEMM1 直接吃 fp8（免 re-quant）**。1a 之所以回退，正因为它做成了"并存"而非"取代"。
+
+## 8.7 方向修正 → fp8 transport 打底 + 真·dispatch+GEMM1 融合（1a-v2）
+
+采用 DeepGEMM 式路线；aiter dispatch **已具备 fp8 transport**（`EpDispatchCombineConfig.is_fp8` / `data_type=fp8` → token 按 fp8 字节搬运 `token_nbytes=hidden×1`，并把 per-token scale 转发进 `out_scales`；见 `dispatch_combine_op.py` `is_fp8`、`out_scales` region、`dispatch(scale=...)`）。
+
+**基础（fp8 transport，可测且收益为正）**：
+- 在 dispatch **之前**把层输入（RMSNorm 输出）量化成 fp8+e8m0（每源 token 一次，理想融进 rmsnorm epilogue）。
+- dispatch 以 `data_type=fp8` + `scale_dim=hidden//32` 传输：**只发 fp8+e8m0（减半）**，不发 bf16；`dest` 得到 fp8 `recv_x` + `out_scales`（到达序）。
+- GEMM1 的 a1 prep 直接消费 fp8 `recv_x` + `out_scales`，复用**已落地并验证**的 `build_moe_fp8_gather_preshuffle_route_ksplit_module` / `flydsl_moe_fused_quant_preshuffle(in_fp8_payload=, in_fp8_scale=)`（原 Task 3 产物，只需把输入源从 `disp_out_q` 换成 fp8-transport 的 `recv_x`/`out_scales`）。
+- 净收益：跨 rank 传输减半 + 免 bf16 读回 + 免 re-quant + dispatch 不做量化（避开 1a 的 +572us）。
+
+**用户目标（看得到收益的 dispatch+GEMM1 融合）**：在 fp8 transport 之上，把 a1 的 gather+preshuffle **折进 GEMM1 的 A-load prologue**——GEMM1 按 `topids_to_rows`/`psum` 从 fp8 `recv_x` 直接 gather 源行 + 片上 preshuffle 进 LDS/寄存器，**消除独立 a1 kernel launch + grouped a1 的一整趟 HBM 往返**（写 `contiguous_m×hidden` fp8 + 再读回）。这是本阶段"dispatch→GEMM1 融合"的可见收益点，改动集中在 `batched_gemm_mxfp4` 的 TDM a8w4 A-loader。
+
+**终极**：Phase 3 整层巨核（§7），dispatch warps 把 fp8 ring 直喂 GEMM1，连 dispatch→L1 的 HBM ring 也省掉。
+
+**弃用**：1a 的 in-dispatch per-token 量化 + `disp_out_q`/`disp_out_qscale` 双写（`AITER_EP_FUSE_DISPATCH_GEMM1`）。
