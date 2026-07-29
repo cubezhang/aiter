@@ -73,6 +73,12 @@ struct OpusMoeStage1A8W4Shape
     static constexpr bool GATE_UP_GROUP_SPLIT = Policy::GATE_UP_GROUP_SPLIT;
     static constexpr bool WEIGHT_LOAD_STREAM = Policy::WEIGHT_LOAD_STREAM;
     static constexpr int XCD_SWIZZLE = Policy::XCD_SWIZZLE;
+    static constexpr int K_LOOP_SWIZZLE_COLORS = Policy::K_LOOP_SWIZZLE_COLORS;
+    static constexpr int ROUTE_AFFINITY_WINDOW = Policy::ROUTE_AFFINITY_WINDOW;
+    static constexpr int ROUTE_AFFINITY_PHASE_PERIOD =
+        Policy::ROUTE_AFFINITY_PHASE_PERIOD;
+    static constexpr bool M_FRAGMENT_MAJOR = Policy::M_FRAGMENT_MAJOR;
+    static constexpr bool B_K1_LEAD = Policy::B_K1_LEAD;
     static constexpr int KWAVE_BASE_WAVES =
         GATE_UP_GROUP_SPLIT ? Policy::BLOCK_THREADS / WAVE_SIZE : 2;
     static constexpr int BLOCK_SIZE =
@@ -124,8 +130,6 @@ struct OpusMoeStage1A8W4Shape
         EPILOGUE_SMEM_BYTES > MAINLOOP_SCRATCH_BYTES ?
             EPILOGUE_SMEM_BYTES :
             MAINLOOP_SCRATCH_BYTES;
-    static constexpr bool SKIP_INVALID_A_SCALE_GUARD =
-        Policy::SKIP_INVALID_A_SCALE_GUARD;
     static constexpr int B_GROUPS_PER_WAVE =
         GATE_UP_GROUP_SPLIT ?
             OUTPUT_SCALE_GROUPS_PER_TILE / (KWAVE_BASE_WAVES / 2) : 1;
@@ -152,28 +156,38 @@ struct OpusMoeStage1A8W4Shape
     static_assert(QUANT_ACTIVE_THREADS <= BLOCK_SIZE);
     static_assert(SHARED_SCRATCH_BYTES <= kGfx950LdsBytes);
     static_assert(GATE_UP_GROUP_SPLIT || M_MFMA_PER_WAVE <= 2);
+    static_assert(ROUTE_AFFINITY_PHASE_PERIOD >= 1);
 };
 
 template<bool GateUpGroupSplit = false,
          int KWave = 1,
          int MinBlocksPerCuOverride = 0,
-         bool SkipInvalidAScaleGuard = false,
          int QuantGroupBlocks = 1,
          Stage1Activation Activation = Stage1Activation::Silu,
          int BlockThreads = kDefaultCtaThreads,
          bool WeightLoadStream = false,
-         int XcdSwizzle = 0>
+         int XcdSwizzle = 0,
+         int KLoopSwizzleColors = 0,
+         int RouteAffinityWindow = 0,
+         int RouteAffinityPhasePeriod = 1,
+         bool MFragmentMajor = false,
+         bool BK1Lead = false>
 struct OpusMoeStage1A8W4Policy
 {
     static constexpr bool GATE_UP_GROUP_SPLIT = GateUpGroupSplit;
     static constexpr int K_WAVE = KWave;
     static constexpr int MIN_BLOCKS_PER_CU_OVERRIDE = MinBlocksPerCuOverride;
-    static constexpr bool SKIP_INVALID_A_SCALE_GUARD = SkipInvalidAScaleGuard;
     static constexpr int QUANT_GROUP_BLOCKS = QuantGroupBlocks;
     static constexpr Stage1Activation ACTIVATION = Activation;
     static constexpr int BLOCK_THREADS = BlockThreads;
     static constexpr bool WEIGHT_LOAD_STREAM = WeightLoadStream;
     static constexpr int XCD_SWIZZLE = XcdSwizzle;
+    static constexpr int K_LOOP_SWIZZLE_COLORS = KLoopSwizzleColors;
+    static constexpr int ROUTE_AFFINITY_WINDOW = RouteAffinityWindow;
+    static constexpr int ROUTE_AFFINITY_PHASE_PERIOD =
+        RouteAffinityPhasePeriod;
+    static constexpr bool M_FRAGMENT_MAJOR = MFragmentMajor;
+    static constexpr bool B_K1_LEAD = BK1Lead;
 };
 
 } // namespace stage1_a8w4

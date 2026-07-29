@@ -64,12 +64,16 @@ class OpusA8W4Stage1Instance:
     gate_up_group_split: bool = False
     k_wave: int = 1
     min_blocks_per_cu_override: int = 0
-    skip_invalid_a_scale_guard: bool = False
     quant_group_blocks: int = 1
     activation: str = "silu"
     block_threads: int = 256
     weight_load_stream: bool = False
     xcd_swizzle: int = 0
+    k_loop_swizzle_colors: int = 0
+    route_affinity_window: int = 0
+    route_affinity_phase_period: int = 1
+    m_fragment_major: bool = False
+    b_k1_lead: bool = False
 
     @property
     def profile_name(self) -> str:
@@ -91,11 +95,10 @@ OPUS_A8W4_STAGE1_INSTANCES = (
     ),
     OpusA8W4Stage1Instance(
         kid=1001,
-        name="opus_moe1_a8w4_bm32_bn256_gateup_groupsplit_noscaleguard_qgb4",
+        name="opus_moe1_a8w4_bm32_bn256_gateup_groupsplit_qgb4",
         block_m=32,
         block_n=256,
         gate_up_group_split=True,
-        skip_invalid_a_scale_guard=True,
         quant_group_blocks=4,
     ),
     OpusA8W4Stage1Instance(
@@ -109,22 +112,20 @@ OPUS_A8W4_STAGE1_INSTANCES = (
     ),
     OpusA8W4Stage1Instance(
         kid=1003,
-        name="opus_moe1_a8w4_bm64_bn256_gateup_groupsplit_t4096_noclamp_min1_asynca_caproutes_assumeroute_splitb_noscaleguard_qgb2",
+        name="opus_moe1_a8w4_bm64_bn256_gateup_groupsplit_t4096_noclamp_min1_asynca_caproutes_assumeroute_splitb_qgb2",
         block_m=64,
         block_n=256,
         gate_up_group_split=True,
         min_blocks_per_cu_override=1,
-        skip_invalid_a_scale_guard=True,
         quant_group_blocks=2,
     ),
     OpusA8W4Stage1Instance(
         kid=1004,
-        name="opus_moe1_a8w4_bm64_bn256_gateup_groupsplit_t4096_noclamp_min1_asynca_caproutes_assumeroute_splitb_noscaleguard_qgb4",
+        name="opus_moe1_a8w4_bm64_bn256_gateup_groupsplit_t4096_noclamp_min1_asynca_caproutes_assumeroute_splitb_qgb4",
         block_m=64,
         block_n=256,
         gate_up_group_split=True,
         min_blocks_per_cu_override=1,
-        skip_invalid_a_scale_guard=True,
         quant_group_blocks=4,
     ),
     OpusA8W4Stage1Instance(
@@ -177,11 +178,10 @@ OPUS_A8W4_STAGE1_INSTANCES = (
     ),
     OpusA8W4Stage1Instance(
         kid=1011,
-        name="opus_moe1_a8w4_bm128_bn256_gateup_groupsplit_noclamp_min2_noscaleguard_fullnexta",
+        name="opus_moe1_a8w4_bm128_bn256_gateup_groupsplit_noclamp_min2_fullnexta",
         block_m=128,
         block_n=256,
         gate_up_group_split=True,
-        skip_invalid_a_scale_guard=True,
         quant_group_blocks=2,
     ),
     OpusA8W4Stage1Instance(
@@ -199,7 +199,6 @@ OPUS_A8W4_STAGE1_INSTANCES = (
         block_m=32,
         block_n=256,
         gate_up_group_split=True,
-        skip_invalid_a_scale_guard=True,
         quant_group_blocks=4,
         activation="swiglu",
         block_threads=512,
@@ -220,6 +219,81 @@ OPUS_A8W4_STAGE1_INSTANCES = (
         kid=1020, name="opus_moe1_a8w4_bm64_bn384_gateup_groupsplit_t4096_noclamp_min1_asynca_caproutes_assumeroute_splitb_cache_xcd4",
         block_m=64, block_n=384, gate_up_group_split=True, min_blocks_per_cu_override=1,
         quant_group_blocks=3, xcd_swizzle=4,
+    ),
+    OpusA8W4Stage1Instance(
+        kid=1021,
+        name="opus_moe1_a8w4_bm32_bn384_gateup_groupsplit_caproutes_assumeroute_splitb_noclamp_min1_stream_kloopswizzle8",
+        block_m=32,
+        block_n=384,
+        gate_up_group_split=True,
+        min_blocks_per_cu_override=1,
+        quant_group_blocks=6,
+        weight_load_stream=True,
+        k_loop_swizzle_colors=8,
+    ),
+    OpusA8W4Stage1Instance(
+        kid=1022,
+        name="opus_moe1_a8w4_bm64_bn384_gateup_groupsplit_t4096_noclamp_min1_asynca_caproutes_assumeroute_splitb_stream_kloopswizzle8",
+        block_m=64,
+        block_n=384,
+        gate_up_group_split=True,
+        min_blocks_per_cu_override=1,
+        quant_group_blocks=3,
+        weight_load_stream=True,
+        k_loop_swizzle_colors=8,
+    ),
+    OpusA8W4Stage1Instance(
+        kid=1032,
+        name="opus_moe1_a8w4_bm64_bn384_aff64",
+        block_m=64,
+        block_n=384,
+        gate_up_group_split=True,
+        min_blocks_per_cu_override=1,
+        quant_group_blocks=3,
+        route_affinity_window=64,
+    ),
+    OpusA8W4Stage1Instance(
+        kid=1033,
+        name="opus_moe1_a8w4_bm64_bn384_aff192",
+        block_m=64,
+        block_n=384,
+        gate_up_group_split=True,
+        min_blocks_per_cu_override=1,
+        quant_group_blocks=3,
+        route_affinity_window=192,
+    ),
+    OpusA8W4Stage1Instance(
+        kid=1035,
+        name="opus_moe1_a8w4_bm64_bn384_aff32p2",
+        block_m=64,
+        block_n=384,
+        gate_up_group_split=True,
+        min_blocks_per_cu_override=1,
+        quant_group_blocks=3,
+        route_affinity_window=32,
+        route_affinity_phase_period=2,
+    ),
+    OpusA8W4Stage1Instance(
+        kid=1037,
+        name="opus_moe1_a8w4_bm64_bn384_aff192_mmajor",
+        block_m=64,
+        block_n=384,
+        gate_up_group_split=True,
+        min_blocks_per_cu_override=1,
+        quant_group_blocks=3,
+        route_affinity_window=192,
+        m_fragment_major=True,
+    ),
+    OpusA8W4Stage1Instance(
+        kid=1038,
+        name="opus_moe1_a8w4_bm64_bn384_aff64_k1lead",
+        block_m=64,
+        block_n=384,
+        gate_up_group_split=True,
+        min_blocks_per_cu_override=1,
+        quant_group_blocks=3,
+        route_affinity_window=64,
+        b_k1_lead=True,
     ),
 )
 

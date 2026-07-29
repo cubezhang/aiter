@@ -37,6 +37,27 @@ __device__ __forceinline__ void xcd_remap_tile(int& route_tile, int& col_tile)
     col_tile = in_group / group_rows;
 }
 
+template<int WindowRows, int PhasePeriod>
+__device__ __forceinline__ void static_affinity_remap_tile(int& route_tile)
+{
+    static_assert(WindowRows >= 8 && WindowRows % 4 == 0);
+    static_assert(PhasePeriod >= 1);
+    static_assert((PhasePeriod & (PhasePeriod - 1)) == 0);
+    const unsigned int window_index =
+        static_cast<unsigned int>(route_tile) /
+        static_cast<unsigned int>(WindowRows);
+    const int window_base = static_cast<int>(
+        window_index * static_cast<unsigned int>(WindowRows));
+    if(window_base + WindowRows - 1 >= static_cast<int>(gridDim.y))
+        return;
+    const int physical = route_tile - window_base;
+    int logical_group = physical & 3;
+    const unsigned int phase =
+        window_index / static_cast<unsigned int>(PhasePeriod);
+    logical_group ^= static_cast<int>(phase & 3u);
+    route_tile = window_base + logical_group * (WindowRows / 4) + (physical >> 2);
+}
+
 template<typename T>
 static __device__ void process_tile(
     const OpusMoeStage1A8W4Kargs& kargs,
@@ -52,6 +73,9 @@ static __device__ void process_tile(
     int col_tile = static_cast<int>(opus::block_id_x());
     if constexpr(T::XCD_SWIZZLE > 0)
         xcd_remap_tile<T>(route_tile, col_tile);
+    if constexpr(T::ROUTE_AFFINITY_WINDOW > 0)
+        static_affinity_remap_tile<T::ROUTE_AFFINITY_WINDOW,
+                                   T::ROUTE_AFFINITY_PHASE_PERIOD>(route_tile);
     const int tid = static_cast<int>(opus::thread_id_x());
     const int wave_id =
         __builtin_amdgcn_readfirstlane(tid / opus::get_warp_size());
@@ -136,6 +160,12 @@ static __device__ void process_tile(
         a_payload_base[mi] =
             a_payload_base_stage1(kargs, route, k_byte);
     }
+    bool fragment_active[T::M_MFMA_PER_WAVE];
+    opus::static_for<T::M_MFMA_PER_WAVE>([&](auto mi_id) {
+        constexpr int mi = mi_id.value;
+        fragment_active[mi] =
+            __builtin_amdgcn_ballot_w64(a_route_valid[mi]) != 0ull;
+    });
     #pragma unroll
     for(int mp = 0; mp < T::M_SCALE_PACKS; ++mp)
         a_scale_base_word[mp] =
@@ -154,15 +184,40 @@ static __device__ void process_tile(
             b_scale_base_word_stage1<T>(u_sf, kargs, expert_id, w1_n0);
     }
 
+    int first_k_pair = 0;
+    if constexpr(T::K_LOOP_SWIZZLE_COLORS > 1)
+    {
+        const int k_pair_count = k_steps / T::SCALE_K_PACK;
+        const int linear_tile =
+            route_tile * static_cast<int>(gridDim.x) + col_tile;
+        const int color = linear_tile % T::K_LOOP_SWIZZLE_COLORS;
+        first_k_pair =
+            (color * k_pair_count / T::K_LOOP_SWIZZLE_COLORS) *
+            T::SCALE_K_PACK;
+    }
+
     stage_a_reg_kpair_to_lds<T>(
-        g_a, s_a, u_sa, tile, 0, a_payload_base);
+        g_a, s_a, u_sa, tile, first_k_pair, a_payload_base);
     opus::s_waitcnt_vmcnt(opus::number<0>{});
     opus::sync_threads();
 
-    for(int k_pair = 0; k_pair < k_steps;
-        k_pair += T::SCALE_K_PACK)
+    for(int k_iter = 0; k_iter < k_steps;
+        k_iter += T::SCALE_K_PACK)
     {
-        const int next_k_pair = k_pair + T::SCALE_K_PACK;
+        int k_pair = k_iter;
+        if constexpr(T::K_LOOP_SWIZZLE_COLORS > 1)
+        {
+            k_pair += first_k_pair;
+            if(k_pair >= k_steps)
+                k_pair -= k_steps;
+        }
+        int next_k_pair = k_pair + T::SCALE_K_PACK;
+        if constexpr(T::K_LOOP_SWIZZLE_COLORS > 1)
+        {
+            if(next_k_pair >= k_steps)
+                next_k_pair -= k_steps;
+        }
+        const bool has_next = k_iter + T::SCALE_K_PACK < k_steps;
 
         int a_scale[T::M_SCALE_PACKS];
         load_sfa_frag_stage1<T>(
@@ -176,7 +231,7 @@ static __device__ void process_tile(
         load_b_full_kpair_stage1<T>(
             g_b, b_group_payload_base, k_pair, k_steps, b_kpair);
 
-        if(next_k_pair < k_steps)
+        if(has_next)
             stage_a_reg_kpair_to_lds<T>(
                 g_a, s_a, u_sa, tile, next_k_pair, a_payload_base);
 
@@ -191,39 +246,77 @@ static __device__ void process_tile(
                     s_a, u_ra, k_step, mi);
             });
 
-            opus::static_for<T::B_ITEMS_PER_WAVE>([&](auto flat_id) {
-                constexpr int flat_item = flat_id.value;
-                constexpr int local_group =
-                    flat_item / T::B_ITEMS_PER_GROUP;
-                constexpr int item =
-                    flat_item - local_group * T::B_ITEMS_PER_GROUP;
-
-                const stage1_u32x4_t b_raw = b_kpair[kk][flat_item];
-                const V_B rb = make_b_reg<V_B>(b_raw);
-
-                constexpr int acc_group =
-                    local_group + item * T::B_GROUPS_PER_WAVE;
-                const int sfb = b_scale[local_group];
-                const auto selector_b_id = selector_b<T, item, kk>();
-
+            if constexpr(T::M_FRAGMENT_MAJOR)
+            {
                 opus::static_for<T::M_MFMA_PER_WAVE>([&](auto mi_id) {
                     constexpr int mi = mi_id.value;
+                    if(!fragment_active[mi])
+                        return;
                     const int sfa =
                         select_sfa_stage1<T, mi>(
                             a_route_valid, a_scale);
-
-                    with_selector_a<T, mi, kk>(
-                        route_base, [&](auto selector_a_id) {
-                            v_c[mi][acc_group] = mma(
-                                ra[mi], rb, v_c[mi][acc_group],
-                                sfa, sfb,
-                                selector_a_id, selector_b_id);
-                        });
+                    opus::static_for<T::B_ITEMS_PER_WAVE>([&](auto flat_id) {
+                        constexpr int flat_item =
+                            T::B_ITEMS_PER_WAVE - 1 - flat_id.value;
+                        constexpr int local_group =
+                            flat_item / T::B_ITEMS_PER_GROUP;
+                        constexpr int item =
+                            flat_item - local_group * T::B_ITEMS_PER_GROUP;
+                        const V_B rb = make_b_reg<V_B>(
+                            b_kpair[kk][flat_item]);
+                        constexpr int acc_group =
+                            local_group + item * T::B_GROUPS_PER_WAVE;
+                        const int sfb = b_scale[local_group];
+                        const auto selector_b_id = selector_b<T, item, kk>();
+                        with_selector_a<T, mi, kk>(
+                            route_base, [&](auto selector_a_id) {
+                                v_c[mi][acc_group] = mma(
+                                    ra[mi], rb, v_c[mi][acc_group],
+                                    sfa, sfb,
+                                    selector_a_id, selector_b_id);
+                            });
+                    });
                 });
-            });
+            }
+            else
+            {
+                opus::static_for<T::B_ITEMS_PER_WAVE>([&](auto flat_id) {
+                    constexpr int flat_item =
+                        T::B_ITEMS_PER_WAVE - 1 - flat_id.value;
+                    constexpr int local_group =
+                        flat_item / T::B_ITEMS_PER_GROUP;
+                    constexpr int item =
+                        flat_item - local_group * T::B_ITEMS_PER_GROUP;
+
+                    const stage1_u32x4_t b_raw = b_kpair[kk][flat_item];
+                    const V_B rb = make_b_reg<V_B>(b_raw);
+                    constexpr int acc_group =
+                        local_group + item * T::B_GROUPS_PER_WAVE;
+                    const int sfb = b_scale[local_group];
+                    const auto selector_b_id = selector_b<T, item, kk>();
+
+                    opus::static_for<T::M_MFMA_PER_WAVE>([&](auto mi_id) {
+                        constexpr int mi = mi_id.value;
+                        if(!fragment_active[mi])
+                            return;
+                        const int sfa =
+                            select_sfa_stage1<T, mi>(
+                                a_route_valid, a_scale);
+
+                        with_selector_a<T, mi, kk>(
+                            route_base, [&](auto selector_a_id) {
+                                v_c[mi][acc_group] = mma(
+                                    ra[mi], rb, v_c[mi][acc_group],
+                                    sfa, sfb,
+                                    selector_a_id, selector_b_id);
+                            });
+                    });
+                });
+            }
+
         });
 
-        if(next_k_pair < k_steps)
+        if(has_next)
         {
             opus::s_waitcnt_vmcnt(opus::number<0>{});
             opus::sync_threads();
@@ -239,7 +332,8 @@ static __device__ void process_tile(
     quant_epilogue<T>(
         kargs, g_out, g_out_scale, tile, expert_id, u_c_m, u_c_n,
         v_c, smem_route,
-        reinterpret_cast<float*>(smem_scratch + T::EPILOGUE_SCRATCH_OFFSET));
+        reinterpret_cast<float*>(smem_scratch + T::EPILOGUE_SCRATCH_OFFSET),
+        fragment_active);
 }
 
 #endif // __HIP_DEVICE_COMPILE__

@@ -450,12 +450,16 @@ def _stage1_cpp_shape(inst) -> str:
         inst.gate_up_group_split,
         inst.k_wave,
         inst.min_blocks_per_cu_override,
-        inst.skip_invalid_a_scale_guard,
         inst.quant_group_blocks,
         _stage1_cpp_activation(inst.activation),
         inst.block_threads,
         inst.weight_load_stream,
         inst.xcd_swizzle,
+        inst.k_loop_swizzle_colors,
+        inst.route_affinity_window,
+        inst.route_affinity_phase_period,
+        inst.m_fragment_major,
+        inst.b_k1_lead,
     )
     policy = (
         "OpusMoeStage1A8W4Policy<"

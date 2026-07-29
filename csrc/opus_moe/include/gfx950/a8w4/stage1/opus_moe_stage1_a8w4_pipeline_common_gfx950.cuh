@@ -163,8 +163,7 @@ __device__ __forceinline__ int select_sfa_stage1(
 {
     constexpr int kNoScaleWord = 0x7f7f7f7f;
     const bool route_valid =
-        (Traits::GATE_UP_GROUP_SPLIT && Traits::SKIP_INVALID_A_SCALE_GUARD) ||
-        a_route_valid[Mi];
+        Traits::GATE_UP_GROUP_SPLIT || a_route_valid[Mi];
     return route_valid ? a_scale[Mi / Traits::SCALE_MN_PACK] : kNoScaleWord;
 }
 
@@ -357,15 +356,17 @@ __device__ __forceinline__ void load_b_kpair_stage1(
     int k_steps,
     stage1_u32x4_t (&b_kk0)[Traits::B_ITEMS_PER_WAVE])
 {
-    #pragma unroll
-    for(int flat_item = 0; flat_item < Traits::B_ITEMS_PER_WAVE; ++flat_item)
-    {
-        const int local_group = flat_item / Traits::B_ITEMS_PER_GROUP;
-        const int item = flat_item - local_group * Traits::B_ITEMS_PER_GROUP;
+    opus::static_for<Traits::B_ITEMS_PER_WAVE>([&](auto issue_id) {
+        constexpr int flat_item =
+            Traits::B_ITEMS_PER_WAVE - 1 - issue_id.value;
+        constexpr int local_group =
+            flat_item / Traits::B_ITEMS_PER_GROUP;
+        constexpr int item =
+            flat_item - local_group * Traits::B_ITEMS_PER_GROUP;
         b_kk0[flat_item] = load_b_raw_stage1<Traits>(
             g_b, b_group_payload_base[local_group],
             item, k_pair, k_steps);
-    }
+    });
 }
 
 template<typename Traits, typename WeightGmem>
@@ -377,6 +378,52 @@ __device__ __forceinline__ void load_b_full_kpair_stage1(
     stage1_u32x4_t (&b_kpair)[Traits::SCALE_K_PACK]
                              [Traits::B_ITEMS_PER_WAVE])
 {
+    if constexpr(Traits::B_K1_LEAD)
+    {
+        static_assert(Traits::SCALE_K_PACK == 2);
+        constexpr int first_flat = Traits::B_ITEMS_PER_WAVE - 1;
+        constexpr int first_group =
+            first_flat / Traits::B_ITEMS_PER_GROUP;
+        constexpr int first_item =
+            first_flat - first_group * Traits::B_ITEMS_PER_GROUP;
+        b_kpair[0][first_flat] = load_b_raw_stage1<Traits>(
+            g_b, b_group_payload_base[first_group], first_item,
+            k_pair, k_steps);
+        constexpr int second_flat = Traits::B_ITEMS_PER_WAVE - 2;
+        constexpr int second_group =
+            second_flat / Traits::B_ITEMS_PER_GROUP;
+        constexpr int second_item =
+            second_flat - second_group * Traits::B_ITEMS_PER_GROUP;
+        b_kpair[0][second_flat] = load_b_raw_stage1<Traits>(
+            g_b, b_group_payload_base[second_group], second_item,
+            k_pair, k_steps);
+        b_kpair[1][first_flat] = load_b_raw_stage1<Traits>(
+            g_b, b_group_payload_base[first_group], first_item,
+            k_pair + 1, k_steps);
+        opus::static_for<Traits::B_ITEMS_PER_WAVE - 2>([&](auto issue_id) {
+            constexpr int flat_item =
+                Traits::B_ITEMS_PER_WAVE - 3 - issue_id.value;
+            constexpr int local_group =
+                flat_item / Traits::B_ITEMS_PER_GROUP;
+            constexpr int item =
+                flat_item - local_group * Traits::B_ITEMS_PER_GROUP;
+            b_kpair[0][flat_item] = load_b_raw_stage1<Traits>(
+                g_b, b_group_payload_base[local_group], item,
+                k_pair, k_steps);
+        });
+        opus::static_for<Traits::B_ITEMS_PER_WAVE - 1>([&](auto issue_id) {
+            constexpr int flat_item =
+                Traits::B_ITEMS_PER_WAVE - 2 - issue_id.value;
+            constexpr int local_group =
+                flat_item / Traits::B_ITEMS_PER_GROUP;
+            constexpr int item =
+                flat_item - local_group * Traits::B_ITEMS_PER_GROUP;
+            b_kpair[1][flat_item] = load_b_raw_stage1<Traits>(
+                g_b, b_group_payload_base[local_group], item,
+                k_pair + 1, k_steps);
+        });
+        return;
+    }
     opus::static_for<Traits::SCALE_K_PACK>([&](auto kk_id) {
         constexpr int kk = kk_id.value;
         load_b_kpair_stage1<Traits>(
@@ -568,7 +615,8 @@ __device__ __forceinline__ void epilogue_store_row_pass(
     const CLayoutM& u_c_m,
     const CLayoutN& u_c_n,
     const Tile& tile,
-    int expert_id)
+    int expert_id,
+    const bool (&fragment_active)[Traits::M_MFMA_PER_WAVE])
 {
     if constexpr(!Traits::GATE_UP_GROUP_SPLIT && Traits::K_WAVE > 1)
         if(tile.wave_id >= Traits::KWAVE_BASE_WAVES)
@@ -586,6 +634,8 @@ __device__ __forceinline__ void epilogue_store_row_pass(
 
     opus::static_for<kMiPerPass>([&](auto mi_local_id) {
         constexpr int mi = kMiBegin + mi_local_id.value;
+        if(!fragment_active[mi])
+            return;
         opus::static_for<kStoreGroups>([&](auto local_group_id) {
             constexpr int local_group = local_group_id.value;
             const int group = Traits::GATE_UP_GROUP_SPLIT ?
@@ -620,6 +670,12 @@ inline __device__ void epilogue_quantize_row_pass(
     if(!route.valid)
         return;
 
+    constexpr int kValuesPerWord = static_cast<int>(sizeof(uint32_t));
+    const int output_word_route_base =
+        route.token * static_cast<int>(kargs.stride_out_t / kValuesPerWord) +
+        route.slot * static_cast<int>(kargs.stride_out_k / kValuesPerWord) +
+        (tile.out_col_base + local_col_base) / kValuesPerWord;
+
     const int group_base =
         ((tile.tid >> 1) % Traits::QUANT_GROUP_BLOCKS) *
         Traits::QUANT_GROUPS_PER_THREAD;
@@ -649,15 +705,19 @@ inline __device__ void epilogue_quantize_row_pass(
             aiter::fp_f32_to_e8m0_block_scale<aiter::kDefaultMxScaleRoundMode,
                                               aiter::MxDtype::FP8_E4M3>(amax);
         const uint8_t scale_byte = block_scale.byte;
-        const float quant_scale = __builtin_bit_cast(
-            float, (254u - static_cast<uint32_t>(scale_byte)) << 23);
+        const float forward_scale = __builtin_bit_cast(
+            float, static_cast<uint32_t>(scale_byte) << 23);
         const int scale_col = group_col_base / Traits::SCALE_GROUP_LOGICAL_K;
         if(half == 0)
         {
-            const int scale_offset = aiter::mx_scale_shuffle_idx(
-                static_cast<int>(kargs.stride_out_scale_route),
-                route_row,
-                scale_col);
+            const uint32_t x = static_cast<uint32_t>(route_row);
+            const uint32_t y = static_cast<uint32_t>(scale_col);
+            const uint32_t stride =
+                static_cast<uint32_t>(kargs.stride_out_scale_route);
+            const int scale_offset = static_cast<int>(
+                (x >> 5) * stride * 32 + (y >> 3) * 256 +
+                (y & 3) * 64 + (x & 15) * 4 +
+                ((y & 7) >> 2) * 2 + ((x & 31) >> 4));
             g_out_scale.template store<1>(scale_byte, scale_offset);
         }
 
@@ -665,27 +725,21 @@ inline __device__ void epilogue_quantize_row_pass(
         opus::static_for<kWordsPerHalfGroup>([&](auto word_id) {
             constexpr int word = word_id.value;
             constexpr int base = word * static_cast<int>(sizeof(uint32_t));
-            int packed_word = __builtin_amdgcn_cvt_pk_fp8_f32(
-                values[base + 0] * quant_scale,
-                values[base + 1] * quant_scale,
-                0,
-                0);
-            packed_word = __builtin_amdgcn_cvt_pk_fp8_f32(
-                values[base + 2] * quant_scale,
-                values[base + 3] * quant_scale,
-                packed_word,
-                1);
-            packed[word] = static_cast<uint32_t>(packed_word);
+            using packed_i16x2_t = short __attribute__((ext_vector_type(2)));
+            packed_i16x2_t packed_word{};
+            packed_word = __builtin_amdgcn_cvt_scalef32_pk_fp8_f32(
+                packed_word, values[base + 0], values[base + 1],
+                forward_scale, 0);
+            packed_word = __builtin_amdgcn_cvt_scalef32_pk_fp8_f32(
+                packed_word, values[base + 2], values[base + 3],
+                forward_scale, 1);
+            packed[word] = __builtin_bit_cast(uint32_t, packed_word);
         });
 
-        const int64_t output_offset =
-            static_cast<int64_t>(route.token) * kargs.stride_out_t +
-            static_cast<int64_t>(route.slot) * kargs.stride_out_k +
-            group_col_base;
         const int output_word_offset =
-            static_cast<int>(
-                (output_offset + local_col_base) /
-                static_cast<int64_t>(sizeof(uint32_t)));
+            output_word_route_base +
+            group * (Traits::SCALE_GROUP_LOGICAL_K /
+                     static_cast<int>(sizeof(uint32_t)));
         g_out.template store<4>(packed, output_word_offset);
     });
 }
@@ -707,14 +761,16 @@ inline __device__ void quant_epilogue(
     CAcc (&rc)[Traits::M_MFMA_PER_WAVE]
              [Traits::ACC_SCALE_GROUPS_PER_TILE],
     const int* __restrict__ smem_route,
-    float* __restrict__ smem_gate_up)
+    float* __restrict__ smem_gate_up,
+    const bool (&fragment_active)[Traits::M_MFMA_PER_WAVE])
 {
     opus::static_for<Traits::EPILOGUE_ROW_SPLIT>([&](auto row_pass_id) {
         constexpr int row_pass = row_pass_id.value;
         constexpr int row_pass_base =
             row_pass * Traits::EPILOGUE_ROWS_PER_PASS;
         epilogue_store_row_pass<Traits, row_pass, CAcc>(
-            kargs, smem_gate_up, rc, u_c_m, u_c_n, tile, expert_id);
+            kargs, smem_gate_up, rc, u_c_m, u_c_n, tile, expert_id,
+            fragment_active);
         opus::sync_threads();
         epilogue_quantize_row_pass<Traits>(
             kargs, g_out, g_out_scale, tile, row_pass_base,
