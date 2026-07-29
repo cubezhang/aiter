@@ -1,6 +1,6 @@
 name: FFM Aiter UT
 
-run-name: FFM aiter UT on ${{ inputs.runner || 'aiter-1gpu-runner' }}
+run-name: FFM aiter UT on ${{ inputs.runner || 'linux-aiter-oci-mi300x-1' }}
 
 on:
   pull_request:
@@ -13,9 +13,9 @@ on:
   workflow_dispatch:
     inputs:
       runner:
-        description: Self-hosted MI350 runner label to use for the FFM UT.
+        description: Self-hosted MI300X runner label to use for the FFM UT.
         required: true
-        default: aiter-1gpu-runner
+        default: linux-aiter-oci-mi300x-1
         type: string
       docker_image:
         description: FFM image to pull and test.
@@ -32,7 +32,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}-${{ inputs.runner || 'aiter-1gpu-runner' }}
+  group: ${{ github.workflow }}-${{ github.ref }}-${{ inputs.runner || 'linux-aiter-oci-mi300x-1' }}
   cancel-in-progress: true
 
 env:
@@ -55,10 +55,10 @@ jobs:
           GITHUB_SHA: ${{ github.sha }}
 
   ffm-aiter-ut:
-    name: FFM Aiter UT (${{ inputs.runner || 'aiter-1gpu-runner' }}) / Shard ${{ matrix.shard }}
+    name: FFM Aiter UT (${{ inputs.runner || 'linux-aiter-oci-mi300x-1' }}) / Shard ${{ matrix.shard }}
     if: ${{ github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository }}
     needs: [check-signal]
-    runs-on: ${{ inputs.runner || 'aiter-1gpu-runner' }}
+    runs-on: ${{ inputs.runner || 'linux-aiter-oci-mi300x-1' }}
     timeout-minutes: 420
     strategy:
       fail-fast: false
