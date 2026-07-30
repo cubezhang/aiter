@@ -1,0 +1,5 @@
+gfx,cu_num,M,N,K,libtype,kernelId,splitK,us,kernelName,tflops,bw,errRatio
+gfx942,304,210,1536,4096,ck,7,0,10.8831,a8w8_blockscale_bpreshuffle_1x128x128_256x16x64x256_16x16_16x16_16x16x1_16x16x1_1x16x1x16_4_1x1_intrawave_v1,242.8,716.41,0.0
+gfx942,304,210,4096,2048,ck,10,0,9.5126,a8w8_blockscale_bpreshuffle_1x128x128_256x32x64x128_16x16_16x16_8x32x1_8x32x1_1x32x1x8_8_2x1_intrawave_v1,370.37,1107.9,0.0
+gfx942,304,210,4096,4096,ck,12,0,18.0367,a8w8_blockscale_bpreshuffle_1x128x128_256x32x64x256_16x16_16x16_16x16x1_16x16x1_1x32x1x8_8_2x1_intrawave_v1,390.67,1073.24,0.0
+gfx942,304,210,8192,1024,ck,10,0,9.4515,a8w8_blockscale_bpreshuffle_1x128x128_256x32x64x128_16x16_16x16_8x32x1_8x32x1_1x32x1x8_8_2x1_intrawave_v1,372.77,1274.33,0.0
