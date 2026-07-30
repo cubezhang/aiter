@@ -1,12 +1,26 @@
 # MI325X DeepSeek-V4-Flash-FP8 TP4 Reproduction
 
-Reference result:
+Workload:
 
-- Total token throughput: 18075.76 tokens/s
-- Output token throughput: 2583.95 tokens/s
-- Mean TPOT: 25.36 ms
-- Mean TTFT: 1177.41 ms
+- Model: `DeepSeek-V4-Flash-FP8`
+- GPUs: 4 × AMD Instinct MI325X
+- Tensor parallelism: TP4
+- Input length: 6144 tokens
+- Output length: 1024 tokens
+- Prompts: 700
+- Maximum concurrency: 70
+- Request rate: unlimited
+- Speculative decoding: MTP2
 - Successful requests: 700/700
+
+Performance:
+
+- Total token throughput: **18075.76 tokens/s**
+- Total token throughput: **1084545.60 tokens/min**
+- Output token throughput: **2583.95 tokens/s**
+- Mean TPOT: **25.36 ms**
+- Mean TTFT: **1177.41 ms**
+- GPU utilization during the benchmark: **100%**
 
 ## 1. Check the host
 
