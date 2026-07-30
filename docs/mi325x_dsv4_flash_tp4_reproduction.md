@@ -74,13 +74,15 @@ docker run -dit \
 ## Install the tuned AITER branch
 
 ```bash
-docker exec atom_dsv4_repro bash -lc '
+docker exec -it atom_dsv4_repro bash
+```
+Then run inside the container:
+```bash
 git clone \
   --branch mi325-dsv4-ops \
   --single-branch \
   https://github.com/cubezhang/aiter.git \
   /app/aiter-tuning-dsv4
-'
 ```
 
 ## Start the server
