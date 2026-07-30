@@ -101,40 +101,74 @@ class _CollectiveAutotuner:
         }
         encoded = json.dumps(identity, sort_keys=True, separators=(",", ":"), allow_nan=False)
         digest = hashlib.sha256(encoded.encode()).hexdigest()
-        return Path(config_dir).expanduser().resolve() / f"{self._artifact_name}-{digest}.json", identity
+        config_dir = Path(config_dir).expanduser().resolve()
+        bundle = config_dir / f"{self._artifact_name}.json"
+        legacy = config_dir / f"{self._artifact_name}-{digest}.json"
+        return bundle, legacy, digest, identity
 
     @staticmethod
     def _load_artifact(ref):
-        if ref is None or not ref[0].is_file():
+        if ref is None:
             return None
-        data = json.loads(ref[0].read_text(encoding="utf-8"))
-        if data.get("version") != 1 or data.get("identity") != ref[1]:
+        path, legacy, digest, identity = ref
+        body = None
+        if path.is_file():
+            data = json.loads(path.read_text(encoding="utf-8"))
+            if data.get("version") != 1 or data.get("name") != identity["name"]:
+                return None
+            entry = data.get("entries", {}).get(digest)
+            if entry is not None and entry.get("identity") == identity:
+                body = entry.get("config")
+        if body is None and legacy.is_file():
+            data = json.loads(legacy.read_text(encoding="utf-8"))
+            if data.get("version") == 1 and data.get("identity") == identity:
+                body = data.get("config")
+        if not isinstance(body, dict):
             return None
         from flydsl.autotune import Config
 
-        return Config.from_dict(data["config"])
+        return Config.from_dict(body)
 
     @staticmethod
     def _emit_artifact(ref, config):
         if ref is None:
             return
-        path, identity = ref
+        path, _legacy, digest, identity = ref
         path.parent.mkdir(parents=True, exist_ok=True)
-        payload = {"version": 1, "identity": identity, "config": config.to_dict()}
-        tmp = path.with_suffix(f".{os.getpid()}.tmp")
-        tmp.write_text(
-            json.dumps(payload, sort_keys=True, separators=(",", ":"), allow_nan=False) + "\n",
-            encoding="utf-8",
-        )
-        os.replace(tmp, path)
+        lock_fd = os.open(path.parent, os.O_RDONLY)
+        try:
+            fcntl.flock(lock_fd, fcntl.LOCK_EX)
+            if path.is_file():
+                payload = json.loads(path.read_text(encoding="utf-8"))
+                if (
+                    payload.get("version") != 1
+                    or payload.get("name") != identity["name"]
+                    or not isinstance(payload.get("entries"), dict)
+                ):
+                    raise ValueError(f"cannot update invalid artifact bundle {path}")
+            else:
+                payload = {"version": 1, "name": identity["name"], "entries": {}}
+            payload["entries"][digest] = {"identity": identity, "config": config.to_dict()}
+            tmp = path.with_suffix(f".{os.getpid()}.tmp")
+            tmp.write_text(json.dumps(payload, indent=2, sort_keys=True, allow_nan=False) + "\n", encoding="utf-8")
+            os.replace(tmp, path)
+        finally:
+            fcntl.flock(lock_fd, fcntl.LOCK_UN)
+            os.close(lock_fd)
 
     def __call__(self, *args, **kwargs):
         key = self._tuner._make_key(args, kwargs)
         distributed = torch.distributed.is_initialized()
-        force = os.environ.get("FLYDSL_AUTOTUNE", "").strip().lower() in ("1", "true", "yes", "on")
+        enabled = os.environ.get("FLYDSL_AUTOTUNE", "").strip().lower() in ("1", "true", "yes", "on")
+        target = os.environ.get("FLYDSL_AUTOTUNE_TARGET", "").strip()
+        force = enabled and (not target or target == self._artifact_name)
         rank0 = not distributed or torch.distributed.get_rank() == 0
         if force:
             self._tuner.cache.pop(key, None)
+        if distributed and not force and key in self._synced_keys:
+            result = self._tuner(*args, **kwargs)
+            self.last_config = self._tuner.cache[key]
+            return result
         if distributed and key not in self._synced_keys:
             if torch.cuda.is_current_stream_capturing():
                 raise RuntimeError("collective autotune must be warmed up before CUDA Graph capture")
