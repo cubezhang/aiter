@@ -1,0 +1,6 @@
+MODEL_DIR=/data/DeepSeek-V4-Flash-FP8
+ATOM_SOURCE=/data/models/mi325_dsv4_reuse_tuning_20260801_103501/02_source/ATOM_official
+C57_TOPK_SOURCE=/data/models/mi325_dsv4_model_tuning_round2_20260802/57_topk_ob_hybrid_bpp_20260802_141900/aiter/csrc/kernels/topk_per_row_kernels.cu
+ROUTER_SOURCE=/data/models/mi325_dsv4_reuse_tuning_20260801_103501/08_dual_tp4/router.py
+A8W8_TABLE=/data/models/mi325_dsv4_perf_tuning_20260803_065439/experiments/e077_bpreshuffle_18row_overlay.csv
+LOCUST_SCRIPT=/data/DSV4-tune/locustfile.py
