@@ -1,0 +1,400 @@
+  File "/app/ATOM/atom/models/deepseek_v4_mtp.py", line 292, in forward
+    return self.model(input_ids, positions, hidden_states, spec_step_idx)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1776, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1787, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/ATOM/atom/models/deepseek_v4_mtp.py", line 174, in forward
+    return self.mtp[idx](hidden_states, positions, input_ids)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1776, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1787, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/ATOM/atom/models/deepseek_v4_mtp.py", line 132, in forward
+    hc_state = super().forward(hc_state, positions)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/ATOM/atom/models/deepseek_v4.py", line 3341, in forward
+    x = self.attn(x, positions)  # [num_tokens, dim]
+        ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1776, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1787, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/ATOM/atom/models/deepseek_v4.py", line 2084, in forward
+    return torch.ops.aiter.v4_attention_with_output(x, positions, self.layer_name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/venv/lib/python3.12/site-packages/torch/_ops.py", line 1209, in __call__
+    return self._op(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/venv/lib/python3.12/site-packages/torch/utils/_device.py", line 109, in __torch_function__
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/venv/lib/python3.12/site-packages/torch/_ops.py", line 1209, in __call__
+    return self._op(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/ATOM/atom/models/deepseek_v4.py", line 179, in v4_attention_with_output
+    return self.forward_impl(x, positions)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/ATOM/atom/models/deepseek_v4.py", line 2194, in forward_impl
+    q, kv_pre, qr, qr_scale, x, _idx_q, _idx_w = self._attn_pre(
+                                                 ^^^^^^^^^^^^^^^
+  File "/app/ATOM/atom/models/deepseek_v4.py", line 2117, in _attn_pre
+    q = self.wq_b(qr, x_scale=qr_scale)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1776, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1787, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/ATOM/atom/utils/decorators.py", line 213, in wrapped
+    return record_wrapped(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/ATOM/atom/utils/decorators.py", line 87, in _wrapped
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/app/ATOM/atom/model_ops/linear.py", line 886, in forward
+    y = gemm_a8w8_blockscale_preshuffle_impl(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/aiter-test/aiter/jit/utils/torch_guard.py", line 289, in wrapper_custom
+    getattr(torch.ops.aiter, f"{loadName}")(*args, **kwargs)
+  File "/opt/venv/lib/python3.12/site-packages/torch/_ops.py", line 1209, in __call__
+    return self._op(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/aiter-test/aiter/jit/utils/torch_guard.py", line 312, in outer_wrapper
+    wrapper(*args, **kwargs)
+  File "/app/aiter-test/aiter/jit/utils/torch_guard.py", line 207, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/app/ATOM/atom/model_ops/linear.py", line 271, in gemm_a8w8_blockscale_preshuffle_impl
+    return gemm_a8w8_blockscale_bpreshuffle(x, weight, x_scale, w_scale, dtype)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/aiter-test/aiter/jit/utils/torch_guard.py", line 289, in wrapper_custom
+    getattr(torch.ops.aiter, f"{loadName}")(*args, **kwargs)
+  File "/opt/venv/lib/python3.12/site-packages/torch/_ops.py", line 1209, in __call__
+    return self._op(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/aiter-test/aiter/jit/utils/torch_guard.py", line 312, in outer_wrapper
+    wrapper(*args, **kwargs)
+  File "/app/aiter-test/aiter/jit/utils/torch_guard.py", line 207, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/app/aiter-test/aiter/ops/gemm_op_a8w8.py", line 1026, in gemm_a8w8_blockscale_bpreshuffle
+    return gemm_a8w8_blockscale_bpreshuffle_ck(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/aiter-test/aiter/jit/utils/torch_guard.py", line 289, in wrapper_custom
+    getattr(torch.ops.aiter, f"{loadName}")(*args, **kwargs)
+  File "/opt/venv/lib/python3.12/site-packages/torch/_ops.py", line 1209, in __call__
+    return self._op(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/aiter-test/aiter/jit/utils/torch_guard.py", line 312, in outer_wrapper
+    wrapper(*args, **kwargs)
+  File "/app/aiter-test/aiter/jit/utils/torch_guard.py", line 207, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/app/aiter-test/aiter/jit/core.py", line 1784, in custom_wrapper
+    return wrapper(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/aiter-test/aiter/jit/core.py", line 1780, in wrapper
+    return op(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+RuntimeError: gemm_a8w8_blockscale_bpreshuffle kernel 'a8w8_blockscale_bpreshuffle_1x128x128_256x16x64x256_16x16_16x16_16x16x1_16x16x1_16x16x1_1x16x1x16_4_1x1_intrawave_v1' is not present in the compiled registry. The tuned CSV references a kernel that was not built into aiter. Rebuild aiter (or remove this row from aiter/configs/a8w8_blockscale_bpreshuffle_tuned_gemm.csv) and try again.
+Process ModelRunner1/4:
+Traceback (most recent call last):
+  File "/usr/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/usr/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/app/ATOM/atom/model_engine/async_proc.py", line 153, in __init__
+    self.busy_loop()
+  File "/app/ATOM/atom/model_engine/async_proc.py", line 218, in busy_loop
+    out = func(*args)
+          ^^^^^^^^^^^
+  File "/opt/venv/lib/python3.12/site-packages/torch/utils/_contextlib.py", line 124, in decorate_context
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/app/ATOM/atom/model_ops/eplb.py", line 2319, in wrapper
+    return fn(self, batch, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/ATOM/atom/model_engine/model_runner.py", line 3058, in forward
+    fwd_output = self.postprocess(
+                 ^^^^^^^^^^^^^^^^^
+  File "/app/ATOM/atom/model_engine/model_runner.py", line 3002, in postprocess
+    draft_token_ids = self.propose_draft_token_ids(
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/ATOM/atom/model_engine/model_runner.py", line 3152, in propose_draft_token_ids
+    draft_token = self.drafter.propose(
+                  ^^^^^^^^^^^^^^^^^^^^^
+  File "/app/ATOM/atom/spec_decode/eagle_proposer.py", line 271, in propose
+    ret_hidden_states = self.model(
+                        ^^^^^^^^^^^
+  File "/opt/venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1776, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1787, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/ATOM/atom/models/deepseek_v4_mtp.py", line 292, in forward
+    return self.model(input_ids, positions, hidden_states, spec_step_idx)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1776, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1787, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/ATOM/atom/models/deepseek_v4_mtp.py", line 174, in forward
+    return self.mtp[idx](hidden_states, positions, input_ids)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1776, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1787, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/ATOM/atom/models/deepseek_v4_mtp.py", line 132, in forward
+    hc_state = super().forward(hc_state, positions)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/ATOM/atom/models/deepseek_v4.py", line 3341, in forward
+    x = self.attn(x, positions)  # [num_tokens, dim]
+        ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1776, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1787, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/ATOM/atom/models/deepseek_v4.py", line 2084, in forward
+    return torch.ops.aiter.v4_attention_with_output(x, positions, self.layer_name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/venv/lib/python3.12/site-packages/torch/_ops.py", line 1209, in __call__
+    return self._op(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/venv/lib/python3.12/site-packages/torch/utils/_device.py", line 109, in __torch_function__
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/venv/lib/python3.12/site-packages/torch/_ops.py", line 1209, in __call__
+    return self._op(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/ATOM/atom/models/deepseek_v4.py", line 179, in v4_attention_with_output
+    return self.forward_impl(x, positions)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/ATOM/atom/models/deepseek_v4.py", line 2194, in forward_impl
+    q, kv_pre, qr, qr_scale, x, _idx_q, _idx_w = self._attn_pre(
+                                                 ^^^^^^^^^^^^^^^
+  File "/app/ATOM/atom/models/deepseek_v4.py", line 2117, in _attn_pre
+    q = self.wq_b(qr, x_scale=qr_scale)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1776, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1787, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/ATOM/atom/utils/decorators.py", line 213, in wrapped
+    return record_wrapped(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/ATOM/atom/utils/decorators.py", line 87, in _wrapped
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/app/ATOM/atom/model_ops/linear.py", line 886, in forward
+    y = gemm_a8w8_blockscale_preshuffle_impl(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/aiter-test/aiter/jit/utils/torch_guard.py", line 289, in wrapper_custom
+    getattr(torch.ops.aiter, f"{loadName}")(*args, **kwargs)
+  File "/opt/venv/lib/python3.12/site-packages/torch/_ops.py", line 1209, in __call__
+    return self._op(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/aiter-test/aiter/jit/utils/torch_guard.py", line 312, in outer_wrapper
+    wrapper(*args, **kwargs)
+  File "/app/aiter-test/aiter/jit/utils/torch_guard.py", line 207, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/app/ATOM/atom/model_ops/linear.py", line 271, in gemm_a8w8_blockscale_preshuffle_impl
+    return gemm_a8w8_blockscale_bpreshuffle(x, weight, x_scale, w_scale, dtype)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/aiter-test/aiter/jit/utils/torch_guard.py", line 289, in wrapper_custom
+    getattr(torch.ops.aiter, f"{loadName}")(*args, **kwargs)
+  File "/opt/venv/lib/python3.12/site-packages/torch/_ops.py", line 1209, in __call__
+    return self._op(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/aiter-test/aiter/jit/utils/torch_guard.py", line 312, in outer_wrapper
+    wrapper(*args, **kwargs)
+  File "/app/aiter-test/aiter/jit/utils/torch_guard.py", line 207, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/app/aiter-test/aiter/ops/gemm_op_a8w8.py", line 1026, in gemm_a8w8_blockscale_bpreshuffle
+    return gemm_a8w8_blockscale_bpreshuffle_ck(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/aiter-test/aiter/jit/utils/torch_guard.py", line 289, in wrapper_custom
+    getattr(torch.ops.aiter, f"{loadName}")(*args, **kwargs)
+  File "/opt/venv/lib/python3.12/site-packages/torch/_ops.py", line 1209, in __call__
+    return self._op(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/aiter-test/aiter/jit/utils/torch_guard.py", line 312, in outer_wrapper
+    wrapper(*args, **kwargs)
+  File "/app/aiter-test/aiter/jit/utils/torch_guard.py", line 207, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/app/aiter-test/aiter/jit/core.py", line 1784, in custom_wrapper
+    return wrapper(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/aiter-test/aiter/jit/core.py", line 1780, in wrapper
+    return op(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+RuntimeError: gemm_a8w8_blockscale_bpreshuffle kernel 'a8w8_blockscale_bpreshuffle_1x128x128_256x16x64x256_16x16_16x16_16x16x1_16x16x1_16x16x1_1x16x1x16_4_1x1_intrawave_v1' is not present in the compiled registry. The tuned CSV references a kernel that was not built into aiter. Rebuild aiter (or remove this row from aiter/configs/a8w8_blockscale_bpreshuffle_tuned_gemm.csv) and try again.
+Process ModelRunner0/4:
+Traceback (most recent call last):
+  File "/usr/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/usr/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/app/ATOM/atom/model_engine/async_proc.py", line 153, in __init__
+    self.busy_loop()
+  File "/app/ATOM/atom/model_engine/async_proc.py", line 218, in busy_loop
+    out = func(*args)
+          ^^^^^^^^^^^
+  File "/opt/venv/lib/python3.12/site-packages/torch/utils/_contextlib.py", line 124, in decorate_context
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/app/ATOM/atom/model_ops/eplb.py", line 2319, in wrapper
+    return fn(self, batch, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/ATOM/atom/model_engine/model_runner.py", line 3058, in forward
+    fwd_output = self.postprocess(
+                 ^^^^^^^^^^^^^^^^^
+  File "/app/ATOM/atom/model_engine/model_runner.py", line 3002, in postprocess
+    draft_token_ids = self.propose_draft_token_ids(
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/ATOM/atom/model_engine/model_runner.py", line 3152, in propose_draft_token_ids
+    draft_token = self.drafter.propose(
+                  ^^^^^^^^^^^^^^^^^^^^^
+  File "/app/ATOM/atom/spec_decode/eagle_proposer.py", line 271, in propose
+    ret_hidden_states = self.model(
+                        ^^^^^^^^^^^
+  File "/opt/venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1776, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1787, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/ATOM/atom/models/deepseek_v4_mtp.py", line 292, in forward
+    return self.model(input_ids, positions, hidden_states, spec_step_idx)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1776, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1787, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/ATOM/atom/models/deepseek_v4_mtp.py", line 174, in forward
+    return self.mtp[idx](hidden_states, positions, input_ids)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1776, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1787, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/ATOM/atom/models/deepseek_v4_mtp.py", line 132, in forward
+    hc_state = super().forward(hc_state, positions)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/ATOM/atom/models/deepseek_v4.py", line 3341, in forward
+    x = self.attn(x, positions)  # [num_tokens, dim]
+        ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1776, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1787, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/ATOM/atom/models/deepseek_v4.py", line 2084, in forward
+    return torch.ops.aiter.v4_attention_with_output(x, positions, self.layer_name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/venv/lib/python3.12/site-packages/torch/_ops.py", line 1209, in __call__
+    return self._op(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/venv/lib/python3.12/site-packages/torch/utils/_device.py", line 109, in __torch_function__
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/venv/lib/python3.12/site-packages/torch/_ops.py", line 1209, in __call__
+    return self._op(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/ATOM/atom/models/deepseek_v4.py", line 179, in v4_attention_with_output
+    return self.forward_impl(x, positions)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/ATOM/atom/models/deepseek_v4.py", line 2194, in forward_impl
+    q, kv_pre, qr, qr_scale, x, _idx_q, _idx_w = self._attn_pre(
+                                                 ^^^^^^^^^^^^^^^
+  File "/app/ATOM/atom/models/deepseek_v4.py", line 2117, in _attn_pre
+    q = self.wq_b(qr, x_scale=qr_scale)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1776, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1787, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/ATOM/atom/utils/decorators.py", line 213, in wrapped
+    return record_wrapped(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/ATOM/atom/utils/decorators.py", line 87, in _wrapped
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/app/ATOM/atom/model_ops/linear.py", line 886, in forward
+    y = gemm_a8w8_blockscale_preshuffle_impl(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/aiter-test/aiter/jit/utils/torch_guard.py", line 289, in wrapper_custom
+    getattr(torch.ops.aiter, f"{loadName}")(*args, **kwargs)
+  File "/opt/venv/lib/python3.12/site-packages/torch/_ops.py", line 1209, in __call__
+    return self._op(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/aiter-test/aiter/jit/utils/torch_guard.py", line 312, in outer_wrapper
+    wrapper(*args, **kwargs)
+  File "/app/aiter-test/aiter/jit/utils/torch_guard.py", line 207, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/app/ATOM/atom/model_ops/linear.py", line 271, in gemm_a8w8_blockscale_preshuffle_impl
+    return gemm_a8w8_blockscale_bpreshuffle(x, weight, x_scale, w_scale, dtype)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/aiter-test/aiter/jit/utils/torch_guard.py", line 289, in wrapper_custom
+    getattr(torch.ops.aiter, f"{loadName}")(*args, **kwargs)
+  File "/opt/venv/lib/python3.12/site-packages/torch/_ops.py", line 1209, in __call__
+    return self._op(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/aiter-test/aiter/jit/utils/torch_guard.py", line 312, in outer_wrapper
+    wrapper(*args, **kwargs)
+  File "/app/aiter-test/aiter/jit/utils/torch_guard.py", line 207, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/app/aiter-test/aiter/ops/gemm_op_a8w8.py", line 1026, in gemm_a8w8_blockscale_bpreshuffle
+    return gemm_a8w8_blockscale_bpreshuffle_ck(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/aiter-test/aiter/jit/utils/torch_guard.py", line 289, in wrapper_custom
+    getattr(torch.ops.aiter, f"{loadName}")(*args, **kwargs)
+  File "/opt/venv/lib/python3.12/site-packages/torch/_ops.py", line 1209, in __call__
+    return self._op(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/aiter-test/aiter/jit/utils/torch_guard.py", line 312, in outer_wrapper
+    wrapper(*args, **kwargs)
+  File "/app/aiter-test/aiter/jit/utils/torch_guard.py", line 207, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/app/aiter-test/aiter/jit/core.py", line 1784, in custom_wrapper
+    return wrapper(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/aiter-test/aiter/jit/core.py", line 1780, in wrapper
+    return op(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+RuntimeError: gemm_a8w8_blockscale_bpreshuffle kernel 'a8w8_blockscale_bpreshuffle_1x128x128_256x16x64x256_16x16_16x16_16x16x1_16x16x1_16x16x1_1x16x1x16_4_1x1_intrawave_v1' is not present in the compiled registry. The tuned CSV references a kernel that was not built into aiter. Rebuild aiter (or remove this row from aiter/configs/a8w8_blockscale_bpreshuffle_tuned_gemm.csv) and try again.
+[atom 13:13:15] AsyncIOProcManager(ModelRunner): [ModelRunner3/4] proc died unexpectedly (exitcode=1), shutting down.
+[atom 13:13:15] AsyncIOProcManager(ModelRunner): shutdown all runners...
+[atom 13:13:16] AsyncIOProcManager(ModelRunner): All runners are shutdown.

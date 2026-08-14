@@ -1,0 +1,12 @@
+[aiter] No available shared memory broadcast block found in 60.0 seconds. This typically happens when some processes are hanging or doing some time-consuming work (e.g. compilation).
+[aiter] No available shared memory broadcast block found in 60.0 seconds. This typically happens when some processes are hanging or doing some time-consuming work (e.g. compilation).
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+[atom 16:08:03] Server shutting down, releasing resources...
+[atom 16:08:03] Engine Core Mgr: Shutting down all 1 EngineCores
+[atom 16:08:08] AsyncIOProcManager(ModelRunner): received signal 15 (SIGTERM), exiting...
+[atom 16:08:08] AsyncIOProcManager(ModelRunner): shutdown all runners...
+[atom 16:08:09] AsyncIOProcManager(ModelRunner): All runners are shutdown.
+[atom 16:08:09] Engine Core Mgr: All EngineCores shut down
+INFO:     Application shutdown complete.
+INFO:     Finished server process [19610]

@@ -1,0 +1,180 @@
+    128,
+    4,
+    128,
+    4,
+    128,
+    4,
+    128,
+    4,
+    128,
+    4,
+    128,
+    4,
+    128,
+    4,
+    128,
+    4,
+    128,
+    4,
+    128,
+    4,
+    128,
+    4,
+    128,
+    4,
+    128,
+    4,
+    0
+  ],
+  "compress_rope_theta": 160000,
+  "dtype": "bfloat16",
+  "eos_token_id": 1,
+  "first_k_dense_replace": 3,
+  "hc_eps": 1e-06,
+  "hc_mult": 4,
+  "hc_sinkhorn_iters": 20,
+  "head_dim": 512,
+  "hidden_act": "silu",
+  "hidden_size": 4096,
+  "index_head_dim": 128,
+  "index_n_heads": 64,
+  "index_topk": 512,
+  "initializer_range": 0.02,
+  "intermediate_size": 18432,
+  "kv_lora_rank": 512,
+  "max_position_embeddings": 1048576,
+  "model_type": "deepseek_v3",
+  "moe_intermediate_size": 2048,
+  "n_group": 8,
+  "n_predict": 1,
+  "n_routed_experts": 256,
+  "n_shared_experts": 1,
+  "norm_topk_prob": true,
+  "num_attention_heads": 64,
+  "num_experts_per_tok": 6,
+  "num_hash_layers": 3,
+  "num_hidden_layers": 43,
+  "num_key_value_heads": 1,
+  "num_nextn_predict_layers": 1,
+  "o_groups": 8,
+  "o_lora_rank": 1024,
+  "pad_token_id": null,
+  "pretraining_tp": 1,
+  "q_lora_rank": 1024,
+  "qk_head_dim": 192,
+  "qk_nope_head_dim": 128,
+  "qk_rope_head_dim": 64,
+  "quantization_config": {
+    "activation_scheme": "dynamic",
+    "fmt": "e4m3",
+    "quant_method": "fp8",
+    "scale_fmt": "ue8m0",
+    "weight_block_size": [
+      128,
+      128
+    ]
+  },
+  "rms_norm_eps": 1e-06,
+  "rope_interleave": true,
+  "rope_parameters": {
+    "beta_fast": 32,
+    "beta_slow": 1,
+    "factor": 16,
+    "original_max_position_embeddings": 65536,
+    "rope_theta": 10000,
+    "rope_type": "yarn",
+    "type": "yarn"
+  },
+  "rope_theta": 10000,
+  "routed_scaling_factor": 1.5,
+  "scoring_func": "sqrtsoftplus",
+  "sliding_window": 128,
+  "swiglu_limit": 10.0,
+  "tie_word_embeddings": false,
+  "topk_group": 4,
+  "topk_method": "noaux_tc",
+  "transformers_version": "5.12.1",
+  "use_cache": true,
+  "v_head_dim": 128,
+  "vocab_size": 129280
+}
+
+[atom 12:36:01] Engine kwargs: {'trust_remote_code': False, 'tensor_parallel_size': 4, 'decode_context_parallel_size': 1, 'prefill_context_parallel_size': 1, 'data_parallel_size': 1, 'enforce_eager': False, 'enable_prefix_caching': False, 'port': 8006, 'kv_cache_dtype': 'fp8', 'index_cache_dtype': 'fp8', 'max_model_len': 131072, 'max_num_batched_tokens': 131072, 'long_prefill_token_threshold': 0, 'attn_prefill_chunk_size': 16384, 'enable_chunked_prefill': True, 'scheduler_delay_factor': 0.0, 'max_num_seqs': 128, 'gpu_memory_utilization': 0.83, 'load_dummy': None, 'enable_expert_parallel': False, 'torch_profiler_dir': None, 'enable_dp_attention': False, 'dp_load_balance': 'least_requests', 'kv_transfer_config': '{}', 'mark_trace': False, 'enable_rapidserve': False, 'disagg_prefill_max_num_seqs': None, 'disagg_constrained': False, 'online_quant_config': None, 'hf_overrides': None, 'eplb_enable': False, 'kv_cache_block_size': 16, 'compilation_config': CompilationConfig(level=3, use_cudagraph=True, local_cache_dir=None, cudagraph_capture_sizes=[1, 2, 4, 8, 16, 24, 32, 48, 64, 128], cuda_graph_sizes=[512], debug_dump_path='', traced_files=set(), cache_dir='', use_inductor=True, cudagraph_mode=<CUDAGraphMode.FULL: 2>, compilation_time=0.0, splitting_ops=None, cudagraph_copy_inputs=False, inductor_compile_config={}, compile_sizes=None, static_forward_context={}), 'speculative_config': SpeculativeConfig(method='mtp', num_spec_tokens=2), 'enable_tbo': False, 'enable_tbo_decode': False, 'enable_low_latency': False, 'dspark': DSparkConfig(confidence_schedule=False, ragged=False, ragged_graph_sizes='', q_buckets='', disable_sps_calib=False), 'eplb_config': EPLBConfig(load_window_size=1000, rebalance_interval=3000, rebalance_layers_per_chunk=64, num_redundant_experts=0, rebalance_min_balancedness=2.0, rebalance_balancedness_agg='min', p2p_batch_chunk_size=32, placement_policy='naive')}
+[transformers] You are using a model of type `deepseek_v4` to instantiate a model of type `deepseek_v3`. This may be expected if you are loading a checkpoint that shares a subset of the architecture (e.g., loading a `sam2_video` checkpoint into `Sam2Model`), but is otherwise not supported and can yield errors. Please verify that the checkpoint is compatible with the model you are instantiating.
+[atom 12:36:01] Engine Core Mgr: Creating EngineCore for DP rank 0/1
+[atom 12:36:01] Creating EngineCore process: DP rank 0, will use GPUs 0 to 3
+[atom 12:36:01] Engine Core Mgr: Starting EngineCore for DP rank 0/1
+[aiter] import [module_aiter_core] under /app/aiter-test/aiter/jit/module_aiter_core.so
+[aiter] message queue communication handle: Handle(local_reader_ranks=[0, 1, 2, 3], buffer_handle=(4, 16777216, 10, 'psm_64da7a41'), local_subscribe_addr='ipc:///tmp/6176e890-2880-4d43-803b-31feebb294f1', remote_subscribe_addr=None, remote_addr_ipv6=False)
+[aiter] import [module_aiter_core] under /app/aiter-test/aiter/jit/module_aiter_core.so
+[aiter] import [module_aiter_core] under /app/aiter-test/aiter/jit/module_aiter_core.so
+[aiter] import [module_aiter_core] under /app/aiter-test/aiter/jit/module_aiter_core.so
+[aiter] import [module_aiter_core] under /app/aiter-test/aiter/jit/module_aiter_core.so
+[aiter] merge tuned file under model_configs/ and configs/ /app/aiter-test/aiter/configs/bf16_tuned_gemm.csv:/app/aiter-test/aiter/configs/model_configs/dsv4_bf16_tuned_gemm.csv:/app/aiter-test/aiter/configs/model_configs/kimi_bf16_tuned_gemm.csv:/app/aiter-test/aiter/configs/model_configs/qwen32B_bf16_tuned_gemm.csv:/app/aiter-test/aiter/configs/model_configs/glm47_bf16_tuned_gemm.csv:/app/aiter-test/aiter/configs/model_configs/gptoss_bf16_tuned_gemm.csv:/app/aiter-test/aiter/configs/model_configs/llama405B_bf16_tuned_gemm.csv:/app/aiter-test/aiter/configs/model_configs/qwen3_5_397b_bf16_tuned_gemm.csv:/app/aiter-test/aiter/configs/model_configs/glm5_bf16_tuned_gemm.csv:/app/aiter-test/aiter/configs/model_configs/llama70B_bf16_tuned_gemm.csv:/app/aiter-test/aiter/configs/model_configs/dsv3_bf16_tuned_gemm.csv:/app/aiter-test/aiter/configs/model_configs/kimik2_bf16_tuned_gemm.csv:/app/aiter-test/aiter/configs/model_configs/minimax_m3_eagle_bf16_tuned_gemm.csv
+[aiter] merge tuned file under model_configs/ and configs/ /app/aiter-test/aiter/configs/bf16_tuned_gemm.csv:/app/aiter-test/aiter/configs/model_configs/dsv4_bf16_tuned_gemm.csv:/app/aiter-test/aiter/configs/model_configs/kimi_bf16_tuned_gemm.csv:/app/aiter-test/aiter/configs/model_configs/qwen32B_bf16_tuned_gemm.csv:/app/aiter-test/aiter/configs/model_configs/glm47_bf16_tuned_gemm.csv:/app/aiter-test/aiter/configs/model_configs/gptoss_bf16_tuned_gemm.csv:/app/aiter-test/aiter/configs/model_configs/llama405B_bf16_tuned_gemm.csv:/app/aiter-test/aiter/configs/model_configs/qwen3_5_397b_bf16_tuned_gemm.csv:/app/aiter-test/aiter/configs/model_configs/glm5_bf16_tuned_gemm.csv:/app/aiter-test/aiter/configs/model_configs/llama70B_bf16_tuned_gemm.csv:/app/aiter-test/aiter/configs/model_configs/dsv3_bf16_tuned_gemm.csv:/app/aiter-test/aiter/configs/model_configs/kimik2_bf16_tuned_gemm.csv:/app/aiter-test/aiter/configs/model_configs/minimax_m3_eagle_bf16_tuned_gemm.csv
+[atom 12:36:12] Create lazy wrapper for FusedMoE to change the naming
+[aiter] merge tuned file under model_configs/ and configs/ /app/aiter-test/aiter/configs/bf16_tuned_gemm.csv:/app/aiter-test/aiter/configs/model_configs/dsv4_bf16_tuned_gemm.csv:/app/aiter-test/aiter/configs/model_configs/kimi_bf16_tuned_gemm.csv:/app/aiter-test/aiter/configs/model_configs/qwen32B_bf16_tuned_gemm.csv:/app/aiter-test/aiter/configs/model_configs/glm47_bf16_tuned_gemm.csv:/app/aiter-test/aiter/configs/model_configs/gptoss_bf16_tuned_gemm.csv:/app/aiter-test/aiter/configs/model_configs/llama405B_bf16_tuned_gemm.csv:/app/aiter-test/aiter/configs/model_configs/qwen3_5_397b_bf16_tuned_gemm.csv:/app/aiter-test/aiter/configs/model_configs/glm5_bf16_tuned_gemm.csv:/app/aiter-test/aiter/configs/model_configs/llama70B_bf16_tuned_gemm.csv:/app/aiter-test/aiter/configs/model_configs/dsv3_bf16_tuned_gemm.csv:/app/aiter-test/aiter/configs/model_configs/kimik2_bf16_tuned_gemm.csv:/app/aiter-test/aiter/configs/model_configs/minimax_m3_eagle_bf16_tuned_gemm.csv
+[atom 12:36:12] ModelRunner rank=1, dp_rank_local=0, local_device_rank=1, device=cuda:1
+[aiter] merge tuned file under model_configs/ and configs/ /app/aiter-test/aiter/configs/bf16_tuned_gemm.csv:/app/aiter-test/aiter/configs/model_configs/dsv4_bf16_tuned_gemm.csv:/app/aiter-test/aiter/configs/model_configs/kimi_bf16_tuned_gemm.csv:/app/aiter-test/aiter/configs/model_configs/qwen32B_bf16_tuned_gemm.csv:/app/aiter-test/aiter/configs/model_configs/glm47_bf16_tuned_gemm.csv:/app/aiter-test/aiter/configs/model_configs/gptoss_bf16_tuned_gemm.csv:/app/aiter-test/aiter/configs/model_configs/llama405B_bf16_tuned_gemm.csv:/app/aiter-test/aiter/configs/model_configs/qwen3_5_397b_bf16_tuned_gemm.csv:/app/aiter-test/aiter/configs/model_configs/glm5_bf16_tuned_gemm.csv:/app/aiter-test/aiter/configs/model_configs/llama70B_bf16_tuned_gemm.csv:/app/aiter-test/aiter/configs/model_configs/dsv3_bf16_tuned_gemm.csv:/app/aiter-test/aiter/configs/model_configs/kimik2_bf16_tuned_gemm.csv:/app/aiter-test/aiter/configs/model_configs/minimax_m3_eagle_bf16_tuned_gemm.csv
+[atom 12:36:12] Create lazy wrapper for FusedMoE to change the naming
+[atom 12:36:12] ModelRunner rank=3, dp_rank_local=0, local_device_rank=3, device=cuda:3
+[atom 12:36:12] Create lazy wrapper for FusedMoE to change the naming
+[atom 12:36:12] ModelRunner rank=0, dp_rank_local=0, local_device_rank=0, device=cuda:0
+[atom 12:36:12] Create lazy wrapper for FusedMoE to change the naming
+[atom 12:36:12] ModelRunner rank=2, dp_rank_local=0, local_device_rank=2, device=cuda:2
+[Gloo] Rank 0 is connected to 3 peer ranks. Expected number of connected peer ranks is : 3
+[Gloo] Rank 1 is connected to 3 peer ranks. Expected number of connected peer ranks is : 3
+[Gloo] Rank 3 is connected to 3 peer ranks. Expected number of connected peer ranks is : 3
+[Gloo] Rank 2 is connected to 3 peer ranks. Expected number of connected peer ranks is : 3
+[Gloo] Rank 3 is connected to 3 peer ranks. Expected number of connected peer ranks is : 3
+[Gloo] Rank 0 is connected to 3 peer ranks. Expected number of connected peer ranks is : 3
+[Gloo] Rank 1 is connected to 3 peer ranks. Expected number of connected peer ranks is : 3
+[Gloo] Rank 2 is connected to 3 peer ranks. Expected number of connected peer ranks is : 3
+[aiter] import [module_custom_all_reduce] under /app/aiter-test/aiter/jit/module_custom_all_reduce.so
+[aiter] import [module_custom_all_reduce] under /app/aiter-test/aiter/jit/module_custom_all_reduce.so
+[aiter] import [module_custom_all_reduce] under /app/aiter-test/aiter/jit/module_custom_all_reduce.so
+[aiter] import [module_custom_all_reduce] under /app/aiter-test/aiter/jit/module_custom_all_reduce.so
+[aiter] load RCCL version: 2.27.7
+[aiter] import [module_quick_all_reduce] under /app/aiter-test/aiter/jit/module_quick_all_reduce.so
+[aiter] import [module_quick_all_reduce] under /app/aiter-test/aiter/jit/module_quick_all_reduce.so
+[aiter] import [module_quick_all_reduce] under /app/aiter-test/aiter/jit/module_quick_all_reduce.so
+[aiter] import [module_quick_all_reduce] under /app/aiter-test/aiter/jit/module_quick_all_reduce.so
+[aiter] message queue communication handle: Handle(local_reader_ranks=[1, 2, 3], buffer_handle=(3, 4194304, 6, 'psm_92177ae9'), local_subscribe_addr='ipc:///tmp/603148c3-ddbe-49a5-bc77-a8af21a582c7', remote_subscribe_addr=None, remote_addr_ipv6=False)
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 1 is connected to 3 peer ranks. Expected number of connected peer ranks is : 3
+[Gloo] Rank 3 is connected to 3 peer ranks. Expected number of connected peer ranks is : 3
+[Gloo] Rank 2 is connected to 3 peer ranks. Expected number of connected peer ranks is : 3
+[Gloo] Rank 0 is connected to 3 peer ranks. Expected number of connected peer ranks is : 3
+[aiter] load RCCL version: 2.27.7
+[aiter] rank 0 in world size 4 is assigned as DP rank 0, PP rank 0, PCP rank 0, TP rank 0, EP rank 0
+[aiter] rank 1 in world size 4 is assigned as DP rank 0, PP rank 0, PCP rank 0, TP rank 1, EP rank 1
+[aiter] rank 3 in world size 4 is assigned as DP rank 0, PP rank 0, PCP rank 0, TP rank 3, EP rank 3
+[aiter] rank 2 in world size 4 is assigned as DP rank 0, PP rank 0, PCP rank 0, TP rank 2, EP rank 2
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+[atom.models.deepseek_v4 12:36:15] ckpt stores wo_a as BF16 on disk; allocating BF16 wo_a params (skipping FP8 + scale load-time dequant).
+[atom.models.deepseek_v4 12:36:15] ckpt stores wo_a as BF16 on disk; allocating BF16 wo_a params (skipping FP8 + scale load-time dequant).
+[atom.models.deepseek_v4 12:36:15] ckpt stores wo_a as BF16 on disk; allocating BF16 wo_a params (skipping FP8 + scale load-time dequant).
+[atom.models.deepseek_v4 12:36:15] ckpt stores wo_a as BF16 on disk; allocating BF16 wo_a params (skipping FP8 + scale load-time dequant).
+[atom 12:36:15] disable_mmap: False
+[atom 12:36:15] disable_mmap: False
+[atom 12:36:15] disable_mmap: False
+[atom 12:36:15] disable_mmap: False
+Loading safetensors shards[/data/DeepSeek-V4-Flash-FP8]:   0%|          | 0/46 [00:00<?, ?it/s]Loading safetensors shards[/data/DeepSeek-V4-Flash-FP8]:   2%|▏         | 1/46 [00:00<00:08,  5.13it/s]Loading safetensors shards[/data/DeepSeek-V4-Flash-FP8]:   4%|▍         | 2/46 [00:00<00:11,  3.71it/s]Loading safetensors shards[/data/DeepSeek-V4-Flash-FP8]:   7%|▋         | 3/46 [00:01<00:29,  1.45it/s]Loading safetensors shards[/data/DeepSeek-V4-Flash-FP8]:   9%|▊         | 4/46 [00:01<00:19,  2.17it/s]Loading safetensors shards[/data/DeepSeek-V4-Flash-FP8]:  11%|█         | 5/46 [00:02<00:15,  2.70it/s]Loading safetensors shards[/data/DeepSeek-V4-Flash-FP8]:  15%|█▌        | 7/46 [00:02<00:09,  4.09it/s]Loading safetensors shards[/data/DeepSeek-V4-Flash-FP8]:  17%|█▋        | 8/46 [00:02<00:09,  4.20it/s]Loading safetensors shards[/data/DeepSeek-V4-Flash-FP8]:  20%|█▉        | 9/46 [00:02<00:08,  4.29it/s]Loading safetensors shards[/data/DeepSeek-V4-Flash-FP8]:  22%|██▏       | 10/46 [00:02<00:07,  4.65it/s]Loading safetensors shards[/data/DeepSeek-V4-Flash-FP8]:  24%|██▍       | 11/46 [00:03<00:13,  2.57it/s]Loading safetensors shards[/data/DeepSeek-V4-Flash-FP8]:  26%|██▌       | 12/46 [00:03<00:10,  3.22it/s]Loading safetensors shards[/data/DeepSeek-V4-Flash-FP8]:  28%|██▊       | 13/46 [00:03<00:08,  3.71it/s]Loading safetensors shards[/data/DeepSeek-V4-Flash-FP8]:  30%|███       | 14/46 [00:04<00:07,  4.08it/s]Loading safetensors shards[/data/DeepSeek-V4-Flash-FP8]:  33%|███▎      | 15/46 [00:04<00:06,  4.44it/s]Loading safetensors shards[/data/DeepSeek-V4-Flash-FP8]:  35%|███▍      | 16/46 [00:04<00:05,  5.08it/s]Loading safetensors shards[/data/DeepSeek-V4-Flash-FP8]:  37%|███▋      | 17/46 [00:04<00:05,  5.69it/s]Loading safetensors shards[/data/DeepSeek-V4-Flash-FP8]:  41%|████▏     | 19/46 [00:04<00:03,  7.02it/s]Loading safetensors shards[/data/DeepSeek-V4-Flash-FP8]:  43%|████▎     | 20/46 [00:05<00:04,  5.94it/s]Loading safetensors shards[/data/DeepSeek-V4-Flash-FP8]:  46%|████▌     | 21/46 [00:05<00:04,  6.04it/s]Loading safetensors shards[/data/DeepSeek-V4-Flash-FP8]:  48%|████▊     | 22/46 [00:06<00:09,  2.47it/s]Loading safetensors shards[/data/DeepSeek-V4-Flash-FP8]:  50%|█████     | 23/46 [00:06<00:09,  2.38it/s]Loading safetensors shards[/data/DeepSeek-V4-Flash-FP8]:  52%|█████▏    | 24/46 [00:07<00:08,  2.52it/s]Loading safetensors shards[/data/DeepSeek-V4-Flash-FP8]:  54%|█████▍    | 25/46 [00:07<00:07,  2.94it/s]Loading safetensors shards[/data/DeepSeek-V4-Flash-FP8]:  57%|█████▋    | 26/46 [00:07<00:05,  3.42it/s]Loading safetensors shards[/data/DeepSeek-V4-Flash-FP8]:  59%|█████▊    | 27/46 [00:07<00:05,  3.80it/s]Loading safetensors shards[/data/DeepSeek-V4-Flash-FP8]:  61%|██████    | 28/46 [00:07<00:04,  4.38it/s]Loading safetensors shards[/data/DeepSeek-V4-Flash-FP8]:  63%|██████▎   | 29/46 [00:08<00:03,  4.33it/s]Loading safetensors shards[/data/DeepSeek-V4-Flash-FP8]:  67%|██████▋   | 31/46 [00:08<00:02,  5.60it/s]Loading safetensors shards[/data/DeepSeek-V4-Flash-FP8]:  70%|██████▉   | 32/46 [00:08<00:02,  5.77it/s]Loading safetensors shards[/data/DeepSeek-V4-Flash-FP8]:  72%|███████▏  | 33/46 [00:08<00:02,  5.14it/s]Loading safetensors shards[/data/DeepSeek-V4-Flash-FP8]:  74%|███████▍  | 34/46 [00:08<00:02,  5.56it/s]

@@ -1,0 +1,60 @@
+[atom 14:38:00] disable_mmap: False
+[atom 14:38:00] [rank_1] Model load done: /data/DeepSeek-V4-Flash-FP8 (weights loaded in 14.61s)
+[atom.models.deepseek_v4 14:38:00] ckpt stores wo_a as BF16 on disk; allocating BF16 wo_a params (skipping FP8 + scale load-time dequant).
+[atom 14:38:00] Loading drafter model...
+[atom 14:38:00] disable_mmap: False
+[atom 14:38:01] [rank_2] Model load done: /data/DeepSeek-V4-Flash-FP8 (weights loaded in 15.06s)
+[atom.models.deepseek_v4 14:38:01] ckpt stores wo_a as BF16 on disk; allocating BF16 wo_a params (skipping FP8 + scale load-time dequant).
+[atom 14:38:01] Loading drafter model...
+[atom 14:38:01] disable_mmap: False
+[atom 14:38:01] DeepSeek-V4 --kv_cache_dtype fp8 (2buff) is only supported on gfx950 / gfx1250 (aiter op4/op5); got 'gfx942'. Falling back to a bf16 KV cache.
+[atom 14:38:01] [rank_0] Model load done: /data/DeepSeek-V4-Flash-FP8 (weights loaded in 15.37s)
+[atom.models.deepseek_v4 14:38:01] ckpt stores wo_a as BF16 on disk; allocating BF16 wo_a params (skipping FP8 + scale load-time dequant).
+[atom 14:38:01] Loading drafter model...
+[atom 14:38:01] disable_mmap: False
+Loading safetensors shards[/data/DeepSeek-V4-Flash-FP8]:   0%|          | 0/46 [00:00<?, ?it/s]Loading safetensors shards[/data/DeepSeek-V4-Flash-FP8]:  20%|█▉        | 9/46 [00:00<00:00, 85.03it/s][atom 14:38:01] DeepSeek-V4 --kv_cache_dtype fp8 (2buff) is only supported on gfx950 / gfx1250 (aiter op4/op5); got 'gfx942'. Falling back to a bf16 KV cache.
+Loading safetensors shards[/data/DeepSeek-V4-Flash-FP8]:  39%|███▉      | 18/46 [00:00<00:00, 31.95it/s][atom 14:38:02] DeepSeek-V4 --kv_cache_dtype fp8 (2buff) is only supported on gfx950 / gfx1250 (aiter op4/op5); got 'gfx942'. Falling back to a bf16 KV cache.
+Loading safetensors shards[/data/DeepSeek-V4-Flash-FP8]:  50%|█████     | 23/46 [00:00<00:00, 31.26it/s]Loading safetensors shards[/data/DeepSeek-V4-Flash-FP8]:  72%|███████▏  | 33/46 [00:00<00:00, 45.73it/s]Loading safetensors shards[/data/DeepSeek-V4-Flash-FP8]:  93%|█████████▎| 43/46 [00:00<00:00, 57.65it/s]Loading safetensors shards[/data/DeepSeek-V4-Flash-FP8]: 100%|██████████| 46/46 [00:00<00:00, 49.56it/s]
+[atom 14:38:02] DeepSeek-V4 --kv_cache_dtype fp8 (2buff) is only supported on gfx950 / gfx1250 (aiter op4/op5); got 'gfx942'. Falling back to a bf16 KV cache.
+[atom 14:38:04] Using cache directory: /root/.cache/atom/torch_compile_cache/ea5ed95548/rank_3/backbone for vLLM's torch.compile
+[atom 14:38:04] Dynamo bytecode transform time: 2.72 s
+[atom 14:38:04] Using cache directory: /root/.cache/atom/torch_compile_cache/ea5ed95548/rank_1/backbone for vLLM's torch.compile
+[atom 14:38:04] Dynamo bytecode transform time: 2.73 s
+[atom 14:38:05] Using cache directory: /root/.cache/atom/torch_compile_cache/ea5ed95548/rank_2/backbone for vLLM's torch.compile
+[atom 14:38:05] Dynamo bytecode transform time: 2.67 s
+[atom 14:38:05] Cache the graph for dynamic shape for later use
+[atom 14:38:05] Using cache directory: /root/.cache/atom/torch_compile_cache/ea5ed95548/rank_0/backbone for vLLM's torch.compile
+[atom 14:38:05] Dynamo bytecode transform time: 2.60 s
+[atom 14:38:05] Cache the graph for dynamic shape for later use
+[atom 14:38:05] Cache the graph for dynamic shape for later use
+[atom 14:38:06] Cache the graph for dynamic shape for later use
+[atom 14:34:13] Engine Core Mgr: All 1 EngineCores initialized and ready
+[atom 14:34:13] KV transfer config loaded: {}
+[atom 14:34:13] LLMEngine init with 1 data parallel ranks
+[atom 14:34:13] LLMEngine init with 1 data parallel ranks
+[atom 14:34:13] Starting server on 127.0.0.1:18001 (loop=uvloop)...
+INFO:     Started server process [19607]
+INFO:     Waiting for application startup.
+[atom 14:34:13] Server started successfully and ready to accept requests
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:18001 (Press CTRL+C to quit)
+INFO:     127.0.0.1:59618 - "GET /v1/models HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59626 - "GET /v1/models HTTP/1.1" 200 OK
+[aiter] No available shared memory broadcast block found in 60.0 seconds. This typically happens when some processes are hanging or doing some time-consuming work (e.g. compilation).
+[aiter] No available shared memory broadcast block found in 60.0 seconds. This typically happens when some processes are hanging or doing some time-consuming work (e.g. compilation).
+[aiter] No available shared memory broadcast block found in 60.0 seconds. This typically happens when some processes are hanging or doing some time-consuming work (e.g. compilation).
+[aiter] No available shared memory broadcast block found in 60.0 seconds. This typically happens when some processes are hanging or doing some time-consuming work (e.g. compilation).
+[aiter] No available shared memory broadcast block found in 60.0 seconds. This typically happens when some processes are hanging or doing some time-consuming work (e.g. compilation).
+[aiter] No available shared memory broadcast block found in 60.0 seconds. This typically happens when some processes are hanging or doing some time-consuming work (e.g. compilation).
+[aiter] No available shared memory broadcast block found in 60.0 seconds. This typically happens when some processes are hanging or doing some time-consuming work (e.g. compilation).
+[aiter] No available shared memory broadcast block found in 60.0 seconds. This typically happens when some processes are hanging or doing some time-consuming work (e.g. compilation).
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+[atom 14:36:14] Server shutting down, releasing resources...
+[atom 14:36:14] Engine Core Mgr: Shutting down all 1 EngineCores
+[atom 14:36:19] AsyncIOProcManager(ModelRunner): received signal 15 (SIGTERM), exiting...
+[atom 14:36:19] AsyncIOProcManager(ModelRunner): shutdown all runners...
+[atom 14:36:20] AsyncIOProcManager(ModelRunner): All runners are shutdown.
+[atom 14:36:20] Engine Core Mgr: All EngineCores shut down
+INFO:     Application shutdown complete.
+INFO:     Finished server process [19607]

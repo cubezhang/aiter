@@ -1,0 +1,256 @@
+    if cfg is not None:
+        kn2 = str(cfg.get("kernelName2", "") or "").strip()
+        if kn2.startswith("opus_"):
+            opus_supported, opus_reason = _opus_a8w4.cfg_is_supported(
+                kn2,
+                cfg=cfg,
+                gfx=gfx,
+                block_m=cfg.get("block_m", BLOCK_SIZE_M),
+                is_ep=is_ep,
+                has_stage2_bias=has_stage2_bias,
+            )
+            if not opus_supported:
+                cfg = None
+                logger.warning(
+                    f"[fused_moe] Opus stage2 config unsupported ({opus_reason}); "
+                    "using default heuristics"
+                )
+
+    use_non_temporal_load = False
+    if cfg is None or int(os.environ.get("AITER_BYPASS_TUNE_CONFIG", "0")):
+        ksplit = 0
+        kernelName1 = ""
+        kernelName2 = ""
+        run_1stage = False
+        run_1stage_xbf16 = False
+        # No tuned config => default host moe_sort. For FLAT, run tuner and set flat=1.
+        cfg_flat = False
+        if (
+            activation,
+            q_type,
+            dtype,
+            q_dtype_a,
+            q_dtype_w,
+            use_g1u1,
+            doweight_stage1,
+        ) in fused_moe_1stage_dict[get_gfx()]:
+            if q_type == QuantType.per_1x128:
+                # for fp8 blockscale, ck has better performance so disable assembly kernel
+                run_1stage = token > 32 and (inter_dim % 128 == 0)
+            elif q_type == QuantType.per_Token and q_dtype_w == dtypes.i8:
+                run_1stage = token > 32
+            elif q_type == QuantType.per_Token and q_dtype_w == dtypes.fp8:
+                run_1stage = token > 16 or inter_dim % 128 != 0
+            elif q_type != QuantType.per_1x32:
+                run_1stage = token < 256
+
+            if run_1stage and q_type == QuantType.per_1x128 and get_gfx() == "gfx950":
+                run_1stage_xbf16 = int(os.environ.get("AITER_XBFLOAT16", "0")) == 1
+
+        block_m = (
+            BLOCK_SIZE_M
+            if run_1stage
+            else (
+                (64 if token > 32 else 16)
+                if q_type == QuantType.per_1x128
+                else get_block_size_M(token, topk, expert, inter_dim)
+            )
+        )
+        ksplit = (
+            ksplit
+            if (run_1stage)
+            else (
+                get_ksplit(token, topk, expert, inter_dim, model_dim)
+                if q_type in [QuantType.per_1x128, QuantType.per_1x32]
+                else ksplit
+            )
+        )
+        use_non_temporal_load = use_nt(token, topk, expert)
+        aiter.logger.info(
+            f"run_1stage = {run_1stage}, xbf16 = {run_1stage_xbf16}, ksplit = {ksplit} q_type = {q_type} block_m = {block_m} use_nt = {use_non_temporal_load}, estimated_m_per_expert = {token * topk // expert}"
+        )
+    else:
+        block_m = cfg["block_m"]
+        if int(os.environ.get("AITER_KSPLIT", "0")) != -1:
+            ksplit = cfg["ksplit"]
+        else:
+            ksplit = 0
+        kernelName1 = cfg["kernelName1"]
+        kernelName2 = cfg["kernelName2"]
+        run_1stage = cfg.get("run_1stage", False)
+        if not is_shuffled and not run_1stage:
+            logger.warning(
+                f"[fused_moe] tuned config found for {keys} but is_shuffled=False. "
+                "Tuned kernels are optimized for preshuffled weights (preshuffle_on). "
+                "Running with preshuffle_off may produce incorrect results."
+            )
+        if "xbf16" in cfg:
+            run_1stage_xbf16 = run_1stage and bool(int(cfg["xbf16"]))
+        else:
+            run_1stage_xbf16 = run_1stage and "blockscaleBf16" in str(kernelName1)
+        if "flat" in cfg:
+            cfg_flat = run_1stage and bool(int(cfg["flat"]))
+        else:
+            cfg_flat = False
+    is_opus_cfg = cfg is not None and _opus_a8w4.is_opus_a8w4_stage2_kernel(
+        cfg.get("kernelName2", "")
+    )
+    route_bucket_metadata = _opus_a8w4.route_bucket_metadata(cfg) if is_opus_cfg else {}
+    opus_stage2_cfg_values = (
+        _opus_a8w4.stage2_cfg_values(cfg, block_m) if is_opus_cfg else {}
+    )
+
+    tag = f"({kernelName1=}, {kernelName2=})"
+    logger.info(
+        f"[fused_moe] using {'1stage' if run_1stage else '2stage'}{' xbf16' if run_1stage_xbf16 else ''} {'default' if cfg is None else tag} for {keys} "
+    )
+
+    def get_block_m() -> int:
+        if q_dtype_a == dtypes.fp8:
+            return 32
+        else:
+            return 16 if token < 2048 else 32 if token < 16384 else 64
+
+            block_m=_bm,
+            ksplit=int(ksplit),
+            fuse_quant="fp4",
+            output_aux=True,
+            prequant=False,
+        )
+
+    if run_1stage:
+        # never hard code block_m for 1-stage since it can be tuned by kernel itself, and we have different heuristics for different quant types
+        # # TODO: enable this approach for other quant types and archs
+        # if q_type == QuantType.per_1x128 and get_gfx() == "gfx950":
+        #     tkn_per_epr = token * topk // expert
+        #     block_m = 64 if tkn_per_epr > 32 else block_m
+        return MOEMetadata(
+            functools.partial(
+                fused_moe_1stage,
+                kernelName=kernelName1,
+                activation=activation,
+                quant_type=q_type,
+                xbf16=run_1stage_xbf16,
+            ),
+            None,
+            block_m,
+            ksplit,
+            run_1stage,
+            flat=cfg_flat,
+            **route_bucket_metadata,
+        )
+    is_flydsl1 = isinstance(kernelName1, str) and kernelName1.startswith("flydsl_")
+    is_flydsl2 = isinstance(kernelName2, str) and kernelName2.startswith("flydsl_")
+    is_cktile2 = isinstance(kernelName2, str) and kernelName2.startswith("cktile_")
+    is_opus2 = _opus_a8w4.is_opus_a8w4_stage2_kernel(kernelName2)
+    if (is_flydsl1 or is_flydsl2) and is_flydsl_available():
+        enable_bias = (
+            _needs_swiglu_bias_support(dtype, q_type) and q_dtype_w == dtypes.fp4x2
+        )
+        _s1_fp4q = is_flydsl1 and "_fp4" in kernelName1.split("_t")[-1]
+        if is_flydsl1:
+            stage1_func = functools.partial(
+                _flydsl_stage1_wrapper,
+                kernelName=kernelName1,
+                activation=activation,
+                inter_dim_pad=intermediate_pad,
+/app/aiter-test/hsa/gfx942/fmoe_int8_g1u1_smf_subGU_320.co
+/app/aiter-test/hsa/gfx942/fmoe_f16.co
+/app/aiter-test/hsa/gfx942/fmoe_fp8_g1u1_multix_subGU_192.co
+/app/aiter-test/hsa/gfx942/fmoe/fmoe_fp8_blockscale_g1u1_novs_subGU_256_ps.co
+/app/aiter-test/hsa/gfx942/fmoe/fmoe_fp8_blockscale_g1u1_novs_subGU_256.co
+/app/aiter-test/hsa/gfx942/fmoe/gelu/fmoe_bf16_pertokenFp8_g1u1_gelu_1tg_32x384.co
+/app/aiter-test/hsa/gfx942/fmoe/gelu/fmoe_fp16_pertokenFp8_g1u1_vs_gelu_1tg_32x320.co
+/app/aiter-test/hsa/gfx942/fmoe/gelu/fmoe_fp16_blockscaleFp8_g1u1_gelu_1tg_32x256.co
+/app/aiter-test/hsa/gfx942/fmoe/gelu/fmoe_fp16_pertokenInt8_g1u1_vs_gelu_1tg_ps_32x384.co
+/app/aiter-test/hsa/gfx942/fmoe/gelu/fmoe_bf16_pertokenFp8_g1u1_gelu_1tg_32x320.co
+/app/aiter-test/hsa/gfx942/fmoe/gelu/fmoe_bf16_pertokenInt8_g1u1_vs_multix_gelu_1tg_ps_32x512.co
+/app/aiter-test/hsa/gfx942/fmoe/gelu/fmoe_fp16_pertokenInt8_g1u1_multix_gelu_1tg_ps_32x128.co
+/app/aiter-test/hsa/gfx942/fmoe/gelu/fmoe_fp16_pertokenInt8_g1u1_multix_gelu_1tg_32x320.co
+/app/aiter-test/hsa/gfx942/fmoe/gelu/fmoe_fp16_pertokenFp8_g1u1_vs_gelu_1tg_ps_32x128.co
+/app/aiter-test/hsa/gfx942/fmoe/gelu/fmoe_fp16_pertokenInt8_g1u1_vs_gelu_1tg_ps_32x192.co
+/app/aiter-test/hsa/gfx942/fmoe/gelu/fmoe_bf16_pertokenInt8_g1u1_multix_gelu_1tg_32x384.co
+/app/aiter-test/hsa/gfx942/fmoe/gelu/fmoe_bf16_pertokenInt8_g1u1_tkw1_gelu_1tg_32x512.co
+/app/aiter-test/hsa/gfx942/fmoe/gelu/fmoe_bf16_pertokenFp8_g1u1_vs_smf_gelu_1tg_32x320.co
+/app/aiter-test/hsa/gfx942/fmoe/gelu/fmoe_fp16_blockscaleFp8_g1u1_gelu.csv
+/app/aiter-test/hsa/gfx942/fmoe/gelu/fmoe_bf16_pertokenFp8_g1u1_vs_multix_gelu_1tg_32x512.co
+/app/aiter-test/hsa/gfx942/fmoe/gelu/fmoe_fp16_noquant_g1u0_gelu.csv
+/app/aiter-test/hsa/gfx942/fmoe/gelu/fmoe_int8_g1u0_subGU_448_gelu.co
+/app/aiter-test/hsa/gfx942/fmoe/gelu/fmoe_bf16_pertokenInt8_g1u1_vs_gelu_1tg_32x448.co
+/app/aiter-test/hsa/gfx942/fmoe/gelu/fmoe_bf16_pertokenInt8_g1u0_vs_gelu_1tg_ps_32x448.co
+/app/aiter-test/hsa/gfx942/fmoe/gelu/fmoe_fp16_pertokenInt8_g1u0_vs_gelu_1tg_32x512.co
+/app/aiter-test/hsa/gfx942/fmoe/gelu/fmoe_bf16_pertokenInt8_g1u1_gelu_1tg_32x512.co
+/app/aiter-test/hsa/gfx942/fmoe/gelu/fmoe_bf16_pertokenFp8_g1u1_vs_multix_gelu_1tg_32x128.co
+/app/aiter-test/hsa/gfx942/fmoe/gelu/fmoe_bf16_pertokenInt8_g1u1_multix_gelu_1tg_32x128.co
+/app/aiter-test/hsa/gfx942/fmoe/gelu/fmoe_fp16_pertokenInt8_g1u0_gelu_1tg_ps_32x512.co
+/app/aiter-test/hsa/gfx942/fmoe/gelu/fmoe_bf16_pertokenInt8_g1u0_vs_gelu_1tg_ps_32x256.co
+/app/aiter-test/hsa/gfx942/fmoe/gelu/fmoe_bf16_blockscaleFp8_g1u1_vs_gelu_1tg_32x256.co
+/app/aiter-test/hsa/gfx942/fmoe/gelu/fmoe_bf16_pertokenFp8_g1u1_multix_gelu_1tg_32x384.co
+/app/aiter-test/hsa/gfx942/fmoe/gelu/fmoe_bf16_pertokenInt8_g1u1_vs_multix_gelu_1tg_32x448.co
+/app/aiter-test/hsa/gfx942/fmoe/gelu/fmoe_fp16_pertokenInt8_g1u1_vs_multix_gelu_1tg_ps_32x448.co
+/app/aiter-test/hsa/gfx942/fmoe/gelu/fmoe_fp16_pertokenInt8_g1u0_gelu_1tg_32x256.co
+/app/aiter-test/hsa/gfx942/fmoe/gelu/fmoe_int8_g1u0_subGU_384_gelu.co
+/app/aiter-test/hsa/gfx942/fmoe/gelu/fmoe_bf16_pertokenInt8_g1u1_vs_gelu_1tg_ps_32x320.co
+/app/aiter-test/hsa/gfx942/fmoe/gelu/fmoe_fp16_pertokenInt8_g1u1_tkw1_gelu_1tg_32x320.co
+/app/aiter-test/hsa/gfx942/fmoe/gelu/fmoe_fp16_pertokenFp8_g1u1_multix_gelu_1tg_32x512.co
+/app/aiter-test/hsa/gfx942/fmoe/gelu/fmoe_bf16_blockscaleFp8_g1u1_novs_gelu_1tg_ps_32x256.co
+/app/aiter-test/hsa/gfx942/fmoe/gelu/fmoe_fp16_pertokenInt8_g1u0_gelu_1tg_ps_32x320.co
+/app/aiter-test/hsa/gfx942/fmoe/gelu/fmoe_fp16_pertokenInt8_g1u1_multix_gelu_1tg_ps_32x256.co
+/app/aiter-test/hsa/gfx942/fmoe/gelu/fmoe_bf16_pertokenFp8_g1u1_vs_tkw1_gelu_1tg_ps_32x192.co
+/app/aiter-test/hsa/gfx942/fmoe/gelu/fmoe_fp16_pertokenInt8_g1u0_gelu_1tg_32x512.co
+/app/aiter-test/hsa/gfx942/fmoe/gelu/fmoe_bf16_pertokenInt8_g1u1_multix_gelu_1tg_32x256.co
+/app/aiter-test/hsa/gfx942/fmoe/gelu/fmoe_fp16_pertokenFp8_g1u1_gelu_1tg_32x384.co
+/app/aiter-test/hsa/gfx942/fmoe/gelu/fmoe_fp16_pertokenInt8_g1u1_vs_multix_gelu_1tg_32x192.co
+/app/aiter-test/hsa/gfx942/fmoe/gelu/fmoe_fp16_pertokenFp8_g1u1_gelu_1tg_32x192.co
+/app/aiter-test/hsa/gfx942/fmoe/gelu/fmoe_fp16_pertokenInt8_g1u1_gelu_1tg_ps_32x128.co
+/app/aiter-test/hsa/gfx942/fmoe/gelu/fmoe_bf16_pertokenInt8_g1u1_tkw1_gelu_1tg_32x128.co
+/app/aiter-test/hsa/gfx942/fmoe/gelu/fmoe_fp16_pertokenInt8_g1u1_vs_gelu_1tg_ps_32x448.co
+/app/aiter-test/hsa/gfx942/fmoe/gelu/fmoe_fp16_pertokenInt8_g1u1_multix_gelu_1tg_32x512.co
+/app/aiter-test/hsa/gfx942/fmoe/gelu/fmoe_bf16_pertokenInt8_g1u0_gelu_1tg_ps_32x128.co
+/app/aiter-test/hsa/gfx942/fmoe/gelu/fmoe_bf16_pertokenInt8_g1u0_vs_gelu_1tg_32x128.co
+/app/aiter-test/hsa/gfx942/fmoe/gelu/fmoe_bf16_pertokenFp8_g1u1_multix_gelu_1tg_32x128.co
+/app/aiter-test/hsa/gfx942/fmoe/gelu/fmoe_bf16_pertokenInt8_g1u1_vs_multix_gelu_1tg_32x256.co
+/app/aiter-test/hsa/gfx942/fmoe/gelu/fmoe_fp16_pertokenFp8_g1u1_vs_tkw1_gelu_1tg_32x384.co
+/app/aiter-test/hsa/gfx942/fmoe/gelu/fmoe_bf16_pertokenInt8_g1u1_vs_multix_gelu_1tg_ps_32x192.co
+/app/aiter-test/hsa/gfx942/fmoe/gelu/fmoe_bf16_pertokenInt8_g1u1_multix_gelu_1tg_32x512.co
+/app/aiter-test/hsa/gfx942/fmoe/gelu/fmoe_bf16_pertokenInt8_g1u1_multix_gelu_1tg_32x320.co
+/app/aiter-test/hsa/gfx942/fmoe/gelu/fmoe_bf16_pertokenInt8_g1u0_vs_gelu_1tg_32x256.co
+/app/aiter-test/hsa/gfx942/fmoe/gelu/fmoe_bf16_pertokenFp8_g1u1_multix_gelu_1tg_ps_32x256.co
+/app/aiter-test/hsa/gfx942/fmoe/gelu/fmoe_bf16_pertokenInt8_g1u1_multix_gelu_1tg_ps_32x256.co
+/app/aiter-test/hsa/gfx942/fmoe/gelu/fmoe_fp16_pertokenFp8_g1u1_gelu_1tg_32x448.co
+/app/aiter-test/hsa/gfx942/fmoe/gelu/fmoe_bf16_pertokenInt8_g1u1_multix_gelu_1tg_ps_32x320.co
+/app/aiter-test/hsa/gfx942/fmoe/gelu/fmoe_fp16_pertokenInt8_g1u1_gelu_1tg_ps_32x448.co
+/app/aiter-test/hsa/gfx942/fmoe/gelu/fmoe_bf16_pertokenFp8_g1u1_gelu.csv
+/app/aiter-test/hsa/gfx942/fmoe/gelu/fmoe_fp16_pertokenInt8_g1u1_tkw1_gelu_1tg_32x448.co
+/app/aiter-test/hsa/gfx942/fmoe/gelu/fmoe_bf16_pertokenInt8_g1u0_vs_gelu_1tg_32x320.co
+/app/aiter-test/hsa/gfx942/fmoe/gelu/fmoe_fp16_pertokenFp8_g1u1_vs_gelu_1tg_ps_32x256.co
+/app/aiter-test/hsa/gfx942/fmoe/gelu/fmoe_fp16_noquantFp16_g1u0_atm_inlv_gelu_1tg_32x512.co
+/app/aiter-test/hsa/gfx942/fmoe/gelu/fmoe_fp16_pertokenInt8_g1u1_gelu_1tg_32x448.co
+/app/aiter-test/hsa/gfx942/fmoe/gelu/fmoe_bf16_pertokenFp8_g1u1_gelu_1tg_ps_32x384.co
+/app/aiter-test/hsa/gfx942/fmoe/gelu/fmoe_fp16_blockscaleFp8_g1u1_novs_gelu_1tg_32x256.co
+/app/aiter-test/hsa/gfx942/fmoe/gelu/fmoe_fp16_pertokenInt8_g1u1_tkw1_gelu_1tg_32x128.co
+/app/aiter-test/hsa/gfx942/fmoe/gelu/fmoe_int8_g1u1_subGU_256_gelu.co
+/app/aiter-test/hsa/gfx942/fmoe/gelu/fmoe_bf16_pertokenInt8_g1u0_gelu_1tg_ps_32x192.co
+/app/aiter-test/hsa/gfx942/fmoe/gelu/fmoe_fp16_pertokenFp8_g1u1_vs_tkw1_gelu_1tg_ps_32x384.co
+/app/aiter-test/hsa/gfx942/fmoe/gelu/fmoe_bf16_pertokenFp8_g1u1_vs_multix_gelu_1tg_32x192.co
+/app/aiter-test/hsa/gfx942/fmoe/gelu/fmoe_bf16_pertokenInt8_g1u1_tkw1_gelu_1tg_32x192.co
+/app/aiter-test/hsa/gfx942/fmoe/gelu/fmoe_fp16_pertokenInt8_g1u1_gelu_1tg_32x384.co
+/app/aiter-test/hsa/gfx942/fmoe/gelu/fmoe_int8_g1u1_subGU_512_gelu.co
+/app/aiter-test/hsa/gfx942/fmoe/gelu/fmoe_fp16_pertokenInt8_g1u1_gelu_1tg_32x128.co
+/app/aiter-test/hsa/gfx942/fmoe/gelu/fmoe_fp8_g1u1_subGU_128_gelu_tkw1.co
+/app/aiter-test/hsa/gfx942/fmoe/gelu/fmoe_bf16_pertokenFp8_g1u1_vs_gelu_1tg_ps_32x128.co
+/app/aiter-test/hsa/gfx942/fmoe/gelu/fmoe_fp16_pertokenInt8_g1u0_vs_gelu_1tg_ps_32x320.co
+/app/aiter-test/hsa/gfx942/fmoe/gelu/fmoe_fp16_pertokenInt8_g1u0_gelu_1tg_32x192.co
+/app/aiter-test/hsa/gfx942/fmoe/gelu/fmoe_fp16_pertokenInt8_g1u1_multix_gelu_1tg_32x128.co
+/app/aiter-test/hsa/gfx942/fmoe/gelu/fmoe_fp16_pertokenFp8_g1u1_multix_gelu_1tg_32x128.co
+/app/aiter-test/hsa/gfx942/fmoe/gelu/fmoe_bf16_pertokenInt8_g1u0_vs_gelu_1tg_32x192.co
+/app/aiter-test/hsa/gfx942/fmoe/gelu/fmoe_bf16_pertokenFp8_g1u1_vs_gelu_1tg_32x512.co
+/app/aiter-test/hsa/gfx942/fmoe/gelu/fmoe_fp16_pertokenInt8_g1u1_gelu_1tg_32x512.co
+/app/aiter-test/hsa/gfx942/fmoe/gelu/fmoe_fp16_pertokenInt8_g1u1_vs_multix_gelu_1tg_32x448.co
+/app/aiter-test/hsa/gfx942/fmoe/gelu/fmoe_fp16_pertokenFp8_g1u1_multix_gelu_1tg_ps_32x256.co
+/app/aiter-test/hsa/gfx942/fmoe/gelu/fmoe_fp16_pertokenInt8_g1u1_vs_multix_gelu_1tg_ps_32x512.co
+/app/aiter-test/hsa/gfx942/fmoe/gelu/fmoe_fp16_pertokenInt8_g1u1_gelu_1tg_ps_32x192.co
+/app/aiter-test/hsa/gfx942/fmoe/gelu/fmoe_fp16_pertokenFp8_g1u1_vs_multix_gelu_1tg_32x448.co
+/app/aiter-test/hsa/gfx942/fmoe/gelu/fmoe_bf16_pertokenInt8_g1u1_gelu_tkw1.csv
+/app/aiter-test/hsa/gfx942/fmoe/gelu/fmoe_bf16_pertokenFp8_g1u1_smf_gelu_1tg_32x512.co
+/app/aiter-test/hsa/gfx942/fmoe/gelu/fmoe_bf16_pertokenInt8_g1u1_gelu_1tg_32x128.co

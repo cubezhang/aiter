@@ -1,0 +1,69 @@
+[aiter] import [module_aiter_core] under /app/aiter-test/aiter/jit/module_aiter_core.so
+usage: gemm_a8w8_blockscale_tune.py [-h] [--verbose] [-i UNTUNE_FILE]
+                                    [-o TUNE_FILE] [--mp MP] [-k]
+                                    [--shape_grouped] [--sort SORT]
+                                    [--errRatio ERRRATIO] [--batch BATCH]
+                                    [--all] [-o2 PROFILE_FILE]
+                                    [--warmup WARMUP] [--iters ITERS]
+                                    [--timeout TIMEOUT]
+                                    [--run_config [TUNED_CSV]] [--compare]
+                                    [--update_improved]
+                                    [--min_improvement_pct MIN_IMPROVEMENT_PCT]
+                                    [--libtype {ck,cktile,asm,opus,all,both}]
+                                    [--preshuffle]
+                                    [--blockPerCu BLOCKPERCU [BLOCKPERCU ...]]
+
+Tune a8w8 blockscale GEMM (CK, CKTile, ASM backends)
+
+options:
+  -h, --help            show this help message and exit
+  --verbose, -v         more info
+  -i UNTUNE_FILE, --untune_file UNTUNE_FILE
+                        input
+  -o TUNE_FILE, --tune_file TUNE_FILE
+                        output: tuning result store this file
+  --mp MP               Tuning on multiple GPUs using multiple processes
+  -k, --splitK          Use splitK kernels
+  --shape_grouped       Group all kernel candidates for the same shape onto
+                        one GPU to eliminate cross-GPU timing variance (also
+                        saves generate_data calls)
+  --sort SORT           Arranged according to the keys (True/False)
+  --errRatio ERRRATIO   Tolerable error ratio (default 0.05). During tuning,
+                        kernels with observed error above this are rejected.
+                        During --run_config, the effective threshold per shape
+                        is max(this value, the observed errRatio stored in the
+                        tuned CSV), so kernels that were tuned with a larger
+                        observed error are not falsely flagged.
+  --batch BATCH         split untuned shapes to batches to tune
+  --all                 retune all shapes in tune_file if tune file and untune
+                        file are the same, or retune shapes in untune file if
+                        tune file and untune file are different
+  -o2 PROFILE_FILE, --profile_file PROFILE_FILE
+                        output: all tuning results stored in this file
+  --warmup WARMUP       warmup iters for profiling
+  --iters ITERS         run iters for profiling
+  --timeout TIMEOUT     timeout for task group
+  --run_config [TUNED_CSV]
+                        Run production operator benchmark and exit (no
+                        tuning). If a tuned CSV path is given, read shapes and
+                        kernels from it; otherwise read shapes from -i and run
+                        with default kernels.
+  --compare             Run production-op benchmark before and after tuning,
+                        print compare results, and keep a compare candidate
+                        CSV.
+  --update_improved     With --compare, update the final tuned CSV for shapes
+                        improved by at least --min_improvement_pct, or when
+                        pre-run has no valid baseline but post-run passes.
+  --min_improvement_pct MIN_IMPROVEMENT_PCT
+                        With --compare --update_improved, update tuned CSV
+                        only when a valid pre/post benchmark shows at least
+                        this percent improvement. Shapes with no valid pre-run
+                        baseline but passing post-run are still allowed to
+                        update.
+  --libtype {ck,cktile,asm,opus,all,both}
+                        CK gemm a8w8 blockscale type to tune: ck, cktile, asm,
+                        opus, both or all (covers all supported backends
+                        across standard/preshuffleB modes)
+  --preshuffle          Enable B-matrix preshuffle for CK gemm a8w8 blockscale
+  --blockPerCu BLOCKPERCU [BLOCKPERCU ...]
+                        List of BlockPerCu values to tune (CKTile only)

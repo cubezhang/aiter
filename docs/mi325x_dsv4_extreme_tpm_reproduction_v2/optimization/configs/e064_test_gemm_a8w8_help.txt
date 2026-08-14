@@ -1,0 +1,32 @@
+[aiter] import [module_aiter_core] under /app/aiter-test/aiter/jit/module_aiter_core.so
+usage: test_gemm_a8w8.py [-h] [-d [{torch.bfloat16,torch.float16} ...]]
+                         [-q [{torch.int8,torch.float8_e4m3fnuz} ...]]
+                         [--pad_a PAD_A] [-mnk [MNK ...]] [--csv CSV]
+                         [--bpreshuffle-csv BPRESHUFFLE_CSV] [-o OUTPUT]
+                         [--suffix SUFFIX] [--no-flydsl-csv] [--no-legacy]
+
+config input of test
+
+options:
+  -h, --help            show this help message and exit
+  -d [{torch.bfloat16,torch.float16} ...], --dtype [{torch.bfloat16,torch.float16} ...]
+                        Data type.
+                            e.g.: -d bf16
+  -q [{torch.int8,torch.float8_e4m3fnuz} ...], --quantDtype [{torch.int8,torch.float8_e4m3fnuz} ...]
+                        Data type of quantization.
+                            e.g.: -q fp8
+  --pad_a PAD_A         Pad A on K dimension, stride_a = K + pad_a.
+  -mnk [MNK ...]        Shape of mnk.
+                            e.g. -mnk 1280,8192,1024
+  --csv CSV             CSV file containing M, N, K columns (one shape per row).
+                            e.g.: --csv shapes.csv
+  --bpreshuffle-csv BPRESHUFFLE_CSV
+                        CSV file for bpreshuffle-path shapes (skips gemm_a8w8_CK, runs ASM directly).
+                            e.g.: --bpreshuffle-csv op_tests/configs/gemm_codegen_gfx_filter_bpreshuffle.csv
+  -o OUTPUT, --output OUTPUT
+                        Directory to save results CSV.
+                            e.g.: -o results/
+  --suffix SUFFIX       Suffix for output CSV filename.
+                            e.g.: --suffix branch
+  --no-flydsl-csv       Skip validating flydsl shapes from tuned bpreshuffle CSVs.
+  --no-legacy           Skip the original hardcoded shape sweep and skinny tests.

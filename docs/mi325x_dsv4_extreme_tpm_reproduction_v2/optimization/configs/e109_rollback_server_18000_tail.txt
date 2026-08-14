@@ -1,0 +1,12 @@
+[aiter] shape is M:384, N:64, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] import [module_dsv4_rotate_quant] under /app/aiter-test/aiter/jit/module_dsv4_rotate_quant.so
+[aiter] shape is M:384, N:64, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] import [module_dsv4_rotate_quant] under /app/aiter-test/aiter/jit/module_dsv4_rotate_quant.so
+[aiter] shape is M:384, N:64, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] import [module_dsv4_rotate_quant] under /app/aiter-test/aiter/jit/module_dsv4_rotate_quant.so
+[aiter] shape is M:384, N:64, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] [pid=593 pname=ModelRunner1/4] start build [module_top_k_per_row] under /app/aiter-test/aiter/jit/build/module_top_k_per_row
+[aiter] [pid=594 pname=ModelRunner2/4] waiting for baton release at /app/aiter-test/aiter/jit/build/lock_module_top_k_per_row
+[aiter] [pid=592 pname=ModelRunner0/4] waiting for baton release at /app/aiter-test/aiter/jit/build/lock_module_top_k_per_row
+[aiter] [pid=595 pname=ModelRunner3/4] waiting for baton release at /app/aiter-test/aiter/jit/build/lock_module_top_k_per_row
+[aiter] Current hipcc not support: -mllvm -amdgpu-coerce-illegal-types=1, skip it.

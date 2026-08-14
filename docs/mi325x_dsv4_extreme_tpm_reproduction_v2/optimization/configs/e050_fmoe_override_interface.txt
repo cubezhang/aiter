@@ -1,0 +1,25 @@
+/app/aiter-test/aiter/fused_moe_bf16_asm.py:102:            aiter.fmoe_g1u1_a16(
+/app/aiter-test/aiter/fused_moe_bf16_asm.py:258:            aiter.fmoe_g1u1(
+/app/aiter-test/csrc/py_itfs_cu/asm_fmoe.cu:245:    int inter_dim, int sub_X_cnt, CFG* cfgs, int smf = 0, std::string kernel_name = "", int block_size_M = 32)
+/app/aiter-test/csrc/py_itfs_cu/asm_fmoe.cu:254:    std::string selectedKl      = kernel_name.empty() ? "" : arch_id + kernel_name;
+/app/aiter-test/csrc/py_itfs_cu/asm_fmoe.cu:529:    fmoe_g1u1,
+/app/aiter-test/csrc/py_itfs_cu/asm_fmoe.cu:543:    const char* kernel_name,
+/app/aiter-test/csrc/py_itfs_cu/asm_fmoe.cu:547:    (out, input, gate, down, sorted_token_ids, sorted_weights, sorted_expert_ids, num_valid_ids, topk, input_scale, fc1_scale, fc2_scale, kernel_name, fc2_smooth_scale, activation, stream))
+/app/aiter-test/csrc/py_itfs_cu/asm_fmoe.cu:566:    std::string kernel_name_str = kernel_name ? kernel_name : "";
+/app/aiter-test/csrc/py_itfs_cu/asm_fmoe.cu:611:        impl_ptr = get_heuristic_kernel(inter_dim, sub_X_cnt, config_map, smf, kernel_name_str);
+/app/aiter-test/csrc/py_itfs_cu/asm_fmoe.cu:630:        impl_ptr = get_heuristic_kernel(inter_dim, sub_X_cnt, config_map, smf, kernel_name_str);
+/app/aiter-test/csrc/py_itfs_cu/asm_fmoe.cu:647:        impl_ptr = get_heuristic_kernel(inter_dim, sub_X_cnt, config_map, smf, kernel_name_str);
+/app/aiter-test/csrc/py_itfs_cu/asm_fmoe.cu:663:        impl_ptr = get_heuristic_kernel(inter_dim, sub_X_cnt, config_map, smf, kernel_name_str);
+/app/aiter-test/csrc/py_itfs_cu/asm_fmoe.cu:688:    fmoe_g1u1_tkw1,
+/app/aiter-test/csrc/py_itfs_cu/asm_fmoe.cu:702:    const char* kernel_name,
+/app/aiter-test/csrc/py_itfs_cu/asm_fmoe.cu:706:    (out, input, gate, down, sorted_token_ids, sorted_weights, sorted_expert_ids, num_valid_ids, topk, input_scale, fc1_scale, fc2_scale, kernel_name, fc2_smooth_scale, activation, stream))
+/app/aiter-test/csrc/py_itfs_cu/asm_fmoe.cu:712:    std::string kernel_name_str = kernel_name ? kernel_name : "";
+/app/aiter-test/csrc/py_itfs_cu/asm_fmoe.cu:739:    impl_ptr = get_heuristic_kernel(inter_dim, estimated_sub_X_cnt, config_map, 0, kernel_name_str);
+/app/aiter-test/csrc/py_itfs_cu/asm_fmoe.cu:819:    fmoe_g1u1_a16,
+/app/aiter-test/csrc/py_itfs_cu/asm_fmoe.cu:857:                false, __func__, "Unsupported output dtype or activation type for fmoe_g1u1_a16");
+/app/aiter-test/csrc/py_itfs_cu/asm_fmoe.cu:871:                false, __func__, "Unsupported output dtype or activation type for fmoe_g1u1_a16");
+/app/aiter-test/csrc/py_itfs_cu/asm_fmoe.cu:874:        AITER_CHECK(false, __func__, "Unsupported gate dtype for fmoe_g1u1_a16");
+/app/aiter-test/csrc/py_itfs_cu/asm_fmoe.cu:909:    const char* kernel_name,
+/app/aiter-test/csrc/py_itfs_cu/asm_fmoe.cu:916:    (out, input, gate, down, sorted_token_ids, sorted_weights, sorted_expert_ids, num_valid_ids, topk, input_scale, fc1_scale, fc2_scale, kernel_name, fc_scale_blkn, fc_scale_blkk, fc2_smooth_scale, activation, block_size_M, stream))
+/app/aiter-test/csrc/py_itfs_cu/asm_fmoe.cu:925:    std::string kernel_name_str = kernel_name ? kernel_name : "";
+/app/aiter-test/csrc/py_itfs_cu/asm_fmoe.cu:940:            get_heuristic_kernel(inter_dim, sorted_expert_ids->size(0), config_map, 0, kernel_name_str, block_size_M);

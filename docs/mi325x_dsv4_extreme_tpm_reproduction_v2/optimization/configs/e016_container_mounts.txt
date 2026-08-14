@@ -1,0 +1,5 @@
+/data/models/mi325_dsv4_perf_tuning_20260803_065439 /work
+/data/DeepSeek-V4-Flash-FP8 /data/DeepSeek-V4-Flash-FP8
+/data/models/mi325_dsv4_reuse_tuning_20260801_103501/02_source/ATOM_official /app/ATOM
+/data/models/mi325_dsv4_model_tuning_round2_20260802/57_topk_ob_hybrid_bpp_20260802_141900/aiter/csrc/kernels/topk_per_row_kernels.cu /app/aiter-test/csrc/kernels/topk_per_row_kernels.cu
+

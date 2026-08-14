@@ -1,0 +1,55 @@
+[aiter] import [module_aiter_core] under /app/aiter-test/aiter/jit/module_aiter_core.so
+[aiter] [pid=38632 pname=SpawnPoolWorker-1] start build [module_gemm_a8w8_blockscale_bpreshuffle_tune] under /app/aiter-test/aiter/jit/build/module_gemm_a8w8_blockscale_bpreshuffle_tune
+[aiter] Current hipcc not support: -mllvm -amdgpu-coerce-illegal-types=1, skip it.
+[aiter] [pid=38632 pname=SpawnPoolWorker-1] [32mfinish build [module_gemm_a8w8_blockscale_bpreshuffle_tune], cost 46.4s [0m
+[aiter] import [module_gemm_a8w8_blockscale_bpreshuffle_tune] under /app/aiter-test/aiter/jit/module_gemm_a8w8_blockscale_bpreshuffle_tune.so
+/opt/venv/lib/python3.12/site-packages/torch/profiler/profiler.py:217: UserWarning: Warning: Profiler clears events at the end of each cycle.Only events from the current cycle will be reported.To keep events across cycles, set acc_events=True.
+  _warn_once(
+[W803 12:22:23.146535347 collection.cpp:1148] Warning: ROCTracer produced duplicate flow start: 15 (function operator())
+/app/aiter-test/aiter/utility/base_tuner.py:485: FutureWarning: The behavior of DataFrame concatenation with empty or all-NA entries is deprecated. In a future version, this will no longer exclude empty or all-NA columns when determining the result dtypes. To retain the old behavior, exclude the relevant entries before the concat operation.
+  profiledf = pd.concat([old_df, profiledf], ignore_index=True)
+/app/aiter-test/aiter/utility/base_tuner.py:1662: FutureWarning: The behavior of DataFrame concatenation with empty or all-NA entries is deprecated. In a future version, this will no longer exclude empty or all-NA columns when determining the result dtypes. To retain the old behavior, exclude the relevant entries before the concat operation.
+  self.success = pd.concat(
+/app/aiter-test/aiter/utility/base_tuner.py:1678: FutureWarning: The behavior of DataFrame concatenation with empty or all-NA entries is deprecated. In a future version, this will no longer exclude empty or all-NA columns when determining the result dtypes. To retain the old behavior, exclude the relevant entries before the concat operation.
+  resultdf = pd.concat([old_df, update_tunedf], ignore_index=True)
+Waiting for 1 tasks to complete (timeout=150s each)...
+Tuning result for 'gfx': 'gfx942', 'cu_num': 304, 'M': np.int64(1), 'N': np.int64(1536), 'K': np.int64(4096) is kernelId=7 a8w8_blockscale_bpreshuffle_1x128x128_256x16x64x256_16x16_16x16_16x16x1_16x16x1_1x16x1x16_4_1x1_intrawave_v1 splitK=0, 8.0388us, err_ratio=0.0, tflops=1.57 TFLOPS, bw=783.53 GB/s
+=== Running post-tune benchmark (verification) for batch 1/1 ===
+[aiter] Setting AITER_CONFIG_GEMM_A8W8_BLOCKSCALE_BPRESHUFFLE=/tmp/aiter_compare/GemmA8W8BlockScaleTuner_compare_batch_1_38529.csv for benchmark
+[aiter] [pid=38529 pname=MainProcess] start build [module_gemm_a8w8_blockscale_bpreshuffle] under /app/aiter-test/aiter/jit/build/module_gemm_a8w8_blockscale_bpreshuffle
+[aiter] Current hipcc not support: -mllvm -amdgpu-coerce-illegal-types=1, skip it.
+[aiter] [pid=38529 pname=MainProcess] [32mfinish build [module_gemm_a8w8_blockscale_bpreshuffle], cost 34.6s [0m
+[aiter] import [module_gemm_a8w8_blockscale_bpreshuffle] under /app/aiter-test/aiter/jit/module_gemm_a8w8_blockscale_bpreshuffle.so
+[aiter] run_config (1, 1536, 4096)[checkAllclose atol=0.01 rtol=0.01 [32mpassed~[0m]
+/app/aiter-test/aiter/utility/base_tuner.py:1112: FutureWarning: The behavior of DataFrame concatenation with empty or all-NA entries is deprecated. In a future version, this will no longer exclude empty or all-NA columns when determining the result dtypes. To retain the old behavior, exclude the relevant entries before the concat operation.
+  merged = pd.concat([kept_old, improved_rows], ignore_index=True)
+[aiter] processed 1 batches of 1, Processing Status ====> 100.0% tuned in GemmA8W8BlockScaleTuner
+[aiter] ============= Tuning results Summary: ==============
+/app/aiter-test/aiter/utility/base_tuner.py:534: FutureWarning: The behavior of DataFrame concatenation with empty or all-NA entries is deprecated. In a future version, this will no longer exclude empty or all-NA columns when determining the result dtypes. To retain the old behavior, exclude the relevant entries before the concat operation.
+  tunedf = pd.concat([self.success, self.failed])
+[aiter] Tuning Finished. tune 1 shapes, total tuning time is 90.6527 seconds
+[aiter] Successfully tuned shapes:
+Not exist tuned file: /work/experiments/e058_bpreshuffle_tuned.csv
+      gfx cu_num  M  ... tflops      bw errRatio
+0  gfx942    304  1  ...   1.57  783.53      0.0
+
+[1 rows x 13 columns]
+[aiter] Failed shapes:
+Empty DataFrame
+Columns: [gfx, cu_num, M, N, K, libtype, kernelId, splitK, us, kernelName, tflops, bw, errRatio]
+Index: []
+============= Tune Performance Comparison =============
+Shape                                    |   Pre-E2E(us) |   Post-E2E(us) |  Speedup |   Status
+-----------------------------------------------------------------------------------------------
+(1, 1536, 4096)                          |         17.69 |           8.42 |    2.10x |       OK
+keys: gfx=gfx942, cu_num=304, M=1, N=1536, K=4096
+============= Compare Report =============
+Total shapes: 1 | Updated: 1 (improved: 1, new: 0) | Skipped: 0
+Threshold: >= 3.0% improvement to update /work/experiments/e058_bpreshuffle_tuned.csv
+
+--- Updated (1 shapes) ---
+Shape                                    |    Pre(us) |   Post(us) |   Improve |             Action
+---------------------------------------------------------------------------------------------------
+(1, 1536, 4096)                          |      17.69 |       8.42 |    52.38% |             UPDATE
+
+Compare candidate CSV written to /tmp/aiter_compare/e058_bpreshuffle_tuned.38529.candidate.csv

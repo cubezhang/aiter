@@ -1,0 +1,76 @@
+            help="Tolerable error ratio (default 0.05). During tuning, kernels "
+            "with observed error above this are rejected. During --run_config, "
+            "the effective threshold per shape is max(this value, the observed "
+            "errRatio stored in the tuned CSV), so kernels that were tuned with "
+            "a larger observed error are not falsely flagged.",
+        )
+        self.parser.add_argument(
+            "--batch",
+            type=int,
+            default=defaults["batch"],
+            help="split untuned shapes to batches to tune",
+        )
+        self.parser.add_argument(
+            "--all",
+            action="store_true",
+            required=False,
+            help="retune all shapes in tune_file if tune file and untune file are the same, or retune shapes in untune file if tune file and untune file are different",
+        )
+        self.parser.add_argument(
+            "-o2",
+            "--profile_file",
+            default=defaults["profile_file"],
+            required=False,
+            help="output: all tuning results stored in this file",
+        )
+        self.parser.add_argument(
+            "--warmup",
+            type=int,
+            default=defaults["warmup"],
+            help="warmup iters for profiling",
+        )
+        self.parser.add_argument(
+            "--iters",
+            type=int,
+            default=defaults["iters"],
+            help="run iters for profiling",
+        )
+        self.parser.add_argument(
+            "--timeout",
+            type=int,
+            default=defaults["timeout"],
+            help="timeout for task group",
+        )
+        self.parser.add_argument(
+            "--run_config",
+            nargs="?",
+            const=True,
+            default=False,
+            metavar="TUNED_CSV",
+            help="Run production operator benchmark and exit (no tuning). "
+            "If a tuned CSV path is given, read shapes and kernels from it; "
+            "otherwise read shapes from -i and run with default kernels.",
+        )
+        self.parser.add_argument(
+            "--compare",
+            action="store_true",
+            required=False,
+            help="Run production-op benchmark before and after tuning, print compare results, and keep a compare candidate CSV.",
+        )
+        self.parser.add_argument(
+            "--update_improved",
+            action="store_true",
+            required=False,
+            help="With --compare, update the final tuned CSV for shapes improved by at least --min_improvement_pct, or when pre-run has no valid baseline but post-run passes.",
+        )
+        self.parser.add_argument(
+            "--min_improvement_pct",
+            dest="min_improvement_pct",
+            type=float,
+            default=defaults.get("min_improvement_pct", 3.0),
+            help="With --compare --update_improved, update tuned CSV only when a valid pre/post benchmark shows at least this percent improvement. Shapes with no valid pre-run baseline but passing post-run are still allowed to update.",
+        )
+
+    def parse_args(self):
+        args = self.parser.parse_args()
+        if args.update_improved and not args.compare:

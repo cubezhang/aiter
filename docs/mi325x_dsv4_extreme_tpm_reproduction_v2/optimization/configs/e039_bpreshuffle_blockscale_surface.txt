@@ -1,0 +1,151 @@
+/app/aiter-test/csrc/include/rocm_ops.hpp:302:    m.def("opus_gemm_a8w8_blockscale_bpreshuffle_tune",   \
+/app/aiter-test/csrc/include/rocm_ops.hpp:303:          &opus_gemm_a8w8_blockscale_bpreshuffle_tune,    \
+/app/aiter-test/csrc/include/rocm_ops.hpp:304:          "opus_gemm_a8w8_blockscale_bpreshuffle_tune",   \
+/app/aiter-test/csrc/include/rocm_ops.hpp:749:    m.def("gemm_a8w8_blockscale_bpreshuffle",   \
+/app/aiter-test/csrc/include/rocm_ops.hpp:750:          &gemm_a8w8_blockscale_bpreshuffle,    \
+/app/aiter-test/csrc/include/rocm_ops.hpp:760:    m.def("gemm_a8w8_blockscale_bpreshuffle_tune",   \
+/app/aiter-test/csrc/include/rocm_ops.hpp:761:          &gemm_a8w8_blockscale_bpreshuffle_tune,    \
+/app/aiter-test/csrc/include/rocm_ops.hpp:762:          "gemm_a8w8_blockscale_bpreshuffle_tune",   \
+/app/aiter-test/csrc/include/rocm_ops.hpp:772:    m.def("gemm_a8w8_blockscale_bpreshuffle_cktile",   \
+/app/aiter-test/csrc/include/rocm_ops.hpp:773:          &gemm_a8w8_blockscale_bpreshuffle_cktile,    \
+/app/aiter-test/csrc/include/rocm_ops.hpp:784:    m.def("gemm_a8w8_blockscale_bpreshuffle_cktile_tune",   \
+/app/aiter-test/csrc/include/rocm_ops.hpp:785:          &gemm_a8w8_blockscale_bpreshuffle_cktile_tune,    \
+/app/aiter-test/csrc/include/rocm_ops.hpp:786:          "gemm_a8w8_blockscale_bpreshuffle_cktile_tune",   \
+/app/aiter-test/csrc/pybind/gemm_a8w8_blockscale_bpreshuffle_cktile_tune_pybind.cu:3:#include "gemm_a8w8_blockscale_bpreshuffle_cktile.h"
+/app/aiter-test/csrc/pybind/gemm_a8w8_blockscale_bpreshuffle_tune_pybind.cu:4:#include "gemm_a8w8_blockscale_bpreshuffle.h"
+/app/aiter-test/csrc/pybind/gemm_a8w8_blockscale_cktile_tune_pybind.cu:3:#include "gemm_a8w8_blockscale_bpreshuffle_cktile.h"
+/app/aiter-test/csrc/pybind/gemm_a8w8_blockscale_bpreshuffle_cktile_pybind.cu:3:#include "gemm_a8w8_blockscale_bpreshuffle_cktile.h"
+/app/aiter-test/csrc/pybind/gemm_a8w8_blockscale_cktile_pybind.cu:3:#include "gemm_a8w8_blockscale_bpreshuffle_cktile.h"
+/app/aiter-test/csrc/pybind/gemm_a8w8_blockscale_bpreshuffle_pybind.cu:4:#include "gemm_a8w8_blockscale_bpreshuffle.h"
+/app/aiter-test/csrc/ck_gemm_a8w8_blockscale/include/gemm_a8w8_blockscale_bpreshuffle_cktile.h:9:torch::Tensor gemm_a8w8_blockscale_bpreshuffle_cktile(torch::Tensor& XQ,
+/app/aiter-test/csrc/ck_gemm_a8w8_blockscale/include/gemm_a8w8_blockscale_bpreshuffle_cktile.h:17:torch::Tensor gemm_a8w8_blockscale_bpreshuffle_cktile_tune(torch::Tensor& XQ,
+/app/aiter-test/csrc/ck_gemm_a8w8_blockscale/gemm_a8w8_blockscale_cktile.cu:97:torch::Tensor gemm_a8w8_blockscale_bpreshuffle_cktile(torch::Tensor& XQ,
+/app/aiter-test/csrc/ck_gemm_a8w8_blockscale/gemm_a8w8_blockscale_cktile_tune.cu:90:torch::Tensor gemm_a8w8_blockscale_bpreshuffle_cktile_tune(torch::Tensor& XQ,
+/app/aiter-test/csrc/ck_gemm_a8w8_blockscale/gemm_a8w8_blockscale_tune.py:24:    opus_gemm_a8w8_blockscale_bpreshuffle_tune,
+/app/aiter-test/csrc/ck_gemm_a8w8_blockscale/gemm_a8w8_blockscale_tune.py:28:from ck_gemm_a8w8_blockscale_bpreshuffle.gemm_a8w8_blockscale_bpreshuffle_common import (
+/app/aiter-test/csrc/ck_gemm_a8w8_blockscale/gemm_a8w8_blockscale_tune.py:100:        return aiter.gemm_a8w8_blockscale_bpreshuffle_cktile_tune(
+/app/aiter-test/csrc/ck_gemm_a8w8_blockscale/gemm_a8w8_blockscale_tune.py:117:        return aiter.gemm_a8w8_blockscale_bpreshuffle_tune(
+/app/aiter-test/csrc/ck_gemm_a8w8_blockscale/gemm_a8w8_blockscale_tune.py:141:    return aiter.gemm_a8w8_blockscale_bpreshuffle_asm(
+/app/aiter-test/csrc/ck_gemm_a8w8_blockscale/gemm_a8w8_blockscale_tune.py:166:    return opus_gemm_a8w8_blockscale_bpreshuffle_tune(
+/app/aiter-test/csrc/ck_gemm_a8w8_blockscale/gemm_a8w8_blockscale_tune.py:507:            gemm_a8w8_blockscale_bpreshuffle,
+/app/aiter-test/csrc/ck_gemm_a8w8_blockscale/gemm_a8w8_blockscale_tune.py:539:                        gemm_a8w8_blockscale_bpreshuffle,
+/app/aiter-test/csrc/py_itfs_cu/asm_a8w8_blockscale_bpreshuffle.cu:253:    gemm_a8w8_blockscale_bpreshuffle_asm,
+/app/aiter-test/csrc/opus_gemm/opus_gemm.cu:352:void opus_gemm_a8w8_blockscale_bpreshuffle_tune(
+/app/aiter-test/csrc/opus_gemm/opus_gemm.cu:363:              "opus_gemm_a8w8_blockscale_bpreshuffle_tune is only implemented "
+/app/aiter-test/csrc/opus_gemm/opus_gemm.cu:367:              "opus_gemm_a8w8_blockscale_bpreshuffle_tune expects fp8 XQ/WQ");
+/app/aiter-test/csrc/opus_gemm/opus_gemm.cu:369:              "opus_gemm_a8w8_blockscale_bpreshuffle_tune expects bf16 Y");
+/app/aiter-test/csrc/opus_gemm/opus_gemm.cu:371:              "opus_gemm_a8w8_blockscale_bpreshuffle_tune requires x_scale and w_scale");
+/app/aiter-test/csrc/opus_gemm/include/gfx942/a8w8/opus_gemm_pipeline_a8w8_blockscale_bpreshuffle.cuh:7:#include "opus_gemm_traits_a8w8_blockscale_bpreshuffle.cuh"
+/app/aiter-test/csrc/opus_gemm/include/gfx942/a8w8/opus_gemm_pipeline_a8w8_blockscale_bpreshuffle.cuh:454:void gemm_a8w8_blockscale_bpreshuffle_singlebuf_kernel_gfx942(opus_gemm_a8w8_blockscale_bpreshuffle_kargs_gfx942 kargs) {
+/app/aiter-test/csrc/opus_gemm/include/gfx942/a8w8/opus_gemm_traits_a8w8_blockscale_bpreshuffle.cuh:17:struct opus_gemm_a8w8_blockscale_bpreshuffle_traits_gfx942 {
+/app/aiter-test/csrc/opus_gemm/include/gfx942/a8w8/opus_gemm_traits_a8w8_blockscale_bpreshuffle.cuh:90:struct opus_gemm_a8w8_blockscale_bpreshuffle_kargs_gfx942 {
+/app/aiter-test/csrc/opus_gemm/include/opus_gemm.h:31:void opus_gemm_a8w8_blockscale_bpreshuffle_tune(aiter_tensor_t& XQ,
+/app/aiter-test/csrc/opus_gemm/opus_gemm_common.py:677:def _a8w8_blockscale_bpreshuffle_singlebuf_gfx942(
+/app/aiter-test/csrc/opus_gemm/opus_gemm_common.py:697:        "a8w8_blockscale_bpreshuffle_singlebuf",
+/app/aiter-test/csrc/opus_gemm/opus_gemm_common.py:736:    11000: _a8w8_blockscale_bpreshuffle_singlebuf_gfx942(
+/app/aiter-test/csrc/opus_gemm/gen_instances.py:140:    "a8w8_blockscale_bpreshuffle_singlebuf": ("fp8_t", "fp8_t"),
+/app/aiter-test/csrc/opus_gemm/gen_instances.py:146:A8W8_TUNE_TAGS = {"a8w8_blockscale_bpreshuffle_singlebuf"}
+/app/aiter-test/csrc/opus_gemm/codegen/gen_instances_gfx942.py:51:_GFX942_A8W8_TAGS = ("a8w8_blockscale_bpreshuffle_singlebuf",)
+/app/aiter-test/csrc/opus_gemm/codegen/gen_instances_gfx942.py:74:    "a8w8_blockscale_bpreshuffle_singlebuf": "gfx942/a8w8/opus_gemm_pipeline_a8w8_blockscale_bpreshuffle.cuh",
+/app/aiter-test/csrc/opus_gemm/codegen/gen_instances_gfx942.py:89:    "a8w8_blockscale_bpreshuffle_singlebuf": "gfx942/a8w8/opus_gemm_traits_a8w8_blockscale_bpreshuffle.cuh",
+/app/aiter-test/csrc/opus_gemm/codegen/gen_instances_gfx942.py:94:    "a8w8_blockscale_bpreshuffle_singlebuf": "opus_gemm_a8w8_blockscale_bpreshuffle_traits_gfx942",
+/app/aiter-test/csrc/opus_gemm/codegen/gen_instances_gfx942.py:98:    "a8w8_blockscale_bpreshuffle_singlebuf": "opus_gemm_a8w8_blockscale_bpreshuffle_kargs_gfx942",
+/app/aiter-test/csrc/opus_gemm/codegen/gen_instances_gfx942.py:109:    "a8w8_blockscale_bpreshuffle_singlebuf": "gemm_a8w8_blockscale_bpreshuffle_singlebuf_kernel_gfx942",
+/app/aiter-test/csrc/opus_gemm/codegen/gen_instances_gfx942.py:873:def gen_a8w8_blockscale_bpreshuffle_gfx942_instance(
+/app/aiter-test/csrc/opus_gemm/codegen/gen_instances_gfx942.py:896:    info = _validate_a8w8_blockscale_bpreshuffle_gfx942(k)
+/app/aiter-test/csrc/opus_gemm/codegen/gen_instances_gfx942.py:1018:    register_emit("gfx942", _tag, gen_a8w8_blockscale_bpreshuffle_gfx942_instance)
+/app/aiter-test/csrc/opus_gemm/codegen/gen_instances_gfx942.py:1049:def _validate_a8w8_blockscale_bpreshuffle_gfx942(k: OpusGemmInstance):
+/app/aiter-test/csrc/ck_gemm_a8w8_blockscale_bpreshuffle/include/gemm_a8w8_blockscale_bpreshuffle.h:7:torch::Tensor gemm_a8w8_blockscale_bpreshuffle(
+/app/aiter-test/csrc/ck_gemm_a8w8_blockscale_bpreshuffle/include/gemm_a8w8_blockscale_bpreshuffle.h:15:torch::Tensor gemm_a8w8_blockscale_bpreshuffle_tune(
+/app/aiter-test/csrc/ck_gemm_a8w8_blockscale_bpreshuffle/include/gemm_a8w8_blockscale_bpreshuffle_common.cuh:23:#include "ck/tensor_operation/gpu/device/impl/device_gemm_multiple_d_xdl_cshuffle_v3_blockscale_bpreshuffle.hpp"
+/app/aiter-test/csrc/ck_gemm_a8w8_blockscale_bpreshuffle/include/gemm_a8w8_blockscale_bpreshuffle_common.cuh:118:__forceinline__ torch::Tensor gemm_a8w8_blockscale_bpreshuffle_impl(torch::Tensor& XQ,
+/app/aiter-test/csrc/ck_gemm_a8w8_blockscale_bpreshuffle/gemm_a8w8_blockscale_bpreshuffle_common.py:34:                "a8w8_blockscale_bpreshuffle",
+/app/aiter-test/csrc/ck_gemm_a8w8_blockscale_bpreshuffle/gemm_a8w8_blockscale_bpreshuffle.cu:10:#include "gemm_a8w8_blockscale_bpreshuffle_common.cuh"
+/app/aiter-test/csrc/ck_gemm_a8w8_blockscale_bpreshuffle/gemm_a8w8_blockscale_bpreshuffle.cu:11:#include "gemm_a8w8_blockscale_bpreshuffle_lookup.h"
+/app/aiter-test/csrc/ck_gemm_a8w8_blockscale_bpreshuffle/gemm_a8w8_blockscale_bpreshuffle.cu:12:#include "gemm_a8w8_blockscale_bpreshuffle_manifest.h"
+/app/aiter-test/csrc/ck_gemm_a8w8_blockscale_bpreshuffle/gemm_a8w8_blockscale_bpreshuffle.cu:26:BlockwiseKernel blockscale_bpreshuffle_dispatch(const std::string& kernelName)
+/app/aiter-test/csrc/ck_gemm_a8w8_blockscale_bpreshuffle/gemm_a8w8_blockscale_bpreshuffle.cu:39:            static_assert(false, "blockscale_bpreshuffle_dispatch used with unsupported dtype!");
+/app/aiter-test/csrc/ck_gemm_a8w8_blockscale_bpreshuffle/gemm_a8w8_blockscale_bpreshuffle.cu:51:                    "gemm_a8w8_blockscale_bpreshuffle kernel '",
+/app/aiter-test/csrc/ck_gemm_a8w8_blockscale_bpreshuffle/gemm_a8w8_blockscale_bpreshuffle.cu:55:                    "from aiter/configs/a8w8_blockscale_bpreshuffle_tuned_gemm.csv) and try "
+/app/aiter-test/csrc/ck_gemm_a8w8_blockscale_bpreshuffle/gemm_a8w8_blockscale_bpreshuffle.cu:60:    return a8w8_blockscale_bpreshuffle_1x128x128_256x64x64x128_16x16_16x16_8x32x1_8x32x1_1x32x1x8_8_2x1_intrawave_v1<
+/app/aiter-test/csrc/ck_gemm_a8w8_blockscale_bpreshuffle/gemm_a8w8_blockscale_bpreshuffle.cu:65:torch::Tensor gemm_a8w8_blockscale_bpreshuffle(torch::Tensor& XQ,
+/app/aiter-test/csrc/ck_gemm_a8w8_blockscale_bpreshuffle/gemm_a8w8_blockscale_bpreshuffle.cu:77:        blockscale_bpreshuffle_dispatch<F32, F16>(kernelName)(XQ, WQ, x_scale, w_scale, Y);
+/app/aiter-test/csrc/ck_gemm_a8w8_blockscale_bpreshuffle/gemm_a8w8_blockscale_bpreshuffle.cu:81:        blockscale_bpreshuffle_dispatch<F32, B16>(kernelName)(XQ, WQ, x_scale, w_scale, Y);
+/app/aiter-test/csrc/ck_gemm_a8w8_blockscale_bpreshuffle/README.md:7:2. Add GEMM shapes in `aiter/configs/a8w8_blockscale_bpreshuffle_untuned_gemm.csv`
+/app/aiter-test/csrc/ck_gemm_a8w8_blockscale_bpreshuffle/README.md:13:Run the following cmd to start tuning, please wait a few minutes as it will build gemm_a8w8_blockscale_bpreshuffle_tune via jit:
+/app/aiter-test/csrc/ck_gemm_a8w8_blockscale_bpreshuffle/README.md:14:`python3 csrc/ck_gemm_a8w8_blockscale/gemm_a8w8_blockscale_tune.py --preshuffle -i aiter/configs/a8w8_blockscale_bpreshuffle_untuned_gemm.csv -o aiter/configs/a8w8_blockscale_bpreshuffle_tuned_gemm.csv`
+/app/aiter-test/csrc/ck_gemm_a8w8_blockscale_bpreshuffle/README.md:15:You can find the results of the tuning in `aiter/configs/a8w8_blockscale_bpreshuffle_tuned_gemm.csv`, like this:
+/app/aiter-test/csrc/ck_gemm_a8w8_blockscale_bpreshuffle/README.md:23:Test the performance, modify the test instance in `op_tests/test_gemm_a8w8_blockscale.py` and run it, please wait a few minutes as it will build gemm_a8w8_blockscale_bpreshuffle tuned kernels in `aiter/configs/a8w8_blockscale_bpreshuffle_tuned_gemm.csv` via jit:
+/app/aiter-test/csrc/ck_gemm_a8w8_blockscale_bpreshuffle/README.md:25:If you have built gemm_a8w8 kernels before tuning new GEMM shapes, please add `AITER_REBUILD=1` before your test cmd, such as `AITER_REBUILD=1 python3 op_tests/test_gemm_a8w8_blockscale.py`. It will rebuild kernels from `AITER_CONFIG_GEMM_A8W8_BLOCKSCALE_BPRESHUFFLE`, the default one will be results merged from `aiter/configs/a8w8_blockscale_bpreshuffle_tuned_gemm.csv` and tuned fmoe csv under `aiter/configs/model_configs/xx_a8w8_blockscale_bpreshuffle_tuned_gemm_xx.csv`, the merged result is store in `/tmp/aiter_configs/a8w8_blockscale_bpreshuffle_tuned_gemm.csv`.
+/app/aiter-test/csrc/ck_gemm_a8w8_blockscale_bpreshuffle/README.md:40:--profile_file aiter/configs/profile_a8w8_blockscale_bpreshuffle_all.csv
+/app/aiter-test/csrc/ck_gemm_a8w8_blockscale_bpreshuffle/README.md:132:python3 csrc/ck_gemm_a8w8_blockscale_bpreshuffle/gemm_a8w8_blockscale_bpreshuffle_tune.py \
+/app/aiter-test/csrc/ck_gemm_a8w8_blockscale_bpreshuffle/README.md:133:  --run_config aiter/configs/a8w8_blockscale_bpreshuffle_tuned_gemm.csv
+/app/aiter-test/csrc/ck_gemm_a8w8_blockscale_bpreshuffle/README.md:136:python3 csrc/ck_gemm_a8w8_blockscale_bpreshuffle/gemm_a8w8_blockscale_bpreshuffle_tune.py \
+/app/aiter-test/csrc/ck_gemm_a8w8_blockscale_bpreshuffle/README.md:137:  -i aiter/configs/a8w8_blockscale_bpreshuffle_untuned_gemm.csv --run_config
+/app/aiter-test/csrc/ck_gemm_a8w8_blockscale_bpreshuffle/gen_instances.py:26:from gemm_a8w8_blockscale_bpreshuffle_common import (  # noqa: E402
+/app/aiter-test/csrc/ck_gemm_a8w8_blockscale_bpreshuffle/gen_instances.py:35:a8w8_blockscale_bpreshuffle_gemm instance gen
+/app/aiter-test/csrc/ck_gemm_a8w8_blockscale_bpreshuffle/gen_instances.py:40:class gemm_a8w8_blockscale_bpreshuffle_codegen:
+/app/aiter-test/csrc/ck_gemm_a8w8_blockscale_bpreshuffle/gen_instances.py:51:#include "gemm_a8w8_blockscale_bpreshuffle_common.cuh"
+/app/aiter-test/csrc/ck_gemm_a8w8_blockscale_bpreshuffle/gen_instances.py:104:        return gemm_a8w8_blockscale_bpreshuffle_impl<DDataType, EDataType, DeviceGemmInstance>(XQ, WQ, x_scale, w_scale, Y);
+/app/aiter-test/csrc/ck_gemm_a8w8_blockscale_bpreshuffle/gen_instances.py:165:          in gemm_a8w8_blockscale_bpreshuffle.cu.
+/app/aiter-test/csrc/ck_gemm_a8w8_blockscale_bpreshuffle/gen_instances.py:168:            self.working_path, "gemm_a8w8_blockscale_bpreshuffle_lookup.h"
+/app/aiter-test/csrc/ck_gemm_a8w8_blockscale_bpreshuffle/gen_instances.py:253:                self.working_path, "gemm_a8w8_blockscale_bpreshuffle_manifest.h"
+/app/aiter-test/csrc/ck_gemm_a8w8_blockscale_bpreshuffle/gen_instances.py:307:        default="aiter/configs/a8w8_blockscale_bpreshuffle_tuned_gemm.csv",
+/app/aiter-test/csrc/ck_gemm_a8w8_blockscale_bpreshuffle/gen_instances.py:335:    codegen = gemm_a8w8_blockscale_bpreshuffle_codegen(args.working_path, args.tune)
+/app/aiter-test/csrc/ck_gemm_a8w8_blockscale_bpreshuffle/gemm_a8w8_blockscale_bpreshuffle_tune.cu:4:#include "gemm_a8w8_blockscale_bpreshuffle_common.cuh"
+/app/aiter-test/csrc/ck_gemm_a8w8_blockscale_bpreshuffle/gemm_a8w8_blockscale_bpreshuffle_tune.cu:5:#include "gemm_a8w8_blockscale_bpreshuffle_lookup.h"
+/app/aiter-test/csrc/ck_gemm_a8w8_blockscale_bpreshuffle/gemm_a8w8_blockscale_bpreshuffle_tune.cu:6:#include "gemm_a8w8_blockscale_bpreshuffle_manifest.h"
+/app/aiter-test/csrc/ck_gemm_a8w8_blockscale_bpreshuffle/gemm_a8w8_blockscale_bpreshuffle_tune.cu:58:torch::Tensor gemm_a8w8_blockscale_bpreshuffle_tune(torch::Tensor& XQ,
+/app/aiter-test/aiter/ops/gemm_op_a8w8.py:202:def gemm_a8w8_blockscale_bpreshuffle_flydsl(
+/app/aiter-test/aiter/ops/gemm_op_a8w8.py:213:            "gemm_a8w8_blockscale_bpreshuffle_flydsl is only supported on gfx1250"
+/app/aiter-test/aiter/ops/gemm_op_a8w8.py:215:    from .flydsl.blockscale_bpreshuffle_gemm_gfx1250 import (
+/app/aiter-test/aiter/ops/gemm_op_a8w8.py:216:        run_gemm_a8w8_blockscale_bpreshuffle_gfx1250,
+/app/aiter-test/aiter/ops/gemm_op_a8w8.py:219:    return run_gemm_a8w8_blockscale_bpreshuffle_gfx1250(
+/app/aiter-test/aiter/ops/gemm_op_a8w8.py:311:    "module_gemm_a8w8_blockscale_bpreshuffle",
+/app/aiter-test/aiter/ops/gemm_op_a8w8.py:312:    fc_name="gemm_a8w8_blockscale_bpreshuffle",
+/app/aiter-test/aiter/ops/gemm_op_a8w8.py:315:def gemm_a8w8_blockscale_bpreshuffle_ck(
+/app/aiter-test/aiter/ops/gemm_op_a8w8.py:326:    "module_gemm_a8w8_blockscale_bpreshuffle_cktile",
+/app/aiter-test/aiter/ops/gemm_op_a8w8.py:327:    fc_name="gemm_a8w8_blockscale_bpreshuffle_cktile",
+/app/aiter-test/aiter/ops/gemm_op_a8w8.py:330:def gemm_a8w8_blockscale_bpreshuffle_cktile(
+/app/aiter-test/aiter/ops/gemm_op_a8w8.py:365:    "module_gemm_a8w8_blockscale_bpreshuffle_asm",
+/app/aiter-test/aiter/ops/gemm_op_a8w8.py:366:    fc_name="gemm_a8w8_blockscale_bpreshuffle_asm",
+/app/aiter-test/aiter/ops/gemm_op_a8w8.py:369:def _gemm_a8w8_blockscale_bpreshuffle_asm(
+/app/aiter-test/aiter/ops/gemm_op_a8w8.py:396:def gemm_a8w8_blockscale_bpreshuffle_asm(
+/app/aiter-test/aiter/ops/gemm_op_a8w8.py:410:    _gemm_a8w8_blockscale_bpreshuffle_asm(
+/app/aiter-test/aiter/ops/gemm_op_a8w8.py:884:def gemm_a8w8_blockscale_bpreshuffle_fake(
+/app/aiter-test/aiter/ops/gemm_op_a8w8.py:894:@torch_compile_guard(gen_fake=gemm_a8w8_blockscale_bpreshuffle_fake)
+/app/aiter-test/aiter/ops/gemm_op_a8w8.py:895:def gemm_a8w8_blockscale_bpreshuffle(
+/app/aiter-test/aiter/ops/gemm_op_a8w8.py:929:            return gemm_a8w8_blockscale_bpreshuffle_flydsl(
+/app/aiter-test/aiter/ops/gemm_op_a8w8.py:933:        from ..ops.flydsl.gemm_tune.flydsl_gemm_a8w8_blockscale_bpreshuffle_wmma_common import (
+/app/aiter-test/aiter/ops/gemm_op_a8w8.py:945:                f"[gfx1250] gemm_a8w8_blockscale_bpreshuffle untuned "
+/app/aiter-test/aiter/ops/gemm_op_a8w8.py:948:            return gemm_a8w8_blockscale_bpreshuffle_flydsl(
+/app/aiter-test/aiter/ops/gemm_op_a8w8.py:1022:            return gemm_a8w8_blockscale_bpreshuffle_cktile(
+/app/aiter-test/aiter/ops/gemm_op_a8w8.py:1026:            return gemm_a8w8_blockscale_bpreshuffle_ck(
+/app/aiter-test/aiter/ops/gemm_op_a8w8.py:1031:            return gemm_a8w8_blockscale_bpreshuffle_asm(
+/app/aiter-test/aiter/ops/gemm_op_a8w8.py:1037:                opus_gemm_a8w8_blockscale_bpreshuffle_tune,
+/app/aiter-test/aiter/ops/gemm_op_a8w8.py:1040:            return opus_gemm_a8w8_blockscale_bpreshuffle_tune(
+/app/aiter-test/aiter/ops/gemm_op_a8w8.py:1044:            return gemm_a8w8_blockscale_bpreshuffle_flydsl(
+/app/aiter-test/aiter/ops/gemm_op_a8w8.py:1048:        return gemm_a8w8_blockscale_bpreshuffle_ck(XQ, WQ, x_scale, w_scale, Y)
+/app/aiter-test/aiter/ops/gemm_op_a8w8.py:1051:            f"gemm_a8w8_blockscale_bpreshuffle failed for shape M={m}, N={n}, K={k}, "
+/app/aiter-test/aiter/ops/gemm_op_a8w8.py:1160:    "module_gemm_a8w8_blockscale_bpreshuffle_cktile_tune",
+/app/aiter-test/aiter/ops/gemm_op_a8w8.py:1161:    fc_name="gemm_a8w8_blockscale_bpreshuffle_cktile_tune",
+/app/aiter-test/aiter/ops/gemm_op_a8w8.py:1164:def gemm_a8w8_blockscale_bpreshuffle_cktile_tune(
+/app/aiter-test/aiter/ops/gemm_op_a8w8.py:1177:    "module_gemm_a8w8_blockscale_bpreshuffle_tune",
+/app/aiter-test/aiter/ops/gemm_op_a8w8.py:1178:    fc_name="gemm_a8w8_blockscale_bpreshuffle_tune",
+/app/aiter-test/aiter/ops/gemm_op_a8w8.py:1181:def gemm_a8w8_blockscale_bpreshuffle_tune(
+/app/aiter-test/aiter/ops/flydsl/blockscale_bpreshuffle_gemm_gfx1250.py:203:    r"^flydsl_blockscale_bpreshuffle_wmma_"
+/app/aiter-test/aiter/ops/flydsl/blockscale_bpreshuffle_gemm_gfx1250.py:212:    """Parse a flydsl_blockscale_bpreshuffle_wmma_ kernelName, or return None."""
+/app/aiter-test/aiter/ops/flydsl/blockscale_bpreshuffle_gemm_gfx1250.py:217:def run_gemm_a8w8_blockscale_bpreshuffle_gfx1250(
+/app/aiter-test/aiter/ops/flydsl/gemm_tune/flydsl_gemm_a8w8_blockscale_bpreshuffle_wmma_common.py:12:NAME_PREFIX = "flydsl_blockscale_bpreshuffle_wmma"
+/app/aiter-test/aiter/ops/opus/gemm_op_a8w8.py:11:def _gen_opus_a8w8_blockscale_bpreshuffle_fake_tensors(
+/app/aiter-test/aiter/ops/opus/gemm_op_a8w8.py:24:    fc_name="opus_gemm_a8w8_blockscale_bpreshuffle_tune",
+/app/aiter-test/aiter/ops/opus/gemm_op_a8w8.py:25:    gen_fake=_gen_opus_a8w8_blockscale_bpreshuffle_fake_tensors,
+/app/aiter-test/aiter/ops/opus/gemm_op_a8w8.py:28:def _opus_gemm_a8w8_blockscale_bpreshuffle_tune_raw(
+/app/aiter-test/aiter/ops/opus/gemm_op_a8w8.py:38:def opus_gemm_a8w8_blockscale_bpreshuffle_tune(
+/app/aiter-test/aiter/ops/opus/gemm_op_a8w8.py:51:    _opus_gemm_a8w8_blockscale_bpreshuffle_tune_raw(
+/app/aiter-test/aiter/ops/opus/gemm_op_a8w8.py:57:__all__ = ["opus_gemm_a8w8_blockscale_bpreshuffle_tune"]
+/app/aiter-test/aiter/ops/opus/__init__.py:46:    def opus_gemm_a8w8_blockscale_bpreshuffle_tune(*args, **kwargs):
+/app/aiter-test/aiter/ops/opus/__init__.py:48:            opus_gemm_a8w8_blockscale_bpreshuffle_tune as _impl,
+/app/aiter-test/aiter/ops/opus/__init__.py:58:    opus_gemm_a8w8_blockscale_bpreshuffle_tune = _make_unsupported_arch_stub(
+/app/aiter-test/aiter/ops/opus/__init__.py:59:        "opus_gemm_a8w8_blockscale_bpreshuffle_tune"
+/app/aiter-test/aiter/ops/opus/__init__.py:66:    "opus_gemm_a8w8_blockscale_bpreshuffle_tune",

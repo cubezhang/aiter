@@ -1,0 +1,38 @@
+*** Begin Patch
+*** Update File: aiter/dist/communication_op.py
+@@
+-from typing import Any, Dict, Optional, Union
++from typing import Any, Dict, Optional, Union
++
++import os
+@@
+ def _assert_has_custom_group():
+@@
+     return (
+         "custom_group_config is not set — use tensor_model_parallel_all_reduce() "
+         "or other standard parallel group operations instead of custom_all_reduce()"
+     )
++
++
++def _use_new_ar_default() -> bool:
++    value = os.environ.get("AITER_TP_ALLREDUCE_USE_NEW", "1").strip().lower()
++    return value not in {"0", "false", "off", "no"}
++
++
++def _resolve_use_new(use_new: Optional[bool] = None) -> bool:
++    return _use_new_ar_default() if use_new is None else use_new
+@@
+ def tensor_model_parallel_all_reduce(
+     input_: torch.Tensor,
+-    use_new: bool = True,
++    use_new: Optional[bool] = None,
+     open_fp8_quant: bool = False,
+     prefill_support: bool = False,
+ ) -> torch.Tensor:
+     """All-reduce the input tensor across model parallel group."""
+     _assert_no_custom_group("tensor_model_parallel_all_reduce")
+-    return get_tp_group().all_reduce(input_, use_new, open_fp8_quant, prefill_support)
++    return get_tp_group().all_reduce(
++        input_, _resolve_use_new(use_new), open_fp8_quant, prefill_support
++    )
+*** End Patch

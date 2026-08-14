@@ -1,0 +1,41 @@
+            )
+        return super().run(args, fast_mode)
+
+    def _clear_op_caches(self):
+        from aiter.ops import gemm_op_a8w8 as _op
+
+        _op.get_CKGEMM_config.cache_clear()
+        _op._CKGEMM_CONFIG_CACHE.clear()
+        _op._CKGEMM_HAS_GFX.clear()
+
+    def _setup_specific_arguments(self):
+        """
+        Setup specific arguments for the tuner.
+        """
+
+        self.parser.add_argument(
+            "--libtype",
+            type=str,
+            default="all",
+            choices=["ck", "cktile", "asm", "opus", "all", "both"],
+            required=False,
+            help="CK gemm a8w8 blockscale type to tune: ck, cktile, asm, opus, both or all (covers all supported backends across standard/preshuffleB modes)",
+        )
+
+        self.parser.add_argument(
+            "--preshuffle",
+            action="store_true",
+            help="Enable B-matrix preshuffle for CK gemm a8w8 blockscale",
+        )
+
+        self.parser.add_argument(
+            "--blockPerCu",
+            nargs="+",
+            type=int,
+            default=list(range(1, BLOCK_PER_CU_MAX + 1)),
+            help="List of BlockPerCu values to tune (CKTile only)",
+        )
+
+    def calculate(self, results, bpes=(1, 1, 2)):
+        """
+        Calculate performance metrics based on results.

@@ -1,0 +1,33 @@
+[aiter] import [module_aiter_core] under /app/aiter-test/aiter/jit/module_aiter_core.so
+Not exist tuned file: /work/experiments/e135_bpreshuffle_tuned.csv
+      gfx  cu_num   M     N     K              q_dtype_w
+0  gfx942     304  37  1536  4096  torch.float8_e4m3fnuz
+1  gfx942     304  37  4096  4096  torch.float8_e4m3fnuz
+2  gfx942     304  37  8192  1024  torch.float8_e4m3fnuz
+Compare candidate CSV will be written to /tmp/aiter_compare/e135_bpreshuffle_tuned.1.candidate.csv
+=== Running pre-tune benchmark (batch 1/1) ===
+[aiter] merge tuned file under model_configs/ and configs/ /app/aiter-test/aiter/configs/a8w8_bpreshuffle_tuned_gemm.csv:/app/aiter-test/aiter/configs/model_configs/glm5_a8w8_bpreshuffle_tuned_gemm.csv:/app/aiter-test/aiter/configs/model_configs/a8w8_bpreshuffle_tuned_gemm_minimax_m3.csv:/app/aiter-test/aiter/configs/model_configs/a8w8_bpreshuffle_tuned_gemm_glm5.2.csv:/app/aiter-test/aiter/configs/model_configs/a8w8_bpreshuffle_tuned_gemm_qwen3_5_397b_a17b_mxfp4_attnfp8.csv:/app/aiter-test/aiter/configs/model_configs/a8w8_bpreshuffle_tuned_gemm_glm47.csv:/app/aiter-test/aiter/configs/model_configs/dsv3_a8w8_bpreshuffle_tuned_gemm.csv
+[aiter] shape is M:37, N:1536, K:4096, q_dtype_w:torch.float8_e4m3fnuz, not found tuned config in /tmp/aiter_configs/a8w8_bpreshuffle_tuned_gemm.csv, will use default config!
+[aiter] import [module_gemm_a8w8_bpreshuffle] under /app/aiter-test/aiter/jit/module_gemm_a8w8_bpreshuffle.so
+/opt/venv/lib/python3.12/site-packages/torch/profiler/profiler.py:217: UserWarning: Warning: Profiler clears events at the end of each cycle.Only events from the current cycle will be reported.To keep events across cycles, set acc_events=True.
+  _warn_once(
+[W804 02:33:54.274871348 collection.cpp:1148] Warning: ROCTracer produced duplicate flow start: 15 (function operator())
+[aiter] run_config (37, 1536, 4096, torch.float8_e4m3fnuz)[checkAllclose atol=0.01 rtol=0.01 [32mpassed~[0m]
+[aiter] shape is M:37, N:4096, K:4096, q_dtype_w:torch.float8_e4m3fnuz, not found tuned config in /tmp/aiter_configs/a8w8_bpreshuffle_tuned_gemm.csv, will use default config!
+[aiter] run_config (37, 4096, 4096, torch.float8_e4m3fnuz)[checkAllclose atol=0.01 rtol=0.01 [32mpassed~[0m]
+[aiter] shape is M:37, N:8192, K:1024, q_dtype_w:torch.float8_e4m3fnuz, not found tuned config in /tmp/aiter_configs/a8w8_bpreshuffle_tuned_gemm.csv, will use default config!
+[aiter] run_config (37, 8192, 1024, torch.float8_e4m3fnuz)[checkAllclose atol=0.01 rtol=0.01 [32mpassed~[0m]
+[aiter] tune result is none or all shape is tuned in /work/experiments/e135_bpreshuffle_tuned.csv!
+[aiter] ============= Tuning results Summary: ==============
+[aiter] Tuning Finished. tune 0 shapes, total tuning time is 2.5879 seconds
+[aiter] Successfully tuned shapes:
+[aiter] Failed shapes:
+Empty DataFrame
+Columns: [gfx, cu_num, M, N, K, q_dtype_w, libtype, kernelId, splitK, us, kernelName, tflops, bw, errRatio]
+Index: []
+[aiter] untuned shapes:
+[aiter] [91m[Tuning not Finished][0m some shapes are not tuned or all failed, please check the result file or tune with --profile_file to get more details
+      gfx  cu_num   M     N     K              q_dtype_w
+0  gfx942     304  37  1536  4096  torch.float8_e4m3fnuz
+1  gfx942     304  37  4096  4096  torch.float8_e4m3fnuz
+2  gfx942     304  37  8192  1024  torch.float8_e4m3fnuz

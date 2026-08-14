@@ -1,0 +1,2 @@
+/mi325_dsv4_e159_dual true rocm/atom-dev:nightly_202607271535
+/mi325_dsv4_e159_router true rocm/atom-dev:nightly_202607271535

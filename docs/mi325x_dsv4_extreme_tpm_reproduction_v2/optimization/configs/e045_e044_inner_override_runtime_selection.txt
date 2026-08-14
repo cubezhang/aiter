@@ -1,0 +1,20 @@
+4492:[aiter] shape is M:32, N:4096, K:4096, not found tuned config in /work/experiments/e044_bpreshuffle_tuned.csv, will use default config!
+4493:[aiter] shape is M:32, N:4096, K:4096, not found tuned config in /work/experiments/e044_bpreshuffle_tuned.csv, will use default config!
+4494:[aiter] shape is M:32, N:4096, K:4096, not found tuned config in /work/experiments/e044_bpreshuffle_tuned.csv, will use default config!
+4495:[aiter] shape is M:8, N:1536, K:4096, not found tuned config in /work/experiments/e044_bpreshuffle_tuned.csv, will use default config!
+4496:[aiter] shape is M:32, N:4096, K:4096, not found tuned config in /work/experiments/e044_bpreshuffle_tuned.csv, will use default config!
+4497:[aiter] shape is M:8, N:1536, K:4096, not found tuned config in /work/experiments/e044_bpreshuffle_tuned.csv, will use default config!
+4498:[aiter] shape is M:8, N:1536, K:4096, not found tuned config in /work/experiments/e044_bpreshuffle_tuned.csv, will use default config!
+4499:[aiter] shape is M:8, N:8192, K:1024, not found tuned config in /work/experiments/e044_bpreshuffle_tuned.csv, will use default config!
+4500:[aiter] shape is M:8, N:8192, K:1024, not found tuned config in /work/experiments/e044_bpreshuffle_tuned.csv, will use default config!
+4501:[aiter] shape is M:8, N:8192, K:1024, not found tuned config in /work/experiments/e044_bpreshuffle_tuned.csv, will use default config!
+4502:[aiter] shape is M:8, N:1536, K:4096, not found tuned config in /work/experiments/e044_bpreshuffle_tuned.csv, will use default config!
+4503:[aiter] shape is M:8, N:8192, K:1024, not found tuned config in /work/experiments/e044_bpreshuffle_tuned.csv, will use default config!
+4504:[aiter] shape is M:8, N:4096, K:2048, not found tuned config in /work/experiments/e044_bpreshuffle_tuned.csv, will use default config!
+4505:[aiter] shape is M:8, N:4096, K:2048, not found tuned config in /work/experiments/e044_bpreshuffle_tuned.csv, will use default config!
+4506:[aiter] shape is M:8, N:4096, K:2048, not found tuned config in /work/experiments/e044_bpreshuffle_tuned.csv, will use default config!
+4507:[aiter] shape is M:8, N:256, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using skinny solution:2
+4508:[aiter] shape is M:8, N:256, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using skinny solution:2
+4509:[aiter] shape is M:8, N:256, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using skinny solution:2
+4510:[aiter] shape is M:8, N:4096, K:2048, not found tuned config in /work/experiments/e044_bpreshuffle_tuned.csv, will use default config!
+4511:[aiter] shape is M:8, N:256, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using skinny solution:2

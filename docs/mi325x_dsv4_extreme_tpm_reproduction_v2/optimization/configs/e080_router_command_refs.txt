@@ -1,0 +1,9 @@
+7:ROUTER_SOURCE=/data/models/mi325_dsv4_reuse_tuning_20260801_103501/08_dual_tp4/router.py
+12:for port in 18000 18001 18080; do
+15:for name in mi325_dsv4_e004_dual mi325_dsv4_e004_router; do
+69:docker run -d --name mi325_dsv4_e004_router --network host --entrypoint bash \
+70:  -v "$ROUTER_SOURCE":/router.py:ro \
+73:  "$IMAGE" -lc 'exec python -m uvicorn router:app --app-dir / --host 127.0.0.1 --port 18080 --no-access-log' \
+74:  > "$RUN_ROOT/logs/e004_router_container_id.txt"
+76:  if curl -fsS --max-time 3 http://127.0.0.1:18080/router/status > "$RUN_ROOT/experiments/e004_router_status_start.json"; then
+77:    docker inspect mi325_dsv4_e004_dual mi325_dsv4_e004_router > "$RUN_ROOT/experiments/e004_container_inspect.json"

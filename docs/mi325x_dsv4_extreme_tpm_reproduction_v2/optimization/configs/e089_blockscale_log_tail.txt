@@ -1,0 +1,603 @@
+==> logs/e004_18000_server.log <==
+[aiter] shape is M:80, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:80, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:80, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:80, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:80, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:80, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[atom 15:02:30] Request 22 arrived, input tokens: 4, pending requests: 22
+[aiter] shape is M:80, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:80, N:256, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:80, N:256, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[atom 15:02:30] Request 23 arrived, input tokens: 4, pending requests: 23
+[aiter] shape is M:80, N:256, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[atom 15:02:30] Request 24 arrived, input tokens: 4, pending requests: 24
+[aiter] shape is M:80, N:256, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[atom 15:02:30] Request 25 arrived, input tokens: 4, pending requests: 25
+[atom 15:02:30] Request 26 arrived, input tokens: 4, pending requests: 26
+[aiter] shape is M:80, N:2048, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:80, N:2048, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:80, N:512, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:80, N:512, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:80, N:2048, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[atom 15:02:30] Request 27 arrived, input tokens: 4, pending requests: 27
+[aiter] shape is M:80, N:512, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:80, N:64, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:80, N:2048, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[atom 15:02:30] Request 28 arrived, input tokens: 4, pending requests: 28
+[aiter] shape is M:80, N:64, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:80, N:512, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:80, N:64, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[atom 15:02:30] Request 29 arrived, input tokens: 4, pending requests: 29
+[aiter] shape is M:80, N:64, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[atom 15:02:30] Request 30 arrived, input tokens: 4, pending requests: 30
+[atom 15:02:30] Request 31 arrived, input tokens: 4, pending requests: 31
+[atom 15:02:30] Request 32 arrived, input tokens: 4, pending requests: 32
+[atom 15:02:30] Request 33 arrived, input tokens: 4, pending requests: 33
+[atom 15:02:30] Request 34 arrived, input tokens: 4, pending requests: 34
+[atom 15:02:30] Request 35 arrived, input tokens: 4, pending requests: 35
+[atom 15:02:30] Request 36 arrived, input tokens: 4, pending requests: 36
+[atom 15:02:30] Request 37 arrived, input tokens: 4, pending requests: 37
+[atom 15:02:30] Request 38 arrived, input tokens: 4, pending requests: 38
+[atom 15:02:30] Request 39 arrived, input tokens: 4, pending requests: 39
+[atom 15:02:30] Request 40 arrived, input tokens: 4, pending requests: 40
+[atom 15:02:30] Request 41 arrived, input tokens: 4, pending requests: 41
+[atom 15:02:30] Request 42 arrived, input tokens: 4, pending requests: 42
+[atom 15:02:30] Request 43 arrived, input tokens: 4, pending requests: 43
+[atom 15:02:30] Request 44 arrived, input tokens: 4, pending requests: 44
+[atom 15:02:30] Request 45 arrived, input tokens: 4, pending requests: 45
+[atom 15:02:30] Request 46 arrived, input tokens: 4, pending requests: 46
+[atom 15:02:30] Request 47 arrived, input tokens: 4, pending requests: 47
+[atom 15:02:30] Request 48 arrived, input tokens: 4, pending requests: 48
+[aiter] shape is M:80, N:1024, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:80, N:1024, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:80, N:1024, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:80, N:1024, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:20, N:32320, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:320, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:80, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:20, N:32320, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:320, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:80, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:20, N:32320, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:320, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:80, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:20, N:32320, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:320, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:80, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:20, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:20, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:20, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:20, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:20, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:20, N:256, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:20, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:20, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:20, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:20, N:256, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:20, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:20, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:20, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:20, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:20, N:256, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[atom 15:02:30] Scheduled prefill batch: 27 reqs, 108 new tokens (cached: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], new: [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4]), req_ids: (22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48)
+[atom 15:02:30] Engine Core: output send 1 reqs
+[aiter] shape is M:108, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:108, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:108, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:108, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:108, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:108, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:20, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:20, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:20, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:20, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:20, N:256, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:108, N:256, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:108, N:256, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:108, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:108, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:108, N:2048, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:108, N:512, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:108, N:256, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:108, N:64, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:108, N:2048, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:108, N:512, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:108, N:64, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:108, N:2048, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:108, N:512, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:108, N:64, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:108, N:256, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:108, N:2048, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:108, N:512, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:108, N:64, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[atom 15:02:30] Request 49 arrived, input tokens: 4, pending requests: 49
+[atom 15:02:30] Request 50 arrived, input tokens: 4, pending requests: 50
+[atom 15:02:30] Request 51 arrived, input tokens: 4, pending requests: 50
+[atom 15:02:30] Request 52 arrived, input tokens: 4, pending requests: 51
+[atom 15:02:30] Request 53 arrived, input tokens: 4, pending requests: 52
+[atom 15:02:30] Request 54 arrived, input tokens: 4, pending requests: 53
+[atom 15:02:30] Request 55 arrived, input tokens: 4, pending requests: 54
+INFO:     127.0.0.1:58156 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 15:02:30] Request 56 arrived, input tokens: 4, pending requests: 55
+[atom 15:02:30] Request 57 arrived, input tokens: 4, pending requests: 56
+[atom 15:02:30] Request 58 arrived, input tokens: 4, pending requests: 57
+[atom 15:02:30] Request 59 arrived, input tokens: 4, pending requests: 58
+[atom 15:02:30] Request 60 arrived, input tokens: 4, pending requests: 59
+[atom 15:02:30] Request 61 arrived, input tokens: 4, pending requests: 60
+[atom 15:02:30] Request 62 arrived, input tokens: 4, pending requests: 61
+[atom 15:02:30] Request 63 arrived, input tokens: 4, pending requests: 62
+[atom 15:02:30] Request 64 arrived, input tokens: 4, pending requests: 63
+[aiter] shape is M:108, N:1024, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:108, N:1024, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:108, N:1024, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:108, N:1024, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:27, N:32320, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:432, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:108, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:27, N:32320, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:27, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:27, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:27, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:432, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:108, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:27, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:27, N:256, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:27, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:27, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:27, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:27, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:27, N:256, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:27, N:32320, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:432, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:108, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:27, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:27, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:27, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:27, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:27, N:256, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[atom 15:02:30] Scheduled prefill batch: 16 reqs, 64 new tokens (cached: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], new: [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4]), req_ids: (49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64)
+[atom 15:02:30] Engine Core: output send 20 reqs
+INFO:     127.0.0.1:58158 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58172 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58176 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58178 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58180 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58192 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58208 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58218 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58230 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58236 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58242 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58256 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58268 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58270 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58280 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58294 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58308 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58324 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58330 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58340 - "POST /v1/completions HTTP/1.1" 200 OK
+[aiter] shape is M:27, N:32320, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:432, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:108, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:64, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:64, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:64, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:64, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:64, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:64, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:64, N:256, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:64, N:256, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:64, N:256, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:27, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:27, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:27, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:27, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:27, N:256, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:64, N:2048, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:64, N:2048, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:64, N:2048, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:64, N:512, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:64, N:512, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:64, N:512, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:64, N:64, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:64, N:64, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:64, N:64, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:64, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:64, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:64, N:256, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:64, N:2048, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:64, N:512, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:64, N:64, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:64, N:1024, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:64, N:1024, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:64, N:1024, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:64, N:1024, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:16, N:32320, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:256, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:64, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:16, N:32320, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:256, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:64, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:16, N:32320, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:256, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:64, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:16, N:32320, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:256, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:64, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:16, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:16, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:16, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:16, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:16, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:16, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:16, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:16, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:16, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:16, N:256, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:16, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:16, N:256, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:16, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:16, N:256, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:16, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:16, N:256, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[atom 15:02:31] Engine Core: output send 27 reqs
+INFO:     127.0.0.1:58348 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58360 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58372 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58388 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58404 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58412 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58426 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58432 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58446 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58450 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58462 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58468 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58484 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58488 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58502 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58516 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58530 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58534 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58542 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58554 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58566 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58570 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58574 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58578 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58592 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58596 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58606 - "POST /v1/completions HTTP/1.1" 200 OK
+[aiter] shape is M:48, N:32320, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:48, N:32320, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:48, N:32320, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:48, N:32320, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:192, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:48, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:192, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:192, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:192, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:48, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:48, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:48, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+INFO:     127.0.0.1:58618 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58620 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58622 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58634 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58650 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58664 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58676 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58682 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58696 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58700 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58702 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58714 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58722 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58726 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 15:02:31] Engine Core: output send 16 reqs
+INFO:     127.0.0.1:58736 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58752 - "POST /v1/completions HTTP/1.1" 200 OK
+
+==> logs/e004_18001_server.log <==
+[aiter] shape is M:3, N:1024, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:3, N:256, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using skinny solution:2
+[aiter] run_1stage = False, xbf16 = False, ksplit = 2 q_type = QuantType.per_1x128 block_m = 16 use_nt = True, estimated_m_per_expert = 0
+[aiter] [fused_moe] using 2stage default for ('gfx942', 304, 4, 4096, 512, 257, 7, 'ActivationType.Silu', 'torch.bfloat16', 'torch.float8_e4m3fnuz', 'torch.float8_e4m3fnuz', 'QuantType.per_1x128', True, False) 
+[aiter] shape is M:3, N:2048, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:3, N:512, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:3, N:64, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using skinny solution:2
+[aiter] shape is M:3, N:1024, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+Capturing bs=1, max_q_len=3: 100%|██████████| 10/10 [00:10<00:00,  1.05it/s]Capturing bs=1, max_q_len=3: 100%|██████████| 10/10 [00:10<00:00,  1.05s/it]
+[aiter] Registering 783 cuda graph addresses
+[aiter] Registering 783 cuda graph addresses
+[aiter] Registering 783 cuda graph addresses
+[aiter] Registering 783 cuda graph addresses
+[atom 15:00:50] CUDA graph capture memory: 10 graphs | pool(reserved)=0.00GB allocated=0.22GB
+[atom 15:00:50] Post-init memory: actual=181.36GB (70.8%), target=212.47GB (83%), reserved=165.08GB, allocated=164.47GB
+[atom 15:00:50] Engine Core: cudagraph capture[1, 2, 4, 8, 16, 24, 32, 48, 64, 128] cost: 11.51 seconds, pool: 0.00GB
+[atom 15:00:50] Engine Core: load model runner success
+[atom 15:00:50] Post-init memory: actual=181.17GB (70.8%), target=212.47GB (83%), reserved=165.08GB, allocated=164.47GB
+[atom 15:00:50] Post-init memory: actual=181.42GB (70.9%), target=212.47GB (83%), reserved=165.08GB, allocated=164.47GB
+[atom 15:00:50] Post-init memory: actual=181.36GB (70.8%), target=212.47GB (83%), reserved=165.08GB, allocated=164.47GB
+[atom 15:00:50] Engine Core: EngineCore fully initialized and ready
+[atom 15:00:50] Engine Core Mgr: DP rank 0 is fully initialized and ready
+[atom 15:00:50] Engine Core Mgr: All EngineCores are fully initialized and ready
+[atom 15:00:50] Engine Core Mgr: All 1 EngineCores initialized and ready
+[atom 15:00:50] KV transfer config loaded: {}
+[atom 15:00:50] LLMEngine init with 1 data parallel ranks
+[atom 15:00:50] LLMEngine init with 1 data parallel ranks
+[atom 15:00:50] Starting server on 127.0.0.1:18001 (loop=uvloop)...
+INFO:     Started server process [19613]
+INFO:     Waiting for application startup.
+[atom 15:00:50] Server started successfully and ready to accept requests
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:18001 (Press CTRL+C to quit)
+INFO:     127.0.0.1:60642 - "GET /v1/models HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60648 - "GET /v1/models HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56580 - "GET /v1/models HTTP/1.1" 200 OK
+[aiter] No available shared memory broadcast block found in 60.0 seconds. This typically happens when some processes are hanging or doing some time-consuming work (e.g. compilation).
+[aiter] No available shared memory broadcast block found in 60.0 seconds. This typically happens when some processes are hanging or doing some time-consuming work (e.g. compilation).
+[aiter] No available shared memory broadcast block found in 60.0 seconds. This typically happens when some processes are hanging or doing some time-consuming work (e.g. compilation).
+[aiter] No available shared memory broadcast block found in 60.0 seconds. This typically happens when some processes are hanging or doing some time-consuming work (e.g. compilation).
+[atom 15:02:30] Request 0 arrived, input tokens: 4, pending requests: 1
+[atom 15:02:30] Request 1 arrived, input tokens: 4, pending requests: 2
+[atom 15:02:30] Request 2 arrived, input tokens: 4, pending requests: 3
+[atom 15:02:30] Request 3 arrived, input tokens: 4, pending requests: 4
+[atom 15:02:30] Scheduled prefill batch: 1 reqs, 4 new tokens (cached: [0], new: [4]), req_ids: (0,)
+[atom 15:02:30] Request 4 arrived, input tokens: 4, pending requests: 5
+[atom 15:02:30] Request 5 arrived, input tokens: 4, pending requests: 6
+[atom 15:02:30] Request 6 arrived, input tokens: 4, pending requests: 7
+[atom 15:02:30] Request 7 arrived, input tokens: 4, pending requests: 8
+[atom 15:02:30] Request 8 arrived, input tokens: 4, pending requests: 9
+[atom 15:02:30] Request 9 arrived, input tokens: 4, pending requests: 10
+[atom 15:02:30] Request 10 arrived, input tokens: 4, pending requests: 11
+[atom 15:02:30] Request 11 arrived, input tokens: 4, pending requests: 12
+[atom 15:02:30] Request 12 arrived, input tokens: 4, pending requests: 13
+[atom 15:02:30] Request 13 arrived, input tokens: 4, pending requests: 14
+[atom 15:02:30] Request 14 arrived, input tokens: 4, pending requests: 15
+[atom 15:02:30] Request 15 arrived, input tokens: 4, pending requests: 16
+[atom 15:02:30] Request 16 arrived, input tokens: 4, pending requests: 17
+[atom 15:02:30] Request 17 arrived, input tokens: 4, pending requests: 18
+[atom 15:02:30] Request 18 arrived, input tokens: 4, pending requests: 19
+[atom 15:02:30] Request 19 arrived, input tokens: 4, pending requests: 20
+[atom 15:02:30] Request 20 arrived, input tokens: 4, pending requests: 21
+[atom 15:02:30] Request 21 arrived, input tokens: 4, pending requests: 22
+[atom 15:02:30] Request 22 arrived, input tokens: 4, pending requests: 23
+[atom 15:02:30] Request 23 arrived, input tokens: 4, pending requests: 24
+[atom 15:02:30] Request 24 arrived, input tokens: 4, pending requests: 25
+[atom 15:02:30] Request 25 arrived, input tokens: 4, pending requests: 26
+[atom 15:02:30] Request 26 arrived, input tokens: 4, pending requests: 27
+[atom 15:02:30] Request 27 arrived, input tokens: 4, pending requests: 28
+[atom 15:02:30] Request 28 arrived, input tokens: 4, pending requests: 29
+[atom 15:02:30] Request 29 arrived, input tokens: 4, pending requests: 30
+[atom 15:02:30] Request 30 arrived, input tokens: 4, pending requests: 31
+[aiter] shape is M:4, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:4, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[atom 15:02:30] Request 31 arrived, input tokens: 4, pending requests: 32
+[aiter] shape is M:4, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:4, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:4, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:4, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:4, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:4, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[atom 15:02:30] Request 32 arrived, input tokens: 4, pending requests: 33
+[atom 15:02:30] Request 33 arrived, input tokens: 4, pending requests: 34
+[atom 15:02:30] Request 34 arrived, input tokens: 4, pending requests: 35
+[atom 15:02:30] Request 35 arrived, input tokens: 4, pending requests: 36
+[atom 15:02:30] Request 36 arrived, input tokens: 4, pending requests: 37
+[atom 15:02:30] Request 37 arrived, input tokens: 4, pending requests: 38
+[atom 15:02:30] Request 38 arrived, input tokens: 4, pending requests: 39
+[atom 15:02:30] Request 39 arrived, input tokens: 4, pending requests: 40
+[atom 15:02:30] Request 40 arrived, input tokens: 4, pending requests: 41
+[atom 15:02:30] Request 41 arrived, input tokens: 4, pending requests: 42
+[atom 15:02:30] Request 42 arrived, input tokens: 4, pending requests: 43
+[atom 15:02:30] Request 43 arrived, input tokens: 4, pending requests: 44
+[atom 15:02:30] Request 44 arrived, input tokens: 4, pending requests: 45
+[aiter] shape is M:4, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:4, N:256, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using skinny solution:2
+[aiter] shape is M:4, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:4, N:256, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using skinny solution:2
+[aiter] shape is M:4, N:2048, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:4, N:512, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:4, N:2048, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:4, N:64, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using skinny solution:2
+[aiter] shape is M:4, N:512, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:4, N:64, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using skinny solution:2
+[aiter] shape is M:4, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:4, N:256, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using skinny solution:2
+[aiter] shape is M:4, N:2048, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:4, N:512, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] import [module_cache] under /app/aiter-test/aiter/jit/module_cache.so
+[aiter] shape is M:4, N:64, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using skinny solution:2
+[aiter] import [module_cache] under /app/aiter-test/aiter/jit/module_cache.so
+[atom 15:02:30] Request 45 arrived, input tokens: 4, pending requests: 46
+[aiter] import [module_cache] under /app/aiter-test/aiter/jit/module_cache.so
+[atom 15:02:30] Request 46 arrived, input tokens: 4, pending requests: 47
+[atom 15:02:30] Request 47 arrived, input tokens: 4, pending requests: 48
+[atom 15:02:30] Request 48 arrived, input tokens: 4, pending requests: 49
+[atom 15:02:30] Request 49 arrived, input tokens: 4, pending requests: 50
+[atom 15:02:30] Request 50 arrived, input tokens: 4, pending requests: 51
+[aiter] shape is M:4, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[atom 15:02:30] Request 51 arrived, input tokens: 4, pending requests: 52
+[atom 15:02:30] Request 52 arrived, input tokens: 4, pending requests: 53
+[aiter] shape is M:4, N:256, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using skinny solution:2
+[atom 15:02:30] Request 53 arrived, input tokens: 4, pending requests: 54
+[atom 15:02:30] Request 54 arrived, input tokens: 4, pending requests: 55
+[atom 15:02:30] Request 55 arrived, input tokens: 4, pending requests: 56
+[atom 15:02:30] Request 56 arrived, input tokens: 4, pending requests: 57
+[atom 15:02:30] Request 57 arrived, input tokens: 4, pending requests: 58
+[atom 15:02:30] Request 58 arrived, input tokens: 4, pending requests: 59
+[aiter] shape is M:4, N:2048, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[atom 15:02:30] Request 59 arrived, input tokens: 4, pending requests: 60
+[aiter] shape is M:4, N:512, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[atom 15:02:30] Request 60 arrived, input tokens: 4, pending requests: 61
+[aiter] shape is M:4, N:64, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using skinny solution:2
+[atom 15:02:30] Request 61 arrived, input tokens: 4, pending requests: 62
+[atom 15:02:30] Request 62 arrived, input tokens: 4, pending requests: 63
+[atom 15:02:30] Request 63 arrived, input tokens: 4, pending requests: 64
+[aiter] import [module_cache] under /app/aiter-test/aiter/jit/module_cache.so
+[aiter] shape is M:4, N:1024, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:4, N:1024, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:4, N:1024, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:4, N:1024, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:16, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:16, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:16, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:16, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[atom 15:02:34] Scheduled prefill batch: 63 reqs, 252 new tokens (cached: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], new: [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4]), req_ids: (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63)
+[aiter] shape is M:252, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:252, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:252, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:252, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:252, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:252, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:252, N:256, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:252, N:256, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:252, N:2048, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:252, N:2048, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:252, N:512, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:252, N:512, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:252, N:64, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:252, N:64, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:252, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:252, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:252, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:252, N:256, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:252, N:2048, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:252, N:512, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:252, N:64, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:252, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:252, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:252, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:252, N:256, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:252, N:2048, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:252, N:512, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:252, N:64, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:252, N:1024, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:252, N:1024, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:252, N:1024, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:252, N:1024, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:63, N:32320, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:1008, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:252, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:63, N:32320, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:1008, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:252, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:63, N:32320, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:1008, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:252, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:63, N:32320, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:1008, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:252, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:63, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:63, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:63, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:63, N:256, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[atom 15:02:35] Engine Core: output send 1 reqs
+[aiter] shape is M:63, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:63, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:63, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+INFO:     127.0.0.1:44818 - "POST /v1/completions HTTP/1.1" 200 OK
+[aiter] shape is M:63, N:256, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:63, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:63, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:63, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:63, N:256, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:189, N:32320, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:63, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:63, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:63, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:189, N:32320, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:63, N:256, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:189, N:32320, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:189, N:32320, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:756, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:189, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:189, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:189, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:189, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:189, N:256, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:756, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:189, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:189, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:189, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:189, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:189, N:256, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+INFO:     127.0.0.1:44832 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44838 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44842 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44856 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44870 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44884 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44898 - "POST /v1/completions HTTP/1.1" 200 OK
+[aiter] shape is M:756, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+INFO:     127.0.0.1:44900 - "POST /v1/completions HTTP/1.1" 200 OK
+[aiter] shape is M:189, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+INFO:     127.0.0.1:44912 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44922 - "POST /v1/completions HTTP/1.1" 200 OK
+[aiter] shape is M:189, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+INFO:     127.0.0.1:44932 - "POST /v1/completions HTTP/1.1" 200 OK
+[aiter] shape is M:189, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+INFO:     127.0.0.1:44948 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44960 - "POST /v1/completions HTTP/1.1" 200 OK
+[aiter] shape is M:189, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:189, N:256, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+INFO:     127.0.0.1:44968 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44984 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44990 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45004 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45014 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45028 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45034 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45046 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45058 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45062 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45066 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45068 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45076 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45086 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45088 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45096 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45112 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45122 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45128 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45138 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45154 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 15:02:35] Engine Core: output send 63 reqs
+INFO:     127.0.0.1:45164 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45168 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45176 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45182 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45198 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45210 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45214 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45228 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45230 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45246 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45262 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45266 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45272 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45280 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45294 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45310 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45316 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45318 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45322 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45336 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45352 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45360 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45376 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45390 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45398 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45402 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45410 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45424 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45428 - "POST /v1/completions HTTP/1.1" 200 OK
+[aiter] shape is M:756, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:189, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:189, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:189, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:189, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:189, N:256, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0

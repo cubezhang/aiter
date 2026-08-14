@@ -1,0 +1,49 @@
+                                                              kv_page_indices,
+                                                              kv_last_page_lens,
+                                                              work_indptr,
+                                                              work_info_set,
+                                                              max_seqlen_q,
+                                                              softmax_scale,
+                                                              split_output,
+                                                              split_lse,
+                                                              final_output,
+                                                              attn_sink);
+    }
+    else if((num_head * max_seqlen_q == 128) && (gfx == "gfx950"))
+    {
+        hk_mi35x_mla_v40_fwd_decode_m16x8_fp8bf16_fp8bf16_gen1(query,
+                                                               query_rope,
+                                                               kv_buffer,
+                                                               kv_buffer_rope,
+                                                               qo_indptr,
+                                                               kv_page_indices,
+                                                               kv_last_page_lens,
+                                                               work_indptr,
+                                                               work_info_set,
+                                                               max_seqlen_q,
+                                                               softmax_scale,
+                                                               split_output,
+                                                               split_lse,
+                                                               final_output,
+                                                               attn_sink);
+    }
+    else
+    {
+        AITER_CHECK(false,
+                    "hk_mla_v40_decode_fwd: only gfx950 with num_head * max_seqlen_q in {64,128} "
+                    "is supported; got gfx='",
+                    gfx,
+                    "', num_head=",
+                    num_head,
+                    ", max_seqlen_q=",
+                    max_seqlen_q);
+    }
+}
+38:#if defined(__gfx950__)
+223:    static_assert(kSzLdsQ + kSzLdsKv + (kSzLdsO > kSzLdsKv ? kSzLdsO : kSzLdsKv) + kSzLdsStage <=
+229:    static_assert(kSzLdsKv + (kSzLdsO > kSzLdsKv ? kSzLdsO : kSzLdsKv) >=
+457:            static_assert((kSkipCompute == false) || (kIsFirstIter == false),
+459:            static_assert(
+587:                static_assert(kQkGemmTiles == kNumColTilesAll,
+1292:__global__ __launch_bounds__(T::kNumThreads, T::kOccupancy) __attribute__((amdgpu_num_vgpr(
+1316:__global__ __launch_bounds__(

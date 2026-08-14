@@ -1,0 +1,94 @@
+        if xbf16:
+            # xquant happens inside the asm kernel for per_1x128
+            a1 = hidden_states
+            a1_scale = torch.empty(0, device="cuda")
+        else:
+            quant_func = get_quant(quant_type)
+            if hidden_states.dtype != q_dtype_a:
+                if quant_type == QuantType.per_1x128:
+                    quant_func = functools.partial(quant_func, transpose_scale=True)
+                a1, a1_scale = quant_func(
+                    hidden_states,
+                    scale=a1_scale,
+                    quant_dtype=q_dtype_a,
+                    num_rows=num_local_tokens,
+                )
+            else:
+                assert (
+                    a1_scale is not None or quant_type == QuantType.No
+                ), "a1_scale must be provided for quantized input for fused_moe"
+                a1 = hidden_states
+                if quant_type == QuantType.per_1x128:
+                    scale_t = torch.empty_like(a1_scale)
+                    aiter.partial_transpose(
+                        scale_t, a1_scale, num_rows=num_local_tokens
+                    )
+                    a1_scale = scale_t
+
+        token_num = hidden_states.shape[0]
+        E, model_dim, inter_dim = get_inter_dim(w1.shape, w2.shape)
+        if quant_type == QuantType.per_1x32:
+            # FLAT per_1x32 kernels are always xbf16: X stays bf16 and is
+            # dynamic-quantized to MXFP4 inside the kernel, so there is no host
+            # activation e8m0 scale to pack. Only the (not-yet-enabled) non-flat
+            # pre-quantized fp4 path carries a host scale that needs sorting.
+            if not xbf16:
+                a1_scale = mxfp4_moe_sort_fwd(
+                    a1_scale,
+                    sorted_ids=sorted_ids,
+                    num_valid_ids=num_valid_ids,
+                    token_num=token_num,
+                    cols=model_dim,
+                )
+            w1_scale = w1_scale.view(E, -1)
+            w2_scale = w2_scale.view(E, -1)
+
+        if quant_type == QuantType.per_1x128:
+            fmoe_func = functools.partial(
+                aiter.fmoe_fp8_blockscale_g1u1,
+                fc_scale_blkn=128,
+                fc_scale_blkk=128,
+                block_size_M=block_size_M,
+            )
+        elif isG1U1:
+            fmoe_func = aiter.fmoe_g1u1
+        else:
+            aiter.fmoe_int8_g1u0(
+                moe_buf,
+                a1,
+                w1,
+                w2,
+                sorted_ids,
+                sorted_weights,
+                sorted_expert_ids,
+                num_valid_ids,
+                topk,
+                a1_scale,
+                w1_scale,
+                w2_scale,
+                fc2_smooth_scale=None,
+                activation=activation,
+            )
+            return moe_buf
+
+        fmoe_func(
+            moe_buf,
+            a1,
+            w1,
+            w2,
+            sorted_ids,
+            sorted_weights,
+            sorted_expert_ids,
+            num_valid_ids,
+            topk,
+            a1_scale,
+            w1_scale,
+            w2_scale,
+            kernelName,
+            fc2_smooth_scale=None,
+            activation=activation,
+        )
+    return moe_buf
+947:                aiter.fmoe_fp8_blockscale_g1u1,
+1066:        (ActivationType.Silu,   QuantType.per_1x128,   dtypes.bf16,     dtypes.fp8,    dtypes.fp8,    True,   False) : aiter.fmoe_fp8_blockscale_g1u1,
+1067:        (ActivationType.Gelu,   QuantType.per_1x128,   dtypes.bf16,     dtypes.fp8,    dtypes.fp8,    True,   False) : aiter.fmoe_fp8_blockscale_g1u1,

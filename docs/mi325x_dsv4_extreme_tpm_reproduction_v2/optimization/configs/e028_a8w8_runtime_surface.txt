@@ -1,0 +1,25 @@
+aiter/jit/core.py:105:AITER_CONFIG_GEMM_A8W8_BLOCKSCALE = os.getenv(
+aiter/jit/core.py:106:    "AITER_CONFIG_GEMM_A8W8_BLOCKSCALE",
+aiter/jit/core.py:107:    f"{AITER_ROOT_DIR}/aiter/configs/a8w8_blockscale_tuned_gemm.csv",
+aiter/jit/core.py:120:AITER_CONFIG_GEMM_A8W8_BLOCKSCALE_BPRESHUFFLE = os.getenv(
+aiter/jit/core.py:121:    "AITER_CONFIG_GEMM_A8W8_BLOCKSCALE_BPRESHUFFLE",
+aiter/jit/core.py:165:    def AITER_CONFIG_GEMM_A8W8_BLOCKSCALE_FILE(self):
+aiter/jit/core.py:167:            "AITER_CONFIG_GEMM_A8W8_BLOCKSCALE",
+aiter/jit/core.py:168:            AITER_CONFIG_GEMM_A8W8_BLOCKSCALE,
+aiter/jit/core.py:169:            "a8w8_blockscale_tuned_gemm",
+aiter/jit/core.py:187:    def AITER_CONFIG_GEMM_A8W8_BLOCKSCALE_BPRESHUFFLE_FILE(self):
+aiter/jit/core.py:189:            "AITER_CONFIG_GEMM_A8W8_BLOCKSCALE_BPRESHUFFLE",
+aiter/jit/core.py:190:            AITER_CONFIG_GEMM_A8W8_BLOCKSCALE_BPRESHUFFLE,
+aiter/jit/optCompilerConfig.json:225:        "blob_gen_cmd": "f'{AITER_CSRC_DIR}/ck_gemm_a8w8_blockscale/gen_instances.py --working_path {{}} --tune_file {AITER_CONFIGS.AITER_CONFIG_GEMM_A8W8_BLOCKSCALE_FILE}'"
+aiter/jit/optCompilerConfig.json:240:        "blob_gen_cmd": "f'{AITER_CSRC_DIR}/ck_gemm_a8w8_blockscale/gen_instances_cktile.py --working_path {{}} --tune_file {AITER_CONFIGS.AITER_CONFIG_GEMM_A8W8_BLOCKSCALE_FILE}'"
+aiter/jit/optCompilerConfig.json:255:        "blob_gen_cmd": "f'{AITER_CSRC_DIR}/ck_gemm_a8w8_blockscale_bpreshuffle/gen_instances.py --working_path {{}} --tune_file {AITER_CONFIGS.AITER_CONFIG_GEMM_A8W8_BLOCKSCALE_BPRESHUFFLE_FILE}'"
+aiter/jit/optCompilerConfig.json:270:        "blob_gen_cmd": "f'{AITER_CSRC_DIR}/ck_gemm_a8w8_blockscale/gen_instances_cktile.py --working_path {{}} --tune_file {AITER_CONFIGS.AITER_CONFIG_GEMM_A8W8_BLOCKSCALE_BPRESHUFFLE_FILE}'"
+aiter/jit/optCompilerConfig.json:348:        "blob_gen_cmd": "f'{AITER_CSRC_DIR}/opus_gemm/gen_instances.py --working_path {{0}} --tune_files {AITER_ROOT_DIR}/aiter/configs/bf16_tuned_gemm.csv:{AITER_ROOT_DIR}/aiter/configs/model_configs/*_bf16_tuned_gemm.csv:{AITER_CONFIGS.AITER_CONFIG_GEMM_A8W8_BLOCKSCALE_BPRESHUFFLE_FILE} --compiled_kids_sidecar={{0}}/../../compiled_kids_opus.json'"
+aiter/ops/gemm_op_a8w8.py:830:            m, n, k, AITER_CONFIGS.AITER_CONFIG_GEMM_A8W8_BLOCKSCALE_FILE
+aiter/ops/gemm_op_a8w8.py:926:            AITER_CONFIGS.AITER_CONFIG_GEMM_A8W8_BLOCKSCALE_BPRESHUFFLE_FILE,
+aiter/ops/gemm_op_a8w8.py:992:        m, n, k, AITER_CONFIGS.AITER_CONFIG_GEMM_A8W8_BLOCKSCALE_BPRESHUFFLE_FILE
+aiter/aot/flydsl/gemm.py:63:    AITER_CONFIGS.AITER_CONFIG_GEMM_A8W8_BLOCKSCALE_FILE,
+aiter/aot/flydsl/gemm.py:64:    AITER_CONFIGS.AITER_CONFIG_GEMM_A8W8_BLOCKSCALE_BPRESHUFFLE_FILE,
+aiter/utility/pretune.py:60:#   variants via --libtype all, but it writes to AITER_CONFIG_GEMM_A8W8_BLOCKSCALE.
+aiter/utility/pretune.py:62:#   (AITER_CONFIG_GEMM_A8W8_BLOCKSCALE_BPRESHUFFLE_FILE) that no existing
+aiter/utility/pretune.py:241:        # AITER_CONFIG_GEMM_A8W8_BLOCKSCALE), not instance attributes on

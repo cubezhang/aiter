@@ -1,0 +1,160 @@
+/app/aiter-test/aiter/fused_moe_bf16_asm.py:87:        # pure bf16
+/app/aiter-test/aiter/test_mha_common.py:534:            output back to fp16/bf16.
+/app/aiter-test/aiter/dist/communication_op.py:181:    emit_bf16: bool = False,
+/app/aiter-test/aiter/dist/communication_op.py:214:            emit_bf16=emit_bf16,
+/app/aiter-test/aiter/dist/communication_op.py:226:        emit_bf16=emit_bf16,
+/app/aiter-test/aiter/dist/communication_op.py:238:    emit_bf16: bool = False,
+/app/aiter-test/aiter/dist/communication_op.py:247:        emit_bf16=emit_bf16,
+/app/aiter-test/aiter/dist/device_communicators/all2all.py:187:            # Buffer sized for input dtype (bf16) so one op handles both
+/app/aiter-test/aiter/dist/device_communicators/all2all.py:188:            # bf16 and quantized input without reallocation; the dispatch
+/app/aiter-test/aiter/dist/device_communicators/custom_all_reduce.py:297:            f"(bf16/fp16: 2), got element_size={element_size}"
+/app/aiter-test/aiter/dist/device_communicators/custom_all_reduce.py:331:            f"(bf16/fp16: 2), got element_size={element_size}"
+/app/aiter-test/aiter/dist/device_communicators/custom_all_reduce.py:700:        max_size=1024 * 1024 * 1024,  # 2GB bf16/half
+/app/aiter-test/aiter/dist/device_communicators/custom_all_reduce.py:1373:        emit_bf16: bool = False,
+/app/aiter-test/aiter/dist/device_communicators/custom_all_reduce.py:1426:            # Optional pre-quantization bf16/fp16 mirror of the normed output.
+/app/aiter-test/aiter/dist/device_communicators/custom_all_reduce.py:1428:            # in bf16 while attention QKV keeps per-token FP8. Zero-overhead when
+/app/aiter-test/aiter/dist/device_communicators/custom_all_reduce.py:1430:            bf16_out = None
+/app/aiter-test/aiter/dist/device_communicators/custom_all_reduce.py:1431:            bf16_ptr = 0
+/app/aiter-test/aiter/dist/device_communicators/custom_all_reduce.py:1432:            if emit_bf16:
+/app/aiter-test/aiter/dist/device_communicators/custom_all_reduce.py:1433:                bf16_out = torch.empty_like(inp)
+/app/aiter-test/aiter/dist/device_communicators/custom_all_reduce.py:1434:                bf16_ptr = int(bf16_out.data_ptr())
+/app/aiter-test/aiter/dist/device_communicators/custom_all_reduce.py:1448:                bf16_ptr,
+/app/aiter-test/aiter/dist/device_communicators/custom_all_reduce.py:1450:            if emit_bf16:
+/app/aiter-test/aiter/dist/device_communicators/custom_all_reduce.py:1451:                return out, res_out, scale_out, bf16_out
+/app/aiter-test/aiter/dist/device_communicators/custom_all_reduce.py:1566:        emit_bf16: bool = False,
+/app/aiter-test/aiter/dist/device_communicators/custom_all_reduce.py:1582:                    emit_bf16=emit_bf16,
+/app/aiter-test/aiter/dist/device_communicators/custom_all_reduce.py:1589:                if emit_bf16:
+/app/aiter-test/aiter/dist/device_communicators/custom_all_reduce.py:1607:                emit_bf16=emit_bf16,
+/app/aiter-test/aiter/dist/device_communicators/custom_all_reduce.py:1620:        emit_bf16: bool = False,
+/app/aiter-test/aiter/dist/device_communicators/custom_all_reduce.py:1635:        # Optional bf16/fp16 mirror of the pre-quantization normed output.
+/app/aiter-test/aiter/dist/device_communicators/custom_all_reduce.py:1639:        bf16_out = None
+/app/aiter-test/aiter/dist/device_communicators/custom_all_reduce.py:1640:        bf16_ptr = 0
+/app/aiter-test/aiter/dist/device_communicators/custom_all_reduce.py:1641:        if emit_bf16:
+/app/aiter-test/aiter/dist/device_communicators/custom_all_reduce.py:1642:            bf16_out = torch.empty_like(inp)
+/app/aiter-test/aiter/dist/device_communicators/custom_all_reduce.py:1643:            bf16_ptr = int(bf16_out.data_ptr())
+/app/aiter-test/aiter/dist/device_communicators/custom_all_reduce.py:1659:            bf16_ptr,
+/app/aiter-test/aiter/dist/device_communicators/custom_all_reduce.py:1661:        if emit_bf16:
+/app/aiter-test/aiter/dist/device_communicators/custom_all_reduce.py:1662:            return out, res_out, scale_out, bf16_out
+/app/aiter-test/aiter/dist/device_communicators/custom_all_reduce.py:1882:        emit_bf16: bool = False,
+/app/aiter-test/aiter/dist/device_communicators/custom_all_reduce.py:1893:        bf16_out = None
+/app/aiter-test/aiter/dist/device_communicators/custom_all_reduce.py:1894:        bf16_ptr = 0
+/app/aiter-test/aiter/dist/device_communicators/custom_all_reduce.py:1895:        if emit_bf16:
+/app/aiter-test/aiter/dist/device_communicators/custom_all_reduce.py:1896:            bf16_out = torch.empty_like(inp)
+/app/aiter-test/aiter/dist/device_communicators/custom_all_reduce.py:1897:            bf16_ptr = int(bf16_out.data_ptr())
+/app/aiter-test/aiter/dist/device_communicators/custom_all_reduce.py:1912:            bf16_ptr,
+/app/aiter-test/aiter/dist/device_communicators/custom_all_reduce.py:1914:        if emit_bf16:
+/app/aiter-test/aiter/dist/device_communicators/custom_all_reduce.py:1915:            return out, res_out, scale_out, bf16_out
+/app/aiter-test/aiter/dist/device_communicators/custom_all_reduce.py:1926:        emit_bf16: bool = False,
+/app/aiter-test/aiter/dist/device_communicators/custom_all_reduce.py:1940:                    emit_bf16=emit_bf16,
+/app/aiter-test/aiter/dist/device_communicators/custom_all_reduce.py:1951:                if emit_bf16:
+/app/aiter-test/aiter/dist/device_communicators/custom_all_reduce.py:1968:                emit_bf16=emit_bf16,
+/app/aiter-test/aiter/dist/device_communicators/custom_all_reduce.py:1978:        emit_bf16: bool = False,
+/app/aiter-test/aiter/dist/device_communicators/custom_all_reduce.py:1991:                    emit_bf16=emit_bf16,
+/app/aiter-test/aiter/dist/device_communicators/custom_all_reduce.py:2003:                if emit_bf16:
+/app/aiter-test/aiter/dist/device_communicators/custom_all_reduce.py:2018:            emit_bf16=emit_bf16,
+/app/aiter-test/aiter/dist/device_communicators/communicator_cuda.py:374:        emit_bf16: bool = False,
+/app/aiter-test/aiter/dist/device_communicators/communicator_cuda.py:392:                emit_bf16=emit_bf16,
+/app/aiter-test/aiter/dist/device_communicators/communicator_cuda.py:402:                emit_bf16=emit_bf16,
+/app/aiter-test/aiter/dist/device_communicators/communicator_cuda.py:404:        # emit_bf16 additionally returns the pre-quantization bf16/fp16 normed
+/app/aiter-test/aiter/dist/device_communicators/communicator_cuda.py:406:        # (e.g. GLM-5.2) whose indexer GEMMs run in bf16 while attention QKV
+/app/aiter-test/aiter/dist/device_communicators/communicator_cuda.py:408:        bf16_out = None
+/app/aiter-test/aiter/dist/device_communicators/communicator_cuda.py:446:                emit_bf16=emit_bf16,
+/app/aiter-test/aiter/dist/device_communicators/communicator_cuda.py:448:            if emit_bf16:
+/app/aiter-test/aiter/dist/device_communicators/communicator_cuda.py:449:                out, res_out, scale_out, bf16_out = result
+/app/aiter-test/aiter/dist/device_communicators/communicator_cuda.py:463:            if emit_bf16:
+/app/aiter-test/aiter/dist/device_communicators/communicator_cuda.py:464:                # out_ is the pre-quantization bf16/fp16 normed activation.
+/app/aiter-test/aiter/dist/device_communicators/communicator_cuda.py:465:                bf16_out = out_
+/app/aiter-test/aiter/dist/device_communicators/communicator_cuda.py:469:        if emit_bf16:
+/app/aiter-test/aiter/dist/device_communicators/communicator_cuda.py:470:            assert bf16_out is not None
+/app/aiter-test/aiter/dist/device_communicators/communicator_cuda.py:471:            return out, res_out, scale_out, bf16_out
+/app/aiter-test/aiter/dist/device_communicators/communicator_cuda.py:482:        emit_bf16: bool = False,
+/app/aiter-test/aiter/dist/device_communicators/communicator_cuda.py:486:        pre-quantization bf16/fp16 normed output.
+/app/aiter-test/aiter/dist/device_communicators/communicator_cuda.py:488:        When ``emit_bf16=False`` returns ``(fp8, residual_out, scale)``.
+/app/aiter-test/aiter/dist/device_communicators/communicator_cuda.py:489:        When ``emit_bf16=True`` returns ``(fp8, residual_out, scale, bf16)`` —
+/app/aiter-test/aiter/dist/device_communicators/communicator_cuda.py:490:        used by GDN-style layers that have both an FP8 projection and a bf16
+/app/aiter-test/aiter/dist/device_communicators/communicator_cuda.py:497:        out = res_out = scale_out = bf16_out = None
+/app/aiter-test/aiter/dist/device_communicators/communicator_cuda.py:521:                    emit_bf16=emit_bf16,
+/app/aiter-test/aiter/dist/device_communicators/communicator_cuda.py:525:                    if emit_bf16:
+/app/aiter-test/aiter/dist/device_communicators/communicator_cuda.py:526:                        out, res_out, scale_out, bf16_out = result
+/app/aiter-test/aiter/dist/device_communicators/communicator_cuda.py:556:            if emit_bf16:
+/app/aiter-test/aiter/dist/device_communicators/communicator_cuda.py:557:                bf16_out = out_
+/app/aiter-test/aiter/dist/device_communicators/communicator_cuda.py:561:        if emit_bf16:
+/app/aiter-test/aiter/dist/device_communicators/communicator_cuda.py:562:            assert bf16_out is not None
+/app/aiter-test/aiter/dist/device_communicators/communicator_cuda.py:563:            return out, res_out, scale_out, bf16_out
+/app/aiter-test/aiter/dist/device_communicators/communicator_cuda.py:612:        emit_bf16: bool = False,
+/app/aiter-test/aiter/dist/device_communicators/communicator_cuda.py:658:            and (not emit_bf16 or block_size % 32 == 0)
+/app/aiter-test/aiter/dist/device_communicators/communicator_cuda.py:668:        out_fp4 = res_out = scale_out = bf16_out = None
+/app/aiter-test/aiter/dist/device_communicators/communicator_cuda.py:685:                emit_bf16=emit_bf16,
+/app/aiter-test/aiter/dist/device_communicators/communicator_cuda.py:688:            if emit_bf16:
+/app/aiter-test/aiter/dist/device_communicators/communicator_cuda.py:689:                out_fp4, res_out, scale_out, bf16_out = result
+/app/aiter-test/aiter/dist/device_communicators/communicator_cuda.py:699:            if emit_bf16:
+/app/aiter-test/aiter/dist/device_communicators/communicator_cuda.py:700:                bf16_out = normed
+/app/aiter-test/aiter/dist/device_communicators/communicator_cuda.py:704:        if emit_bf16:
+/app/aiter-test/aiter/dist/device_communicators/communicator_cuda.py:705:            assert bf16_out is not None
+/app/aiter-test/aiter/dist/device_communicators/communicator_cuda.py:706:            return out_fp4, res_out, scale_out, bf16_out
+/app/aiter-test/aiter/dist/parallel_state.py:180:    # NOT bf16 -- declare the correct dtype so torch.compile's assert_size_stride
+/app/aiter-test/aiter/dist/parallel_state.py:211:def fused_allreduce_rmsnorm_quant_emit_bf16_fake(
+/app/aiter-test/aiter/dist/parallel_state.py:220:    # Real op returns (out_fp8, residual_out, scale, bf16) -- the 4th tensor is
+/app/aiter-test/aiter/dist/parallel_state.py:221:    # the pre-quantization bf16/fp16 normed activation for v32 DSA indexer GEMMs.
+/app/aiter-test/aiter/dist/parallel_state.py:233:@torch_compile_guard(gen_fake=fused_allreduce_rmsnorm_quant_emit_bf16_fake)
+/app/aiter-test/aiter/dist/parallel_state.py:234:def fused_allreduce_rmsnorm_quant_emit_bf16_(
+/app/aiter-test/aiter/dist/parallel_state.py:248:        inp, res_inp, w, eps, prefill_support, gemma_norm=gemma_norm, emit_bf16=True
+/app/aiter-test/aiter/dist/parallel_state.py:311:def fused_allreduce_rmsnorm_quant_per_group_emit_bf16_fake(
+/app/aiter-test/aiter/dist/parallel_state.py:321:    """Meta/fake for fused AR+RMSNorm+per-group-FP8-quant with emit_bf16.
+/app/aiter-test/aiter/dist/parallel_state.py:325:    but returns a 4th tensor: the pre-quantization bf16/fp16 normed activation
+/app/aiter-test/aiter/dist/parallel_state.py:326:    for v32 DSA indexer GEMMs (mirrors the per_token emit_bf16 fake).
+/app/aiter-test/aiter/dist/parallel_state.py:341:    bf16_out = torch.empty_like(res_inp)
+/app/aiter-test/aiter/dist/parallel_state.py:342:    return out, res_out, scale, bf16_out
+/app/aiter-test/aiter/dist/parallel_state.py:345:@torch_compile_guard(gen_fake=fused_allreduce_rmsnorm_quant_per_group_emit_bf16_fake)
+/app/aiter-test/aiter/dist/parallel_state.py:346:def fused_allreduce_rmsnorm_quant_per_group_emit_bf16_(
+/app/aiter-test/aiter/dist/parallel_state.py:368:        emit_bf16=True,
+/app/aiter-test/aiter/dist/parallel_state.py:730:        emit_bf16: bool = False,
+/app/aiter-test/aiter/dist/parallel_state.py:739:            # The emit_bf16 variant returns a 4th tensor (the pre-quant bf16
+/app/aiter-test/aiter/dist/parallel_state.py:741:            if emit_bf16:
+/app/aiter-test/aiter/dist/parallel_state.py:742:                return fused_allreduce_rmsnorm_quant_emit_bf16_(
+/app/aiter-test/aiter/dist/parallel_state.py:770:            emit_bf16=emit_bf16,
+/app/aiter-test/aiter/dist/parallel_state.py:783:        emit_bf16: bool = False,
+/app/aiter-test/aiter/dist/parallel_state.py:788:        # Both the 3-output (fp8, residual, scale) and the 4-output emit_bf16
+/app/aiter-test/aiter/dist/parallel_state.py:789:        # (+ pre-quant bf16 normed activation) cases go through a
+/app/aiter-test/aiter/dist/parallel_state.py:797:        # call the emit_bf16 path from a compiled layernorm, so it must be
+/app/aiter-test/aiter/dist/parallel_state.py:799:        if not emit_bf16:
+/app/aiter-test/aiter/dist/parallel_state.py:810:        return fused_allreduce_rmsnorm_quant_per_group_emit_bf16_(
+/app/aiter-test/aiter/dist/parallel_state.py:866:        emit_bf16: bool = False,
+/app/aiter-test/aiter/dist/parallel_state.py:875:            emit_bf16=emit_bf16,
+/app/aiter-test/aiter/dist/parallel_state.py:908:        emit_bf16: bool = False,
+/app/aiter-test/aiter/dist/parallel_state.py:918:            emit_bf16=emit_bf16,
+/app/aiter-test/aiter/dist/parallel_state.py:931:        emit_bf16: bool = False,
+/app/aiter-test/aiter/dist/parallel_state.py:943:            emit_bf16=emit_bf16,
+/app/aiter-test/aiter/__init__.py:97:    from .ops.batched_gemm_op_bf16 import *  # noqa: F403,E402
+/app/aiter-test/aiter/tuned_gemm.py:142:untune_path = f"{this_dir}/configs/bf16_untuned_gemm.csv"
+/app/aiter-test/aiter/tuned_gemm.py:192:        dtype in [dtypes.fp16, dtypes.bf16]
+/app/aiter-test/aiter/tuned_gemm.py:272:                eval(dtype) == dtypes.bf16
+/app/aiter-test/aiter/tuned_gemm.py:275:                and (eval(otype) == dtypes.bf16 or eval(otype) == dtypes.fp32)
+/app/aiter-test/aiter/tuned_gemm.py:448:        ops.wv_splitk_small_fp16_bf16(weights, inp, out, inp.shape[0], get_cu_num())
+/app/aiter-test/aiter/tuned_gemm.py:642:    # folds `bias` into the fp32 accumulator before the bf16/fp32 cast (HAS_BIAS
+/app/aiter-test/aiter/tuned_gemm.py:645:    # opus shape under tgemm (e.g. ATOM's bf16 linear).
+/app/aiter-test/aiter/tuned_gemm.py:682:    """bf16/fp16 with per tensor fp8 quant"""
+/app/aiter-test/aiter/tuned_gemm.py:687:        self.untune_path = f"{this_dir}/configs/bf16_untuned_gemm.csv"
+/app/aiter-test/aiter/mla.py:224:# ("mla_dec_stage1...") above a concurrency threshold (~batch 16-64 on gfx950 bf16
+/app/aiter-test/aiter/mla.py:250:    Scoped to the characterized gfx950 bf16 16-head single-token decode profile.
+/app/aiter-test/aiter/mla.py:254:        and q_dtype == dtypes.bf16
+/app/aiter-test/aiter/mla.py:255:        and kv_dtype == dtypes.bf16
+/app/aiter-test/aiter/mla.py:357:                and q.dtype == dtypes.bf16
+/app/aiter-test/aiter/mla.py:358:                and kv_buffer.dtype == dtypes.bf16
+/app/aiter-test/aiter/mla.py:375:                    or (q.dtype == dtypes.bf16 and max_seqlen_q == 4)
+/app/aiter-test/aiter/mla.py:377:                        q.dtype == dtypes.bf16
+/app/aiter-test/aiter/mla.py:378:                        and kv_buffer.dtype == dtypes.bf16
+/app/aiter-test/aiter/mla.py:382:                        q.dtype == dtypes.bf16
+/app/aiter-test/aiter/mla.py:383:                        and kv_buffer.dtype == dtypes.bf16
+/app/aiter-test/aiter/mla.py:444:            or (q.dtype == dtypes.bf16 and max_seqlen_q == 4)
+/app/aiter-test/aiter/mla.py:446:                q.dtype == dtypes.bf16
+/app/aiter-test/aiter/mla.py:447:                and kv_buffer.dtype == dtypes.bf16
+/app/aiter-test/aiter/mla.py:451:                q.dtype == dtypes.bf16 and kv_buffer.dtype == dtypes.bf16 and nhead == 8
+/app/aiter-test/aiter/mla.py:556:                and q.dtype == dtypes.bf16
+/app/aiter-test/aiter/mla.py:557:                and kv_buffer.dtype == dtypes.bf16
+/app/aiter-test/aiter/mla.py:576:                and q.dtype == dtypes.bf16
+/app/aiter-test/aiter/mla.py:577:                and kv_buffer.dtype == dtypes.bf16
+/app/aiter-test/aiter/mla.py:822:        and q_rope.dtype == dtypes.bf16
+/app/aiter-test/aiter/mla.py:823:        and kv_buffer_rope.dtype == dtypes.bf16
+/app/aiter-test/aiter/mla.py:1305:def mla_decode_fwd_v4_nm(
+/app/aiter-test/aiter/mla.py:1359:      2. Force `out_16_nosplit = 0` -- the kernel's bf16-direct-write path

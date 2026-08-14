@@ -1,0 +1,35 @@
+137:def cosine_diff_compare(ref, res, msg="", printLog=True):
+152:def tensor_compare_diagnostics(
+155:    """Return a compact, log-safe summary for run_config mismatches."""
+860:    def run_1stage_fmoe_g1u1_tkw1(
+905:    def run_1stage_fmoe_fp8_blockscale_g1u1(
+950:    def run_1stage_fmoe_g1u1(
+1008:                fmoe_func = FmoeTuner.run_1stage_fmoe_fp8_blockscale_g1u1
+1010:                fmoe_func = FmoeTuner.run_1stage_fmoe_g1u1_tkw1
+1012:                fmoe_func = FmoeTuner.run_1stage_fmoe_g1u1
+2843:                    cosine_diff_compare,
+2893:                    cosine_diff_compare,
+2982:                    s1_compare_fn = None
+2984:                        s1_compare_fn = cosine_diff_compare
+3063:                            s1_compare_fn,
+3078:                s2_compare_fn = None
+3080:                    s2_compare_fn = cosine_diff_compare
+3162:                        s2_compare_fn,
+3298:                        cosine_diff_compare,
+3449:                s2_compare_fn = None
+3451:                    s2_compare_fn = cosine_diff_compare
+3533:                        s2_compare_fn,
+3539:    def run_config(self, args):
+3562:            # run_config does not override): Silu -> fp4, Swiglu -> bf16/fp4 by M.
+3580:                self._get_run_config_err_ratio_limit(row, args)
+3806:                    diag = tensor_compare_diagnostics(ref, out)
+3813:                    err_ratio = checkAllclose(out, ref, msg=f"run_config {shape_str}")
+3832:                        diag = tensor_compare_diagnostics(ref, out)
+4070:        resultdf["run_1stage"] = resultdf["run_1stage"].astype(int)
+4258:            asm_1stage_profileDF["run_1stage"] = 1
+4281:            profileDF["run_1stage"] = 0
+4499:                    if int(best_nf_row.get("run_1stage", 0)) != 1:
+4672:                f"Tuning result for {key} is {best_one['block_m'], best_one['kernelName1'], best_one['kernelName2'], best_one['err1'], best_one['err2'], best_one['run_1stage']} {best_one['us']} us, {best_one['tflops']} TFLOPS, {best_one['bw']} GB/s"
+5050:                "run_1stage": 0,
+5200:        err = cosine_diff_compare(ref, out, msg=f"port[{kn1}+{kn2}]")
+5394:        "run_1stage",

@@ -1,0 +1,7 @@
+gfx,cu_num,M,N,K,libtype,kernelId,splitK,us,kernelName,tflops,bw,errRatio
+gfx942,304,24,8192,1024,asm,0,1,6.5926,_ZN5aiter42fp8gemm_bf16_blockscale_BpreShuffle_32x128E,61.08,1335.8,0.0
+gfx942,304,24,8192,1024,asm,1,1,6.6768,_ZN5aiter42fp8gemm_bf16_blockscale_BpreShuffle_48x128E,60.31,1318.96,0.0
+gfx942,304,24,8192,1024,asm,2,1,7.4158,_ZN5aiter42fp8gemm_bf16_blockscale_BpreShuffle_64x128E,54.3,1187.52,0.0
+gfx942,304,24,8192,1024,asm,3,1,8.0725,_ZN5aiter42fp8gemm_bf16_blockscale_BpreShuffle_80x128E,49.88,1090.91,0.0
+gfx942,304,24,8192,1024,asm,4,1,9.0073,_ZN5aiter42fp8gemm_bf16_blockscale_BpreShuffle_96x128E,44.7,977.7,0.0
+gfx942,304,24,8192,1024,asm,5,1,10.4199,_ZN5aiter43fp8gemm_bf16_blockscale_BpreShuffle_128x128E,38.64,845.15,0.0

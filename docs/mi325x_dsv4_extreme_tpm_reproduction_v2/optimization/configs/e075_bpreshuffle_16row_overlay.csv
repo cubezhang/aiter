@@ -1,0 +1,17 @@
+gfx,cu_num,M,N,K,libtype,kernelId,splitK,us,kernelName,tflops,bw,errRatio
+gfx942,304,1,1536,4096,ck,7,0,8.0388,a8w8_blockscale_bpreshuffle_1x128x128_256x16x64x256_16x16_16x16_16x16x1_16x16x1_1x16x1x16_4_1x1_intrawave_v1,1.57,783.53,0.0
+gfx942,304,3,1536,4096,ck,7,0,8.4768,a8w8_blockscale_bpreshuffle_1x128x128_256x16x64x256_16x16_16x16_16x16x1_16x16x1_1x16x1x16_4_1x1_intrawave_v1,4.45,744.73,0.0
+gfx942,304,1,8192,1024,ck,7,0,4.8116,a8w8_blockscale_bpreshuffle_1x128x128_256x16x64x256_16x16_16x16_16x16x1_16x16x1_1x16x1x16_4_1x1_intrawave_v1,3.49,1747.03,0.0
+gfx942,304,1,4096,2048,ck,7,0,5.3189,a8w8_blockscale_bpreshuffle_1x128x128_256x16x64x256_16x16_16x16_16x16x1_16x16x1_1x16x1x16_4_1x1_intrawave_v1,3.15,1579.06,0.0
+gfx942,304,1,4096,4096,asm,1,1,12.569,_ZN5aiter42fp8gemm_bf16_blockscale_BpreShuffle_48x128E,2.67,1335.79,0.0
+gfx942,304,3,4096,2048,asm,0,1,8.9314,_ZN5aiter42fp8gemm_bf16_blockscale_BpreShuffle_32x128E,5.64,942.67,0.0
+gfx942,304,3,8192,1024,asm,0,1,6.5853,_ZN5aiter42fp8gemm_bf16_blockscale_BpreShuffle_32x128E,7.64,1281.77,0.0
+gfx942,304,3,4096,4096,asm,0,1,14.5588,_ZN5aiter42fp8gemm_bf16_blockscale_BpreShuffle_32x128E,6.91,1154.91,0.0
+gfx942,304,6,1536,4096,asm,0,1,15.1984,_ZN5aiter42fp8gemm_bf16_blockscale_BpreShuffle_32x128E,4.97,416.78,0.0
+gfx942,304,6,8192,1024,asm,0,1,7.1014,_ZN5aiter42fp8gemm_bf16_blockscale_BpreShuffle_32x128E,14.18,1195.97,0.0
+gfx942,304,6,4096,2048,asm,0,1,9.2797,_ZN5aiter42fp8gemm_bf16_blockscale_BpreShuffle_32x128E,10.85,910.59,0.0
+gfx942,304,6,4096,4096,asm,0,1,15.4021,_ZN5aiter42fp8gemm_bf16_blockscale_BpreShuffle_32x128E,13.07,1094.07,0.0
+gfx942,304,6,2048,4096,asm,0,1,15.3096,_ZN5aiter42fp8gemm_bf16_blockscale_BpreShuffle_32x128E,6.58,551.14,0.0
+gfx942,304,6,1024,4096,asm,0,1,15.0346,_ZN5aiter42fp8gemm_bf16_blockscale_BpreShuffle_32x128E,3.35,281.43,0.0
+gfx942,304,24,1536,4096,asm,0,1,12.7757,_ZN5aiter42fp8gemm_bf16_blockscale_BpreShuffle_32x128E,23.64,505.92,0.0
+gfx942,304,24,8192,1024,asm,0,1,6.5926,_ZN5aiter42fp8gemm_bf16_blockscale_BpreShuffle_32x128E,61.08,1335.8,0.0

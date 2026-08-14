@@ -1,0 +1,80 @@
+[atom 12:15:04] Per-req cache pool: bytes_per_slot=12.21MB, max_slots=128, tensor_total=1.53GB, equiv_blocks_per_req=2, pool_blocks=112166
+[atom 12:15:04] Concurrent capacity vs context length (max_model_len=131072, block_size=128, max_slots=128, pool_blocks=112166):
+   10% (  13107 tok):    103 blk/req → max_concurrent=128   (bound by slots)
+   30% (  39321 tok):    308 blk/req → max_concurrent=128   (bound by slots)
+   50% (  65536 tok):    512 blk/req → max_concurrent=128   (bound by slots)
+   70% (  91750 tok):    717 blk/req → max_concurrent=128   (bound by slots)
+   90% ( 117964 tok):    922 blk/req → max_concurrent=121   (bound by blocks)
+  100% ( 131072 tok):   1024 blk/req → max_concurrent=109   (bound by blocks)
+[atom 12:15:04] Model Runner0/4: warmup_model 15.00 seconds with 1 reqs 131072 tokens
+[atom 12:15:04] Model warmup done: /data/DeepSeek-V4-Flash-FP8
+[atom 12:15:04] paged-SWA pool: num_swa_blocks=448, swa_block_bytes=5767168, swa_reserved=2.41GB, compressed_block_bytes=805376, num_kvcache_blocks=111979
+[atom 12:15:04] Memory budget: total_gpu=255.98GB, free=162.58GB, utilization=0.83, budget=212.47GB, peak_torch=99.64GB, non_torch=15.38GB, cudagraph_est=4.40GB, safety=5.12GB, available_for_kv=87.92GB, block_bytes=6572544, num_kvcache_blocks=111979
+[atom 12:15:04] Per-req cache pool: bytes_per_slot=12.21MB, max_slots=128, tensor_total=1.53GB, equiv_blocks_per_req=2, pool_blocks=111979
+[atom 12:15:04] Concurrent capacity vs context length (max_model_len=131072, block_size=128, max_slots=128, pool_blocks=111979):
+   10% (  13107 tok):    103 blk/req → max_concurrent=128   (bound by slots)
+   30% (  39321 tok):    308 blk/req → max_concurrent=128   (bound by slots)
+   50% (  65536 tok):    512 blk/req → max_concurrent=128   (bound by slots)
+   70% (  91750 tok):    717 blk/req → max_concurrent=128   (bound by slots)
+   90% ( 117964 tok):    922 blk/req → max_concurrent=121   (bound by blocks)
+  100% ( 131072 tok):   1024 blk/req → max_concurrent=109   (bound by blocks)
+[atom 12:15:04] Allocating KV cache for 43 target layers + 1 draft (MTP) layers = 44 total layers
+[atom 12:15:04] Allocating KV cache for 43 target layers + 1 draft (MTP) layers = 44 total layers
+[atom 12:15:04] Allocating KV cache for 43 target layers + 1 draft (MTP) layers = 44 total layers
+[atom 12:15:04] Allocating KV cache for 43 target layers + 1 draft (MTP) layers = 44 total layers
+[atom 12:15:04] Binding KV cache for target model starting at layer_id=0
+[atom 12:15:04] Binding KV cache for target model starting at layer_id=0
+[atom 12:15:04] Binding KV cache for target model starting at layer_id=0
+[atom 12:15:04] Binding KV cache for target model starting at layer_id=0
+[atom 12:15:04] Binding KV cache for draft model starting at layer_id=0
+[atom 12:15:04] Binding KV cache for draft model starting at layer_id=0
+[atom 12:15:04] Binding KV cache for draft model starting at layer_id=0
+[atom 12:15:04] Binding KV cache for draft model starting at layer_id=0
+/opt/venv/lib/python3.12/site-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+[rank0]:[W803 12:15:04.543920279 ProcessGroupNCCL.cpp:5140] Guessing device ID based on global rank. This can cause a hang if rank to GPU mapping is heterogeneous. You can specify device_id in init_process_group()
+  0%|          | 0/10 [00:00<?, ?it/s]Capturing bs=128, max_q_len=3:   0%|          | 0/10 [00:00<?, ?it/s][aiter] shape is M:384, N:1536, K:4096, not found tuned config in /tmp/aiter_configs/a8w8_blockscale_bpreshuffle_tuned_gemm.csv, will use default config!
+[aiter] shape is M:384, N:8192, K:1024, not found tuned config in /tmp/aiter_configs/a8w8_blockscale_bpreshuffle_tuned_gemm.csv, will use default config!
+[aiter] shape is M:384, N:1536, K:4096, not found tuned config in /tmp/aiter_configs/a8w8_blockscale_bpreshuffle_tuned_gemm.csv, will use default config!
+[aiter] shape is M:384, N:8192, K:1024, not found tuned config in /tmp/aiter_configs/a8w8_blockscale_bpreshuffle_tuned_gemm.csv, will use default config!
+[aiter] shape is M:384, N:1536, K:4096, not found tuned config in /tmp/aiter_configs/a8w8_blockscale_bpreshuffle_tuned_gemm.csv, will use default config!
+[aiter] shape is M:384, N:8192, K:1024, not found tuned config in /tmp/aiter_configs/a8w8_blockscale_bpreshuffle_tuned_gemm.csv, will use default config!
+[aiter] shape is M:384, N:1536, K:4096, not found tuned config in /tmp/aiter_configs/a8w8_blockscale_bpreshuffle_tuned_gemm.csv, will use default config!
+[aiter] shape is M:384, N:8192, K:1024, not found tuned config in /tmp/aiter_configs/a8w8_blockscale_bpreshuffle_tuned_gemm.csv, will use default config!
+[aiter] shape is M:384, N:4096, K:2048, not found tuned config in /tmp/aiter_configs/a8w8_blockscale_bpreshuffle_tuned_gemm.csv, will use default config!
+[aiter] shape is M:384, N:256, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] run_1stage = True, xbf16 = False, ksplit = 0 q_type = QuantType.per_1x128 block_m = 32 use_nt = True, estimated_m_per_expert = 13
+[aiter] [fused_moe] using 1stage default for ('gfx942', 304, 512, 4096, 512, 257, 7, 'ActivationType.Silu', 'torch.bfloat16', 'torch.float8_e4m3fnuz', 'torch.float8_e4m3fnuz', 'QuantType.per_1x128', True, False) 
+[aiter] shape is M:384, N:2048, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:384, N:4096, K:2048, not found tuned config in /tmp/aiter_configs/a8w8_blockscale_bpreshuffle_tuned_gemm.csv, will use default config!
+[aiter] shape is M:384, N:256, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] run_1stage = True, xbf16 = False, ksplit = 0 q_type = QuantType.per_1x128 block_m = 32 use_nt = True, estimated_m_per_expert = 13
+[aiter] [fused_moe] using 1stage default for ('gfx942', 304, 512, 4096, 512, 257, 7, 'ActivationType.Silu', 'torch.bfloat16', 'torch.float8_e4m3fnuz', 'torch.float8_e4m3fnuz', 'QuantType.per_1x128', True, False) 
+[aiter] shape is M:384, N:2048, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:384, N:4096, K:2048, not found tuned config in /tmp/aiter_configs/a8w8_blockscale_bpreshuffle_tuned_gemm.csv, will use default config!
+[aiter] shape is M:384, N:256, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] run_1stage = True, xbf16 = False, ksplit = 0 q_type = QuantType.per_1x128 block_m = 32 use_nt = True, estimated_m_per_expert = 13
+[aiter] [fused_moe] using 1stage default for ('gfx942', 304, 512, 4096, 512, 257, 7, 'ActivationType.Silu', 'torch.bfloat16', 'torch.float8_e4m3fnuz', 'torch.float8_e4m3fnuz', 'QuantType.per_1x128', True, False) 
+[aiter] shape is M:384, N:2048, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:384, N:4096, K:2048, not found tuned config in /tmp/aiter_configs/a8w8_blockscale_bpreshuffle_tuned_gemm.csv, will use default config!
+[aiter] shape is M:384, N:256, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] run_1stage = True, xbf16 = False, ksplit = 0 q_type = QuantType.per_1x128 block_m = 32 use_nt = True, estimated_m_per_expert = 13
+[aiter] [fused_moe] using 1stage default for ('gfx942', 304, 512, 4096, 512, 257, 7, 'ActivationType.Silu', 'torch.bfloat16', 'torch.float8_e4m3fnuz', 'torch.float8_e4m3fnuz', 'QuantType.per_1x128', True, False) 
+[aiter] shape is M:384, N:2048, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:384, N:512, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:384, N:512, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:384, N:512, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:384, N:512, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] import [module_dsv4_rotate_quant] under /app/aiter-test/aiter/jit/module_dsv4_rotate_quant.so
+[aiter] shape is M:384, N:64, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] import [module_dsv4_rotate_quant] under /app/aiter-test/aiter/jit/module_dsv4_rotate_quant.so
+[aiter] shape is M:384, N:64, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] import [module_dsv4_rotate_quant] under /app/aiter-test/aiter/jit/module_dsv4_rotate_quant.so
+[aiter] shape is M:384, N:64, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] import [module_dsv4_rotate_quant] under /app/aiter-test/aiter/jit/module_dsv4_rotate_quant.so
+[aiter] shape is M:384, N:64, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] [pid=592 pname=ModelRunner0/4] start build [module_top_k_per_row] under /app/aiter-test/aiter/jit/build/module_top_k_per_row
+[aiter] [pid=595 pname=ModelRunner3/4] waiting for baton release at /app/aiter-test/aiter/jit/build/lock_module_top_k_per_row
+[aiter] [pid=594 pname=ModelRunner2/4] waiting for baton release at /app/aiter-test/aiter/jit/build/lock_module_top_k_per_row
+[aiter] [pid=593 pname=ModelRunner1/4] waiting for baton release at /app/aiter-test/aiter/jit/build/lock_module_top_k_per_row
+[aiter] Current hipcc not support: -mllvm -amdgpu-coerce-illegal-types=1, skip it.

@@ -1,0 +1,2 @@
+mi325_dsv4_e004_router	Up 3 minutes
+mi325_dsv4_e004_dual	Up 5 minutes

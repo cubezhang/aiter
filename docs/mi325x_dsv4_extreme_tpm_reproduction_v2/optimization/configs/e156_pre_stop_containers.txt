@@ -1,0 +1,2 @@
+/mi325_dsv4_e004_dual rocm/atom-dev:nightly_202607271535 running
+/mi325_dsv4_e004_router rocm/atom-dev:nightly_202607271535 running

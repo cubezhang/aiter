@@ -1,0 +1,9 @@
+HTTP/1.1 400 Bad Request
+date: Mon, 03 Aug 2026 14:08:17 GMT
+server: uvicorn
+date: Mon, 03 Aug 2026 14:08:17 GMT
+server: uvicorn
+content-length: 108
+content-type: application/json
+
+{"detail":"Requested model 'deepseek-ai/DeepSeek-V4-Flash-FP8' does not match server model 'DeepSeek-V3.2'"}

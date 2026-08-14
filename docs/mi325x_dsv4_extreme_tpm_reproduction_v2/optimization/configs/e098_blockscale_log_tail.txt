@@ -1,0 +1,1203 @@
+==> logs/e004_18000_server.log <==
+[aiter] shape is M:23, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:92, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:23, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:23, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:23, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:23, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:23, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:92, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:23, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:23, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:23, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:23, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:23, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:23, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:23, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:23, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:23, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[atom 15:31:43] Engine Core: output send 1 reqs
+[aiter] shape is M:264, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:264, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:66, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:264, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:66, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:66, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:66, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:66, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:66, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:264, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:66, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:66, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:66, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:66, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:66, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:66, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:88, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:88, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:22, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:22, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:88, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:22, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:22, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:22, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:22, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:22, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:22, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:88, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:22, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:22, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:22, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:22, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:22, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:22, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:22, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:22, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[atom 15:31:44] [MTP Stats Interval] Average toks/fwd: 2.06, Accepted/Total Draft tokens: 1065/2000, Acceptance rate: 53.25%, Accepted tokens distribution: {0: '27.30%', 1: '38.90%', 2: '33.80%'}
+[atom 15:31:44] [MTP Stats         ] Average toks/fwd: 2.24, Accepted/Total Draft tokens: 432444/698000, Acceptance rate: 61.95%, Accepted tokens distribution: {0: '20.29%', 1: '35.52%', 2: '44.19%'}
+[atom 15:31:44] Engine Core: output send 1 reqs
+[aiter] shape is M:252, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:252, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:63, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:63, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:252, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:63, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:63, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:63, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:63, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:252, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:63, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:63, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:63, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:63, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:63, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:63, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[atom 15:31:44] Engine Core: output send 1 reqs
+[aiter] shape is M:240, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:240, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:60, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:60, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:240, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:60, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:60, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:60, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:60, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:60, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:240, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:60, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:60, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:60, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:60, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:60, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:80, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:80, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:20, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:20, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:80, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:20, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:20, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:20, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:20, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:20, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:20, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:80, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:20, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:20, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:20, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:20, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:20, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:20, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:20, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:20, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[atom 15:31:44] Engine Core: output send 1 reqs
+[aiter] shape is M:76, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:76, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:19, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:19, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:76, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:19, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:19, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:19, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:19, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:19, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:19, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:76, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:19, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:19, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:19, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:19, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:19, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:19, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:19, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:19, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[atom 15:31:45] Engine Core: output send 1 reqs
+[aiter] shape is M:216, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:216, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:54, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:54, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:216, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:54, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:54, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:54, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:54, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:54, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:54, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:216, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:54, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:54, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:54, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:54, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[atom 15:31:45] Engine Core: output send 1 reqs
+[aiter] shape is M:204, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:204, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:51, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:51, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:204, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:51, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:51, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:51, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:51, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:51, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:204, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:51, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:51, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:51, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:51, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:51, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[atom 15:31:45] Engine Core: output send 1 reqs
+[aiter] shape is M:192, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:192, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:192, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:48, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:48, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:48, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:192, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:48, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:48, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:48, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:48, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:48, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[atom 15:31:45] Engine Core: output send 1 reqs
+[aiter] shape is M:180, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:180, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:45, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:45, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:180, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:45, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:45, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:45, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:45, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:180, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:45, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:45, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:45, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:45, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:45, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:45, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:15, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:15, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:15, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:15, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:15, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:15, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:15, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:15, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:15, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:15, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:15, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:15, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:15, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:15, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:15, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:15, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[atom 15:31:45] [MTP Stats Interval] Average toks/fwd: 2.08, Accepted/Total Draft tokens: 1078/2000, Acceptance rate: 53.90%, Accepted tokens distribution: {0: '26.90%', 1: '38.40%', 2: '34.70%'}
+[atom 15:31:45] [MTP Stats         ] Average toks/fwd: 2.24, Accepted/Total Draft tokens: 433522/700000, Acceptance rate: 61.93%, Accepted tokens distribution: {0: '20.30%', 1: '35.53%', 2: '44.17%'}
+[atom 15:31:45] Engine Core: output send 1 reqs
+[aiter] shape is M:168, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:168, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:42, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:42, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:168, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:42, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:42, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:42, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:42, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:42, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:168, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:42, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:42, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:42, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:42, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:42, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:14, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:14, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:14, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:14, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:14, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:14, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:14, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:14, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:14, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:14, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:14, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:14, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:14, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:14, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:14, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:14, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[atom 15:31:45] Engine Core: output send 1 reqs
+[aiter] shape is M:156, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:156, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:39, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:156, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:39, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:39, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:39, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:39, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:39, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:156, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:39, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:39, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:39, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:39, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:39, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:39, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[atom 15:31:46] Engine Core: output send 1 reqs
+[atom 15:31:46] Engine Core: output send 1 reqs
+[aiter] shape is M:44, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:44, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:11, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:44, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:11, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:11, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:11, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:11, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:11, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:44, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:11, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:11, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:11, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:11, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:11, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:11, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:11, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:11, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:11, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:11, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[atom 15:31:46] Engine Core: output send 1 reqs
+[aiter] shape is M:40, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:40, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:10, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:10, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:40, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:10, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:10, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:10, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:10, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:10, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:40, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:10, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:10, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:10, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:10, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:10, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:10, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:10, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:10, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:10, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[atom 15:31:47] [MTP Stats Interval] Average toks/fwd: 2.08, Accepted/Total Draft tokens: 1079/2000, Acceptance rate: 53.95%, Accepted tokens distribution: {0: '26.60%', 1: '38.90%', 2: '34.50%'}
+[atom 15:31:47] [MTP Stats         ] Average toks/fwd: 2.24, Accepted/Total Draft tokens: 434601/702000, Acceptance rate: 61.91%, Accepted tokens distribution: {0: '20.32%', 1: '35.54%', 2: '44.14%'}
+[atom 15:31:47] Engine Core: output send 1 reqs
+[aiter] shape is M:9, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:9, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:9, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:9, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:9, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:9, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:9, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:9, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:9, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:9, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:9, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:9, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:9, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:9, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:9, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:9, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[atom 15:31:47] Engine Core: output send 1 reqs
+[aiter] shape is M:8, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:8, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:8, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:8, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:8, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:8, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:8, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:8, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:8, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:8, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:8, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:8, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[atom 15:31:47] Engine Core: output send 1 reqs
+[aiter] shape is M:7, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:7, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:7, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:7, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:7, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:7, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:7, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:7, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:7, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:7, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:7, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:7, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:7, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:7, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:7, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:7, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[atom 15:31:48] Engine Core: output send 1 reqs
+[atom 15:31:48] Engine Core: output send 1 reqs
+[aiter] shape is M:5, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:5, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:5, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:5, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:5, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:5, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:5, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:5, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:5, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:5, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:5, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:5, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:5, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:5, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:5, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:5, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[atom 15:31:49] [MTP Stats Interval] Average toks/fwd: 2.05, Accepted/Total Draft tokens: 1052/2000, Acceptance rate: 52.60%, Accepted tokens distribution: {0: '25.70%', 1: '43.40%', 2: '30.90%'}
+[atom 15:31:49] [MTP Stats         ] Average toks/fwd: 2.24, Accepted/Total Draft tokens: 435653/704000, Acceptance rate: 61.88%, Accepted tokens distribution: {0: '20.34%', 1: '35.56%', 2: '44.10%'}
+[atom 15:31:49] Engine Core: output send 1 reqs
+[aiter] shape is M:4, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:4, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:4, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:4, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:4, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:4, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:4, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:4, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:4, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:4, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:4, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:4, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[atom 15:31:50] Engine Core: output send 1 reqs
+[atom 15:31:50] Engine Core: output send 1 reqs
+[atom 15:31:50] Engine Core: output send 1 reqs
+[atom 15:31:51] Engine Core: output send 1 reqs
+[aiter] No available shared memory broadcast block found in 60.0 seconds. This typically happens when some processes are hanging or doing some time-consuming work (e.g. compilation).
+[aiter] No available shared memory broadcast block found in 60.0 seconds. This typically happens when some processes are hanging or doing some time-consuming work (e.g. compilation).
+[aiter] No available shared memory broadcast block found in 60.0 seconds. This typically happens when some processes are hanging or doing some time-consuming work (e.g. compilation).
+[aiter] No available shared memory broadcast block found in 60.0 seconds. This typically happens when some processes are hanging or doing some time-consuming work (e.g. compilation).
+[atom 15:32:51] Request 1231 arrived, input tokens: 8, pending requests: 1
+[atom 15:32:51] Request 1232 arrived, input tokens: 8, pending requests: 2
+[atom 15:32:51] Request 1233 arrived, input tokens: 8, pending requests: 3
+[atom 15:32:51] Request 1234 arrived, input tokens: 8, pending requests: 4
+[atom 15:32:51] Scheduled prefill batch: 1 reqs, 8 new tokens (cached: [0], new: [8]), req_ids: (1231,)
+[atom 15:32:51] Request 1235 arrived, input tokens: 8, pending requests: 5
+[atom 15:32:51] Request 1236 arrived, input tokens: 8, pending requests: 6
+[atom 15:32:51] Request 1237 arrived, input tokens: 8, pending requests: 7
+[atom 15:32:51] Request 1238 arrived, input tokens: 8, pending requests: 8
+[atom 15:32:51] Request 1239 arrived, input tokens: 8, pending requests: 9
+[atom 15:32:51] Request 1240 arrived, input tokens: 8, pending requests: 10
+[atom 15:32:51] Request 1241 arrived, input tokens: 8, pending requests: 11
+[atom 15:32:51] Request 1242 arrived, input tokens: 8, pending requests: 12
+[atom 15:32:51] Request 1243 arrived, input tokens: 8, pending requests: 13
+[atom 15:32:51] Request 1244 arrived, input tokens: 8, pending requests: 14
+[atom 15:32:51] Request 1245 arrived, input tokens: 8, pending requests: 15
+[atom 15:32:51] Request 1246 arrived, input tokens: 8, pending requests: 16
+[atom 15:32:51] Request 1247 arrived, input tokens: 8, pending requests: 17
+[atom 15:32:51] Request 1248 arrived, input tokens: 8, pending requests: 18
+[atom 15:32:51] Request 1249 arrived, input tokens: 8, pending requests: 19
+[atom 15:32:51] Request 1250 arrived, input tokens: 8, pending requests: 20
+[atom 15:32:51] Request 1251 arrived, input tokens: 8, pending requests: 21
+[atom 15:32:51] Request 1252 arrived, input tokens: 8, pending requests: 22
+[atom 15:32:51] Request 1253 arrived, input tokens: 8, pending requests: 23
+[atom 15:32:51] Request 1254 arrived, input tokens: 8, pending requests: 24
+[atom 15:32:51] Request 1255 arrived, input tokens: 8, pending requests: 25
+[atom 15:32:51] Request 1256 arrived, input tokens: 8, pending requests: 26
+[atom 15:32:51] Request 1257 arrived, input tokens: 8, pending requests: 27
+[atom 15:32:51] Request 1258 arrived, input tokens: 8, pending requests: 28
+[atom 15:32:51] Request 1259 arrived, input tokens: 8, pending requests: 29
+[aiter] shape is M:8, N:2048, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:8, N:2048, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:8, N:512, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[atom 15:32:51] Request 1260 arrived, input tokens: 8, pending requests: 30
+[aiter] shape is M:8, N:512, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:8, N:2048, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:8, N:2048, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:8, N:64, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using skinny solution:2
+[aiter] shape is M:8, N:512, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:8, N:64, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using skinny solution:2
+[aiter] shape is M:8, N:512, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[atom 15:32:51] Request 1261 arrived, input tokens: 8, pending requests: 31
+[aiter] shape is M:8, N:64, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using skinny solution:2
+[aiter] shape is M:8, N:64, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using skinny solution:2
+[atom 15:32:51] Request 1262 arrived, input tokens: 8, pending requests: 32
+[atom 15:32:51] Request 1263 arrived, input tokens: 8, pending requests: 33
+[atom 15:32:51] Request 1264 arrived, input tokens: 8, pending requests: 34
+[atom 15:32:51] Request 1265 arrived, input tokens: 8, pending requests: 35
+[atom 15:32:51] Request 1266 arrived, input tokens: 8, pending requests: 36
+[atom 15:32:51] Request 1267 arrived, input tokens: 8, pending requests: 37
+[atom 15:32:51] Request 1268 arrived, input tokens: 8, pending requests: 38
+[atom 15:32:51] Request 1269 arrived, input tokens: 8, pending requests: 39
+[atom 15:32:51] Request 1270 arrived, input tokens: 8, pending requests: 40
+[atom 15:32:51] Request 1271 arrived, input tokens: 8, pending requests: 41
+[atom 15:32:51] Request 1272 arrived, input tokens: 8, pending requests: 42
+[atom 15:32:51] Request 1273 arrived, input tokens: 8, pending requests: 43
+[atom 15:32:51] Request 1274 arrived, input tokens: 8, pending requests: 44
+[atom 15:32:51] Request 1275 arrived, input tokens: 8, pending requests: 45
+[atom 15:32:51] Request 1276 arrived, input tokens: 8, pending requests: 46
+[atom 15:32:51] Request 1277 arrived, input tokens: 8, pending requests: 47
+[atom 15:32:51] Request 1278 arrived, input tokens: 8, pending requests: 48
+[atom 15:32:51] Request 1279 arrived, input tokens: 8, pending requests: 49
+[atom 15:32:51] Request 1280 arrived, input tokens: 8, pending requests: 50
+[atom 15:32:51] Request 1281 arrived, input tokens: 8, pending requests: 51
+[atom 15:32:51] Request 1282 arrived, input tokens: 8, pending requests: 52
+[atom 15:32:51] Request 1283 arrived, input tokens: 8, pending requests: 53
+[atom 15:32:51] Request 1284 arrived, input tokens: 8, pending requests: 54
+[atom 15:32:51] Request 1285 arrived, input tokens: 8, pending requests: 55
+[atom 15:32:51] Request 1286 arrived, input tokens: 8, pending requests: 56
+[atom 15:32:51] Request 1287 arrived, input tokens: 8, pending requests: 57
+[aiter] shape is M:8, N:1024, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[atom 15:32:51] Request 1288 arrived, input tokens: 8, pending requests: 58
+[aiter] shape is M:8, N:1024, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[atom 15:32:51] Request 1289 arrived, input tokens: 8, pending requests: 59
+[atom 15:32:51] Request 1290 arrived, input tokens: 8, pending requests: 60
+[atom 15:32:51] Request 1291 arrived, input tokens: 8, pending requests: 61
+[atom 15:32:51] Request 1292 arrived, input tokens: 8, pending requests: 62
+[atom 15:32:51] Request 1293 arrived, input tokens: 8, pending requests: 63
+[atom 15:32:51] Request 1294 arrived, input tokens: 8, pending requests: 64
+[aiter] shape is M:8, N:1024, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:8, N:1024, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[atom 15:32:51] Scheduled prefill batch: 63 reqs, 504 new tokens (cached: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], new: [8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8]), req_ids: (1232, 1233, 1234, 1235, 1236, 1237, 1238, 1239, 1240, 1241, 1242, 1243, 1244, 1245, 1246, 1247, 1248, 1249, 1250, 1251, 1252, 1253, 1254, 1255, 1256, 1257, 1258, 1259, 1260, 1261, 1262, 1263, 1264, 1265, 1266, 1267, 1268, 1269, 1270, 1271, 1272, 1273, 1274, 1275, 1276, 1277, 1278, 1279, 1280, 1281, 1282, 1283, 1284, 1285, 1286, 1287, 1288, 1289, 1290, 1291, 1292, 1293, 1294)
+[aiter] shape is M:504, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:504, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:504, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:504, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:504, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:504, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:504, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:504, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:504, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:504, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:504, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:504, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:504, N:256, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:504, N:256, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:504, N:256, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:504, N:256, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:504, N:2048, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:504, N:2048, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:504, N:2048, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:504, N:2048, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:504, N:512, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:504, N:512, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:504, N:512, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:504, N:512, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:504, N:64, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:504, N:64, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:504, N:64, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:504, N:64, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:504, N:1024, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:504, N:1024, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:504, N:1024, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:504, N:1024, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:2016, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:504, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:2016, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:2016, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:504, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:504, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:2016, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:504, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[atom 15:32:51] Engine Core: output send 1 reqs
+INFO:     127.0.0.1:42682 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+[aiter] shape is M:189, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:189, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:189, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:189, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:189, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:189, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:189, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:189, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:189, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:189, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:189, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:189, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:189, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:189, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:189, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:189, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+INFO:     127.0.0.1:42684 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42696 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42708 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42710 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42716 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42720 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42722 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42734 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42748 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42752 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42766 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42774 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42786 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42794 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42802 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42804 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42812 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42818 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42834 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42836 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42840 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42858 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42842 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42864 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42876 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42880 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42884 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42900 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+[atom 15:32:51] Engine Core: output send 63 reqs
+INFO:     127.0.0.1:42906 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42912 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42922 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42938 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42940 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42956 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42968 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42972 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42986 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42996 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43002 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43018 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43024 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43034 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43038 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43052 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43068 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43078 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43088 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43098 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43106 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43122 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43128 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43138 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43150 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43158 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43170 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43180 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43182 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43196 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43204 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43212 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43218 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43236 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43232 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+
+==> logs/e004_18001_server.log <==
+[aiter] shape is M:26, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:26, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:26, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:26, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:26, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:26, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:26, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:26, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:26, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:26, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[atom 15:31:44] Engine Core: output send 1 reqs
+[aiter] shape is M:75, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:75, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:75, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:75, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:75, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:75, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:75, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:75, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:75, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:75, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:75, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:75, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:100, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:100, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:25, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:25, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:100, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:25, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:25, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:25, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:25, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:25, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:100, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:25, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:25, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:25, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:25, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:25, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:25, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:25, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:25, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:25, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[atom 15:31:44] Engine Core: output send 1 reqs
+[aiter] shape is M:288, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:288, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:72, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:72, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:72, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:288, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:72, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:72, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:288, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:72, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:72, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:72, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:72, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:72, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:72, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:72, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[atom 15:31:44] Engine Core: output send 1 reqs
+[aiter] shape is M:276, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:276, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:69, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:69, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:276, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:69, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:69, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:69, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:69, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:69, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:276, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:69, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:69, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:69, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:69, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:69, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[atom 15:31:45] Engine Core: output send 1 reqs
+[aiter] shape is M:264, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:264, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:66, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:264, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:66, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:66, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:66, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:66, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:264, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:66, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:66, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:66, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:66, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:66, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:66, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:66, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[atom 15:31:45] [MTP Stats Interval] Average toks/fwd: 2.07, Accepted/Total Draft tokens: 1074/2000, Acceptance rate: 53.70%, Accepted tokens distribution: {0: '26.20%', 1: '40.20%', 2: '33.60%'}
+[atom 15:31:45] [MTP Stats         ] Average toks/fwd: 2.08, Accepted/Total Draft tokens: 240819/444000, Acceptance rate: 54.24%, Accepted tokens distribution: {0: '26.93%', 1: '37.67%', 2: '35.40%'}
+[atom 15:31:45] Engine Core: output send 1 reqs
+[aiter] shape is M:252, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:252, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:63, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:63, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:252, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:63, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:63, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:63, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:252, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:63, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:63, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:63, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:63, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:63, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:63, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:63, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[atom 15:31:45] Engine Core: output send 1 reqs
+[aiter] shape is M:240, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:240, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:240, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:60, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:60, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:60, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:60, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:240, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:60, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:60, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:60, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:60, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:20, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:20, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:20, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:20, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:20, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:20, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:20, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:20, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:20, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:20, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:20, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:20, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:20, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:20, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:20, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:20, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[atom 15:31:46] Engine Core: output send 1 reqs
+[aiter] shape is M:228, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:228, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:57, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:57, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:228, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:57, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:57, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:57, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:57, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:228, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:57, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:57, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:57, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:57, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:57, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:57, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[atom 15:31:46] Engine Core: output send 1 reqs
+[aiter] shape is M:18, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:18, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:18, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:18, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:18, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:18, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:18, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:18, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:18, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:18, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:18, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:18, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:18, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:18, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:18, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:18, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[atom 15:31:46] [MTP Stats Interval] Average toks/fwd: 2.03, Accepted/Total Draft tokens: 1033/2000, Acceptance rate: 51.65%, Accepted tokens distribution: {0: '29.10%', 1: '38.50%', 2: '32.40%'}
+[atom 15:31:46] [MTP Stats         ] Average toks/fwd: 2.08, Accepted/Total Draft tokens: 241852/446000, Acceptance rate: 54.23%, Accepted tokens distribution: {0: '26.94%', 1: '37.67%', 2: '35.39%'}
+[atom 15:31:46] Engine Core: output send 1 reqs
+[aiter] shape is M:204, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:204, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:51, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:51, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:51, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:204, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:51, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:51, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:51, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:51, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:204, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:51, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:51, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:51, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:51, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:51, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[atom 15:31:46] Engine Core: output send 1 reqs
+[aiter] shape is M:48, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:48, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:48, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:48, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:48, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:48, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:48, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:48, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[atom 15:31:46] Engine Core: output send 1 reqs
+[aiter] shape is M:180, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:45, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:180, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:45, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:180, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:45, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:45, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:45, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:45, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:180, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:45, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:45, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:45, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:45, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:45, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:45, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[atom 15:31:47] Engine Core: output send 1 reqs
+[aiter] shape is M:168, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:168, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:42, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:42, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:168, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:42, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:42, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:42, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:42, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:168, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:42, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:42, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:42, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:42, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:42, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:42, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[atom 15:31:47] Engine Core: output send 1 reqs
+[aiter] shape is M:156, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:156, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:39, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:39, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:156, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:39, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:39, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:39, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:39, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:156, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:39, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:39, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:39, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:39, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:39, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:39, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:52, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:52, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:13, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:13, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:13, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:13, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:52, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:13, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:13, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:13, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:52, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:13, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:13, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:13, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:13, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:13, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:13, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:13, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:13, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:13, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[atom 15:31:47] Engine Core: output send 1 reqs
+[aiter] shape is M:144, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:144, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:36, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:36, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:144, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:36, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:36, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:36, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:36, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:144, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:36, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:36, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:36, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:36, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:36, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:36, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[atom 15:31:47] [MTP Stats Interval] Average toks/fwd: 2.00, Accepted/Total Draft tokens: 995/2000, Acceptance rate: 49.75%, Accepted tokens distribution: {0: '30.70%', 1: '39.10%', 2: '30.20%'}
+[atom 15:31:47] [MTP Stats         ] Average toks/fwd: 2.08, Accepted/Total Draft tokens: 242847/448000, Acceptance rate: 54.21%, Accepted tokens distribution: {0: '26.95%', 1: '37.68%', 2: '35.37%'}
+[atom 15:31:48] Engine Core: output send 1 reqs
+[aiter] shape is M:44, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:44, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:11, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:11, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:11, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:44, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:11, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:11, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:11, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:44, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:11, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:11, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:11, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:11, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:11, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:11, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:11, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:11, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:11, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:11, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[atom 15:31:48] Engine Core: output send 1 reqs
+[aiter] shape is M:40, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:40, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:10, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:10, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:10, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:40, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:10, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:10, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:10, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:40, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:10, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:10, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:10, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:10, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:10, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:10, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:10, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:10, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:10, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:10, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[atom 15:31:48] Engine Core: output send 1 reqs
+[aiter] shape is M:9, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:9, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:9, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:9, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:9, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:9, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:9, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:9, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:9, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:9, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:9, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:9, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:9, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:9, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:9, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:9, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[atom 15:31:48] Engine Core: output send 1 reqs
+[aiter] shape is M:8, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:8, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:8, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:8, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:8, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:8, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:8, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:8, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:8, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:8, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:8, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:8, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[atom 15:31:49] Engine Core: output send 1 reqs
+[aiter] shape is M:7, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:7, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:7, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:7, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:7, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:7, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:7, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:7, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:7, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:7, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:7, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:7, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:7, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:7, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:7, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:7, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[atom 15:31:49] Engine Core: output send 1 reqs
+[atom 15:31:49] Engine Core: output send 1 reqs
+[aiter] shape is M:5, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:5, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:5, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:5, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:5, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:5, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:5, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:5, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:5, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:5, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:5, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:5, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:5, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:5, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:5, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:5, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[atom 15:31:50] Engine Core: output send 1 reqs
+[aiter] shape is M:4, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:4, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:4, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:4, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:4, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:4, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:4, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:4, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:4, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:4, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:4, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:4, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[atom 15:31:50] [MTP Stats Interval] Average toks/fwd: 2.04, Accepted/Total Draft tokens: 1039/2000, Acceptance rate: 51.95%, Accepted tokens distribution: {0: '28.20%', 1: '39.70%', 2: '32.10%'}
+[atom 15:31:50] [MTP Stats         ] Average toks/fwd: 2.08, Accepted/Total Draft tokens: 243886/450000, Acceptance rate: 54.20%, Accepted tokens distribution: {0: '26.96%', 1: '37.69%', 2: '35.35%'}
+[atom 15:31:50] Engine Core: output send 1 reqs
+[atom 15:31:51] Engine Core: output send 1 reqs
+[atom 15:31:51] Engine Core: output send 1 reqs
+[atom 15:31:51] Engine Core: output send 1 reqs
+[atom 15:32:51] Request 934 arrived, input tokens: 8, pending requests: 1
+[atom 15:32:51] Request 935 arrived, input tokens: 8, pending requests: 2
+[atom 15:32:51] Request 936 arrived, input tokens: 8, pending requests: 3
+[atom 15:32:51] Request 937 arrived, input tokens: 8, pending requests: 4
+[atom 15:32:51] Scheduled prefill batch: 1 reqs, 8 new tokens (cached: [0], new: [8]), req_ids: (934,)
+[atom 15:32:51] Request 938 arrived, input tokens: 8, pending requests: 5
+[atom 15:32:51] Request 939 arrived, input tokens: 8, pending requests: 6
+[atom 15:32:51] Request 940 arrived, input tokens: 8, pending requests: 7
+[atom 15:32:51] Request 941 arrived, input tokens: 8, pending requests: 8
+[atom 15:32:51] Request 942 arrived, input tokens: 8, pending requests: 9
+[atom 15:32:51] Request 943 arrived, input tokens: 8, pending requests: 10
+[atom 15:32:51] Request 944 arrived, input tokens: 8, pending requests: 11
+[atom 15:32:51] Request 945 arrived, input tokens: 8, pending requests: 12
+[atom 15:32:51] Request 946 arrived, input tokens: 8, pending requests: 13
+[atom 15:32:51] Request 947 arrived, input tokens: 8, pending requests: 14
+[atom 15:32:51] Request 948 arrived, input tokens: 8, pending requests: 15
+[atom 15:32:51] Request 949 arrived, input tokens: 8, pending requests: 16
+[atom 15:32:51] Request 950 arrived, input tokens: 8, pending requests: 17
+[atom 15:32:51] Request 951 arrived, input tokens: 8, pending requests: 18
+[atom 15:32:51] Request 952 arrived, input tokens: 8, pending requests: 19
+[atom 15:32:51] Request 953 arrived, input tokens: 8, pending requests: 20
+[atom 15:32:51] Request 954 arrived, input tokens: 8, pending requests: 21
+[atom 15:32:51] Request 955 arrived, input tokens: 8, pending requests: 22
+[atom 15:32:51] Request 956 arrived, input tokens: 8, pending requests: 23
+[atom 15:32:51] Request 957 arrived, input tokens: 8, pending requests: 24
+[atom 15:32:51] Request 958 arrived, input tokens: 8, pending requests: 25
+[atom 15:32:51] Request 959 arrived, input tokens: 8, pending requests: 26
+[atom 15:32:51] Request 960 arrived, input tokens: 8, pending requests: 27
+[atom 15:32:51] Request 961 arrived, input tokens: 8, pending requests: 28
+[atom 15:32:51] Request 962 arrived, input tokens: 8, pending requests: 29
+[atom 15:32:51] Request 963 arrived, input tokens: 8, pending requests: 30
+[atom 15:32:51] Request 964 arrived, input tokens: 8, pending requests: 31
+[atom 15:32:51] Request 965 arrived, input tokens: 8, pending requests: 32
+[atom 15:32:51] Request 966 arrived, input tokens: 8, pending requests: 33
+[atom 15:32:51] Request 967 arrived, input tokens: 8, pending requests: 34
+[atom 15:32:51] Request 968 arrived, input tokens: 8, pending requests: 35
+[atom 15:32:51] Request 969 arrived, input tokens: 8, pending requests: 36
+[atom 15:32:51] Request 970 arrived, input tokens: 8, pending requests: 37
+[atom 15:32:51] Request 971 arrived, input tokens: 8, pending requests: 38
+[atom 15:32:51] Request 972 arrived, input tokens: 8, pending requests: 39
+[atom 15:32:51] Request 973 arrived, input tokens: 8, pending requests: 40
+[atom 15:32:51] Request 974 arrived, input tokens: 8, pending requests: 41
+[atom 15:32:51] Request 975 arrived, input tokens: 8, pending requests: 42
+[atom 15:32:51] Request 976 arrived, input tokens: 8, pending requests: 43
+[atom 15:32:51] Request 977 arrived, input tokens: 8, pending requests: 44
+[atom 15:32:51] Request 978 arrived, input tokens: 8, pending requests: 45
+[atom 15:32:51] Request 979 arrived, input tokens: 8, pending requests: 46
+[atom 15:32:51] Request 980 arrived, input tokens: 8, pending requests: 47
+[atom 15:32:51] Request 981 arrived, input tokens: 8, pending requests: 48
+[atom 15:32:51] Request 982 arrived, input tokens: 8, pending requests: 49
+[atom 15:32:51] Request 983 arrived, input tokens: 8, pending requests: 50
+[atom 15:32:51] Request 984 arrived, input tokens: 8, pending requests: 51
+[atom 15:32:51] Request 985 arrived, input tokens: 8, pending requests: 52
+[atom 15:32:51] Request 986 arrived, input tokens: 8, pending requests: 53
+[atom 15:32:51] Request 987 arrived, input tokens: 8, pending requests: 54
+[atom 15:32:51] Request 988 arrived, input tokens: 8, pending requests: 55
+[atom 15:32:51] Request 989 arrived, input tokens: 8, pending requests: 56
+[atom 15:32:51] Request 990 arrived, input tokens: 8, pending requests: 57
+[atom 15:32:51] Request 991 arrived, input tokens: 8, pending requests: 58
+[atom 15:32:51] Request 992 arrived, input tokens: 8, pending requests: 59
+[atom 15:32:51] Request 993 arrived, input tokens: 8, pending requests: 60
+[atom 15:32:51] Request 994 arrived, input tokens: 8, pending requests: 61
+[atom 15:32:51] Request 995 arrived, input tokens: 8, pending requests: 62
+[atom 15:32:51] Request 996 arrived, input tokens: 8, pending requests: 63
+[atom 15:32:51] Request 997 arrived, input tokens: 8, pending requests: 64
+[atom 15:32:51] Scheduled prefill batch: 63 reqs, 504 new tokens (cached: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], new: [8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8]), req_ids: (935, 936, 937, 938, 939, 940, 941, 942, 943, 944, 945, 946, 947, 948, 949, 950, 951, 952, 953, 954, 955, 956, 957, 958, 959, 960, 961, 962, 963, 964, 965, 966, 967, 968, 969, 970, 971, 972, 973, 974, 975, 976, 977, 978, 979, 980, 981, 982, 983, 984, 985, 986, 987, 988, 989, 990, 991, 992, 993, 994, 995, 996, 997)
+[aiter] shape is M:504, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:504, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:504, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:504, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:504, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:504, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:504, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:504, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:504, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:504, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:504, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:504, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:2016, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:504, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:2016, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:504, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:2016, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:2016, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:504, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:504, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[atom 15:32:51] Engine Core: output send 1 reqs
+INFO:     127.0.0.1:39802 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+[aiter] shape is M:189, N:32320, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:189, N:32320, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:189, N:32320, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:189, N:32320, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] LoadKernel: _ZN5aiter42fp8gemm_bf16_blockscale_BpreShuffle_96x128E hsaco: /app/aiter-test/hsa//gfx942/fp8gemm_blockscale/fp8gemm_bf16_blockscale_BpreShuffle_96x128.co
+[aiter] LoadKernel: _ZN5aiter42fp8gemm_bf16_blockscale_BpreShuffle_96x128E hsaco: /app/aiter-test/hsa//gfx942/fp8gemm_blockscale/fp8gemm_bf16_blockscale_BpreShuffle_96x128.co
+[aiter] LoadKernel: _ZN5aiter42fp8gemm_bf16_blockscale_BpreShuffle_96x128E hsaco: /app/aiter-test/hsa//gfx942/fp8gemm_blockscale/fp8gemm_bf16_blockscale_BpreShuffle_96x128.co
+[aiter] LoadKernel: _ZN5aiter42fp8gemm_bf16_blockscale_BpreShuffle_96x128E hsaco: /app/aiter-test/hsa//gfx942/fp8gemm_blockscale/fp8gemm_bf16_blockscale_BpreShuffle_96x128.co
+[aiter] shape is M:189, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:189, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:189, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:189, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:189, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:189, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:189, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:189, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:189, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:189, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:189, N:256, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:189, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:189, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:189, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:189, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:189, N:256, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:189, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:189, N:256, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:189, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:189, N:256, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+INFO:     127.0.0.1:39806 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39812 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39820 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39824 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39830 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39844 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39848 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39854 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39870 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39880 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39882 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39894 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39896 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39904 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39912 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39918 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39924 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39928 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+[atom 15:32:51] Engine Core: output send 63 reqs
+INFO:     127.0.0.1:39934 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39940 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39946 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39954 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39960 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39966 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39970 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39984 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39986 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39992 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39998 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40002 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40008 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40024 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40028 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40036 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40038 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40042 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40056 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40064 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40076 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40080 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40084 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40096 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40102 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40112 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40124 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40132 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40140 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40142 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40146 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40156 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40162 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40174 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40182 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40186 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40194 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40198 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40214 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40216 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40228 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40232 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40236 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40246 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40262 - "POST /v1/chat/completions HTTP/1.1" 200 OK

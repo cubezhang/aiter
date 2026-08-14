@@ -1,0 +1,56 @@
+
+    def _setup_common_arguments(self):
+        """set common arguments"""
+        defaults = self.get_arg_defaults()
+        self.parser.add_argument(
+            "--verbose", "-v", action="store_true", help="more info"
+        )
+        self.parser.add_argument(
+            "-i",
+            "--untune_file",
+            default=defaults["untune_file"],
+            dest="untune_file",
+            required=False,
+            help="input",
+        )
+        self.parser.add_argument(
+            "-o",
+            "--tune_file",
+            default=defaults["tune_file"],
+            dest="tune_file",
+            required=False,
+            help="output: tuning result store this file",
+        )
+        self.parser.add_argument(
+            "--mp",
+            type=int,
+            default=torch.cuda.device_count(),
+            help="Tuning on multiple GPUs using multiple processes",
+        )
+        self.parser.add_argument(
+            "-k",
+            "--splitK",
+            action="store_true",
+            required=False,
+            help="Use splitK kernels",
+        )
+        self.parser.add_argument(
+            "--shape_grouped",
+            action="store_true",
+            default=False,
+            required=False,
+            help="Group all kernel candidates for the same shape onto one GPU "
+            "to eliminate cross-GPU timing variance (also saves generate_data calls)",
+        )
+        self.parser.add_argument(
+            "--sort",
+            type=dtypes.str2bool,
+            default=defaults.get("sort", False),
+            required=False,
+            help="Arranged according to the keys (True/False)",
+        )
+        self.parser.add_argument(
+            "--errRatio",
+            type=float,
+            default=defaults["errRatio"],
+            help="Tolerable error ratio (default 0.05). During tuning, kernels "

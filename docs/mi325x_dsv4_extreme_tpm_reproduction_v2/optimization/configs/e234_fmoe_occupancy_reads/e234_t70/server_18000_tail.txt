@@ -1,0 +1,129 @@
+[atom 11:00:50] Request 182 arrived, input tokens: 70, pending requests: 1
+[atom 11:00:50] API: Created request_id=cmpl-ad6096b1c16044c9aa221b06bf53ab4d, seq_id=182
+[atom 11:00:50] Request 183 arrived, input tokens: 70, pending requests: 2
+INFO:     127.0.0.1:59090 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 11:00:50] API: Created request_id=cmpl-38cfe9379e6142c6a198159a163b943a, seq_id=183
+INFO:     127.0.0.1:59106 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 11:00:50] Scheduled prefill batch: 1 reqs, 70 new tokens (cached: [0], new: [70]), req_ids: (182,)
+[atom 11:00:50] Scheduled prefill batch: 1 reqs, 70 new tokens (cached: [0], new: [70]), req_ids: (183,)
+[atom 11:00:51] Engine Core: output send 1 reqs
+[atom 11:00:51] Request 184 arrived, input tokens: 70, pending requests: 1
+[atom 11:00:51] Request 185 arrived, input tokens: 70, pending requests: 2
+[atom 11:00:51] Request 186 arrived, input tokens: 70, pending requests: 3
+[atom 11:00:51] API: Created request_id=cmpl-e20bfdb6436f43af9a31d3ed41110a5e, seq_id=184
+[atom 11:00:51] Request 187 arrived, input tokens: 70, pending requests: 4
+INFO:     127.0.0.1:59110 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 11:00:51] API: Created request_id=cmpl-2d00b20977394def8c5fa096e422f2fb, seq_id=185
+[atom 11:00:51] API: Created request_id=cmpl-4120daee553b493faa7bcc54217ea093, seq_id=186
+[atom 11:00:51] API: Created request_id=cmpl-e649fc344e7e415b962c7c01fc32b535, seq_id=187
+INFO:     127.0.0.1:59114 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59116 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59122 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 11:00:51] Scheduled prefill batch: 1 reqs, 70 new tokens (cached: [0], new: [70]), req_ids: (184,)
+[atom 11:00:51] Engine Core: output send 1 reqs
+[atom 11:00:51] Scheduled prefill batch: 3 reqs, 210 new tokens (cached: [0, 0, 0], new: [70, 70, 70]), req_ids: (185, 186, 187)
+[atom 11:00:51] Engine Core: output send 1 reqs
+[atom 11:00:51] Request 188 arrived, input tokens: 70, pending requests: 4
+[atom 11:00:51] API: Created request_id=cmpl-dcceca9a0209442287405c4355a1f64b, seq_id=188
+INFO:     127.0.0.1:59124 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 11:00:51] Scheduled prefill batch: 1 reqs, 70 new tokens (cached: [0], new: [70]), req_ids: (188,)
+[atom 11:00:51] Engine Core: output send 1 reqs
+[atom 11:00:51] Request 189 arrived, input tokens: 70, pending requests: 4
+[atom 11:00:51] API: Created request_id=cmpl-1ee8cd1735554809ad0de10883ecb291, seq_id=189
+INFO:     127.0.0.1:59138 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 11:00:51] Scheduled prefill batch: 1 reqs, 70 new tokens (cached: [0], new: [70]), req_ids: (189,)
+[atom 11:00:51] Engine Core: output send 1 reqs
+[atom 11:00:51] Request 190 arrived, input tokens: 70, pending requests: 4
+[atom 11:00:51] API: Created request_id=cmpl-e67f5aa10405496882edf07c13ae39d2, seq_id=190
+INFO:     127.0.0.1:59140 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 11:00:51] Scheduled prefill batch: 1 reqs, 70 new tokens (cached: [0], new: [70]), req_ids: (190,)
+[atom 11:00:52] Engine Core: output send 1 reqs
+[atom 11:00:52] Request 191 arrived, input tokens: 70, pending requests: 4
+[atom 11:00:52] API: Created request_id=cmpl-cbc9891dc78c4ee68b2784e3b88b9a1a, seq_id=191
+INFO:     127.0.0.1:59142 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 11:00:52] Scheduled prefill batch: 1 reqs, 70 new tokens (cached: [0], new: [70]), req_ids: (191,)
+[atom 11:00:52] Engine Core: output send 2 reqs
+[atom 11:00:52] Request 192 arrived, input tokens: 70, pending requests: 3
+[atom 11:00:52] API: Created request_id=cmpl-efba8aa0d9974ba1a8c8f2a34bd7e02f, seq_id=192
+[atom 11:00:52] Request 193 arrived, input tokens: 70, pending requests: 4
+INFO:     127.0.0.1:59152 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 11:00:52] API: Created request_id=cmpl-c1b9c32c91e3483b932bec15a635e8a8, seq_id=193
+INFO:     127.0.0.1:59156 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 11:00:52] Scheduled prefill batch: 2 reqs, 140 new tokens (cached: [0, 0], new: [70, 70]), req_ids: (192, 193)
+[atom 11:00:52] Engine Core: output send 1 reqs
+[atom 11:00:52] Request 194 arrived, input tokens: 70, pending requests: 4
+[atom 11:00:52] API: Created request_id=cmpl-363ed06efa1d4056b8be32ea40766646, seq_id=194
+INFO:     127.0.0.1:59160 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 11:00:52] Scheduled prefill batch: 1 reqs, 70 new tokens (cached: [0], new: [70]), req_ids: (194,)
+[atom 11:00:52] Engine Core: output send 1 reqs
+[atom 11:00:52] Request 195 arrived, input tokens: 70, pending requests: 4
+[atom 11:00:52] API: Created request_id=cmpl-68a2d7ea504441a590630cc142c74497, seq_id=195
+INFO:     127.0.0.1:59176 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 11:00:52] Scheduled prefill batch: 1 reqs, 70 new tokens (cached: [0], new: [70]), req_ids: (195,)
+[atom 11:00:53] Engine Core: output send 1 reqs
+[atom 11:00:53] Request 196 arrived, input tokens: 70, pending requests: 4
+[atom 11:00:53] API: Created request_id=cmpl-16efe941443c46ada543f1995af8d9be, seq_id=196
+INFO:     127.0.0.1:37520 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 11:00:53] Scheduled prefill batch: 1 reqs, 70 new tokens (cached: [0], new: [70]), req_ids: (196,)
+[atom 11:00:53] Engine Core: output send 1 reqs
+[atom 11:00:53] Request 197 arrived, input tokens: 70, pending requests: 4
+[atom 11:00:53] API: Created request_id=cmpl-ced13fad46a040a1b906188eebd4faff, seq_id=197
+INFO:     127.0.0.1:37534 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 11:00:53] Scheduled prefill batch: 1 reqs, 70 new tokens (cached: [0], new: [70]), req_ids: (197,)
+[atom 11:00:53] Engine Core: output send 1 reqs
+[atom 11:00:53] Request 198 arrived, input tokens: 70, pending requests: 4
+[atom 11:00:53] API: Created request_id=cmpl-95e3f99f391a489b829b6f8a52a40509, seq_id=198
+INFO:     127.0.0.1:37548 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 11:00:53] Scheduled prefill batch: 1 reqs, 70 new tokens (cached: [0], new: [70]), req_ids: (198,)
+[atom 11:00:53] Engine Core: output send 1 reqs
+[atom 11:00:53] Request 199 arrived, input tokens: 70, pending requests: 4
+[atom 11:00:53] API: Created request_id=cmpl-47558089554044478d6550372280fcaf, seq_id=199
+INFO:     127.0.0.1:37564 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 11:00:53] Scheduled prefill batch: 1 reqs, 70 new tokens (cached: [0], new: [70]), req_ids: (199,)
+[atom 11:00:53] Engine Core: output send 1 reqs
+[atom 11:00:53] Request 200 arrived, input tokens: 70, pending requests: 4
+[atom 11:00:53] API: Created request_id=cmpl-acc47e39b52f4ef98e671acda3ae6d5f, seq_id=200
+INFO:     127.0.0.1:37568 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 11:00:53] Scheduled prefill batch: 1 reqs, 70 new tokens (cached: [0], new: [70]), req_ids: (200,)
+[atom 11:00:53] Engine Core: output send 1 reqs
+[atom 11:00:53] Request 201 arrived, input tokens: 70, pending requests: 4
+[atom 11:00:53] API: Created request_id=cmpl-a018d24bfb14424a97b2765fdfb5ab5e, seq_id=201
+INFO:     127.0.0.1:37576 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 11:00:53] Scheduled prefill batch: 1 reqs, 70 new tokens (cached: [0], new: [70]), req_ids: (201,)
+[atom 11:00:53] Engine Core: output send 1 reqs
+[atom 11:00:53] Request 202 arrived, input tokens: 70, pending requests: 4
+[atom 11:00:53] API: Created request_id=cmpl-4d125b2cad7f43edbe0d001b91e0ec65, seq_id=202
+INFO:     127.0.0.1:37578 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 11:00:54] Scheduled prefill batch: 1 reqs, 70 new tokens (cached: [0], new: [70]), req_ids: (202,)
+[atom 11:00:54] Engine Core: output send 1 reqs
+[atom 11:00:54] Request 203 arrived, input tokens: 70, pending requests: 4
+[atom 11:00:54] API: Created request_id=cmpl-11905e7d35aa4ba1ba42e8312b2ca602, seq_id=203
+INFO:     127.0.0.1:37594 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 11:00:54] Scheduled prefill batch: 1 reqs, 70 new tokens (cached: [0], new: [70]), req_ids: (203,)
+[atom 11:00:54] Engine Core: output send 1 reqs
+[atom 11:00:54] Request 204 arrived, input tokens: 70, pending requests: 4
+[atom 11:00:54] API: Created request_id=cmpl-21439cfe541c4789b84cb1909f0d0d4c, seq_id=204
+INFO:     127.0.0.1:37602 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 11:00:54] Scheduled prefill batch: 1 reqs, 70 new tokens (cached: [0], new: [70]), req_ids: (204,)
+[atom 11:00:54] Engine Core: output send 1 reqs
+[atom 11:00:54] Request 205 arrived, input tokens: 70, pending requests: 4
+[atom 11:00:54] API: Created request_id=cmpl-06203989eeba44e8be4d5da76bce13a1, seq_id=205
+INFO:     127.0.0.1:37614 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 11:00:54] Scheduled prefill batch: 1 reqs, 70 new tokens (cached: [0], new: [70]), req_ids: (205,)
+[atom 11:00:54] Engine Core: output send 1 reqs
+[atom 11:00:54] Request 206 arrived, input tokens: 70, pending requests: 4
+[atom 11:00:54] API: Created request_id=cmpl-0d340f37acbe48ab981d307b6862b5c9, seq_id=206
+INFO:     127.0.0.1:37626 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 11:00:54] Scheduled prefill batch: 1 reqs, 70 new tokens (cached: [0], new: [70]), req_ids: (206,)
+[atom 11:00:54] Engine Core: output send 1 reqs
+[atom 11:00:54] Request 207 arrived, input tokens: 70, pending requests: 4
+[atom 11:00:54] API: Created request_id=cmpl-6bc1b248a0a743d0b2b53de2ccba6351, seq_id=207
+INFO:     127.0.0.1:37632 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 11:00:54] Scheduled prefill batch: 1 reqs, 70 new tokens (cached: [0], new: [70]), req_ids: (207,)
+[atom 11:00:55] Engine Core: output send 1 reqs
+[atom 11:00:55] Engine Core: output send 1 reqs
+[atom 11:00:55] Engine Core: output send 1 reqs
+[atom 11:00:55] Engine Core: output send 1 reqs
+[atom 11:00:55] Engine Core: executing utility command: get_mtp_statistics
+[atom 11:00:55] Engine Core: utility command 'get_mtp_statistics' finished in 0.00s
+INFO:     127.0.0.1:37646 - "GET /debug/mtp_stats HTTP/1.1" 200 OK

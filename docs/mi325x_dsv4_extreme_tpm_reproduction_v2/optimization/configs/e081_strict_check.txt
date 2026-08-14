@@ -1,0 +1,2 @@
+13:[aiter] run_config (64, 4096, 2048)[checkAllclose atol=0.01 rtol=0.01 [32mpassed~[0m]
+42:[aiter] run_config (64, 4096, 2048)[checkAllclose atol=0.01 rtol=0.01 [32mpassed~[0m]

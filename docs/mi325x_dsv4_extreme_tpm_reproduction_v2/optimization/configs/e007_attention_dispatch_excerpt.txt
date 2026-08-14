@@ -1,0 +1,221 @@
+  3439 177959 /app/ATOM/atom/model_ops/attentions/deepseek_v4_attn.py
+42-
+43-import numpy as np
+44-import torch
+45:from aiter import dtypes
+46:from aiter.jit.utils.chip_info import get_gfx
+47-
+48-from atom.distributed.pcp_utils import (
+49-    get_pcp_world_size,
+--
+61-    CommonAttentionBuilder,
+62-)
+63-from atom.model_ops.v4_kernels import (
+64:    write_v4_paged_decode_indices,
+65-    write_v4_paged_prefill_indices,
+66-)
+67-from atom.utils import CpuGpuBuffer
+--
+116-    n_committed_csa_per_seq_cpu: Any | None = None
+117-    """[bs] np.int32 — `ctx_len // 4` (CSA committed K per seq). Built once
+118-    in `_attach_v4_per_fwd_meta` from `var["context_lens"].np`; consumed by
+119:    `_attach_v4_paged_decode_meta`, `_build_paged_prefill_meta`, and
+120-    `_build_v4_indexer_meta` (indptr cumsums). Single source of truth so
+121-    those callers don't each re-read context_lens + divide."""
+122-    n_committed_hca_per_seq_cpu: Any | None = None
+--
+153-    batch_id_per_token_cpu: Any | None = None
+154-    """[T] int32 — CPU mirror of the unpadded batch_id slice. Built once in
+155-    `_attach_v4_per_fwd_meta` (host-side `np.repeat`); reused by
+156:    `_attach_v4_paged_decode_meta` for indptr fancy-index math. Avoids a
+157-    duplicate `np.repeat` per fwd. None for prefill paths that don't go
+158:    through paged_decode_meta (it's only consumed there)."""
+159-    compress_plans: dict[int, Any] | None = None
+160-    """dict[ratio:int -> CompressPlan] — packed plan tensors per
+161-    compress_ratio (4=CSA, 128=HCA)."""
+--
+163-    # ----- Phase B paged-decode metadata (set when state is DECODE) -----
+164-    # `state` lives on the base AttentionMetaData; every V4 `prepare_*` path
+165-    # overrides it. Below buffers are populated only when state is DECODE
+166:    # (built by `_attach_v4_paged_decode_meta`).
+167-    kv_indices_swa: torch.Tensor | None = None
+168-    """[swa_indptr[T]] int32 GPU — ragged-packed paged offsets into `unified_kv`
+169-    for the SWA path (per-token length `min(positions[t]+1, win)`)."""
+--
+194-    the compressed pool). -1 entries are window-freed blocks (never indexed)."""
+195-
+196-    # ----- Native 2buff fp8 per-token paged-decode index tensors -----
+197:    # Feed the aiter asm decode kernel `mla_decode_fwd_v4_nm` (op5), which treats
+198-    # each decode token as a 1-token page (page_size=1). Both depend ONLY on the
+199-    # padded decode token count N (the captured kernel grid), never on batch
+200-    # content — the values are always arange(N+1) / ones(N). Staged every fwd via
+--
+214-      cu_committed_gpu              [bs+1] int32  per-seq committed cumsum
+215-      seq_base_per_token_gpu        [T] int32  prefill subtract base (also
+216-                                                aliased as cu_starts_gpu for
+217:                                                fp8_mqa_logits)
+218-      cu_ends_gpu                   [T] int32  per-token end offset for
+219:                                                fp8_mqa_logits (causal cap)
+220-      total_committed               int  sum of n_committed_csa_per_seq
+221-
+222-    Note: decode logits / topk-indices scratch are allocated per-fwd inside
+--
+344-        n_main = int(getattr(hf, "num_hidden_layers", len(ratios)))
+345-        self._n_main_layers = n_main
+346-        self._mtp_layers_are_swa_only = all(r == 0 for r in ratios[n_main:])
+347:        # `deepgemm_fp8_paged_mqa_logits` decode-path output column count
+348-        # = max compressed K positions per seq. CSA ratio=4 is the
+349-        # max-density ratio (1 indexer slot per 4 source tokens).
+350-        self.max_model_len_idx = model_runner.config.max_model_len // 4
+--
+361-        # unchanged. SWA and classical (CSA/HCA Main) share the nope dtype; the
+362-        # rope pool is always bf16.
+363-        self._kv_fp8 = model_runner.kv_cache_dtype == "fp8"
+364:        # aiter prefill (op4) / decode (op5) implement the fp8 (2buff) path only
+365-        # on gfx950 / gfx1250. On any other arch, transparently fall back to a
+366-        # bf16 KV cache instead of hard-failing. Flipping self._kv_fp8 here (before
+367-        # the *_dtype attrs are read) keeps the whole V4 path consistent: pool
+--
+372-        if self._kv_fp8 and get_gfx() not in ("gfx950", "gfx1250"):
+373-            logger.warning(
+374-                "DeepSeek-V4 --kv_cache_dtype fp8 (2buff) is only supported on "
+375:                "gfx950 / gfx1250 (aiter op4/op5); got %r. Falling back to a "
+376-                "bf16 KV cache.",
+377-                get_gfx(),
+378-            )
+--
+629-    def allocate_per_req_cache(self, num_slots: int) -> dict[str, object]:
+630-        """Allocate per-layer `unified_kv` + Compressor state caches.
+631-
+632:        Per-layer `unified_kv` layout (decode-time paged_decode kernel reads
+633-        a single base ptr; offsets `[0, swa_pages)` are SWA, `[swa_pages, ..)`
+634-        are compress). Per-slot SWA region is `win_with_spec = win + mtp_k`
+635-        (extra slack so MTP draft tokens don't overwrite the verified token's
+--
+642-        `attn.swa_kv` (SWA portion, reshape to [num_slots, win, head_dim])
+643-        and `compressor.kv_cache` (compress portion, reshape to
+644-        [num_blocks, k_per_block, head_dim]). The full unified pool is also
+645:        bound as `attn.unified_kv` for the paged_decode dispatch.
+646-
+647-        Tensors are setattr'd onto ModelRunner; `v4_unified_kv` is a list of
+648-        per-layer tensors (length `num_layers`). State caches stay
+--
+805-                module.swa_kv_rope = None
+806-                return None
+807-            # Bind both:
+808:            #   - `attn.unified_kv`: the full per-layer pool (paged_decode reads).
+809-            #   - `attn.swa_kv`: the flat [num_swa_blocks*block_size, head_dim]
+810-            #     separate SWA pool. Indexed by `swa_block_tables[bid,
+811-            #     pos//block_size] * block_size + pos%block_size`; prefix-cache
+--
+1111-        DECODE fast path: returns a minimal dict with only
+1112-        `n_committed_per_seq_gpu` (the single field `_score_topk_decode`
+1113-        reads). The cumsum + H2D + per-token GPU derivations below are all
+1114:        prefill-only — `deepgemm_fp8_paged_mqa_logits` + `top_k_per_row_decode`
+1115-        operate directly on paged KV via `n_committed_per_seq_gpu`, never on
+1116-        the packed-cumsum / per-token `cu_starts/cu_ends` layout.
+1117-
+--
+1131-        # `_attach_v4_per_fwd_meta`). The prefill-only derivations below
+1132-        # (CPU cumsum + H2D for `cu_committed_gpu`; 7 GPU launches for
+1133-        # `seq_base`/`visible_end`/`cu_ends`) feed `_score_topk_prefill` only
+1134:        # (cp_gather + fp8_mqa_logits + per-row prefill top-k), so they are
+1135-        # dead work on the decode hot path. ~50μs / fwd saved at bs=1024.
+1136-        if attn_metadata.state is AttnState.DECODE:
+1137-            return {
+--
+1153-        # configuration argument". Bump the last cumsum by one so the
+1154-        # kernel sees a single dummy row to gather (charged to the last
+1155-        # seq's first cache block). Downstream readers
+1156:        # (`fp8_mqa_logits` + `top_k_per_row_prefill`) honor per-token
+1157-        # `cu_starts`/`cu_ends` derived from `cu_committed_gpu[:-1]` and
+1158-        # `n_committed_per_seq`, both of which remain 0 — so the dummy
+1159-        # row is never read and the output is `-1` sentinels everywhere,
+--
+1168-        # this helper — see prepare_decode/prefill ordering). batch_id is
+1169-        # int32 (accepted by PyTorch advanced-indexing); n_committed is int32
+1170-        # too — it is the gather SOURCE so any dtype works, and both downstream
+1171:        # kernels — `deepgemm_fp8_paged_mqa_logits`, `top_k_per_row_decode`
+1172-        # — want int32 anyway.
+1173-        batch_id_per_token_gpu = attn_metadata.batch_id_per_token[:total_tokens]
+1174-        n_committed_per_seq_gpu = attn_metadata.n_committed_csa_per_seq
+1175-        # cu_committed_gpu is consumed both as `cu_starts/cu_ends` for the
+1176:        # fp8_mqa_logits per-token range AND as `cu_seq_lens` for the
+1177-        # cp_gather_indexer_k_quant_cache call (per-seq cumulative committed K).
+1178-        cu_committed_gpu = self._stage(
+1179-            f"{buf_prefix_ubatch}v4_indexer_cu_committed", cu_committed_cpu
+--
+1184-        seq_base_per_token_gpu = cu_committed_gpu[batch_id_per_token_gpu].to(
+1185-            torch.int32
+1186-        )  # [total_tokens] int32 — per-token offset into concat'd seqs'
+1187:        # compressed K. Used as `cu_starts` for fp8_mqa_logits AND as the
+1188-        # subtraction base for prefill `top_k_per_row_prefill`'s GLOBAL output
+1189-        # → seq-local conversion (the indexer kernel writes
+1190-        # `seq_base + col_in_seq`; we recover col_in_seq by subtracting).
+--
+1196-        )  # [total_tokens] int32 — per-token causal upper bound
+1197-        cu_ends_gpu = (
+1198-            seq_base_per_token_gpu + visible_end_gpu
+1199:        )  # [total_tokens] int32 — fp8_mqa_logits per-token end offset
+1200-
+1201-        return {
+1202-            "total_committed": total_committed,
+--
+1208-            # would see stale pointers, but the decode path doesn't touch
+1209-            # them, so it's fine.
+1210-            "seq_base_per_token_gpu": seq_base_per_token_gpu,
+1211:            "cu_starts_gpu": seq_base_per_token_gpu,  # alias for fp8_mqa_logits
+1212-            "cu_ends_gpu": cu_ends_gpu,
+1213-        }
+1214-
+--
+1234-            (`eagle.py:430`) for the 1-tok-per-seq shape.
+1235-        Eagle does NOT update the CPU mirrors (``var["..."].np``), so the
+1236-        CPU-numpy path of ``_attach_v4_per_fwd_meta`` /
+1237:        ``_attach_v4_paged_decode_meta`` would see stale values from verify.
+1238-        This routine bypasses both helpers and rebuilds the only buffers
+1239-        an SWA-only MTP layer actually consumes by calling
+1240:        ``write_v4_paged_decode_indices`` directly with GPU-computed
+1241-        indptrs. No D2H, no CPU mirror touch.
+1242-
+1243-        Restricted to SWA-only MTP layers (compress_ratio == 0); asserted at
+--
+1287-        batch_id_per_token = attn_metadata.cu_seqlens_q[:bs]
+1288-
+1289-        # ----- Kernel: write SWA prefix paged offsets -----
+1290:        # `write_v4_paged_decode_indices` writes to swa/csa/hca indices in
+1291-        # one pass. For SWA-only MTP we alias csa/hca slots to swa so the
+1292-        # kernel writes the same value three times to swa_indices_buf —
+1293-        # redundant ~bs*win stores (~8 KB at V4-Pro bs=64, win=128), saves
+1294-        # building two extra unused indptr buffers.
+1295-        swa_indices_buf = var["v4_kv_indices_swa"].gpu
+1296:        write_v4_paged_decode_indices(
+1297-            block_tables=attn_metadata.swa_block_tables[:bs],
+1298-            batch_id_per_token=batch_id_per_token,
+1299-            positions=positions,
+--
+1353-        # ScheduledBatch.num_spec_query_tokens.
+1354-        max_seqlen_q = getattr(batch, "num_spec_query_tokens", batch.num_spec_step + 1)
+1355-        # MTP: roll back ctx by `num_rejected` so this fwd's positions overwrite
+1356:        # last fwd's rejected-draft slots (matches aiter_mla.py:701 /
+1357:        # aiter_attention.py:542). `batch.context_lens` = `seq.num_tokens`
+1358-        # which the scheduler advances by `mtp_k - num_rejected` placeholders
+1359-        # per fwd (scheduler.py:789); without this rollback, MTP-k positions
+1360-        # would skip ahead by `num_rejected` and the rejected slots would
+1361-        # never be overwritten with the corrected K/V. `num_rejected` is None
+1362-        # on dummy runs and on the first fwd before any sampler output.
+1363-        # Bound n_committed_csa/hca via the rolled-back ctx (n_committed_* =
+1364:        # ctx // 4 / 128 in `_attach_v4_paged_decode_meta`), so block_tables
+1365-        # truncation isn't needed here — the per-token kv_len already shrinks.
+1366-        if not batch.is_dummy_run and max_seqlen_q > 1:
+1367-            num_rejected = self.model_runner.tokenID_processor.num_rejected
+--
+2308-        # ---- CPU numpy work (all on main thread) ----
+2309-        # Build the unpadded mapping once; the padded GPU staging buffer wraps
+2310-        # it (head = real, tail = -1 sentinel). Stash the unpadded slice on
+2311:        # attn_metadata so `_attach_v4_paged_decode_meta` reuses it instead of
+2312-        # re-running `np.repeat(arange, token_num_per_seq)` (saves ~10μs/fwd
+2313-        # at bs=1024 + one allocation).
+2314-        batch_id_unpadded_np = np.repeat(
+--
+2322-        # n_committed_{csa,hca} stay int32 (max value ~max_model_len // 4 ≪ 2^31).

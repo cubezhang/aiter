@@ -1,0 +1,23 @@
+  if curl -fsS --max-time 3 http://127.0.0.1:18000/v1/models > "$RUN_ROOT/experiments/e004_models_18000.json" && \
+     curl -fsS --max-time 3 http://127.0.0.1:18001/v1/models > "$RUN_ROOT/experiments/e004_models_18001.json"; then
+    break
+  fi
+  docker inspect -f '{{.State.Running}}' mi325_dsv4_e004_dual | rg -qx true || exit 41
+  sleep 3
+done
+test -s "$RUN_ROOT/experiments/e004_models_18000.json"
+test -s "$RUN_ROOT/experiments/e004_models_18001.json"
+docker run -d --name mi325_dsv4_e004_router --network host --entrypoint bash \
+  -v "$ROUTER_SOURCE":/router.py:ro \
+  -e ROUTER_BACKENDS=http://127.0.0.1:18000,http://127.0.0.1:18001 \
+  -e ROUTER_POLICY=least_connections \
+  "$IMAGE" -lc 'exec python -m uvicorn router:app --app-dir / --host 127.0.0.1 --port 18080 --no-access-log' \
+  > "$RUN_ROOT/logs/e004_router_container_id.txt"
+for _ in $(seq 1 60); do
+  if curl -fsS --max-time 3 http://127.0.0.1:18080/router/status > "$RUN_ROOT/experiments/e004_router_status_start.json"; then
+    docker inspect mi325_dsv4_e004_dual mi325_dsv4_e004_router > "$RUN_ROOT/experiments/e004_container_inspect.json"
+    exit 0
+  fi
+  sleep 1
+done
+exit 42

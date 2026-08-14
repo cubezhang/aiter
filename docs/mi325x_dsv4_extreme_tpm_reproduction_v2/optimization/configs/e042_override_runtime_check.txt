@@ -1,0 +1,41 @@
+{"status":"ok"}{"status":"ok"}{"status":"ok"}E004_A8W8_BPRESHUFFLE_CONFIG=/work/experiments/e040_bpreshuffle_qproj_candidate.csv
+logs/e004_18001_server.log:301:[aiter] shape is M:524288, N:4096, K:4096, not found tuned config in /work/experiments/e040_bpreshuffle_qproj_candidate.csv, will use default config!
+logs/e004_18001_server.log:302:[aiter] shape is M:524288, N:4096, K:4096, not found tuned config in /work/experiments/e040_bpreshuffle_qproj_candidate.csv, will use default config!
+logs/e004_18001_server.log:303:[aiter] shape is M:524288, N:4096, K:4096, not found tuned config in /work/experiments/e040_bpreshuffle_qproj_candidate.csv, will use default config!
+logs/e004_18001_server.log:304:[aiter] shape is M:524288, N:4096, K:4096, not found tuned config in /work/experiments/e040_bpreshuffle_qproj_candidate.csv, will use default config!
+logs/e004_18001_server.log:306:[aiter] shape is M:131072, N:4096, K:4096, not found tuned config in /work/experiments/e040_bpreshuffle_qproj_candidate.csv, will use default config!
+logs/e004_18001_server.log:308:[aiter] shape is M:131072, N:4096, K:4096, not found tuned config in /work/experiments/e040_bpreshuffle_qproj_candidate.csv, will use default config!
+logs/e004_18001_server.log:310:[aiter] shape is M:131072, N:4096, K:4096, not found tuned config in /work/experiments/e040_bpreshuffle_qproj_candidate.csv, will use default config!
+logs/e004_18001_server.log:312:[aiter] shape is M:131072, N:4096, K:4096, not found tuned config in /work/experiments/e040_bpreshuffle_qproj_candidate.csv, will use default config!
+logs/e004_18001_server.log:313:[aiter] shape is M:4, N:4096, K:4096, not found tuned config in /work/experiments/e040_bpreshuffle_qproj_candidate.csv, will use default config!
+logs/e004_18001_server.log:314:[aiter] shape is M:1, N:4096, K:4096, not found tuned config in /work/experiments/e040_bpreshuffle_qproj_candidate.csv, will use default config!
+logs/e004_18001_server.log:316:[aiter] shape is M:4, N:4096, K:4096, not found tuned config in /work/experiments/e040_bpreshuffle_qproj_candidate.csv, will use default config!
+logs/e004_18001_server.log:317:[aiter] shape is M:1, N:4096, K:4096, not found tuned config in /work/experiments/e040_bpreshuffle_qproj_candidate.csv, will use default config!
+logs/e004_18001_server.log:330:[aiter] shape is M:4, N:4096, K:4096, not found tuned config in /work/experiments/e040_bpreshuffle_qproj_candidate.csv, will use default config!
+logs/e004_18001_server.log:331:[aiter] shape is M:1, N:4096, K:4096, not found tuned config in /work/experiments/e040_bpreshuffle_qproj_candidate.csv, will use default config!
+logs/e004_18001_server.log:332:[aiter] shape is M:4, N:4096, K:4096, not found tuned config in /work/experiments/e040_bpreshuffle_qproj_candidate.csv, will use default config!
+logs/e004_18001_server.log:333:[aiter] shape is M:1, N:4096, K:4096, not found tuned config in /work/experiments/e040_bpreshuffle_qproj_candidate.csv, will use default config!
+logs/e004_18001_server.log:420:  0%|          | 0/10 [00:00<?, ?it/s]Capturing bs=128, max_q_len=3:   0%|          | 0/10 [00:00<?, ?it/s][aiter] shape is M:384, N:1536, K:4096, not found tuned config in /work/experiments/e040_bpreshuffle_qproj_candidate.csv, will use default config!
+logs/e004_18001_server.log:421:[aiter] shape is M:384, N:8192, K:1024, not found tuned config in /work/experiments/e040_bpreshuffle_qproj_candidate.csv, will use default config!
+logs/e004_18001_server.log:422:[aiter] shape is M:384, N:1536, K:4096, not found tuned config in /work/experiments/e040_bpreshuffle_qproj_candidate.csv, will use default config!
+logs/e004_18001_server.log:423:[aiter] shape is M:384, N:8192, K:1024, not found tuned config in /work/experiments/e040_bpreshuffle_qproj_candidate.csv, will use default config!
+logs/e004_18000_server.log:307:[aiter] shape is M:524288, N:4096, K:4096, not found tuned config in /work/experiments/e040_bpreshuffle_qproj_candidate.csv, will use default config!
+logs/e004_18000_server.log:308:[aiter] shape is M:524288, N:4096, K:4096, not found tuned config in /work/experiments/e040_bpreshuffle_qproj_candidate.csv, will use default config!
+logs/e004_18000_server.log:309:[aiter] shape is M:524288, N:4096, K:4096, not found tuned config in /work/experiments/e040_bpreshuffle_qproj_candidate.csv, will use default config!
+logs/e004_18000_server.log:310:[aiter] shape is M:524288, N:4096, K:4096, not found tuned config in /work/experiments/e040_bpreshuffle_qproj_candidate.csv, will use default config!
+logs/e004_18000_server.log:312:[aiter] shape is M:131072, N:4096, K:4096, not found tuned config in /work/experiments/e040_bpreshuffle_qproj_candidate.csv, will use default config!
+logs/e004_18000_server.log:314:[aiter] shape is M:131072, N:4096, K:4096, not found tuned config in /work/experiments/e040_bpreshuffle_qproj_candidate.csv, will use default config!
+logs/e004_18000_server.log:317:[aiter] shape is M:131072, N:4096, K:4096, not found tuned config in /work/experiments/e040_bpreshuffle_qproj_candidate.csv, will use default config!
+logs/e004_18000_server.log:318:[aiter] shape is M:131072, N:4096, K:4096, not found tuned config in /work/experiments/e040_bpreshuffle_qproj_candidate.csv, will use default config!
+logs/e004_18000_server.log:319:[aiter] shape is M:4, N:4096, K:4096, not found tuned config in /work/experiments/e040_bpreshuffle_qproj_candidate.csv, will use default config!
+logs/e004_18000_server.log:320:[aiter] shape is M:1, N:4096, K:4096, not found tuned config in /work/experiments/e040_bpreshuffle_qproj_candidate.csv, will use default config!
+logs/e004_18000_server.log:325:[aiter] shape is M:4, N:4096, K:4096, not found tuned config in /work/experiments/e040_bpreshuffle_qproj_candidate.csv, will use default config!
+logs/e004_18000_server.log:326:[aiter] shape is M:1, N:4096, K:4096, not found tuned config in /work/experiments/e040_bpreshuffle_qproj_candidate.csv, will use default config!
+logs/e004_18000_server.log:333:[aiter] shape is M:4, N:4096, K:4096, not found tuned config in /work/experiments/e040_bpreshuffle_qproj_candidate.csv, will use default config!
+logs/e004_18000_server.log:334:[aiter] shape is M:4, N:4096, K:4096, not found tuned config in /work/experiments/e040_bpreshuffle_qproj_candidate.csv, will use default config!
+logs/e004_18000_server.log:335:[aiter] shape is M:1, N:4096, K:4096, not found tuned config in /work/experiments/e040_bpreshuffle_qproj_candidate.csv, will use default config!
+logs/e004_18000_server.log:336:[aiter] shape is M:1, N:4096, K:4096, not found tuned config in /work/experiments/e040_bpreshuffle_qproj_candidate.csv, will use default config!
+logs/e004_18000_server.log:426:[aiter] shape is M:384, N:1536, K:4096, not found tuned config in /work/experiments/e040_bpreshuffle_qproj_candidate.csv, will use default config!
+logs/e004_18000_server.log:427:[aiter] shape is M:384, N:8192, K:1024, not found tuned config in /work/experiments/e040_bpreshuffle_qproj_candidate.csv, will use default config!
+logs/e004_18000_server.log:428:  0%|          | 0/10 [00:00<?, ?it/s]Capturing bs=128, max_q_len=3:   0%|          | 0/10 [00:00<?, ?it/s][aiter] shape is M:384, N:1536, K:4096, not found tuned config in /work/experiments/e040_bpreshuffle_qproj_candidate.csv, will use default config!
+logs/e004_18000_server.log:429:[aiter] shape is M:384, N:8192, K:1024, not found tuned config in /work/experiments/e040_bpreshuffle_qproj_candidate.csv, will use default config!

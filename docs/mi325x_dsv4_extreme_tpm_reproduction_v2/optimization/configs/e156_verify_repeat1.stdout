@@ -1,0 +1,17 @@
+[aiter] import [module_aiter_core] under /app/aiter-test/aiter/jit/module_aiter_core.so
+[aiter] Setting AITER_CONFIG_GEMM_A8W8_BLOCKSCALE_BPRESHUFFLE=/work/experiments/e156_bpreshuffle_tuned.csv for benchmark
+      gfx  cu_num    M  ...  tflops      bw errRatio
+0  gfx942     304  280  ...  443.99  955.43      0.0
+
+[1 rows x 13 columns]
+=== Running production operator benchmark (tuned) ===
+[aiter] LoadKernel: _ZN5aiter42fp8gemm_bf16_blockscale_BpreShuffle_48x128E hsaco: /app/aiter-test/hsa//gfx942/fp8gemm_blockscale/fp8gemm_bf16_blockscale_BpreShuffle_48x128.co
+/opt/venv/lib/python3.12/site-packages/torch/profiler/profiler.py:217: UserWarning: Warning: Profiler clears events at the end of each cycle.Only events from the current cycle will be reported.To keep events across cycles, set acc_events=True.
+  _warn_once(
+[W804 04:04:02.656012274 collection.cpp:1148] Warning: ROCTracer produced duplicate flow start: 3 (function operator())
+[aiter] run_config (280, 4096, 4096)[checkAllclose atol=0.01 rtol=0.01 [32mpassed~[0m]
+============= Benchmark (tuned) Benchmark Results =============
+Shape                                    |    E2E(us) |   Status
+----------------------------------------------------------------
+(280, 4096, 4096)                        |      20.75 |       OK
+keys: gfx=gfx942, cu_num=304, M=280, N=4096, K=4096

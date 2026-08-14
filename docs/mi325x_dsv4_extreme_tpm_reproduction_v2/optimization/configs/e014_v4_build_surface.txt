@@ -1,0 +1,178 @@
+/app/aiter-test/op_tests/test_mla_v4_kargpreld.py
+/app/aiter-test/op_tests/test_mla_v4_nm.py
+/app/aiter-test/op_tests/test_mla_v40_persistent.py
+/app/aiter-test/aiter/jit/build/module_mla_v4_asm/build/module_mla_v4_asm.so
+/app/aiter-test/aiter/jit/build/module_mla_v4_asm/build/asm_mla_v4.cuda.o
+/app/aiter-test/aiter/jit/build/module_mla_v4_asm/blob/asm_mla_v4_configs.hpp
+/app/aiter-test/aiter/jit/module_mla_v4_asm.so
+/app/aiter-test/hsa/gfx1250/mla_v4/mla_v4_asm.csv
+/app/aiter-test/hsa/gfx950/mla_v4/mla_v4_asm.csv
+/app/aiter-test/csrc/kernels/mla/hk_v40_decode_fwd.cu
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x8_fp8bf16_fp8bf16_gen1.cuh
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x4_fp8bf16_fp8bf16_gen1.cuh
+/app/aiter-test/csrc/kernels/mla/hk/doc/hk_mla_v40_gen1_spec.md
+/app/aiter-test/csrc/kernels/mla/hk/hk_mla_v40_fwd_decode_gen1_common.cuh
+/app/aiter-test/csrc/kernels/mla/hk/hk_mla_v40_buffer_managers_gen1.cuh
+/app/aiter-test/csrc/pybind/mla_hk_v40_pybind.cu
+/app/aiter-test/csrc/py_itfs_cu/asm_mla_v4.cu
+/app/aiter-test/.github/scripts/split_tests.sh:70:    FILE_TIMES[op_tests/test_mla_v4_nm.py]=908
+/app/aiter-test/.github/scripts/split_tests.sh:166:    FILE_TIMES[op_tests/test_mla_v40_persistent.py]=3
+/app/aiter-test/.github/scripts/split_tests.sh:167:    FILE_TIMES[op_tests/test_mla_v4_kargpreld.py]=3
+/app/aiter-test/op_tests/test_mla_v4_kargpreld.py:9:  - `test_mla_v4_nm` is the `@benchmark()` perf+accuracy fn. Its call args
+/app/aiter-test/op_tests/test_mla_v4_kargpreld.py:22:(poc_kl/gfx1250/mla/mla_v4.h v4_detail::init_host_buffers). Reproducing that
+/app/aiter-test/op_tests/test_mla_v4_kargpreld.py:28:  ENABLE_CK=0 python op_tests/test_mla_v4_kargpreld.py
+/app/aiter-test/op_tests/test_mla_v4_kargpreld.py:51:# Variant under test (matches the cfg_mla_v4_asm entry in
+/app/aiter-test/op_tests/test_mla_v4_kargpreld.py:52:# hsa/gfx1250/mla_v4/mla_v4_asm.csv served by csrc/py_itfs_cu/asm_mla_v4.cu).
+/app/aiter-test/op_tests/test_mla_v4_kargpreld.py:95:# (csrc/py_itfs_cu/asm_mla_v4.cu) picks sub_Q=64 and launches
+/app/aiter-test/op_tests/test_mla_v4_kargpreld.py:373:def test_mla_v4_nm(
+/app/aiter-test/op_tests/test_mla_v4_kargpreld.py:458:        msg="mla_v4_nm [golden_bf16 vs fp8_ref]",
+/app/aiter-test/op_tests/test_mla_v4_kargpreld.py:546:            msg=f"{name}: mla_v4_nm [fp8_dequant_ref vs asm]",
+/app/aiter-test/op_tests/test_mla_v4_kargpreld.py:692:        aiter.logger.warning("mla_v4_nm unsupported on %s; skipping", get_gfx())
+/app/aiter-test/op_tests/test_mla_v4_kargpreld.py:760:                test_mla_v4_nm(
+/app/aiter-test/op_tests/test_mla_v4_kargpreld.py:784:    aiter.logger.info("mla_v4_nm summary (markdown):\n%s", df.to_markdown(index=False))
+/app/aiter-test/op_tests/test_mla_v4_nm.py:6:  pytest -xvs op_tests/test_mla_v4_nm.py
+/app/aiter-test/op_tests/test_mla_v4_nm.py:24:# Variant under test (matches the cfg_mla_v4_asm entry in
+/app/aiter-test/op_tests/test_mla_v4_nm.py:25:# hsa/gfx950/mla_v4/mla_v4_asm.csv served by csrc/py_itfs_cu/asm_mla_v4.cu).
+/app/aiter-test/op_tests/test_mla_v4_nm.py:82:    # test_mla_v4_nm_golden.py).
+/app/aiter-test/op_tests/test_mla_v4_nm.py:183:    int) of the kernarg buffer produced by csrc/py_itfs_cu/asm_mla_v4.cu for
+/app/aiter-test/op_tests/test_mla_v4_nm.py:185:    config (single .co; the C++ alias in asm_mla_v4.cu remaps gqa∈{64,128}
+/app/aiter-test/op_tests/test_mla_v4_nm.py:193:    AITER_V4_NM_DUMP_KERNARG=1 path in asm_mla_v4.cu are captured via capfd.
+/app/aiter-test/op_tests/test_mla_v4_nm.py:270:    # csrc/py_itfs_cu/asm_mla_v4.cu for the full justification.
+/app/aiter-test/op_tests/test_mla_v4_nm.py:730:    # (csrc/py_itfs_cu/asm_mla_v4.cu) selects sub_Q based on (gqa_ratio,
+/app/aiter-test/op_tests/test_mla_v4_nm.py:744:    # The CSV alias in asm_mla_v4.cu remaps all of these to the single
+/app/aiter-test/op_tests/test_mla_v4_nm.py:981:        msg="mla_v4_nm [golden_bf16 vs fp8_ref]",
+/app/aiter-test/op_tests/test_mla_v4_nm.py:989:        msg="mla_v4_nm [fp8_dequant_ref vs asm]",
+/app/aiter-test/op_tests/test_mla_v4_nm.py:1120:        msg=f"mla_v4_nm varlen [fp8_dequant_ref vs asm] kv_lens={kv_lens}",
+/app/aiter-test/op_tests/test_mla_v4_nm.py:1344:            f"mla_v4_nm cudagraph-bucket REAL slots gqa={gqa} "
+/app/aiter-test/op_tests/test_mla_v4_nm.py:1374:    asm_mla_v4.cu. Unlike the other three shipped variants it does NOT
+/app/aiter-test/op_tests/test_mla_v4_nm.py:1684:        "csrc/py_itfs_cu/asm_mla_v4.cu and rebuild from 3_13.s."
+/app/aiter-test/op_tests/test_mla_v4_nm.py:1952:            "determinism / kernarg suite, invoke `pytest op_tests/test_mla_v4_nm.py`\n"
+/app/aiter-test/op_tests/test_mla_v4_nm.py:1997:        "hsa/gfx950/mla_v4/mla_v4_asm.csv ships a single (gqa=16, qSeqLen=4) "
+/app/aiter-test/op_tests/test_mla_v4_nm.py:1998:        "row; asm_mla_v4.cu remaps gqa∈{64,128} to that row at lookup time.",
+/app/aiter-test/op_tests/test_mla_v40_persistent.py:150:    """uint8 E8M0 -> fp32 scale; mirrors mla_v4.h:54 `fp8e8m0_to_fp32`."""
+/app/aiter-test/op_tests/test_mla_v40_persistent.py:234:    mla_v4.h:73 `duplicate_each`."""
+/app/aiter-test/op_tests/test_mla_v40_persistent.py:377:    """fp8 * per-tile E8M0 scale -> bf16. Mirrors mla_v4.h:124
+/app/aiter-test/op_tests/test_mla_v40_persistent.py:482:def torch_mla_v4_split_kv(
+/app/aiter-test/op_tests/test_mla_v40_persistent.py:598:def test_mla_v4(
+/app/aiter-test/op_tests/test_mla_v40_persistent.py:611:            f"skip test_mla_v4(b={batch_size}, c={ctx_lens}, n={nhead}, "
+/app/aiter-test/op_tests/test_mla_v40_persistent.py:617:            f"skip test_mla_v4(b={batch_size}, c={ctx_lens}, n={nhead}, "
+/app/aiter-test/op_tests/test_mla_v40_persistent.py:819:            os.environ.get("MLA_METADATA_DUMP_PATH", "mla_v4_metadata_dump.txt"),
+/app/aiter-test/op_tests/test_mla_v40_persistent.py:845:    # mla_v40_decode_fwd raises NotImplementedError for shapes the router
+/app/aiter-test/op_tests/test_mla_v40_persistent.py:851:            aiter.mla.mla_v40_decode_fwd,
+/app/aiter-test/op_tests/test_mla_v40_persistent.py:875:                f"mla_v40_decode    [silver vs aiter_v40]: "
+/app/aiter-test/op_tests/test_mla_v40_persistent.py:886:        partial_out_ref, partial_lse_ref, _, _ = torch_mla_v4_split_kv(
+/app/aiter-test/op_tests/test_mla_v40_persistent.py:906:                    f"mla_v40_decode    [partial_out_ref vs attn_logits]: "
+/app/aiter-test/op_tests/test_mla_v40_persistent.py:1010:        ret = test_mla_v4(
+/app/aiter-test/op_tests/test_mla_v40_persistent.py:1025:    aiter.logger.info("mla_v4_persistent summary (markdown):\n%s", df_md)
+/app/aiter-test/aiter/mla.py:737:# V4.0 layout constants (mirrored from op_tests/test_mla_v4_persistent.py).
+/app/aiter-test/aiter/mla.py:743:def mla_v40_decode_fwd(
+/app/aiter-test/aiter/mla.py:780:        f"mla_v40_decode_fwd: packed Q last dim must be {_V40_DIM_QK_PACKED}, "
+/app/aiter-test/aiter/mla.py:784:        f"mla_v40_decode_fwd: packed KV last dim must be {_V40_DIM_QK_PACKED}, "
+/app/aiter-test/aiter/mla.py:788:        f"mla_v40_decode_fwd: Q rope last dim must be {_V40_DIM_ROPE}, "
+/app/aiter-test/aiter/mla.py:792:        f"mla_v40_decode_fwd: KV rope last dim must be {_V40_DIM_ROPE}, "
+/app/aiter-test/aiter/mla.py:829:        aiter.hk_mla_v40_decode_fwd(
+/app/aiter-test/aiter/mla.py:850:            f"mla_v40_decode_fwd: no backend available for "
+/app/aiter-test/aiter/mla.py:1331:    `module_mla_v4_asm` (csrc/py_itfs_cu/asm_mla_v4.cu). Returns
+/app/aiter-test/aiter/ops/attention.py:832:MD_NAME_V4 = "module_mla_v4_asm"
+/app/aiter-test/aiter/ops/attention.py:879:    # nullptr; the host guards the deref (asm_mla_v4.cu) and the kernel never loads
+/app/aiter-test/aiter/ops/attention.py:1768:    "module_hk_mla_v40_fwd_mi3xx", fc_name="hk_mla_v40_decode_fwd", develop=True
+/app/aiter-test/aiter/ops/attention.py:1770:def hk_mla_v40_decode_fwd_mi3xx(
+/app/aiter-test/aiter/ops/attention.py:1794:def hk_mla_v40_decode_fwd(
+/app/aiter-test/aiter/ops/attention.py:1814:        hk_mla_v40_decode_fwd_mi3xx(
+/app/aiter-test/aiter/ops/attention.py:1833:            f"hk_mla_v40_decode_fwd has no implementation for arch {arch_id}"
+            if not required_columns.issubset(headers_list):
+                missing = required_columns - set(headers_list)
+                print(
+                    f"ERROR: Invalid assembly CSV format -- {single_file}. Missing required columns: {', '.join(missing)}"
+                )
+                sys.exit(1)
+            df["arch"] = arch  # add arch into df
+            dfs.append(df)
+        if dfs:
+            relpath = os.path.relpath(
+                os.path.dirname(single_file), f"{this_dir}/{arch}"
+            )
+            combine_df = (
+                pd.concat(dfs, ignore_index=True).fillna(0).infer_objects(copy=False)
+            )
+            cfg_entries.append((cfgname, relpath, combine_df))
+
+    if cfg_entries:
+        required_columns = {"knl_name", "co_name", "arch"}
+        # Union of "other" columns across all manifests, preserving first-seen
+        # order so the generated header is deterministic.
+        other_columns = []
+        seen_cols = set(required_columns)
+        for _, _, combine_df in cfg_entries:
+            for col in combine_df.columns.tolist():
+                if col in seen_cols:
+                    continue
+                seen_cols.add(col)
+                other_columns.append(col)
+
+        # Type for each "other" column: int if any manifest provides a numeric
+        # value for it, else std::string. This way newly added int columns
+        # like "flat" still get an int field even if only one manifest opts
+        # in.
+        col_is_numeric = {col: False for col in other_columns}
+        for _, _, combine_df in cfg_entries:
+            for col in other_columns:
+                if col not in combine_df.columns:
+                    continue
+                first_val = combine_df.iloc[0][col]
+                if isinstance(first_val, (int, float, np.integer)):
+                    col_is_numeric[col] = True
+
+        other_columns_comma = ", ".join(other_columns)
+        other_columns_cpp_def = "\n".join(
+            [
+                f"    {'int' if col_is_numeric[col] else 'std::string'} {col};"
+                for col in other_columns
+            ]
+        )
+        content += f"""
+#define ADD_CFG({other_columns_comma}, arch, path, knl_name, co_name)         \\
+    {{                                         \\
+        arch knl_name, {{ knl_name, path co_name, arch, {other_columns_comma} }}         \\
+    }}
+
+struct {args.module}Config
+{{
+    std::string knl_name;
+    std::string co_name;
+    std::string arch;
+{other_columns_cpp_def}
+}};
+
+using CFG = std::unordered_map<std::string, {args.module}Config>;
+
+"""
+
+        for cfgname, relpath, combine_df in cfg_entries:
+            for col in other_columns:
+                if col not in combine_df.columns:
+                    combine_df[col] = 0 if col_is_numeric[col] else ""
+            cfg = [
+                "ADD_CFG("
+                + ", ".join(
+                    (
+                        f"{int(getattr(row, col)):>4}"
+                        if str(getattr(row, col)).replace(".", "", 1).isdigit()
+                        else f'"{getattr(row, col)}"'
+                    )
+                    for col in other_columns
+                )
+                + f', "{row.arch}", "{relpath}/", "{row.knl_name}", "{row.co_name}"),'
+                for row in combine_df.itertuples(index=False)
+                if row.arch in archs
+            ]
+            cfg_txt = "\n    ".join(cfg) + "\n"
+
+            txt = f"""static CFG cfg_{cfgname} = {{
+    {cfg_txt}}};"""
+            cfgs.append(txt)
+
+    content += "\n".join(cfgs) + "\n"
+
+    with open(f"{args.output_dir}/asm_{args.module}_configs.hpp", "w") as f:
+        f.write(content)

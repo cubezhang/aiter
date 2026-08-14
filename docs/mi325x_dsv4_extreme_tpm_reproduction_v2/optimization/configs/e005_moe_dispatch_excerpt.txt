@@ -1,0 +1,25 @@
+10-T = TypeVar("T")
+11-
+12-
+13:def _apply_moe_decoration(original_cls: Type[T]) -> Type[T]:
+14-    """
+15-    Apply the actual decoration to the MoE class.
+16-    This is called lazily during instantiation.
+--
+18-    is_vllm_mode = is_vllm()
+19-    if is_vllm_mode:
+20-        # Rename this class because vLLM will call the modular
+21:        # kernel init method for all modules of the model, whose name is FusedMoE,
+22:        # to init the inside kernel, while for plugin mode, the atom maintains
+23:        # the kernel lifecycle by itself, so there is no need to call init on
+24-        # vllm side
+25-        original_cls.__name__ = "ATOMFusedMoE"
+26-        original_cls.__qualname__ = "ATOMFusedMoE"
+--
+39-        if decorated_cls_cache["value"] is not None:
+40-            return decorated_cls_cache["value"]
+41-
+42:        decorated = _apply_moe_decoration(original_cls)
+43-        decorated_cls_cache["value"] = decorated
+44-        return decorated
+45-

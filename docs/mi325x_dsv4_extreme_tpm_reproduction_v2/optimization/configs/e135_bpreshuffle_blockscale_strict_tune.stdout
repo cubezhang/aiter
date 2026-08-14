@@ -1,0 +1,32 @@
+[aiter] import [module_aiter_core] under /app/aiter-test/aiter/jit/module_aiter_core.so
+Not exist tuned file: /work/experiments/e135_bpreshuffle_tuned.csv
+      gfx  cu_num   M     N     K
+0  gfx942     304  37  1536  4096
+1  gfx942     304  37  4096  4096
+2  gfx942     304  37  8192  1024
+Compare candidate CSV will be written to /tmp/aiter_compare/e135_bpreshuffle_tuned.1.candidate.csv
+=== Running pre-tune benchmark (batch 1/1) ===
+[aiter] merge tuned file under model_configs/ and configs/ /app/aiter-test/aiter/configs/a8w8_blockscale_tuned_gemm.csv:/app/aiter-test/aiter/configs/model_configs/a8w8_blockscale_tuned_gemm_qwen3_vl_32b.csv:/app/aiter-test/aiter/configs/model_configs/dsv4_a8w8_blockscale_tuned_gemm.csv:/app/aiter-test/aiter/configs/model_configs/a8w8_blockscale_tuned_gemm_qwen3_235b.csv:/app/aiter-test/aiter/configs/model_configs/a8w8_blockscale_tuned_gemm_ds_v3.csv:/app/aiter-test/aiter/configs/model_configs/a8w8_blockscale_tuned_gemm_qwen36_27b.csv:/app/aiter-test/aiter/configs/model_configs/a8w8_blockscale_tuned_gemm_qwen3_vl_235b.csv:/app/aiter-test/aiter/configs/model_configs/a8w8_blockscale_tuned_gemm_glm5_1.csv:/app/aiter-test/aiter/configs/model_configs/a8w8_blockscale_tuned_gemm_qwen3_next_80b_a3b.csv:/app/aiter-test/aiter/configs/model_configs/a8w8_blockscale_tuned_gemm_qwen3_5_397b_a13b.csv
+[aiter] shape is M:37, N:1536, K:4096, not found tuned config in /tmp/aiter_configs/a8w8_blockscale_tuned_gemm.csv, will use default config!
+[aiter] import [module_gemm_a8w8_blockscale] under /app/aiter-test/aiter/jit/module_gemm_a8w8_blockscale.so
+/opt/venv/lib/python3.12/site-packages/torch/profiler/profiler.py:217: UserWarning: Warning: Profiler clears events at the end of each cycle.Only events from the current cycle will be reported.To keep events across cycles, set acc_events=True.
+  _warn_once(
+[W804 02:36:15.003471369 collection.cpp:1148] Warning: ROCTracer produced duplicate flow start: 6 (function operator())
+[aiter] run_config (37, 1536, 4096)[checkAllclose atol=0.01 rtol=0.01 [32mpassed~[0m]
+[aiter] run_config (37, 4096, 4096)[checkAllclose atol=0.01 rtol=0.01 [32mpassed~[0m]
+[aiter] shape is M:37, N:8192, K:1024, not found tuned config in /tmp/aiter_configs/a8w8_blockscale_tuned_gemm.csv, will use default config!
+[aiter] run_config (37, 8192, 1024)[checkAllclose atol=0.01 rtol=0.01 [32mpassed~[0m]
+[aiter] tune result is none or all shape is tuned in /work/experiments/e135_bpreshuffle_tuned.csv!
+[aiter] ============= Tuning results Summary: ==============
+[aiter] Tuning Finished. tune 0 shapes, total tuning time is 2.6918 seconds
+[aiter] Successfully tuned shapes:
+[aiter] Failed shapes:
+Empty DataFrame
+Columns: [gfx, cu_num, M, N, K, libtype, kernelId, splitK, us, kernelName, tflops, bw, errRatio]
+Index: []
+[aiter] untuned shapes:
+[aiter] [91m[Tuning not Finished][0m some shapes are not tuned or all failed, please check the result file or tune with --profile_file to get more details
+      gfx  cu_num   M     N     K
+0  gfx942     304  37  1536  4096
+1  gfx942     304  37  4096  4096
+2  gfx942     304  37  8192  1024

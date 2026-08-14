@@ -1,0 +1,33 @@
+[aiter] import [module_aiter_core] under /app/aiter-test/aiter/jit/module_aiter_core.so
+   token  model_dim  inter_dim  ...  doweight_stage1     gfx cu_num
+0  12200       4096        512  ...            False  gfx942    304
+
+[1 rows x 14 columns]
+=== Running production operator benchmark (default) ===
+[aiter] import [module_moe_asm] under /app/aiter-test/aiter/jit/module_moe_asm.so
+[aiter] merge tuned file under model_configs/ and configs/ /app/aiter-test/aiter/configs/tuned_fmoe.csv:/app/aiter-test/aiter/configs/model_configs/kimik2_fp4_tuned_fmoe.csv:/app/aiter-test/aiter/configs/model_configs/glm5_mxfp8_tuned_fmoe.csv:/app/aiter-test/aiter/configs/model_configs/dsv4_fp8fp4_tuned_fmoe.csv:/app/aiter-test/aiter/configs/model_configs/minimax_m25_fp4_tuned_fmoe.csv:/app/aiter-test/aiter/configs/model_configs/qwen3next_80b_fp8_tuned_fmoe.csv:/app/aiter-test/aiter/configs/model_configs/a8w8_blockscale_tuned_fmoe_ds_v3.csv:/app/aiter-test/aiter/configs/model_configs/minimax_m3_fp4_tuned_fmoe.csv:/app/aiter-test/aiter/configs/model_configs/a8w8_blockscale_tuned_fmoe_qwen3_5_397b.csv:/app/aiter-test/aiter/configs/model_configs/minimax_m3_mxfp8_tuned_fmoe.csv:/app/aiter-test/aiter/configs/model_configs/a8w8_blockscale_tuned_fmoe_qwen3_235b.csv:/app/aiter-test/aiter/configs/model_configs/gptoss_fp8fp4_tuned_fmoe.csv:/app/aiter-test/aiter/configs/model_configs/glm5_ptpc_tuned_fmoe.csv:/app/aiter-test/aiter/configs/model_configs/gptoss_a16w4_tuned_fmoe.csv:/app/aiter-test/aiter/configs/model_configs/gptoss_fp4_tuned_fmoe.csv:/app/aiter-test/aiter/configs/model_configs/qwen3_5_397b_fp4_tuned_fmoe.csv:/app/aiter-test/aiter/configs/model_configs/kimik2_i4_tuned_fmoe.csv:/app/aiter-test/aiter/configs/model_configs/a8w8_blockscale_tuned_fmoe_minimax-m2_5.csv:/app/aiter-test/aiter/configs/model_configs/mimo_v2_5_pro_tuned_fmoe.csv:/app/aiter-test/aiter/configs/model_configs/a8w8_blockscale_tuned_fmoe_glm5.csv:/app/aiter-test/aiter/configs/model_configs/glm5_fp4_tuned_fmoe.csv:/app/aiter-test/aiter/configs/model_configs/qwen3_235b_bf16_tuned_fmoe.csv:/app/aiter-test/aiter/configs/model_configs/a8w8_blockscale_tuned_fmoe_glm5_1.csv:/app/aiter-test/aiter/configs/model_configs/dsv3_fp4_tuned_fmoe.csv:/app/aiter-test/aiter/configs/model_configs/glm47_fp8_tuned_fmoe.csv:/app/aiter-test/aiter/configs/model_configs/kimik2_fp8fp4_tuned_fmoe.csv
+[aiter] [fused_moe] duplicate tuned rows after disabling act_type in /tmp/aiter_configs/tuned_fmoe.csv; keeping first match for 449 rows
+[aiter] run_1stage = True, xbf16 = False, ksplit = 0 q_type = QuantType.per_1x128 block_m = 32 use_nt = False, estimated_m_per_expert = 446
+[aiter] [fused_moe] using 1stage default for ('gfx942', 304, 16384, 4096, 512, 257, 7, 'ActivationType.Silu', 'torch.bfloat16', 'torch.float8_e4m3fnuz', 'torch.float8_e4m3fnuz', 'QuantType.per_1x128', True, False) 
+[aiter] import [module_moe_sorting_opus] under /app/aiter-test/aiter/jit/module_moe_sorting_opus.so
+[aiter] import [module_quant] under /app/aiter-test/aiter/jit/module_quant.so
+[aiter] LoadKernel: _ZN5aiter50fmoe_bf16_blockscaleFp8_g1u1_vs_silu_1tg_ps_32x256E hsaco: /app/aiter-test/hsa//gfx942/fmoe/silu/fmoe_bf16_blockscaleFp8_g1u1_vs_silu_1tg_ps_32x256.co
+/opt/venv/lib/python3.12/site-packages/torch/profiler/profiler.py:217: UserWarning: Warning: Profiler clears events at the end of each cycle.Only events from the current cycle will be reported.To keep events across cycles, set acc_events=True.
+  _warn_once(
+[W804 04:39:31.248448548 collection.cpp:1148] Warning: ROCTracer produced duplicate flow start: 4 (function operator())
+[aiter] run_config (12200, 4096, 512, E=257, topk=7, ActivationType.Silu, torch.bfloat16, torch.float8_e4m3fnuz, torch.float8_e4m3fnuz, QuantType.per_1x128, g1u1=True, dw_s1=False)[checkAllclose atol=0.01 rtol=0.01 [31mfailed![0m]
+    a    : torch.Size([12200, 4096])
+           tensor([-0.8672,  1.0156,  2.0938, -0.5664, -1.0625, -1.2500,  0.0078,  0.3359],
+       device='cuda:0', dtype=torch.bfloat16)
+    b    : torch.Size([12200, 4096])
+           tensor([-0.8438,  1.0391,  2.1406, -0.5898, -1.0391, -1.2734, -0.0028,  0.3223],
+       device='cuda:0', dtype=torch.bfloat16)
+    delta:
+           tensor([0.0234, 0.0234, 0.0469, 0.0234, 0.0234, 0.0234, 0.0106, 0.0137],
+       device='cuda:0', dtype=torch.bfloat16)
+[aiter] -->max abs delta:0.296875, delta details: 33.4% (16683274 of 49971200) elements
+============= Benchmark (default) Benchmark Results =============
+Shape                                    |    E2E(us) |   Status
+----------------------------------------------------------------
+(12200, 4096, 512, E=257, topk=7, ActivationType.Silu, torch.bfloat16, torch.float8_e4m3fnuz, torch.float8_e4m3fnuz, QuantType.per_1x128, g1u1=True, dw_s1=False) |    3029.11 |       OK
+keys: gfx=gfx942, cu_num=304, token=12200, model_dim=4096, inter_dim=512, expert=257, topk=7, act_type=ActivationType.Silu, dtype=torch.bfloat16, q_dtype_a=torch.float8_e4m3fnuz, q_dtype_w=torch.float8_e4m3fnuz, q_type=QuantType.per_1x128, use_g1u1=True, doweight_stage1=False

@@ -1,0 +1,2 @@
+[aiter] [fused_moe] using 2stage default for ('gfx942', 304, 4, 4096, 512, 257, 7, 'ActivationType.Silu', 'torch.bfloat16', 'torch.float8_e4m3fnuz', 'torch.float8_e4m3fnuz', 'QuantType.per_1x128', True, False) 
+[aiter] [fused_moe] using 2stage default for ('gfx942', 304, 4, 4096, 512, 257, 7, 'ActivationType.Silu', 'torch.bfloat16', 'torch.float8_e4m3fnuz', 'torch.float8_e4m3fnuz', 'QuantType.per_1x128', True, False) 

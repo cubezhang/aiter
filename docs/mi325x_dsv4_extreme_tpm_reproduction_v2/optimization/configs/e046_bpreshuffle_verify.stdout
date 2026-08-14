@@ -1,0 +1,21 @@
+[aiter] import [module_aiter_core] under /app/aiter-test/aiter/jit/module_aiter_core.so
+      gfx  cu_num  M  ...  tflops       bw errRatio
+0  gfx942     304  8  ...   21.63  1359.72      0.0
+
+[1 rows x 13 columns]
+=== Running production operator benchmark (tuned) ===
+[aiter] Setting AITER_CONFIG_GEMM_A8W8_BLOCKSCALE_BPRESHUFFLE=/work/experiments/e046_bpreshuffle_tuned.csv for benchmark
+[aiter] [pid=1 pname=MainProcess] start build [module_gemm_a8w8_blockscale_bpreshuffle] under /app/aiter-test/aiter/jit/build/module_gemm_a8w8_blockscale_bpreshuffle
+[aiter] Current hipcc not support: -mllvm -amdgpu-coerce-illegal-types=1, skip it.
+[aiter] [pid=1 pname=MainProcess] [32mfinish build [module_gemm_a8w8_blockscale_bpreshuffle], cost 34.5s [0m
+[aiter] import [module_gemm_a8w8_blockscale_bpreshuffle] under /app/aiter-test/aiter/jit/module_gemm_a8w8_blockscale_bpreshuffle.so
+[aiter] import [module_aiter_core] under /app/aiter-test/aiter/jit/module_aiter_core.so
+/opt/venv/lib/python3.12/site-packages/torch/profiler/profiler.py:217: UserWarning: Warning: Profiler clears events at the end of each cycle.Only events from the current cycle will be reported.To keep events across cycles, set acc_events=True.
+  _warn_once(
+[W803 11:44:18.923183440 collection.cpp:1148] Warning: ROCTracer produced duplicate flow start: 15 (function operator())
+[aiter] run_config (8, 4096, 4096)[checkAllclose atol=0.01 rtol=0.01 [32mpassed~[0m]
+============= Benchmark (tuned) Benchmark Results =============
+Shape                                    |    E2E(us) |   Status
+----------------------------------------------------------------
+(8, 4096, 4096)                          |      11.76 |       OK
+keys: gfx=gfx942, cu_num=304, M=8, N=4096, K=4096

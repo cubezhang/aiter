@@ -1,0 +1,3 @@
+mi325_dsv4_e010_atom Up About a minute
+mi325_dsv4_e004_router Up 5 minutes
+mi325_dsv4_e004_dual Up 8 minutes

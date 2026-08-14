@@ -1,0 +1,193 @@
+/app/aiter-test/csrc/kernels/mla/hk/doc/hk_mla_v40_gen1_spec.md
+/app/aiter-test/csrc/kernels/mla/hk/hk_mla_buffer_managers.cuh
+/app/aiter-test/csrc/kernels/mla/hk/hk_mla_softmax.cuh
+/app/aiter-test/csrc/kernels/mla/hk/hk_mla_utils.cuh
+/app/aiter-test/csrc/kernels/mla/hk/hk_mla_v40_buffer_managers_gen1.cuh
+/app/aiter-test/csrc/kernels/mla/hk/hk_mla_v40_fwd_decode_gen1_common.cuh
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v32_fwd_decode_m16x4_fp8_fp8.cuh
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v32_fwd_decode_m16x8_fp8_fp8.cuh
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x4_fp8bf16_fp8bf16_gen1.cuh
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x8_fp8bf16_fp8bf16_gen1.cuh
+/app/aiter-test/csrc/kernels/mla/hk/mi3xx_v32_fwd_decode_m16x8_fp8_fp8.cuh
+/app/aiter-test/hsa/gfx950/mla_v4/mla_a8w8_qh64_qseqlen1_gqaratio64_nm.co
+/app/aiter-test/hsa/gfx950/mla_v4/mla_v4_asm.csv
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x8_fp8bf16_fp8bf16_gen1.cuh:9:#include "hk_mla_v40_buffer_managers_gen1.cuh"
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x8_fp8bf16_fp8bf16_gen1.cuh:32:#include "hk_mla_v40_fwd_decode_gen1_common.cuh"
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x8_fp8bf16_fp8bf16_gen1.cuh:34:// V4.0 mi35x m16x8 decode kernel: separate FP8 NOPE + BF16 ROPE buffers for
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x8_fp8bf16_fp8bf16_gen1.cuh:41:mi35x_mla_v40_fwd_decode_m16x8_fp8bf16_fp8bf16_gen1_impl(HkMlaV40DecodeFwdParams<T> params,
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x8_fp8bf16_fp8bf16_gen1.cuh:78:    // Compiler scratch constrained to v0..v43 (budget=44 on the __global__).
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x8_fp8bf16_fp8bf16_gen1.cuh:86:    // Register layout single source of truth (see HkMlaV40Regs at file scope).
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x8_fp8bf16_fp8bf16_gen1.cuh:89:    using R                            = HkMlaV40Regs<T>;
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x8_fp8bf16_fp8bf16_gen1.cuh:140:    OManager16bitsV4Gen1Swizzle<T, out_t> o_manager;
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x8_fp8bf16_fp8bf16_gen1.cuh:141:    OManager32bitsV4Gen1Swizzle<T, split_t> split_o_manager;
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x8_fp8bf16_fp8bf16_gen1.cuh:169:    // Per-lane attention sink logit. Loaded once at kernel entry: it depends
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x8_fp8bf16_fp8bf16_gen1.cuh:171:    // for the kernel's lifetime. When p_attn_sink is null, substitute -inf
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x8_fp8bf16_fp8bf16_gen1.cuh:172:    // so exp(sink - row_max) = 0 -> the epilogue's row_sum_e += sink_term
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x8_fp8bf16_fp8bf16_gen1.cuh:177:    const float attn_sink = (params.p_attn_sink == nullptr)
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x8_fp8bf16_fp8bf16_gen1.cuh:179:                                : params.p_attn_sink[head_idx];
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x8_fp8bf16_fp8bf16_gen1.cuh:225:                  "V4.0 LDS budget exceeds 160 KB at kOccupancy=1.");
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x8_fp8bf16_fp8bf16_gen1.cuh:267:        // with the batch tail. Used by the epilogue sink fold: only the
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x8_fp8bf16_fp8bf16_gen1.cuh:268:        // LAST split inflates row_sum_e with the sink term, so the reducer
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x8_fp8bf16_fp8bf16_gen1.cuh:269:        // routes the sink contribution into the global denominator exactly
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x8_fp8bf16_fp8bf16_gen1.cuh:366:        // Q rope/nope buffers are separate tensors in V4.0.
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x8_fp8bf16_fp8bf16_gen1.cuh:555:                hk_mla_v40_pv_stage<false, T>(kv_manager, p_lds_kv_next, rescale, do_rescale);
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x8_fp8bf16_fp8bf16_gen1.cuh:847:                hk_mla_v40_pv_stage<kIsFirstIter, T>(
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x8_fp8bf16_fp8bf16_gen1.cuh:855:            //   partial_qo_loc < 0 -> final_output via OManager16bitsV4Gen1Swizzle (bf16).
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x8_fp8bf16_fp8bf16_gen1.cuh:856:            //   partial_qo_loc >= 0 -> split_output via OManager32bitsV4Gen1Swizzle (fp32)
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x8_fp8bf16_fp8bf16_gen1.cuh:872:                    hk_mla_v40_pv_stage<false, T>(kv_manager, p_lds_kv_curr, rescale, do_rescale);
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x8_fp8bf16_fp8bf16_gen1.cuh:875:                // ---- Attention-sink fold ----
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x8_fp8bf16_fp8bf16_gen1.cuh:880:                // routes exp(sink) into the global denominator exactly once
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x8_fp8bf16_fp8bf16_gen1.cuh:883:                // attn_sink is a per-lane VGPR loaded once at kernel entry
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x8_fp8bf16_fp8bf16_gen1.cuh:884:                // (-inf if p_attn_sink is null, so exp(...)=0 -> no-op).
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x8_fp8bf16_fp8bf16_gen1.cuh:887:                    // row_max is in log2 units (Q pre-scaled), attn_sink is a raw
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x8_fp8bf16_fp8bf16_gen1.cuh:888:                    // logit, so convert the sink to log2 units before the diff.
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x8_fp8bf16_fp8bf16_gen1.cuh:889:                    const float sink_term = __builtin_amdgcn_exp2f(attn_sink * log2e - row_max);
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x8_fp8bf16_fp8bf16_gen1.cuh:890:                    row_sum_e += sink_term;
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x8_fp8bf16_fp8bf16_gen1.cuh:1290:// scratch budget = HkMlaV40Regs::k_scratch_budget = k_p_comp_begin-12 = 36 for
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x8_fp8bf16_fp8bf16_gen1.cuh:1293:    36))) void kn_mi35x_mla_v40_fwd_decode_m16x8_fp8bf16_fp8bf16_gen1(HkMlaV40DecodeFwdParams<T>
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x8_fp8bf16_fp8bf16_gen1.cuh:1304:        mi35x_mla_v40_fwd_decode_m16x8_fp8bf16_fp8bf16_gen1_impl<WarpTypeM16x8::LoNoPEWarp>(
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x8_fp8bf16_fp8bf16_gen1.cuh:1309:        mi35x_mla_v40_fwd_decode_m16x8_fp8bf16_fp8bf16_gen1_impl<WarpTypeM16x8::HiRoPEWarp>(
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x8_fp8bf16_fp8bf16_gen1.cuh:1318:    T::kOccupancy) void kn_mi35x_mla_v40_fwd_decode_m16x8_fp8bf16_fp8bf16_gen1(HkMlaV40DecodeFwdParams<T>
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x8_fp8bf16_fp8bf16_gen1.cuh:1327:void mi35x_mla_v40_fwd_decode_m16x8_fp8bf16_fp8bf16_gen1(aiter_tensor_t& query,
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x8_fp8bf16_fp8bf16_gen1.cuh:1341:                                                         const float* p_attn_sink)
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x8_fp8bf16_fp8bf16_gen1.cuh:1344:    // (hk_mi35x_mla_v40_fwd_decode_m16x8_fp8bf16_fp8bf16_gen1) so we don't
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x8_fp8bf16_fp8bf16_gen1.cuh:1356:    HkMlaV40DecodeFwdParams<Traits> params = {
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x8_fp8bf16_fp8bf16_gen1.cuh:1368:        // optional per-head attention sink ([num_qheads] fp32, or nullptr)
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x8_fp8bf16_fp8bf16_gen1.cuh:1369:        p_attn_sink,
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x8_fp8bf16_fp8bf16_gen1.cuh:1381:    kn_mi35x_mla_v40_fwd_decode_m16x8_fp8bf16_fp8bf16_gen1<Traits>
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x8_fp8bf16_fp8bf16_gen1.cuh:1385:void hk_mi35x_mla_v40_fwd_decode_m16x8_fp8bf16_fp8bf16_gen1(aiter_tensor_t& query,
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x8_fp8bf16_fp8bf16_gen1.cuh:1399:                                                            std::optional<aiter_tensor_t> attn_sink)
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x8_fp8bf16_fp8bf16_gen1.cuh:1409:                "hk_mi35x_mla_v40_fwd_decode_m16x8_fp8bf16_fp8bf16_gen1 requires FP8 NOPE; got q=",
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x8_fp8bf16_fp8bf16_gen1.cuh:1415:        "hk_mi35x_mla_v40_fwd_decode_m16x8_fp8bf16_fp8bf16_gen1 requires BF16 ROPE; got q_rope=",
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x8_fp8bf16_fp8bf16_gen1.cuh:1422:    // every shape MUST be validated here against the V4 layout constants:
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x8_fp8bf16_fp8bf16_gen1.cuh:1428:    // sync with HkMlaV40DecodeFwdTraits without duplication. kPageSize_=1 is
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x8_fp8bf16_fp8bf16_gen1.cuh:1430:    using DummyTraits = HkMlaV40DecodeFwdTraits<hk::fp8e4m3,
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x8_fp8bf16_fp8bf16_gen1.cuh:1556:    // Optional attention sink: [num_qheads] fp32. Disabled when absent.
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x8_fp8bf16_fp8bf16_gen1.cuh:1557:    const float* p_attn_sink = nullptr;
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x8_fp8bf16_fp8bf16_gen1.cuh:1558:    if(attn_sink.has_value())
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x8_fp8bf16_fp8bf16_gen1.cuh:1560:        const aiter_tensor_t& s = attn_sink.value();
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x8_fp8bf16_fp8bf16_gen1.cuh:1562:                    "attn_sink must be fp32, got ",
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x8_fp8bf16_fp8bf16_gen1.cuh:1564:        AITER_CHECK(s.dim() == 1, "attn_sink must be 1-D, got rank ", s.dim());
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x8_fp8bf16_fp8bf16_gen1.cuh:1566:                    "attn_sink.size(0) must equal num_qheads=",
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x8_fp8bf16_fp8bf16_gen1.cuh:1570:        p_attn_sink = reinterpret_cast<const float*>(s.data_ptr());
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x8_fp8bf16_fp8bf16_gen1.cuh:1575:        using Traits = HkMlaV40DecodeFwdTraits<hk::fp8e4m3,                            \
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x8_fp8bf16_fp8bf16_gen1.cuh:1585:        mi35x_mla_v40_fwd_decode_m16x8_fp8bf16_fp8bf16_gen1<Traits>(query,             \
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x8_fp8bf16_fp8bf16_gen1.cuh:1599:                                                                    p_attn_sink);      \
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x8_fp8bf16_fp8bf16_gen1.cuh:1611:            "hk_mi35x_mla_v40_fwd_decode_m16x8_fp8bf16_fp8bf16_gen1: unsupported page_size ",
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x4_fp8bf16_fp8bf16_gen1.cuh:9:#include "hk_mla_v40_buffer_managers_gen1.cuh"
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x4_fp8bf16_fp8bf16_gen1.cuh:10:#include "hk_mla_v40_fwd_decode_gen1_common.cuh"
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x4_fp8bf16_fp8bf16_gen1.cuh:40:// V4.0 mi35x m16x4 decode kernel: separate FP8 NOPE + BF16 ROPE buffers for
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x4_fp8bf16_fp8bf16_gen1.cuh:47:mi35x_mla_v40_fwd_decode_m16x4_fp8bf16_fp8bf16_gen1_impl(HkMlaV40DecodeFwdParams<T> params,
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x4_fp8bf16_fp8bf16_gen1.cuh:85:    // Compiler scratch constrained to v0..v43 (budget=44 on the __global__).
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x4_fp8bf16_fp8bf16_gen1.cuh:93:    // Register layout single source of truth (see HkMlaV40Regs at file scope).
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x4_fp8bf16_fp8bf16_gen1.cuh:96:    using R                            = HkMlaV40Regs<T>;
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x4_fp8bf16_fp8bf16_gen1.cuh:147:    OManager16bitsV4Gen1Swizzle<T, out_t> o_manager;
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x4_fp8bf16_fp8bf16_gen1.cuh:148:    OManager32bitsV4Gen1Swizzle<T, split_t> split_o_manager;
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x4_fp8bf16_fp8bf16_gen1.cuh:175:    // Per-lane attention sink logit. Loaded once at kernel entry: it depends
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x4_fp8bf16_fp8bf16_gen1.cuh:177:    // for the kernel's lifetime. When p_attn_sink is null, substitute -inf
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x4_fp8bf16_fp8bf16_gen1.cuh:178:    // so exp(sink - row_max) = 0 -> the epilogue's row_sum_e += sink_term
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x4_fp8bf16_fp8bf16_gen1.cuh:183:    const float attn_sink = (params.p_attn_sink == nullptr)
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x4_fp8bf16_fp8bf16_gen1.cuh:185:                                : params.p_attn_sink[head_idx];
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x4_fp8bf16_fp8bf16_gen1.cuh:227:                  "V4.0 LDS budget exceeds 160 KB at kOccupancy=1.");
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x4_fp8bf16_fp8bf16_gen1.cuh:268:        // with the batch tail. Used by the epilogue sink fold: only the
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x4_fp8bf16_fp8bf16_gen1.cuh:269:        // LAST split inflates row_sum_e with the sink term, so the reducer
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x4_fp8bf16_fp8bf16_gen1.cuh:270:        // routes the sink contribution into the global denominator exactly
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x4_fp8bf16_fp8bf16_gen1.cuh:350:        // Q rope/nope buffers are separate tensors in V4.0.
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x4_fp8bf16_fp8bf16_gen1.cuh:519:                hk_mla_v40_pv_stage<false, T>(kv_manager, p_lds_kv_next, rescale, do_rescale);
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x4_fp8bf16_fp8bf16_gen1.cuh:558:                // the existing pinned K region (v44:55); no register-map change.
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x4_fp8bf16_fp8bf16_gen1.cuh:791:                hk_mla_v40_pv_stage<kIsFirstIter, T>(
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x4_fp8bf16_fp8bf16_gen1.cuh:799:            //   partial_qo_loc < 0 -> final_output via OManager16bitsV4Gen1Swizzle (bf16).
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x4_fp8bf16_fp8bf16_gen1.cuh:800:            //   partial_qo_loc >= 0 -> split_output via OManager32bitsV4Gen1Swizzle (fp32)
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x4_fp8bf16_fp8bf16_gen1.cuh:815:                    hk_mla_v40_pv_stage<false, T>(kv_manager, p_lds_kv_curr, rescale, do_rescale);
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x4_fp8bf16_fp8bf16_gen1.cuh:818:                // ---- Attention-sink fold ----
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x4_fp8bf16_fp8bf16_gen1.cuh:823:                // routes exp(sink) into the global denominator exactly once
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x4_fp8bf16_fp8bf16_gen1.cuh:826:                // attn_sink is a per-lane VGPR loaded once at kernel entry
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x4_fp8bf16_fp8bf16_gen1.cuh:827:                // (-inf if p_attn_sink is null, so exp(...)=0 -> no-op).
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x4_fp8bf16_fp8bf16_gen1.cuh:830:                    // row_max is in log2 units (Q pre-scaled), attn_sink is a raw
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x4_fp8bf16_fp8bf16_gen1.cuh:831:                    // logit, so convert the sink to log2 units before the diff.
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x4_fp8bf16_fp8bf16_gen1.cuh:832:                    const float sink_term = __builtin_amdgcn_exp2f(attn_sink * log2e - row_max);
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x4_fp8bf16_fp8bf16_gen1.cuh:833:                    row_sum_e += sink_term;
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x4_fp8bf16_fp8bf16_gen1.cuh:1219:    44))) void kn_mi35x_mla_v40_fwd_decode_m16x4_fp8bf16_fp8bf16_gen1(HkMlaV40DecodeFwdParams<T>
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x4_fp8bf16_fp8bf16_gen1.cuh:1230:        mi35x_mla_v40_fwd_decode_m16x4_fp8bf16_fp8bf16_gen1_impl<WarpTypeM16x4::EvenPlus4NoPE>(
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x4_fp8bf16_fp8bf16_gen1.cuh:1235:        mi35x_mla_v40_fwd_decode_m16x4_fp8bf16_fp8bf16_gen1_impl<WarpTypeM16x4::OddPlus4RoPE>(
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x4_fp8bf16_fp8bf16_gen1.cuh:1244:    T::kOccupancy) void kn_mi35x_mla_v40_fwd_decode_m16x4_fp8bf16_fp8bf16_gen1(HkMlaV40DecodeFwdParams<T>
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x4_fp8bf16_fp8bf16_gen1.cuh:1253:void mi35x_mla_v40_fwd_decode_m16x4_fp8bf16_fp8bf16_gen1(aiter_tensor_t& query,
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x4_fp8bf16_fp8bf16_gen1.cuh:1267:                                                         const float* p_attn_sink)
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x4_fp8bf16_fp8bf16_gen1.cuh:1270:    // (hk_mi35x_mla_v40_fwd_decode_m16x4_fp8bf16_fp8bf16_gen1) so we don't
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x4_fp8bf16_fp8bf16_gen1.cuh:1282:    HkMlaV40DecodeFwdParams<Traits> params = {
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x4_fp8bf16_fp8bf16_gen1.cuh:1294:        // optional per-head attention sink ([num_qheads] fp32, or nullptr)
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x4_fp8bf16_fp8bf16_gen1.cuh:1295:        p_attn_sink,
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x4_fp8bf16_fp8bf16_gen1.cuh:1307:    kn_mi35x_mla_v40_fwd_decode_m16x4_fp8bf16_fp8bf16_gen1<Traits>
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x4_fp8bf16_fp8bf16_gen1.cuh:1311:void hk_mi35x_mla_v40_fwd_decode_m16x4_fp8bf16_fp8bf16_gen1(aiter_tensor_t& query,
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x4_fp8bf16_fp8bf16_gen1.cuh:1325:                                                            std::optional<aiter_tensor_t> attn_sink)
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x4_fp8bf16_fp8bf16_gen1.cuh:1335:                "hk_mi35x_mla_v40_fwd_decode_m16x4_fp8bf16_fp8bf16_gen1 requires FP8 NOPE; got q=",
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x4_fp8bf16_fp8bf16_gen1.cuh:1341:        "hk_mi35x_mla_v40_fwd_decode_m16x4_fp8bf16_fp8bf16_gen1 requires BF16 ROPE; got q_rope=",
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x4_fp8bf16_fp8bf16_gen1.cuh:1348:    // every shape MUST be validated here against the V4 layout constants:
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x4_fp8bf16_fp8bf16_gen1.cuh:1354:    // sync with HkMlaV40DecodeFwdTraits without duplication. kPageSize_=1 is
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x4_fp8bf16_fp8bf16_gen1.cuh:1356:    using DummyTraits = HkMlaV40DecodeFwdTraits<hk::fp8e4m3,
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x4_fp8bf16_fp8bf16_gen1.cuh:1482:    // Optional attention sink: [num_qheads] fp32. Disabled when absent.
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x4_fp8bf16_fp8bf16_gen1.cuh:1483:    const float* p_attn_sink = nullptr;
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x4_fp8bf16_fp8bf16_gen1.cuh:1484:    if(attn_sink.has_value())
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x4_fp8bf16_fp8bf16_gen1.cuh:1486:        const aiter_tensor_t& s = attn_sink.value();
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x4_fp8bf16_fp8bf16_gen1.cuh:1488:                    "attn_sink must be fp32, got ",
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x4_fp8bf16_fp8bf16_gen1.cuh:1490:        AITER_CHECK(s.dim() == 1, "attn_sink must be 1-D, got rank ", s.dim());
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x4_fp8bf16_fp8bf16_gen1.cuh:1492:                    "attn_sink.size(0) must equal num_qheads=",
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x4_fp8bf16_fp8bf16_gen1.cuh:1496:        p_attn_sink = reinterpret_cast<const float*>(s.data_ptr());
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x4_fp8bf16_fp8bf16_gen1.cuh:1501:        using Traits = HkMlaV40DecodeFwdTraits<hk::fp8e4m3,                            \
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x4_fp8bf16_fp8bf16_gen1.cuh:1511:        mi35x_mla_v40_fwd_decode_m16x4_fp8bf16_fp8bf16_gen1<Traits>(query,             \
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x4_fp8bf16_fp8bf16_gen1.cuh:1525:                                                                    p_attn_sink);      \
+/app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x4_fp8bf16_fp8bf16_gen1.cuh:1537:            "hk_mi35x_mla_v40_fwd_decode_m16x4_fp8bf16_fp8bf16_gen1: unsupported page_size ",
+/app/aiter-test/csrc/kernels/mla/hk/hk_mla_buffer_managers.cuh:58:    __device__ __forceinline__ void shuffle_data(const v4ui& data)
+/app/aiter-test/csrc/kernels/mla/hk/hk_mla_buffer_managers.cuh:163:        v4ui data_0 = hkm::buffer_load_dwordx4(br, v_offset, s_offset, 0 * kNumColsPerWarp);
+/app/aiter-test/csrc/kernels/mla/hk/hk_mla_buffer_managers.cuh:164:        v4ui data_1 = hkm::buffer_load_dwordx4(br, v_offset, s_offset, 1 * kNumColsPerWarp);
+/app/aiter-test/csrc/kernels/mla/hk/hk_mla_buffer_managers.cuh:166:        v4ui data_2 = hkm::buffer_load_dwordx4(br, v_offset, s_offset, 2 * kNumColsPerWarp);
+/app/aiter-test/csrc/kernels/mla/hk/hk_mla_buffer_managers.cuh:219:    __device__ __forceinline__ void shuffle_data(const v4ui& data, const uintptr_t p_lds)
+/app/aiter-test/csrc/kernels/mla/hk/hk_mla_buffer_managers.cuh:237:        v4ui data_v = {data.x, data.y, data.z, data.w};
+/app/aiter-test/csrc/kernels/mla/hk/hk_mla_buffer_managers.cuh:286:        v4ui data_0 = hkm::buffer_load_dwordx4(br, v_offset, s_offset, 0 * kNumColsPerWarp);
+/app/aiter-test/csrc/kernels/mla/hk/hk_mla_buffer_managers.cuh:287:        v4ui data_1 = hkm::buffer_load_dwordx4(br, v_offset, s_offset, 1 * kNumColsPerWarp);
+/app/aiter-test/csrc/kernels/mla/hk/hk_mla_buffer_managers.cuh:289:        v4ui data_2 = hkm::buffer_load_dwordx4(br, v_offset, s_offset, 2 * kNumColsPerWarp);
+/app/aiter-test/csrc/kernels/mla/hk/hk_mla_buffer_managers.cuh:320:// Compared with V3, V4 uses LDS async load.
+/app/aiter-test/csrc/kernels/mla/hk/hk_mla_buffer_managers.cuh:322:class QManager8bitsV4
+/app/aiter-test/csrc/kernels/mla/hk/hk_mla_buffer_managers.cuh:435:    __device__ QManager8bitsV4() {}
+/app/aiter-test/csrc/kernels/mla/hk/hk_mla_buffer_managers.cuh:490:// Compared with V4, V5 uses 3 LDS buffers to load Q to reduce barrier & waitcnt time.
+/app/aiter-test/csrc/kernels/mla/hk/hk_mla_buffer_managers.cuh:492:class QManager8bitsV5 : public QManager8bitsV4<T>
+/app/aiter-test/csrc/kernels/mla/hk/hk_mla_buffer_managers.cuh:498:    __device__ QManager8bitsV5() : QManager8bitsV4<T>() {}
+/app/aiter-test/csrc/kernels/mla/hk/hk_mla_buffer_managers.cuh:503:        return 3 * T::kNumWarps * QManager8bitsV4<T>::get_lds_size_per_block_in_byte();
+/app/aiter-test/csrc/kernels/mla/hk/hk_mla_buffer_managers.cuh:513:            p_lds + 3 * warp_idx * QManager8bitsV4<T>::get_lds_size_per_block_in_byte();
+/app/aiter-test/csrc/kernels/mla/hk/hk_mla_buffer_managers.cuh:515:            p_lds_warp_0 + QManager8bitsV4<T>::get_lds_size_per_block_in_byte();
+/app/aiter-test/csrc/kernels/mla/hk/hk_mla_buffer_managers.cuh:517:            p_lds_warp_1 + QManager8bitsV4<T>::get_lds_size_per_block_in_byte();
+/app/aiter-test/csrc/kernels/mla/hk/hk_mla_buffer_managers.cuh:519:                                     warp_idx * QManager8bitsV4<T>::kNumElemPerCol * T::kQkHeadDim;
+/app/aiter-test/csrc/kernels/mla/hk/hk_mla_buffer_managers.cuh:746:        const v4ui pass_0 = hkm::ds_read_b128(p_lds_v_lane, 0);
+/app/aiter-test/csrc/kernels/mla/hk/hk_mla_buffer_managers.cuh:747:        const v4ui pass_1 = hkm::ds_read_b128(p_lds_v_lane, 4 * sizeof(uint32_t));
+/app/aiter-test/csrc/kernels/mla/hk/hk_mla_buffer_managers.cuh:1467:        hkm::ds_write_b128(v_transposed.hi, p_lds_vt_lane, sizeof(v4ui));
+/app/aiter-test/csrc/kernels/mla/hk/hk_mla_buffer_managers.cuh:1722:        const v4ui data = hkm::ds_read_b128(p_lds_warp + v_offset_lds_ld, 0);
+/app/aiter-test/csrc/kernels/mla/hk/hk_mla_buffer_managers.cuh:1885:        const v4ui data_0 = hkm::ds_read_b128(p_lds_warp + v_offset_lds_ld, 0);
+/app/aiter-test/csrc/kernels/mla/hk/hk_mla_buffer_managers.cuh:1886:        const v4ui data_1 =
+/app/aiter-test/csrc/kernels/mla/hk/hk_mla_utils.cuh:32:typedef uint32_t v4ui __attribute__((ext_vector_type(4)));
+/app/aiter-test/csrc/kernels/mla/hk/hk_mla_utils.cuh:117:// V4.0 traits: NOPE and ROPE live in separate buffers (FP8 NOPE + BF16 ROPE on
+/app/aiter-test/csrc/kernels/mla/hk/hk_mla_utils.cuh:118:// both Q and KV sides). The Q/KV NOPE buffer is *packed* per V4 layout into
+/app/aiter-test/csrc/kernels/mla/hk/hk_mla_utils.cuh:131:struct HkMlaV40DecodeFwdTraits
+/app/aiter-test/csrc/kernels/mla/hk/hk_mla_utils.cuh:133:    // V4 dimensions (vs V3.2 which had kKvLoraRank=kQkNopeHeadDim=kVoHeadDim=512):
+/app/aiter-test/csrc/kernels/mla/hk/hk_mla_utils.cuh:145:    // V4 NOPE on-disk packing: NOPE 448 FP8 + dup-E8M0 14 (= 448/32 byte slots,
+/app/aiter-test/csrc/kernels/mla/hk/hk_mla_utils.cuh:214:    static_assert(std::is_same_v<kv_nope_t, hk::fp8e4m3>, "v4.0: kv_nope_t must be fp8e4m3.");
+/app/aiter-test/csrc/kernels/mla/hk/hk_mla_utils.cuh:215:    static_assert(std::is_same_v<kv_rope_t, hk::bf16>, "v4.0: kv_rope_t must be bf16.");
+/app/aiter-test/csrc/kernels/mla/hk/hk_mla_utils.cuh:221:struct HkMlaV40DecodeFwdParams
+/app/aiter-test/csrc/kernels/mla/hk/hk_mla_utils.cuh:241:    // optional per-head attention sink logit ([num_qheads], fp32). nullptr -> no
+/app/aiter-test/csrc/kernels/mla/hk/hk_mla_utils.cuh:242:    // sink (kernel substitutes -inf so exp(sink-row_max) = 0 -> row_sum_e
+/app/aiter-test/csrc/kernels/mla/hk/hk_mla_utils.cuh:246:    // reducer's exp(lse_k - global_lse) factor then routes the sink
+/app/aiter-test/csrc/kernels/mla/hk/hk_mla_utils.cuh:249:    const float* p_attn_sink;
+/app/aiter-test/csrc/kernels/mla/hk/hk_mla_utils.cuh:282:    // (and earlier sink/LICM passes) will hoist `v_lshlrev_b32` to the
+/app/aiter-test/csrc/kernels/mla/hk/hk_mla_utils.cuh:432:// hk_mla_buffer_managers.cuh -- the explicit register number lets the V4.0
+/app/aiter-test/csrc/kernels/mla/hk/hk_mla_utils.cuh:444:// OManager families (V32 V1/V2 + V40 V3) on the VRAM-write path.
+/app/aiter-test/csrc/kernels/mla/hk/hk_mla_utils.cuh:571://       In-flight load count is data/lane-dependent. Used by V40 m16x8 + all V32.
+/app/aiter-test/csrc/kernels/mla/hk/hk_mla_utils.cuh:576://       that misaligns the surrounding vmcnt accounting. Used by V40 m16x4.
+/app/aiter-test/csrc/kernels/mla/hk/hk_mla_v40_fwd_decode_gen1_common.cuh:4:// Shared core for the V4.0 gen.1 MLA decode kernels (m16x8 / m16x4): the pinned
+/app/aiter-test/csrc/kernels/mla/hk/hk_mla_v40_fwd_decode_gen1_common.cuh:5:// VGPR register map (HkMlaV40Regs) and the PV GEMM stage (hk_mla_v40_pv_gemm /
+/app/aiter-test/csrc/kernels/mla/hk/hk_mla_v40_fwd_decode_gen1_common.cuh:6:// hk_mla_v40_pv_stage). Identical per-wave for both head counts, so they live
+/app/aiter-test/csrc/kernels/mla/hk/hk_mla_v40_fwd_decode_gen1_common.cuh:11:#include "hk_mla_v40_buffer_managers_gen1.cuh"
+/app/aiter-test/csrc/kernels/mla/hk/hk_mla_v40_fwd_decode_gen1_common.cuh:24:struct HkMlaV40Regs
+/app/aiter-test/csrc/kernels/mla/hk/hk_mla_v40_fwd_decode_gen1_common.cuh:114:    // 4th PV V slot reuses the k_2 regs (v44:47) -- free during PV -- so the
+/app/aiter-test/csrc/kernels/mla/hk/hk_mla_v40_fwd_decode_gen1_common.cuh:169:__device__ __forceinline__ void hk_mla_v40_pv_gemm(KvManager8to16bitsV1<T>& kv_manager,
+/app/aiter-test/csrc/kernels/mla/hk/hk_mla_v40_fwd_decode_gen1_common.cuh:173:    using R                       = HkMlaV40Regs<T>;
+/app/aiter-test/csrc/kernels/mla/hk/hk_mla_v40_fwd_decode_gen1_common.cuh:322:__device__ __forceinline__ void hk_mla_v40_pv_stage(KvManager8to16bitsV1<T>& kv_manager,
+/app/aiter-test/csrc/kernels/mla/hk/hk_mla_v40_fwd_decode_gen1_common.cuh:329:        hk_mla_v40_pv_gemm<true, false, T>(kv_manager, p_lds_v, rescale);

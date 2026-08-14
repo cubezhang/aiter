@@ -1,0 +1,6 @@
+150:        block_k = 16
+151:        attn_num_warps = 1
+154:        block_k = 16 if D >= 256 else 32
+155:        attn_num_warps = 4
+265:        num_warps=attn_num_warps,
+31 /work/experiments/e077_bpreshuffle_18row_overlay.csv

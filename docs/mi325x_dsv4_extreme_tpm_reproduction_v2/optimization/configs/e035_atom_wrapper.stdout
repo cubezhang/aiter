@@ -1,0 +1,39 @@
+[aiter] import [module_aiter_core] under /app/aiter-test/aiter/jit/module_aiter_core.so
+[atom 10:38:29] Raised RLIMIT_NOFILE soft limit 1024 -> 65535 (hard=524288)
+Namespace(backend='openai', base_url='http://127.0.0.1:18000', host='127.0.0.1', port=8000, endpoint='/v1/completions', dataset_name='random', dataset_path=None, max_concurrency=70, model='/data/DeepSeek-V4-Flash-FP8', tokenizer='/data/DeepSeek-V4-Flash-FP8', best_of=1, use_beam_search=False, num_prompts=140, logprobs=None, request_rate=inf, burstiness=1.0, seed=20260802, trust_remote_code=False, disable_tqdm=True, profile=False, save_result=True, save_detailed=True, metadata=None, result_dir='/work/e035_override_atom', result_filename='result.json', ignore_eos=True, percentile_metrics='ttft,tpot,itl', metric_percentiles='99', goodput=None, sonnet_input_len=550, sonnet_output_len=150, sonnet_prefix_len=200, sharegpt_output_len=None, random_input_len=6100, random_output_len=1024, random_range_ratio=1.0, random_prefix_len=0, use_chat_template=False, hf_subset=None, hf_split=None, hf_output_len=None, tokenizer_mode='auto', served_model_name='DeepSeek-V3.2', lora_modules=None, num_warmups=10)
+-------------------  Input/Output Length Statistics  -------------------
+ input_lens : min=6100  max=6100  mean=6100.00  avg_token_mismatch=0.00  
+ output_lens: min=1024  max=1024  mean=1024.00 
+------------------------------------------------------------------------ 
+
+Starting initial single prompt test run...
+Warming up with 10 requests...
+Warmup completed.
+Traffic request rate: inf
+Burstiness factor: 1.0 (Poisson process)
+Maximum request concurrency: 70
+Starting main benchmark run...
+============ Serving Benchmark Result ============
+Successful requests:                     140       
+Benchmark duration (s):                  60.36     
+Total input tokens:                      854000    
+Total generated tokens:                  143484    
+Request throughput (req/s):              2.32      
+Output token throughput (tok/s):         2377.24   
+Total Token throughput (tok/s):          16526.33  
+Concurrency:                             65.06     
+Accept length:                           2.60      
+Acceptance rate (%):                     80.01     
+---------------Time to First Token----------------
+Mean TTFT (ms):                          5207.66   
+Median TTFT (ms):                        1660.71   
+P99 TTFT (ms):                           13919.81  
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          22.31     
+Median TPOT (ms):                        22.37     
+P99 TPOT (ms):                           38.18     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           57.98     
+Median ITL (ms):                         37.33     
+P99 ITL (ms):                            516.57    
+==================================================

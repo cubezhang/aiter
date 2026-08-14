@@ -1,0 +1,23 @@
+experiments/e064_router_status.json:1:{"policy":"least_connections","backends":{"http://127.0.0.1:18000":{},"http://127.0.0.1:18001":{}}}
+--
+commands/e003_start_dual_tp4_131k.sh-56-wait_ready 18000
+commands/e003_start_dual_tp4_131k.sh-57-start_tp4 mi325_dsv4_e003_tp4_b 4,5,6,7 18001
+commands/e003_start_dual_tp4_131k.sh-58-wait_ready 18001
+commands/e003_start_dual_tp4_131k.sh:59:docker run -d --name mi325_dsv4_e003_router --network host \
+commands/e003_start_dual_tp4_131k.sh-60-  -v "$ROUTER_SOURCE":/router.py:ro \
+commands/e003_start_dual_tp4_131k.sh-61-  -e ROUTER_BACKENDS=http://127.0.0.1:18000,http://127.0.0.1:18001 \
+commands/e003_start_dual_tp4_131k.sh:62:  -e ROUTER_POLICY=least_connections \
+commands/e003_start_dual_tp4_131k.sh-63-  "$IMAGE" bash -lc 'exec python -m uvicorn router:app --app-dir / --host 127.0.0.1 --port 18080 --no-access-log' \
+commands/e003_start_dual_tp4_131k.sh-64-  > "$RUN_ROOT/logs/e003_router_container_id.txt"
+commands/e003_start_dual_tp4_131k.sh-65-for _ in $(seq 1 60); do
+--
+commands/e004_start_dual_tp4_131k_singlecontainer.sh-66-done
+commands/e004_start_dual_tp4_131k_singlecontainer.sh-67-test -s "$RUN_ROOT/experiments/e004_models_18000.json"
+commands/e004_start_dual_tp4_131k_singlecontainer.sh-68-test -s "$RUN_ROOT/experiments/e004_models_18001.json"
+commands/e004_start_dual_tp4_131k_singlecontainer.sh:69:docker run -d --name mi325_dsv4_e004_router --network host --entrypoint bash \
+commands/e004_start_dual_tp4_131k_singlecontainer.sh-70-  -v "$ROUTER_SOURCE":/router.py:ro \
+commands/e004_start_dual_tp4_131k_singlecontainer.sh-71-  -e ROUTER_BACKENDS=http://127.0.0.1:18000,http://127.0.0.1:18001 \
+commands/e004_start_dual_tp4_131k_singlecontainer.sh:72:  -e ROUTER_POLICY=least_connections \
+commands/e004_start_dual_tp4_131k_singlecontainer.sh-73-  "$IMAGE" -lc 'exec python -m uvicorn router:app --app-dir / --host 127.0.0.1 --port 18080 --no-access-log' \
+commands/e004_start_dual_tp4_131k_singlecontainer.sh-74-  > "$RUN_ROOT/logs/e004_router_container_id.txt"
+commands/e004_start_dual_tp4_131k_singlecontainer.sh-75-for _ in $(seq 1 60); do

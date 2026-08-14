@@ -1,0 +1,17 @@
+    # arches use the synchronous slot path, where 32 exposes memory latency.
+    if use_gluon:
+        block_k = 16
+        attn_num_warps = 1
+        max_num_wg = 1024
+    else:
+        block_k = 16 if D >= 256 else 32
+        avg_kv_len = kv_indices.shape[0] // max(1, T)
+        use_warps2 = ((T == 24 and avg_kv_len >= 1536) or
+                      (T == 48 and avg_kv_len >= 2048) or
+                      (T == 96 and avg_kv_len >= 768))
+        attn_num_warps = 2 if use_warps2 else 4
+        max_num_wg = 256
+    num_stages = 2
+    waves_per_eu = 1
+    # gluon reduce with BLOCK_H=1 keeps KV_SPLITS and BLOCK_H entirely
+    # in-thread; a single warp suffices and avoids shared-memory layout

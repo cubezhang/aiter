@@ -1,0 +1,471 @@
+[
+    {
+        "Id": "7286d54cde6c9ac381db369efa23956440b4e4cb5d24541ba7e92e238d561961",
+        "Created": "2026-08-04T04:17:44.70723487Z",
+        "Path": "bash",
+        "Args": [
+            "-lc",
+            "\nset -euo pipefail\nunset AITER_REBUILD AITER_CONFIG_GEMM_BF16 AITER_CONFIG_FMOE AITER_CONFIG_GEMM_A8W8_BLOCKSCALE_BPRESHUFFLE ATOM_USE_TRITON_MOE\n{ cat /work/experiments/e077_bpreshuffle_18row_overlay.csv; tail -n +2 /work/experiments/e160_bpreshuffle_tuned.csv; } > /tmp/e161_bpreshuffle_m6100_overlay.csv\nexport AITER_CONFIG_GEMM_A8W8_BLOCKSCALE_BPRESHUFFLE=/tmp/e161_bpreshuffle_m6100_overlay.csv\nrm -f /app/aiter-test/aiter/jit/module_top_k_per_row.so\ncd /app/ATOM\nHIP_VISIBLE_DEVICES=0,1,2,3 python -m atom.entrypoints.openai_server \\\n  --model /data/DeepSeek-V4-Flash-FP8 --served-model-name DeepSeek-V3.2 \\\n  --tensor-parallel-size 4 --method mtp --num-speculative-tokens 2 \\\n  --kv-cache-dtype fp8 --max-model-len 131072 --gpu-memory-utilization 0.83 \\\n  --max-num-batched-tokens 131072 --max-num-seqs 128 \\\n  --cudagraph-capture-sizes \"[1,2,4,8,16,24,32,48,64,72,96,128]\" \\\n  --no-enable-prefix-caching --host 127.0.0.1 --server-port 18000 \\\n  > /work/logs/e161_18000_server.log 2>&1 &\npid_a=$!\nfor _ in $(seq 1 180); do\n  curl -fsS --max-time 3 http://127.0.0.1:18000/v1/models >/dev/null && break\n  kill -0 \"$pid_a\" 2>/dev/null || exit 31\n  sleep 3\ndone\ncurl -fsS --max-time 3 http://127.0.0.1:18000/v1/models >/dev/null || exit 32\nHIP_VISIBLE_DEVICES=4,5,6,7 python -m atom.entrypoints.openai_server \\\n  --model /data/DeepSeek-V4-Flash-FP8 --served-model-name DeepSeek-V3.2 \\\n  --tensor-parallel-size 4 --method mtp --num-speculative-tokens 2 \\\n  --kv-cache-dtype fp8 --max-model-len 131072 --gpu-memory-utilization 0.83 \\\n  --max-num-batched-tokens 131072 --max-num-seqs 128 \\\n  --cudagraph-capture-sizes \"[1,2,4,8,16,24,32,48,64,72,96,128]\" \\\n  --no-enable-prefix-caching --host 127.0.0.1 --server-port 18001 \\\n  > /work/logs/e161_18001_server.log 2>&1 &\npid_b=$!\ntrap \"kill $pid_a $pid_b 2>/dev/null || true; wait $pid_a $pid_b 2>/dev/null || true\" TERM INT EXIT\nwait -n \"$pid_a\" \"$pid_b\""
+        ],
+        "State": {
+            "Status": "running",
+            "Running": true,
+            "Paused": false,
+            "Restarting": false,
+            "OOMKilled": false,
+            "Dead": false,
+            "Pid": 1801464,
+            "ExitCode": 0,
+            "Error": "",
+            "StartedAt": "2026-08-04T04:17:44.727428372Z",
+            "FinishedAt": "0001-01-01T00:00:00Z"
+        },
+        "Image": "sha256:66df2fb1c537f52d47f2d3bf973b8da15278dd2ee362b5307e3d29dfad69fa7d",
+        "ResolvConfPath": "/var/lib/docker/containers/7286d54cde6c9ac381db369efa23956440b4e4cb5d24541ba7e92e238d561961/resolv.conf",
+        "HostnamePath": "/var/lib/docker/containers/7286d54cde6c9ac381db369efa23956440b4e4cb5d24541ba7e92e238d561961/hostname",
+        "HostsPath": "/var/lib/docker/containers/7286d54cde6c9ac381db369efa23956440b4e4cb5d24541ba7e92e238d561961/hosts",
+        "LogPath": "/var/lib/docker/containers/7286d54cde6c9ac381db369efa23956440b4e4cb5d24541ba7e92e238d561961/7286d54cde6c9ac381db369efa23956440b4e4cb5d24541ba7e92e238d561961-json.log",
+        "Name": "/mi325_dsv4_e161_dual",
+        "RestartCount": 0,
+        "Driver": "overlayfs",
+        "Platform": "linux",
+        "MountLabel": "",
+        "ProcessLabel": "",
+        "AppArmorProfile": "docker-default",
+        "ExecIDs": null,
+        "HostConfig": {
+            "Binds": [
+                "/data/DeepSeek-V4-Flash-FP8:/data/DeepSeek-V4-Flash-FP8:ro",
+                "/data/models/mi325_dsv4_reuse_tuning_20260801_103501/02_source/ATOM_official:/app/ATOM:ro",
+                "/data/models/mi325_dsv4_model_tuning_round2_20260802/57_topk_ob_hybrid_bpp_20260802_141900/aiter/csrc/kernels/topk_per_row_kernels.cu:/app/aiter-test/csrc/kernels/topk_per_row_kernels.cu:ro",
+                "/data/models/mi325_dsv4_perf_tuning_20260803_065439:/work"
+            ],
+            "ContainerIDFile": "",
+            "LogConfig": {
+                "Type": "json-file",
+                "Config": {}
+            },
+            "NetworkMode": "host",
+            "PortBindings": {},
+            "RestartPolicy": {
+                "Name": "no",
+                "MaximumRetryCount": 0
+            },
+            "AutoRemove": false,
+            "VolumeDriver": "",
+            "VolumesFrom": null,
+            "ConsoleSize": [
+                0,
+                0
+            ],
+            "CapAdd": null,
+            "CapDrop": null,
+            "CgroupnsMode": "private",
+            "Dns": null,
+            "DnsOptions": [],
+            "DnsSearch": [],
+            "ExtraHosts": null,
+            "GroupAdd": [
+                "video"
+            ],
+            "IpcMode": "host",
+            "Cgroup": "",
+            "Links": null,
+            "OomScoreAdj": 0,
+            "PidMode": "",
+            "Privileged": false,
+            "PublishAllPorts": false,
+            "ReadonlyRootfs": false,
+            "SecurityOpt": [
+                "label=disable"
+            ],
+            "UTSMode": "",
+            "UsernsMode": "",
+            "ShmSize": 137438953472,
+            "Runtime": "runc",
+            "Isolation": "",
+            "CpuShares": 0,
+            "Memory": 0,
+            "NanoCpus": 0,
+            "CgroupParent": "",
+            "BlkioWeight": 0,
+            "BlkioWeightDevice": [],
+            "BlkioDeviceReadBps": [],
+            "BlkioDeviceWriteBps": [],
+            "BlkioDeviceReadIOps": [],
+            "BlkioDeviceWriteIOps": [],
+            "CpuPeriod": 0,
+            "CpuQuota": 0,
+            "CpuRealtimePeriod": 0,
+            "CpuRealtimeRuntime": 0,
+            "CpusetCpus": "",
+            "CpusetMems": "",
+            "Devices": [
+                {
+                    "PathOnHost": "/dev/kfd",
+                    "PathInContainer": "/dev/kfd",
+                    "CgroupPermissions": "rwm"
+                },
+                {
+                    "PathOnHost": "/dev/dri",
+                    "PathInContainer": "/dev/dri",
+                    "CgroupPermissions": "rwm"
+                }
+            ],
+            "DeviceCgroupRules": null,
+            "DeviceRequests": null,
+            "MemoryReservation": 0,
+            "MemorySwap": 0,
+            "MemorySwappiness": null,
+            "OomKillDisable": null,
+            "PidsLimit": null,
+            "Ulimits": [],
+            "CpuCount": 0,
+            "CpuPercent": 0,
+            "IOMaximumIOps": 0,
+            "IOMaximumBandwidth": 0,
+            "MaskedPaths": [
+                "/proc/acpi",
+                "/proc/asound",
+                "/proc/interrupts",
+                "/proc/kcore",
+                "/proc/keys",
+                "/proc/latency_stats",
+                "/proc/sched_debug",
+                "/proc/scsi",
+                "/proc/timer_list",
+                "/proc/timer_stats",
+                "/sys/devices/virtual/powercap",
+                "/sys/firmware"
+            ],
+            "ReadonlyPaths": [
+                "/proc/bus",
+                "/proc/fs",
+                "/proc/irq",
+                "/proc/sys",
+                "/proc/sysrq-trigger"
+            ]
+        },
+        "Storage": {
+            "RootFS": {
+                "Snapshot": {
+                    "Name": "overlayfs"
+                }
+            }
+        },
+        "Mounts": [
+            {
+                "Type": "bind",
+                "Source": "/data/DeepSeek-V4-Flash-FP8",
+                "Destination": "/data/DeepSeek-V4-Flash-FP8",
+                "Mode": "ro",
+                "RW": false,
+                "Propagation": "rprivate"
+            },
+            {
+                "Type": "bind",
+                "Source": "/data/models/mi325_dsv4_reuse_tuning_20260801_103501/02_source/ATOM_official",
+                "Destination": "/app/ATOM",
+                "Mode": "ro",
+                "RW": false,
+                "Propagation": "rprivate"
+            },
+            {
+                "Type": "bind",
+                "Source": "/data/models/mi325_dsv4_model_tuning_round2_20260802/57_topk_ob_hybrid_bpp_20260802_141900/aiter/csrc/kernels/topk_per_row_kernels.cu",
+                "Destination": "/app/aiter-test/csrc/kernels/topk_per_row_kernels.cu",
+                "Mode": "ro",
+                "RW": false,
+                "Propagation": "rprivate"
+            },
+            {
+                "Type": "bind",
+                "Source": "/data/models/mi325_dsv4_perf_tuning_20260803_065439",
+                "Destination": "/work",
+                "Mode": "",
+                "RW": true,
+                "Propagation": "rprivate"
+            }
+        ],
+        "Config": {
+            "Hostname": "6u8m",
+            "Domainname": "",
+            "User": "",
+            "AttachStdin": false,
+            "AttachStdout": false,
+            "AttachStderr": false,
+            "Tty": false,
+            "OpenStdin": false,
+            "StdinOnce": false,
+            "Env": [
+                "AITER_QUICK_REDUCE_QUANTIZATION=INT4",
+                "PYTHONDONTWRITEBYTECODE=1",
+                "PATH=/root/.cargo/bin:/usr/local/go/bin:/opt/venv/bin:/opt/rocm/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+                "DEBIAN_FRONTEND=noninteractive",
+                "LD_LIBRARY_PATH=/opt/rocm/lib",
+                "GPU_ARCH_LIST=gfx942;gfx950",
+                "PYTORCH_ROCM_ARCH=gfx942;gfx950"
+            ],
+            "Cmd": [
+                "bash",
+                "-lc",
+                "\nset -euo pipefail\nunset AITER_REBUILD AITER_CONFIG_GEMM_BF16 AITER_CONFIG_FMOE AITER_CONFIG_GEMM_A8W8_BLOCKSCALE_BPRESHUFFLE ATOM_USE_TRITON_MOE\n{ cat /work/experiments/e077_bpreshuffle_18row_overlay.csv; tail -n +2 /work/experiments/e160_bpreshuffle_tuned.csv; } > /tmp/e161_bpreshuffle_m6100_overlay.csv\nexport AITER_CONFIG_GEMM_A8W8_BLOCKSCALE_BPRESHUFFLE=/tmp/e161_bpreshuffle_m6100_overlay.csv\nrm -f /app/aiter-test/aiter/jit/module_top_k_per_row.so\ncd /app/ATOM\nHIP_VISIBLE_DEVICES=0,1,2,3 python -m atom.entrypoints.openai_server \\\n  --model /data/DeepSeek-V4-Flash-FP8 --served-model-name DeepSeek-V3.2 \\\n  --tensor-parallel-size 4 --method mtp --num-speculative-tokens 2 \\\n  --kv-cache-dtype fp8 --max-model-len 131072 --gpu-memory-utilization 0.83 \\\n  --max-num-batched-tokens 131072 --max-num-seqs 128 \\\n  --cudagraph-capture-sizes \"[1,2,4,8,16,24,32,48,64,72,96,128]\" \\\n  --no-enable-prefix-caching --host 127.0.0.1 --server-port 18000 \\\n  > /work/logs/e161_18000_server.log 2>&1 &\npid_a=$!\nfor _ in $(seq 1 180); do\n  curl -fsS --max-time 3 http://127.0.0.1:18000/v1/models >/dev/null && break\n  kill -0 \"$pid_a\" 2>/dev/null || exit 31\n  sleep 3\ndone\ncurl -fsS --max-time 3 http://127.0.0.1:18000/v1/models >/dev/null || exit 32\nHIP_VISIBLE_DEVICES=4,5,6,7 python -m atom.entrypoints.openai_server \\\n  --model /data/DeepSeek-V4-Flash-FP8 --served-model-name DeepSeek-V3.2 \\\n  --tensor-parallel-size 4 --method mtp --num-speculative-tokens 2 \\\n  --kv-cache-dtype fp8 --max-model-len 131072 --gpu-memory-utilization 0.83 \\\n  --max-num-batched-tokens 131072 --max-num-seqs 128 \\\n  --cudagraph-capture-sizes \"[1,2,4,8,16,24,32,48,64,72,96,128]\" \\\n  --no-enable-prefix-caching --host 127.0.0.1 --server-port 18001 \\\n  > /work/logs/e161_18001_server.log 2>&1 &\npid_b=$!\ntrap \"kill $pid_a $pid_b 2>/dev/null || true; wait $pid_a $pid_b 2>/dev/null || true\" TERM INT EXIT\nwait -n \"$pid_a\" \"$pid_b\""
+            ],
+            "Image": "rocm/atom-dev:nightly_202607271535",
+            "Volumes": null,
+            "WorkingDir": "",
+            "Entrypoint": null,
+            "Labels": {
+                "org.opencontainers.image.ref.name": "rocm/pytorch:rocm7.2.4_ubuntu24.04_py3.12_pytorch_release_2.10.0+rocm7.2.4.lw.git3d3aa833",
+                "org.opencontainers.image.version": "24.04"
+            }
+        },
+        "NetworkSettings": {
+            "SandboxID": "2399237e5cc2fe0ab770b188434aff32cbecf618c4353624f1b50394985b6a5b",
+            "SandboxKey": "/var/run/docker/netns/default",
+            "Ports": {},
+            "Networks": {
+                "host": {
+                    "IPAMConfig": null,
+                    "Links": null,
+                    "Aliases": null,
+                    "DriverOpts": null,
+                    "GwPriority": 0,
+                    "NetworkID": "1ab5d4fb1f13162475c0a99d7093787a972075ea48e935031a2132d6c9298852",
+                    "EndpointID": "70d95c4088a7ff6fe25c8aafd08e4f4d8991096c155748c1318bfb35630347b4",
+                    "Gateway": "",
+                    "IPAddress": "",
+                    "MacAddress": "",
+                    "IPPrefixLen": 0,
+                    "IPv6Gateway": "",
+                    "GlobalIPv6Address": "",
+                    "GlobalIPv6PrefixLen": 0,
+                    "DNSNames": null
+                }
+            }
+        },
+        "ImageManifestDescriptor": {
+            "mediaType": "application/vnd.docker.distribution.manifest.v2+json",
+            "digest": "sha256:66df2fb1c537f52d47f2d3bf973b8da15278dd2ee362b5307e3d29dfad69fa7d",
+            "size": 6040,
+            "platform": {
+                "architecture": "amd64",
+                "os": "linux"
+            }
+        }
+    },
+    {
+        "Id": "ed0356337cb1efa1f41eed1faa7756d79cfd9671402fe635072c12c4bc8a862d",
+        "Created": "2026-08-04T04:20:07.335583423Z",
+        "Path": "bash",
+        "Args": [
+            "-lc",
+            "exec python -m uvicorn router:app --app-dir / --host 127.0.0.1 --port 18080 --no-access-log"
+        ],
+        "State": {
+            "Status": "running",
+            "Running": true,
+            "Paused": false,
+            "Restarting": false,
+            "OOMKilled": false,
+            "Dead": false,
+            "Pid": 1843915,
+            "ExitCode": 0,
+            "Error": "",
+            "StartedAt": "2026-08-04T04:20:07.385667031Z",
+            "FinishedAt": "0001-01-01T00:00:00Z"
+        },
+        "Image": "sha256:66df2fb1c537f52d47f2d3bf973b8da15278dd2ee362b5307e3d29dfad69fa7d",
+        "ResolvConfPath": "/var/lib/docker/containers/ed0356337cb1efa1f41eed1faa7756d79cfd9671402fe635072c12c4bc8a862d/resolv.conf",
+        "HostnamePath": "/var/lib/docker/containers/ed0356337cb1efa1f41eed1faa7756d79cfd9671402fe635072c12c4bc8a862d/hostname",
+        "HostsPath": "/var/lib/docker/containers/ed0356337cb1efa1f41eed1faa7756d79cfd9671402fe635072c12c4bc8a862d/hosts",
+        "LogPath": "/var/lib/docker/containers/ed0356337cb1efa1f41eed1faa7756d79cfd9671402fe635072c12c4bc8a862d/ed0356337cb1efa1f41eed1faa7756d79cfd9671402fe635072c12c4bc8a862d-json.log",
+        "Name": "/mi325_dsv4_e161_router",
+        "RestartCount": 0,
+        "Driver": "overlayfs",
+        "Platform": "linux",
+        "MountLabel": "",
+        "ProcessLabel": "",
+        "AppArmorProfile": "docker-default",
+        "ExecIDs": null,
+        "HostConfig": {
+            "Binds": [
+                "/data/models/mi325_dsv4_reuse_tuning_20260801_103501/08_dual_tp4/router.py:/router.py:ro"
+            ],
+            "ContainerIDFile": "",
+            "LogConfig": {
+                "Type": "json-file",
+                "Config": {}
+            },
+            "NetworkMode": "host",
+            "PortBindings": {},
+            "RestartPolicy": {
+                "Name": "no",
+                "MaximumRetryCount": 0
+            },
+            "AutoRemove": false,
+            "VolumeDriver": "",
+            "VolumesFrom": null,
+            "ConsoleSize": [
+                0,
+                0
+            ],
+            "CapAdd": null,
+            "CapDrop": null,
+            "CgroupnsMode": "private",
+            "Dns": null,
+            "DnsOptions": [],
+            "DnsSearch": [],
+            "ExtraHosts": null,
+            "GroupAdd": null,
+            "IpcMode": "private",
+            "Cgroup": "",
+            "Links": null,
+            "OomScoreAdj": 0,
+            "PidMode": "",
+            "Privileged": false,
+            "PublishAllPorts": false,
+            "ReadonlyRootfs": false,
+            "SecurityOpt": null,
+            "UTSMode": "",
+            "UsernsMode": "",
+            "ShmSize": 67108864,
+            "Runtime": "runc",
+            "Isolation": "",
+            "CpuShares": 0,
+            "Memory": 0,
+            "NanoCpus": 0,
+            "CgroupParent": "",
+            "BlkioWeight": 0,
+            "BlkioWeightDevice": [],
+            "BlkioDeviceReadBps": [],
+            "BlkioDeviceWriteBps": [],
+            "BlkioDeviceReadIOps": [],
+            "BlkioDeviceWriteIOps": [],
+            "CpuPeriod": 0,
+            "CpuQuota": 0,
+            "CpuRealtimePeriod": 0,
+            "CpuRealtimeRuntime": 0,
+            "CpusetCpus": "",
+            "CpusetMems": "",
+            "Devices": [],
+            "DeviceCgroupRules": null,
+            "DeviceRequests": null,
+            "MemoryReservation": 0,
+            "MemorySwap": 0,
+            "MemorySwappiness": null,
+            "OomKillDisable": null,
+            "PidsLimit": null,
+            "Ulimits": [],
+            "CpuCount": 0,
+            "CpuPercent": 0,
+            "IOMaximumIOps": 0,
+            "IOMaximumBandwidth": 0,
+            "MaskedPaths": [
+                "/proc/acpi",
+                "/proc/asound",
+                "/proc/interrupts",
+                "/proc/kcore",
+                "/proc/keys",
+                "/proc/latency_stats",
+                "/proc/sched_debug",
+                "/proc/scsi",
+                "/proc/timer_list",
+                "/proc/timer_stats",
+                "/sys/devices/virtual/powercap",
+                "/sys/firmware"
+            ],
+            "ReadonlyPaths": [
+                "/proc/bus",
+                "/proc/fs",
+                "/proc/irq",
+                "/proc/sys",
+                "/proc/sysrq-trigger"
+            ]
+        },
+        "Storage": {
+            "RootFS": {
+                "Snapshot": {
+                    "Name": "overlayfs"
+                }
+            }
+        },
+        "Mounts": [
+            {
+                "Type": "bind",
+                "Source": "/data/models/mi325_dsv4_reuse_tuning_20260801_103501/08_dual_tp4/router.py",
+                "Destination": "/router.py",
+                "Mode": "ro",
+                "RW": false,
+                "Propagation": "rprivate"
+            }
+        ],
+        "Config": {
+            "Hostname": "6u8m",
+            "Domainname": "",
+            "User": "",
+            "AttachStdin": false,
+            "AttachStdout": false,
+            "AttachStderr": false,
+            "Tty": false,
+            "OpenStdin": false,
+            "StdinOnce": false,
+            "Env": [
+                "ROUTER_BACKENDS=http://127.0.0.1:18000,http://127.0.0.1:18001",
+                "ROUTER_POLICY=least_connections",
+                "PATH=/root/.cargo/bin:/usr/local/go/bin:/opt/venv/bin:/opt/rocm/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+                "DEBIAN_FRONTEND=noninteractive",
+                "LD_LIBRARY_PATH=/opt/rocm/lib",
+                "GPU_ARCH_LIST=gfx942;gfx950",
+                "PYTORCH_ROCM_ARCH=gfx942;gfx950"
+            ],
+            "Cmd": [
+                "-lc",
+                "exec python -m uvicorn router:app --app-dir / --host 127.0.0.1 --port 18080 --no-access-log"
+            ],
+            "Image": "rocm/atom-dev:nightly_202607271535",
+            "Volumes": null,
+            "WorkingDir": "",
+            "Entrypoint": [
+                "bash"
+            ],
+            "Labels": {
+                "org.opencontainers.image.ref.name": "rocm/pytorch:rocm7.2.4_ubuntu24.04_py3.12_pytorch_release_2.10.0+rocm7.2.4.lw.git3d3aa833",
+                "org.opencontainers.image.version": "24.04"
+            }
+        },
+        "NetworkSettings": {
+            "SandboxID": "a72827af8c0abbfe9b770e258b4b456c13dbf79a537841fa69aabd1c3b228628",
+            "SandboxKey": "/var/run/docker/netns/default",
+            "Ports": {},
+            "Networks": {
+                "host": {
+                    "IPAMConfig": null,
+                    "Links": null,
+                    "Aliases": null,
+                    "DriverOpts": null,
+                    "GwPriority": 0,
+                    "NetworkID": "1ab5d4fb1f13162475c0a99d7093787a972075ea48e935031a2132d6c9298852",
+                    "EndpointID": "1c20fdbf13a204c198fa06b476c128d4b0770e94709f514c6a2a3493dc0918e6",
+                    "Gateway": "",
+                    "IPAddress": "",
+                    "MacAddress": "",
+                    "IPPrefixLen": 0,
+                    "IPv6Gateway": "",
+                    "GlobalIPv6Address": "",
+                    "GlobalIPv6PrefixLen": 0,
+                    "DNSNames": null
+                }
+            }
+        },
+        "ImageManifestDescriptor": {
+            "mediaType": "application/vnd.docker.distribution.manifest.v2+json",
+            "digest": "sha256:66df2fb1c537f52d47f2d3bf973b8da15278dd2ee362b5307e3d29dfad69fa7d",
+            "size": 6040,
+            "platform": {
+                "architecture": "amd64",
+                "os": "linux"
+            }
+        }
+    }
+]

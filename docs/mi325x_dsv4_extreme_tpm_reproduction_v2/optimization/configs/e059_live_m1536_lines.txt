@@ -1,0 +1,30 @@
+555:Capturing bs=48, max_q_len=3:  30%|███       | 3/10 [00:29<00:46,  6.69s/it]Capturing bs=32, max_q_len=3:  30%|███       | 3/10 [00:29<00:46,  6.69s/it][aiter] shape is M:96, N:1536, K:4096, not found tuned config in /work/experiments/e058_bpreshuffle_tuned.csv, will use default config!
+557:[aiter] shape is M:96, N:1536, K:4096, not found tuned config in /work/experiments/e058_bpreshuffle_tuned.csv, will use default config!
+591:Capturing bs=32, max_q_len=3:  40%|████      | 4/10 [00:30<00:27,  4.60s/it]Capturing bs=24, max_q_len=3:  40%|████      | 4/10 [00:30<00:27,  4.60s/it][aiter] shape is M:72, N:1536, K:4096, not found tuned config in /work/experiments/e058_bpreshuffle_tuned.csv, will use default config!
+593:[aiter] shape is M:72, N:1536, K:4096, not found tuned config in /work/experiments/e058_bpreshuffle_tuned.csv, will use default config!
+595:[aiter] shape is M:72, N:1536, K:4096, not found tuned config in /work/experiments/e058_bpreshuffle_tuned.csv, will use default config!
+597:[aiter] shape is M:72, N:1536, K:4096, not found tuned config in /work/experiments/e058_bpreshuffle_tuned.csv, will use default config!
+623:[aiter] shape is M:48, N:1536, K:4096, not found tuned config in /work/experiments/e058_bpreshuffle_tuned.csv, will use default config!
+625:Capturing bs=24, max_q_len=3:  50%|█████     | 5/10 [00:32<00:17,  3.43s/it]Capturing bs=16, max_q_len=3:  50%|█████     | 5/10 [00:32<00:17,  3.43s/it][aiter] shape is M:48, N:1536, K:4096, not found tuned config in /work/experiments/e058_bpreshuffle_tuned.csv, will use default config!
+627:[aiter] shape is M:48, N:1536, K:4096, not found tuned config in /work/experiments/e058_bpreshuffle_tuned.csv, will use default config!
+629:[aiter] shape is M:48, N:1536, K:4096, not found tuned config in /work/experiments/e058_bpreshuffle_tuned.csv, will use default config!
+663:[aiter] shape is M:24, N:1536, K:4096, not found tuned config in /work/experiments/e058_bpreshuffle_tuned.csv, will use default config!
+665:Capturing bs=16, max_q_len=3:  60%|██████    | 6/10 [00:33<00:10,  2.69s/it]Capturing bs=8, max_q_len=3:  60%|██████    | 6/10 [00:33<00:10,  2.69s/it] [aiter] shape is M:24, N:1536, K:4096, not found tuned config in /work/experiments/e058_bpreshuffle_tuned.csv, will use default config!
+667:[aiter] shape is M:24, N:1536, K:4096, not found tuned config in /work/experiments/e058_bpreshuffle_tuned.csv, will use default config!
+669:[aiter] shape is M:24, N:1536, K:4096, not found tuned config in /work/experiments/e058_bpreshuffle_tuned.csv, will use default config!
+703:[aiter] shape is M:12, N:1536, K:4096, not found tuned config in /work/experiments/e058_bpreshuffle_tuned.csv, will use default config!
+705:Capturing bs=8, max_q_len=3:  70%|███████   | 7/10 [00:34<00:06,  2.26s/it]Capturing bs=4, max_q_len=3:  70%|███████   | 7/10 [00:34<00:06,  2.26s/it][aiter] shape is M:12, N:1536, K:4096, not found tuned config in /work/experiments/e058_bpreshuffle_tuned.csv, will use default config!
+707:[aiter] shape is M:12, N:1536, K:4096, not found tuned config in /work/experiments/e058_bpreshuffle_tuned.csv, will use default config!
+709:[aiter] shape is M:12, N:1536, K:4096, not found tuned config in /work/experiments/e058_bpreshuffle_tuned.csv, will use default config!
+743:Capturing bs=4, max_q_len=3:  80%|████████  | 8/10 [00:36<00:03,  1.98s/it]Capturing bs=2, max_q_len=3:  80%|████████  | 8/10 [00:36<00:03,  1.98s/it][aiter] shape is M:6, N:1536, K:4096, not found tuned config in /work/experiments/e058_bpreshuffle_tuned.csv, will use default config!
+745:[aiter] shape is M:6, N:1536, K:4096, not found tuned config in /work/experiments/e058_bpreshuffle_tuned.csv, will use default config!
+747:[aiter] shape is M:6, N:1536, K:4096, not found tuned config in /work/experiments/e058_bpreshuffle_tuned.csv, will use default config!
+749:[aiter] shape is M:6, N:1536, K:4096, not found tuned config in /work/experiments/e058_bpreshuffle_tuned.csv, will use default config!
+783:Capturing bs=2, max_q_len=3:  90%|█████████ | 9/10 [00:37<00:01,  1.82s/it]Capturing bs=1, max_q_len=3:  90%|█████████ | 9/10 [00:37<00:01,  1.82s/it][aiter] shape is M:3, N:1536, K:4096, not found tuned config in /work/experiments/e058_bpreshuffle_tuned.csv, will use default config!
+793:[aiter] shape is M:3, N:1536, K:4096, not found tuned config in /work/experiments/e058_bpreshuffle_tuned.csv, will use default config!
+803:[aiter] shape is M:3, N:1536, K:4096, not found tuned config in /work/experiments/e058_bpreshuffle_tuned.csv, will use default config!
+813:[aiter] shape is M:3, N:1536, K:4096, not found tuned config in /work/experiments/e058_bpreshuffle_tuned.csv, will use default config!
+866:[aiter] shape is M:10, N:1536, K:4096, not found tuned config in /work/experiments/e058_bpreshuffle_tuned.csv, will use default config!
+868:[aiter] shape is M:10, N:1536, K:4096, not found tuned config in /work/experiments/e058_bpreshuffle_tuned.csv, will use default config!
+869:[aiter] shape is M:10, N:1536, K:4096, not found tuned config in /work/experiments/e058_bpreshuffle_tuned.csv, will use default config!
+872:[aiter] shape is M:10, N:1536, K:4096, not found tuned config in /work/experiments/e058_bpreshuffle_tuned.csv, will use default config!

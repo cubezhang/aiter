@@ -1,0 +1,38 @@
+[aiter] import [module_aiter_core] under /app/aiter-test/aiter/jit/module_aiter_core.so
+[aiter] FlyDSL bf16 catalog size for M=39, N=256, K=4096: 900 kernels
+[aiter] FlyDSL candidate count for M=39, N=256, K=4096: 360
+[aiter] merge tuned file under model_configs/ and configs/ /app/aiter-test/aiter/configs/bf16_tuned_gemm.csv:/app/aiter-test/aiter/configs/model_configs/dsv4_bf16_tuned_gemm.csv:/app/aiter-test/aiter/configs/model_configs/kimi_bf16_tuned_gemm.csv:/app/aiter-test/aiter/configs/model_configs/qwen32B_bf16_tuned_gemm.csv:/app/aiter-test/aiter/configs/model_configs/glm47_bf16_tuned_gemm.csv:/app/aiter-test/aiter/configs/model_configs/gptoss_bf16_tuned_gemm.csv:/app/aiter-test/aiter/configs/model_configs/llama405B_bf16_tuned_gemm.csv:/app/aiter-test/aiter/configs/model_configs/qwen3_5_397b_bf16_tuned_gemm.csv:/app/aiter-test/aiter/configs/model_configs/glm5_bf16_tuned_gemm.csv:/app/aiter-test/aiter/configs/model_configs/llama70B_bf16_tuned_gemm.csv:/app/aiter-test/aiter/configs/model_configs/dsv3_bf16_tuned_gemm.csv:/app/aiter-test/aiter/configs/model_configs/kimik2_bf16_tuned_gemm.csv:/app/aiter-test/aiter/configs/model_configs/minimax_m3_eagle_bf16_tuned_gemm.csv
+[aiter] opus candidate count for M=39, N=256, K=4096: 115
+[opus _ensure_kids_compiled] need to add 2 kids to sidecar (existing=61, target=63)
+[opus _ensure_kids_compiled] wrote sidecar at /app/aiter-test/aiter/jit/build/compiled_kids_opus.json with 63 kids; triggering build...
+[aiter] merge tuned file under model_configs/ and configs/ /app/aiter-test/aiter/configs/a8w8_blockscale_bpreshuffle_tuned_gemm.csv:/app/aiter-test/aiter/configs/model_configs/a8w8_blockscale_bpreshuffle_tuned_gemm_dsv3.csv:/app/aiter-test/aiter/configs/model_configs/a8w8_blockscale_bpreshuffle_tuned_gemm_qwen3.5_397b.csv:/app/aiter-test/aiter/configs/model_configs/dsv4_a8w8_blockscale_bpreshuffle_tuned_gemm.csv:/app/aiter-test/aiter/configs/model_configs/a8w8_blockscale_bpreshuffle_tuned_gemm_mm2.5.csv:/app/aiter-test/aiter/configs/model_configs/glm5_a8w8_blockscale_bpreshuffle_tuned_gemm.csv:/app/aiter-test/aiter/configs/model_configs/a8w8_blockscale_bpreshuffle_tuned_gemm_glm5.2.csv:/app/aiter-test/aiter/configs/model_configs/a8w8_blockscale_bpreshuffle_tuned_gemm_qwen3_235b.csv
+[aiter] [pid=39093 pname=Process-1] start build [module_deepgemm_opus] under /app/aiter-test/aiter/jit/build/module_deepgemm_opus
+[aiter] Current hipcc not support: -mllvm -amdgpu-coerce-illegal-types=1, skip it.
+[aiter] import [module_aiter_core] under /app/aiter-test/aiter/jit/module_aiter_core.so
+[aiter] [pid=39093 pname=Process-1] [32mfinish build [module_deepgemm_opus], cost 10.1s [0m
+[aiter] opus subset-compile: expanded sidecar to cover 22 candidate kids
+[aiter] import [module_aiter_core] under /app/aiter-test/aiter/jit/module_aiter_core.so
+/opt/venv/lib/python3.12/site-packages/torch/profiler/profiler.py:217: UserWarning: Warning: Profiler clears events at the end of each cycle.Only events from the current cycle will be reported.To keep events across cycles, set acc_events=True.
+  _warn_once(
+[W803 16:56:36.154159704 collection.cpp:1148] Warning: ROCTracer produced duplicate flow start: 4 (function operator())
+[aiter] 
+============================================================
+Tuning Summary:
+  Total tasks: 1
+  Successful: 0
+  Failed: 1
+    - Timeouts (GPU hang): 1
+    - Crashes (memory fault): 0
+============================================================
+[aiter] error: no valid candidate found for ('gfx942', 304, np.int64(39), np.int64(256), np.int64(4096), np.False_, 'torch.bfloat16', 'torch.bfloat16', np.False_, np.False_), please check the result or errRatio in all result file running with --profile_file
+[aiter] No kernel can be used for ('gfx942', 304, np.int64(39), np.int64(256), np.int64(4096), np.False_, 'torch.bfloat16', 'torch.bfloat16', np.False_, np.False_)
+/app/aiter-test/aiter/utility/base_tuner.py:1652: FutureWarning: The behavior of DataFrame concatenation with empty or all-NA entries is deprecated. In a future version, this will no longer exclude empty or all-NA columns when determining the result dtypes. To retain the old behavior, exclude the relevant entries before the concat operation.
+  self.failed = pd.concat(
+[aiter] processed 1 batches of 1, Processing Status ====> 100.0% tuned in GemmA16W16Tuner
+[aiter] ============= Tuning results Summary: ==============
+/app/aiter-test/aiter/utility/base_tuner.py:534: FutureWarning: The behavior of DataFrame concatenation with empty or all-NA entries is deprecated. In a future version, this will no longer exclude empty or all-NA columns when determining the result dtypes. To retain the old behavior, exclude the relevant entries before the concat operation.
+  tunedf = pd.concat([self.success, self.failed])
+[aiter] Tuning Finished. tune 1 shapes, total tuning time is 196.1129 seconds
+[aiter] Successfully tuned shapes:
+[aiter] Failed shapes:
+[aiter] [91m[Tuning not Finished][0m some shapes are not tuned or all failed, please check the result file or tune with --profile_file to get more details

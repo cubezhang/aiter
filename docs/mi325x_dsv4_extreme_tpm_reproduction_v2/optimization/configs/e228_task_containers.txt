@@ -1,0 +1,2 @@
+mi325_dsv4_e004_router	rocm/atom-dev:nightly_202607271535	Up 12 seconds
+mi325_dsv4_e004_dual	rocm/atom-dev:nightly_202607271535	Up 2 minutes

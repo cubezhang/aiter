@@ -1,0 +1,2 @@
+39310 bash -lc cd /app/aiter-test && /opt/venv/bin/python csrc/ck_gemm_a8w8_blockscale/gemm_a8w8_blockscale_tune.py -i /work/experiments/e032_qproj.csv -o /tmp/e040_bpreshuffle_qproj_tuned.csv --all --libtype all --preshuffle --compare --warmup 5 --iters 20 > /tmp/e040_bpreshuffle_tune.stdout 2>&1
+39318 /opt/venv/bin/python csrc/ck_gemm_a8w8_blockscale/gemm_a8w8_blockscale_tune.py -i /work/experiments/e032_qproj.csv -o /tmp/e040_bpreshuffle_qproj_tuned.csv --all --libtype all --preshuffle --compare --warmup 5 --iters 20

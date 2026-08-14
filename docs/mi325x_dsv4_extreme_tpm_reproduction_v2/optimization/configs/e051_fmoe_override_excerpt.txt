@@ -1,0 +1,137 @@
+        if w2.shape[2] * lastdim_mul == w1.shape[1]:
+            fmoe_func = aiter.fmoe_int8_g1u0(
+                moe_buf,
+                a8,
+                w1,
+                w2,
+                sorted_ids,
+                sorted_weights,
+                sorted_expert_ids,
+                num_valid_ids,
+                topk,
+                a8_scale,
+                fc1_scale,
+                fc2_scale,
+                fc2_smooth_scale,
+                activation,
+            )
+        elif w2.shape[2] * 2 * lastdim_mul == w1.shape[1]:
+            aiter.fmoe_g1u1(
+                moe_buf,
+                a8,
+                w1,
+                w2,
+                sorted_ids,
+                sorted_weights,
+                sorted_expert_ids,
+                num_valid_ids,
+                topk,
+                a8_scale,
+                fc1_scale,
+                fc2_scale,
+                "",
+                fc2_smooth_scale,
+                activation,
+            )
+
+                                  // quant args
+                                  input_scale,
+                                  fc1_scale,
+                                  fc2_scale,
+                                  fc2_smooth_scale,
+                                  stream);
+}
+
+AITER_CTYPES_DEFINE_ENTRYPOINT_VOID(
+    fmoe_g1u1,
+    (
+    aiter_tensor_t* out,               // [token_cnt, dim]
+    aiter_tensor_t* input,             // [token_cnt, dim] M,K
+    aiter_tensor_t* gate,              // [expert, inter_dim*2, dim] N,K
+    aiter_tensor_t* down,              // [expert, dim, inter_dim]
+    aiter_tensor_t* sorted_token_ids,  // [max_num_tokens_padded]
+    aiter_tensor_t* sorted_weights,    // [max_num_tokens_padded]
+    aiter_tensor_t* sorted_expert_ids, // [max_num_m_blocks]
+    aiter_tensor_t* num_valid_ids,     // [1]
+    int topk,                       //
+    aiter_tensor_t* input_scale,       // [token_cnt, 1]
+    aiter_tensor_t* fc1_scale,         // [expert, 1, inter_dim]
+    aiter_tensor_t* fc2_scale,         // [expert, 1, dim]
+    const char* kernel_name,
+    aiter_tensor_t* fc2_smooth_scale,  // [expert, 1, inter_dim]
+    int activation,
+    hipStream_t stream),
+    (out, input, gate, down, sorted_token_ids, sorted_weights, sorted_expert_ids, num_valid_ids, topk, input_scale, fc1_scale, fc2_scale, kernel_name, fc2_smooth_scale, activation, stream))
+{
+    const HipDeviceGuard device_guard(input->device_id);
+    ActivationType act = static_cast<ActivationType>(activation);
+    struct FMoeKernelConfig
+    {
+        std::string name;
+        std::string co_name;
+        int tile_size;
+    };
+
+    FMoeKernel* impl_ptr = nullptr;
+    CFG* config_map      = nullptr;
+    int smf              = 0;
+    int model_dim        = down->size(1);
+    int inter_dim        = down->size(2);
+    inter_dim *= model_dim / gate->size(2);
+    int sub_X_cnt = sorted_expert_ids->size(0);
+    static SynchronizedCache<std::string_view, FMoeKernel> impl_ptr_map;
+    std::string kernel_name_str = kernel_name ? kernel_name : "";
+
+    if(gate->dtype() == AITER_DTYPE_u32 || gate->dtype() == AITER_DTYPE_i32) // int4
+    {
+        int selectedTile = get_heuristic_tile(
+            inter_dim, sub_X_cnt, {512, 256, 128}); // todo,add tune interface here
+        if(selectedTile == 512)
+        {
+            static FMoeKernel impl_int4_512(
+                "fmoe_int4fp8_g1u1_subGU_512_gelu", "fmoe_int4fp8_g1u1_subGU_512_gelu.co", 512);
+            impl_ptr = &impl_int4_512;
+        }
+        else if(selectedTile == 256)
+        {
+            static FMoeKernel impl_int4_256(
+                "fmoe_int4fp8_g1u1_subGU_256_gelu", "fmoe_int4fp8_g1u1_subGU_256_gelu.co", 256);
+            impl_ptr = &impl_int4_256;
+        }
+        else if(selectedTile == 128)
+        {
+            static FMoeKernel impl_int4_128(
+                "fmoe_int4fp8_g1u1_subGU_128_gelu", "fmoe_int4fp8_g1u1_subGU_128_gelu.co", 128);
+            impl_ptr = &impl_int4_128;
+        }
+        else
+        {
+            AITER_CHECK(false,
+                        __func__,
+                        " Unsupported inter_dim " + std::to_string(inter_dim) +
+                            ", which should be divisible by 128, 256, or 512");
+        }
+        impl_ptr->set_4bit(true);
+    }
+    else if(input->dtype() == gate->dtype() && input->dtype() == AITER_DTYPE_fp4x2) // fp4
+    {
+        if(out->dtype() == AITER_DTYPE_fp16 && act == ActivationType::Silu)
+            config_map = &cfg_fmoe_fp16_pertokenMXfp4_g1u1_silu;
+        else if(out->dtype() == AITER_DTYPE_fp16 && act == ActivationType::Gelu)
+            config_map = &cfg_fmoe_fp16_pertokenMXfp4_g1u1_gelu;
+        else if(out->dtype() == AITER_DTYPE_bf16 && act == ActivationType::Silu)
+            config_map = &cfg_fmoe_bf16_pertokenMXfp4_g1u1_silu;
+        else if(out->dtype() == AITER_DTYPE_bf16 && act == ActivationType::Gelu)
+            config_map = &cfg_fmoe_bf16_pertokenMXfp4_g1u1_gelu;
+        else
+            AITER_CHECK(false, __func__, " Not find proper cfg in pertokenMXfp4_g1u1. ");
+        impl_ptr = get_heuristic_kernel(inter_dim, sub_X_cnt, config_map, smf, kernel_name_str);
+        impl_ptr->set_4bit(true);
+    }
+    else if((input->dtype() == AITER_DTYPE_bf16 || input->dtype() == AITER_DTYPE_fp16) &&
+            gate->dtype() == AITER_DTYPE_fp4x2) // bf16/fp16 X + MXFP4 weights (in-kernel X quant)
+    {
+        // X stays bf16/fp16; the asm kernel dynamic-quantizes X to MXFP4 internally
+        // (xbf16 path), so no activation scale is consumed. Weights are still fp4
+        // (set_4bit), and we reuse the pertokenMXfp4 config map keyed by out dtype.
+        if(out->dtype() == AITER_DTYPE_fp16 && act == ActivationType::Silu)

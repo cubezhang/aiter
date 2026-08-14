@@ -1,0 +1,8 @@
+[atom 12:42:56] Starting server on 127.0.0.1:18001 (loop=uvloop)...
+INFO:     Started server process [19608]
+INFO:     Waiting for application startup.
+[atom 12:42:56] Server started successfully and ready to accept requests
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:18001 (Press CTRL+C to quit)
+INFO:     127.0.0.1:42844 - "GET /v1/models HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57374 - "GET /v1/models HTTP/1.1" 200 OK

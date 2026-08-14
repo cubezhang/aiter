@@ -1,0 +1,40 @@
+[aiter] shape is M:384, N:4096, K:2048, not found tuned config in /work/experiments/e063_bpreshuffle_4row_overlay.csv, will use default config!
+[aiter] shape is M:384, N:256, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] run_1stage = True, xbf16 = False, ksplit = 0 q_type = QuantType.per_1x128 block_m = 32 use_nt = True, estimated_m_per_expert = 13
+[aiter] [fused_moe] using 1stage default for ('gfx942', 304, 512, 4096, 512, 257, 7, 'ActivationType.Silu', 'torch.bfloat16', 'torch.float8_e4m3fnuz', 'torch.float8_e4m3fnuz', 'QuantType.per_1x128', True, False) 
+[aiter] shape is M:384, N:2048, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:384, N:4096, K:2048, not found tuned config in /work/experiments/e063_bpreshuffle_4row_overlay.csv, will use default config!
+[aiter] shape is M:384, N:256, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] run_1stage = True, xbf16 = False, ksplit = 0 q_type = QuantType.per_1x128 block_m = 32 use_nt = True, estimated_m_per_expert = 13
+[aiter] [fused_moe] using 1stage default for ('gfx942', 304, 512, 4096, 512, 257, 7, 'ActivationType.Silu', 'torch.bfloat16', 'torch.float8_e4m3fnuz', 'torch.float8_e4m3fnuz', 'QuantType.per_1x128', True, False) 
+[aiter] shape is M:384, N:2048, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:384, N:4096, K:2048, not found tuned config in /work/experiments/e063_bpreshuffle_4row_overlay.csv, will use default config!
+[aiter] shape is M:384, N:256, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] run_1stage = True, xbf16 = False, ksplit = 0 q_type = QuantType.per_1x128 block_m = 32 use_nt = True, estimated_m_per_expert = 13
+[aiter] [fused_moe] using 1stage default for ('gfx942', 304, 512, 4096, 512, 257, 7, 'ActivationType.Silu', 'torch.bfloat16', 'torch.float8_e4m3fnuz', 'torch.float8_e4m3fnuz', 'QuantType.per_1x128', True, False) 
+[aiter] shape is M:384, N:2048, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:384, N:512, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:384, N:512, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:384, N:512, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:384, N:4096, K:2048, not found tuned config in /work/experiments/e063_bpreshuffle_4row_overlay.csv, will use default config!
+[aiter] shape is M:384, N:256, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] run_1stage = True, xbf16 = False, ksplit = 0 q_type = QuantType.per_1x128 block_m = 32 use_nt = True, estimated_m_per_expert = 13
+[aiter] [fused_moe] using 1stage default for ('gfx942', 304, 512, 4096, 512, 257, 7, 'ActivationType.Silu', 'torch.bfloat16', 'torch.float8_e4m3fnuz', 'torch.float8_e4m3fnuz', 'QuantType.per_1x128', True, False) 
+[aiter] shape is M:384, N:2048, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] import [module_dsv4_rotate_quant] under /app/aiter-test/aiter/jit/module_dsv4_rotate_quant.so
+[aiter] shape is M:384, N:64, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] import [module_dsv4_rotate_quant] under /app/aiter-test/aiter/jit/module_dsv4_rotate_quant.so
+[aiter] shape is M:384, N:64, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] import [module_dsv4_rotate_quant] under /app/aiter-test/aiter/jit/module_dsv4_rotate_quant.so
+[aiter] shape is M:384, N:64, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:384, N:512, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] import [module_dsv4_rotate_quant] under /app/aiter-test/aiter/jit/module_dsv4_rotate_quant.so
+[aiter] shape is M:384, N:64, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] import [module_top_k_per_row] under /app/aiter-test/aiter/jit/module_top_k_per_row.so
+[aiter] import [module_top_k_per_row] under /app/aiter-test/aiter/jit/module_top_k_per_row.so
+[aiter] import [module_top_k_per_row] under /app/aiter-test/aiter/jit/module_top_k_per_row.so
+[aiter] import [module_top_k_per_row] under /app/aiter-test/aiter/jit/module_top_k_per_row.so
+[aiter] shape is M:384, N:1024, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:384, N:1024, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:384, N:1024, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:384, N:1024, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0

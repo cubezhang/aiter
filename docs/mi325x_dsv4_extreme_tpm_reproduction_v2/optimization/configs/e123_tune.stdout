@@ -1,0 +1,57 @@
+[opus gen_instances] arch filter: target=['gfx942'] dropped 46 off-arch kids from |S|
+[opus gen_instances] subset compile: |S|=23 kids (CSV=53, sidecar=63, heuristic=29)
+  opus_gemm_gfx942_512x128x128x64_2x4_16x16x16_0x0x0: E=(2,1,4)  VGPR~144  AGPR=32  LDS=32KiB  K>=128
+  opus_gemm_gfx942_p1_256x64x64x64_2x2_16x16x16_0x0x0: E=(1,1,4)  VGPR~128  AGPR=16  LDS=16KiB  K>=128
+  opus_gemm_gfx942_p1_bk128_256x64x64x128_2x2_16x16x16_0x0x0: E=(1,1,8)  VGPR~176  AGPR=16  LDS=32KiB  K>=256
+  opus_gemm_gfx942_quad_mfma32_256x256x256x32_2x2_32x32x8_0x0x0: E=(2,2,4)  VGPR~176  AGPR=256  LDS=32KiB  K>=64
+  opus_gemm_gfx942_splitk_legacy_512x128x128x64_2x4_16x16x16_0x0x0: E=(2,1,4)  VGPR~144  AGPR=32  LDS=32KiB  K>=128
+  opus_gemm_gfx942_splitk_p1_256x64x64x64_2x2_16x16x16_0x0x0: E=(1,1,4)  VGPR~128  AGPR=16  LDS=16KiB  K>=128
+  opus_gemm_gfx942_splitk_p1_bk128_256x64x64x128_2x2_16x16x16_0x0x0: E=(1,1,8)  VGPR~176  AGPR=16  LDS=32KiB  K>=256
+  opus_gemm_gfx942_splitk_em3en4_lds1_pgr2_256x128x96x128_2x2_16x16x16_0x0x0: E=(3,4,8)  VGPR~432  AGPR=192  LDS=63KiB  K>=256
+  opus_gemm_gfx942_splitk_legacy_512x64x128x64_2x4_16x16x16_0x0x0: E=(1,1,4)  VGPR~128  AGPR=16  LDS=24KiB  K>=128
+  opus_gemm_gfx942_splitk_legacy_bf16ws_512x128x128x64_2x4_16x16x16_0x0x0: E=(2,1,4)  VGPR~144  AGPR=32  LDS=32KiB  K>=128
+  opus_gemm_gfx942_splitk_p1_bk128_bf16ws_256x64x64x128_2x2_16x16x16_0x0x0: E=(1,1,8)  VGPR~176  AGPR=16  LDS=32KiB  K>=256
+  opus_gemm_gfx942_splitk_quad_mfma32_bf16ws_256x256x256x32_2x2_32x32x8_6x0x0: E=(2,2,4)  VGPR~176  AGPR=256  LDS=32KiB  K>=64
+  opus_gemm_gfx942_wkc_512x16x16x64_1x1_16x16x16_0x0x0: E=(1,1,4)  VGPR~128  AGPR=16  LDS=42KiB  K>=512
+  opus_gemm_gfx942_wkc_512x16x32x32_1x1_16x16x16_0x0x0: E=(1,2,2)  VGPR~120  AGPR=32  LDS=43KiB  K>=256
+  opus_gemm_gfx942_wkc_512x32x16x64_1x1_16x16x16_0x0x0: E=(2,1,4)  VGPR~144  AGPR=32  LDS=51KiB  K>=512
+  opus_gemm_gfx942_wkc_256x32x32x64_1x1_16x16x16_0x0x0: E=(2,2,4)  VGPR~176  AGPR=64  LDS=50KiB  K>=256
+  opus_gemm_gfx942_wkc_512x16x32x64_1x1_16x16x16_0x0x0: E=(1,2,4)  VGPR~160  AGPR=32  LDS=51KiB  K>=512
+  opus_gemm_gfx942_wkc_accum_256x16x16x64_1x1_16x16x16_0x0x0: E=(1,1,4)  VGPR~128  AGPR=16  LDS=21KiB  K>=256
+  opus_gemm_gfx942_wkc_accum_512x16x32x32_1x1_16x16x16_0x0x0: E=(1,2,2)  VGPR~120  AGPR=32  LDS=43KiB  K>=256
+  opus_gemm_gfx942_wkc_accum_512x32x16x64_1x1_16x16x16_0x0x0: E=(2,1,4)  VGPR~144  AGPR=32  LDS=51KiB  K>=512
+  opus_gemm_gfx942_wkc_accum_256x32x32x64_1x1_16x16x16_0x0x0: E=(2,2,4)  VGPR~176  AGPR=64  LDS=50KiB  K>=256
+  opus_gemm_gfx942_wkc_accum_256x64x16x64_1x1_16x16x16_0x0x0: E=(4,1,4)  VGPR~176  AGPR=64  LDS=58KiB  K>=256
+  opus_gemm_gfx942_a8w8_bs_bpreshuf_sb_tailm_v16_512x128x128x128_4x2_16x16x32_1x128x128: E=(1,2,4)  AGPR=32  LDS=32KiB  K>=256
+[opus gen_instances] baked 0 tuned entries from 14 CSV file(s) into opus_gemm_lookup.h
+[opus gen_instances] wrote sidecar with 23 kids: /app/aiter-test/aiter/jit/build/module_deepgemm_opus/blob//../../compiled_kids_opus.json
+Not exist tuned file: /work/experiments/e123_bf16_m39_tuned.csv
+      gfx  cu_num   M  ...        outdtype  scaleAB  bpreshuffle
+0  gfx942     304  39  ...  torch.bfloat16    False        False
+
+[1 rows x 10 columns]
+[Task Grouping] Grouped 556 tasks into 1 groups by info_keys
+Distributing 1 task groups across 1 GPUs
+[aiter] LoadKernel: _ZN5aiter39bf16gemm_fp32bf16_tn_32x64_splitk_cleanE hsaco: /app/aiter-test/hsa//gfx942/bf16gemm/bf16gemm_fp32bf16_tn_32x64_splitk_clean.co
+[aiter] LoadKernel: _ZN5aiter37bf16gemm_fp32bf16_tn_32x64_pf3_splitkE hsaco: /app/aiter-test/hsa//gfx942/bf16gemm/bf16gemm_fp32bf16_tn_32x64_pf3_splitk.co
+[aiter] LoadKernel: _ZN5aiter39bf16gemm_fp32bf16_tn_48x64_splitk_cleanE hsaco: /app/aiter-test/hsa//gfx942/bf16gemm/bf16gemm_fp32bf16_tn_48x64_splitk_clean.co
+[aiter] LoadKernel: _ZN5aiter37bf16gemm_fp32bf16_tn_48x64_pf3_splitkE hsaco: /app/aiter-test/hsa//gfx942/bf16gemm/bf16gemm_fp32bf16_tn_48x64_pf3_splitk.co
+[aiter] LoadKernel: _ZN5aiter39bf16gemm_fp32bf16_tn_64x64_splitk_cleanE hsaco: /app/aiter-test/hsa//gfx942/bf16gemm/bf16gemm_fp32bf16_tn_64x64_splitk_clean.co
+[aiter] LoadKernel: _ZN5aiter37bf16gemm_fp32bf16_tn_64x64_pf3_splitkE hsaco: /app/aiter-test/hsa//gfx942/bf16gemm/bf16gemm_fp32bf16_tn_64x64_pf3_splitk.co
+[aiter] LoadKernel: _ZN5aiter39bf16gemm_fp32bf16_tn_80x64_splitk_cleanE hsaco: /app/aiter-test/hsa//gfx942/bf16gemm/bf16gemm_fp32bf16_tn_80x64_splitk_clean.co
+[aiter] LoadKernel: _ZN5aiter39bf16gemm_fp32bf16_tn_96x64_splitk_cleanE hsaco: /app/aiter-test/hsa//gfx942/bf16gemm/bf16gemm_fp32bf16_tn_96x64_splitk_clean.co
+[aiter] LoadKernel: _ZN5aiter37bf16gemm_fp32bf16_tn_96x64_pf3_splitkE hsaco: /app/aiter-test/hsa//gfx942/bf16gemm/bf16gemm_fp32bf16_tn_96x64_pf3_splitk.co
+Waiting for 1 tasks to complete (timeout=180s each)...
+[!] Task 0 timed out after 180.0s (limit: 180s) - likely GPU hang or infinite loop
+
+[!] 1 consecutive tasks timed out (>= 1/1 GPUs likely stuck)
+[!] Triggering immediate pool restart...
+
+choose 0 kernels
+Not exist tuned file: /work/experiments/e123_bf16_m39_tuned.csv
+      gfx cu_num   M  ... err_ratio tflops bw
+0  gfx942    304  39  ...       1.0      0  0
+
+[1 rows x 18 columns]
+!Process exited with code 1 (tuning finished with warnings)
+retried num is 0

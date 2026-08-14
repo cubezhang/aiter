@@ -1,0 +1,28 @@
+docker containers
+e2be5892b564 mi325_dsv4_e004_router Up 18 seconds
+7dce61c3e753 mi325_dsv4_e004_dual Up 2 minutes
+container table
+35 /tmp/e184_bpreshuffle_m24400_overlay.csv
+gfx942,304,320,4096,4096,asm,8,1,19.388,_ZN5aiter42fp8gemm_bf16_blockscale_BpreShuffle_48x128E,553.82,1068.15,0.0
+gfx942,304,24400,1536,4096,asm,5,1,343.5121,_ZN5aiter43fp8gemm_bf16_blockscale_BpreShuffle_128x128E,893.78,527.47,0.0
+gfx942,304,24400,4096,2048,asm,5,1,476.9943,_ZN5aiter43fp8gemm_bf16_blockscale_BpreShuffle_128x128E,858.22,541.4,0.0
+gfx942,304,24400,4096,4096,asm,5,1,806.9539,_ZN5aiter43fp8gemm_bf16_blockscale_BpreShuffle_128x128E,1014.59,392.35,0.0
+gfx942,304,24400,8192,1024,asm,5,1,554.1111,_ZN5aiter43fp8gemm_bf16_blockscale_BpreShuffle_128x128E,738.78,781.69,0.0
+listeners
+State  Recv-Q Send-Q Local Address:Port  Peer Address:PortProcess                              
+LISTEN 0      2048       127.0.0.1:18001      0.0.0.0:*    users:(("python",pid=2211377,fd=38))
+LISTEN 0      2048       127.0.0.1:18000      0.0.0.0:*    users:(("python",pid=2189427,fd=38))
+LISTEN 0      2048       127.0.0.1:18080      0.0.0.0:*    users:(("python",pid=2231865,fd=11))
+container pid tree
+hostpid=2189404
+2189404 2189380 bash -lc  set -euo pipefail unset AITER_REBUILD AITER_CONFIG_GEMM_BF16 AITER_CONFIG_FMOE AITER_CONFIG_GEMM_A8W8_BLOCKSCALE_BPRESHUFFLE ATOM_USE_TRITON_MOE { cat /work/experiments/e077_bpreshuffle_18row_overlay.csv; tail -n +2 /work/experiments/e183_bpreshuffle_tuned.csv; } > /tmp/e184_bpreshuffle_m24400_overlay.csv export AITER_CONFIG_GEMM_A8W8_BLOCKSCALE_BPRESHUFFLE=/tmp/e184_bpreshuffle_m24400_overlay.csv rm -f /app/aiter-test/aiter/jit/module_top_k_per_row.so cd /app/ATOM HIP_VISIBLE_DEVICES=0,1,2,3 python -m atom.entrypoints.openai_server \   --model /data/DeepSeek-V4-Flash-FP8 --served-model-name DeepSeek-V3.2 \   --tensor-parallel-size 4 --method mtp --num-speculative-tokens 2 \   --kv-cache-dtype fp8 --max-model-len 131072 --gpu-memory-utilization 0.83 \   --max-num-batched-tokens 131072 --max-num-seqs 128 \   --cudagraph-capture-sizes "[1,2,4,8,16,24,32,48,64,72,96,128]" \   --no-enable-prefix-caching --host 127.0.0.1 --server-port 18000 \   > /work/logs/e004_18000_server.log 2>&1 & pid_a=$! for _ in $(seq 1 180); do   curl -fsS --max-time 3 http://127.0.0.1:18000/v1/models >/dev/null && break   kill -0 "$pid_a" 2>/dev/null || exit 31   sleep 3 done curl -fsS --max-time 3 http://127.0.0.1:18000/v1/models >/dev/null || exit 32 HIP_VISIBLE_DEVICES=4,5,6,7 python -m atom.entrypoints.openai_server \   --model /data/DeepSeek-V4-Flash-FP8 --served-model-name DeepSeek-V3.2 \   --tensor-parallel-size 4 --method mtp --num-speculative-tokens 2 \   --kv-cache-dtype fp8 --max-model-len 131072 --gpu-memory-utilization 0.83 \   --max-num-batched-tokens 131072 --max-num-seqs 128 \   --cudagraph-capture-sizes "[1,2,4,8,16,24,32,48,64,72,96,128]" \   --no-enable-prefix-caching --host 127.0.0.1 --server-port 18001 \   > /work/logs/e004_18001_server.log 2>&1 & pid_b=$! trap "kill $pid_a $pid_b 2>/dev/null || true; wait $pid_a $pid_b 2>/dev/null || true" TERM INT EXIT wait -n "$pid_a" "$pid_b"
+2189427 2189404 python -m atom.entrypoints.openai_server --model /data/DeepSeek-V4-Flash-FP8 --served-model-name DeepSeek-V3.2 --tensor-parallel-size 4 --method mtp --num-speculative-tokens 2 --kv-cache-dtype fp8 --max-model-len 131072 --gpu-memory-utilization 0.83 --max-num-batched-tokens 131072 --max-num-seqs 128 --cudagraph-capture-sizes [1,2,4,8,16,24,32,48,64,72,96,128] --no-enable-prefix-caching --host 127.0.0.1 --server-port 18000
+2211377 2189404 python -m atom.entrypoints.openai_server --model /data/DeepSeek-V4-Flash-FP8 --served-model-name DeepSeek-V3.2 --tensor-parallel-size 4 --method mtp --num-speculative-tokens 2 --kv-cache-dtype fp8 --max-model-len 131072 --gpu-memory-utilization 0.83 --max-num-batched-tokens 131072 --max-num-seqs 128 --cudagraph-capture-sizes [1,2,4,8,16,24,32,48,64,72,96,128] --no-enable-prefix-caching --host 127.0.0.1 --server-port 18001
+mounts
+/data/DeepSeek-V4-Flash-FP8 -> /data/DeepSeek-V4-Flash-FP8
+/data/models/mi325_dsv4_reuse_tuning_20260801_103501/02_source/ATOM_official -> /app/ATOM
+/data/models/mi325_dsv4_model_tuning_round2_20260802/57_topk_ob_hybrid_bpp_20260802_141900/aiter/csrc/kernels/topk_per_row_kernels.cu -> /app/aiter-test/csrc/kernels/topk_per_row_kernels.cu
+/data/models/mi325_dsv4_perf_tuning_20260803_065439 -> /work
+
+health
+{"object":"list","data":[{"id":"DeepSeek-V3.2","object":"model","created":1785820850,"owned_by":"atom"}]}{"object":"list","data":[{"id":"DeepSeek-V3.2","object":"model","created":1785820850,"owned_by":"atom"}]}{"policy":"least_connections","backends":{"http://127.0.0.1:18000":{},"http://127.0.0.1:18001":{}}}

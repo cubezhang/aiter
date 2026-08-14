@@ -1,0 +1,220 @@
+25-
+26-if TYPE_CHECKING:
+27-    from atom.model_ops.attentions.deepseek_v4_attn import AttentionMetaData_DSV4
+28-
+29:import aiter
+30-import torch
+31-import torch.nn.functional as F
+32:from aiter import (
+33-    cp_gather_indexer_k_quant_cache,
+34-    dtypes,
+35-    rope_rotate_activation,
+36-)
+37:from aiter import silu_and_mul as aiter_silu_and_mul
+38:from aiter.dist.communication_op import (
+39-    tensor_model_parallel_all_reduce,
+40-)
+41:from aiter.dist.parallel_state import (
+42-    get_tensor_model_parallel_world_size,
+43-)
+44:from aiter.jit.utils.chip_info import get_gfx
+45-from atom.distributed.pcp_utils import (
+46-    get_pcp_world_size,
+47-    pcp_all_reduce,
+48-    pcp_allgather_rankmajor,
+--
+51-    pcp_reduce_scatter,
+52-    pcp_round_robin_split,
+53-)
+54-from atom.utils.custom_register import direct_register_custom_op
+55:from aiter.ops.topk import top_k_per_row_decode, top_k_per_row_prefill
+56:from aiter.ops.triton.fp8_mqa_logits import fp8_mqa_logits
+57:from aiter.ops.triton.fusions.fused_clamp_act_mul import (
+58-    fused_clamp_act_mul,
+59-)
+60:from aiter.ops.triton.gemm.batched.batched_gemm_bf16 import batched_gemm_bf16
+61:from aiter.ops.triton.pa_mqa_logits import deepgemm_fp8_paged_mqa_logits
+62-from atom.config import (
+63-    Config,
+64-    LayerQuantConfig,
+65-    QuantizationConfig,
+--
+67-    get_current_atom_config,
+68-)
+69-from atom.model_loader.loader import WeightsMapper
+70-
+71:# Side-effect import: registers `torch.ops.aiter.maybe_dual_stream_forward`
+72:# (shared with deepseek_v2) and `torch.ops.aiter.indexer_score_topk` (V4-only).
+73-# MoE.forward dispatches via the former so torch.compile/Dynamo treats stream
+74-# code as opaque; Indexer.forward_batched dispatches via the latter to hide
+75-# its dynamic-shape internals from Dynamo / fake-tensor mode.
+76-from atom.model_ops import module_dispatch_ops as _module_dispatch_ops  # noqa: F401
+--
+88-from atom.model_ops.sparse_attn_v4 import (
+89-    hc_split_sinkhorn,
+90-)
+91-from atom.model_ops.topK import (
+92:    is_rocm_aiter_fusion_shared_expert_enabled_for_quant_config,
+93-)
+94-from atom.model_ops.triton_hash_topk import hash_topk_triton
+95-from atom.model_ops.triton_rmsnorm_nw import rmsnorm_nw
+96-from atom.model_ops.utils import atom_parameter
+--
+273-    index_topk_freq: int = 1
+274-    index_topk_pattern: Optional[Any] = None
+275-
+276-    # MoE
+277:    moe_inter_dim: int = 3072  # moe_intermediate_size
+278-    n_routed_experts: int = 384
+279-    n_shared_experts: int = 1
+280-    n_activated_experts: int = 6  # num_experts_per_tok
+281-    score_func: Literal["softmax", "sigmoid", "sqrtsoftplus"] = "sqrtsoftplus"
+--
+336-            index_topk=g("index_topk", 1024),
+337-            use_index_cache=bool(g("use_index_cache", False)),
+338-            index_topk_freq=int(g("index_topk_freq", 1)),
+339-            index_topk_pattern=g("index_topk_pattern", None),
+340:            moe_inter_dim=g("moe_intermediate_size", 2048),
+341-            n_routed_experts=g("n_routed_experts", 256),
+342-            n_shared_experts=g("n_shared_experts", 1),
+343-            n_activated_experts=g("num_experts_per_tok", 6),
+344-            score_func=g("scoring_func", "sqrtsoftplus"),
+--
+466-    Two V4 SKUs supported:
+467-      - **V4-Pro** (gfx950 / MI355X): routed experts FP4 e2m1 packed +
+468-        per-1x32 UE8M0 scale (DeepGEMM `gemm_a4w4_quant` path).
+469-      - **V4-Flash-Base** (gfx942 / MI308 + others): routed experts FP8 e4m3
+470:        per-block 128x128 + UE8M0 scale (aiter `gemm_a8w8_blockscale` /
+471-        Triton MoE per_1x128 path).
+472-
+473-    The routed-expert spec is auto-detected from the ckpt's quantization
+474-    layout via :func:`_detect_v4_routed_quant_spec`; SKU-agnostic projections
+--
+479-        128x128 ue8m0 block scale. Picked up by ATOM's standard parser.
+480-      - Routed expert weights (`ffn.experts.{N}.w{1,2,3}`): FP4 (V4-Pro) OR
+481-        FP8 per-block (V4-Flash-Base) — auto-detected.
+482-      - `wo_a`: FP8 on disk but loaded as BF16 (convert.py:137-141 dequantizes
+483:        because the grouped-LoRA einsum needs BF16; aiter has no FP8 einsum).
+484-      - `Compressor.wkv` / `Compressor.wgate` / `indexer.weights_proj`: BF16
+485-        (or fp32 internally; reference declares dtype= explicitly). Loaded raw.
+486-      - All RMSNorm weights, attn_sink, hc_*: BF16/fp32 raw, no quant.
+487-
+--
+497-    base = QuantizationConfig(hf_config, online_quant_config=online_quant_config)
+498-
+499-    fp4_spec = LayerQuantConfig(quant_type=QuantType.per_1x32, quant_dtype=dtypes.fp4x2)
+500-    # FP8 per-block 128x128 — V4-Flash-Base routed path.
+501:    # ``dtypes.fp8`` from aiter resolves to ``float8_e4m3fnuz`` on gfx942/gfx94x
+502-    # (MI308) and ``float8_e4m3fn`` on gfx950 / NV — picked at import time.
+503-    fp8_block_spec = LayerQuantConfig(
+504-        quant_type=QuantType.per_1x128,
+505-        quant_dtype=dtypes.fp8,
+--
+636-def _dequant_fp8_block_to_bf16(w_fp8, scale, block=128):
+637-    """Dequant block-scaled FP8 e4m3 → BF16 (for wo_a load path).
+638-
+639-    Mirrors convert.py:137-141. The wo_a weight is stored FP8 on disk but
+640:    used as BF16 in inference because aiter doesn't support FP8 grouped einsum.
+641-    """
+642-    out_dim, in_dim = w_fp8.shape
+643-    w = w_fp8.unflatten(0, (-1, block)).unflatten(-1, (-1, block)).float()
+644-    s = scale.float()
+--
+708-    the rotated values; the same tensor is also returned for chaining.
+709-    `inverse=True` uses the conjugate (un-rotation) — used on the attention
+710-    output to remove absolute-position embedding from the value contribution.
+711-
+712:    NOTE: forward RoPE on Q/KV now goes through `_V4RoPE` (aiter kernel). This
+713:    function is kept ONLY for the output inverse step, which aiter does not
+714-    expose.
+715-    """
+716-    y = x
+717-    x_f = x.float()
+--
+771-    return cos, sin
+772-
+773-
+774-class _V4RoPE(nn.Module):
+775:    """Per-token-positions RoPE wrapper around aiter's `rope_cached_*_fwd_inplace`.
+776-
+777-    Builds the cos/sin cache via V4's exact YaRN math (`_precompute_freqs_cis`),
+778:    then dispatches to the aiter HIP kernel. Works on a pre-sliced rope tensor
+779-    (`head_size == rotary_dim`) so callers stay symmetric with the existing
+780-    `_apply_rotary_emb(x[..., -rd:], ...)` pattern.
+781-
+782-    `freqs_for_positions(positions)` rebuilds a complex tensor from the cos/sin
+783:    slices for the attention output's inverse RoPE step (which aiter does not
+784-    expose). We deliberately do NOT keep a complex `freqs_cis` buffer: cos/sin
+785-    in bf16 is half the memory of complex64, and 62 layers × 1M positions ×
+786-    32 freqs adds up fast.
+787-    """
+--
+814-        # HCA/CSA/Dense). Plain-attribute storage skips PyTorch's per-buffer
+815-        # `.to()` machinery, which would clone each layer's reference into a
+816-        # separate GPU tensor (62 × 256 MiB ≈ 16 GiB at V4-Pro's
+817-        # max_position_embeddings=1M — verified OOM if we register_buffer).
+818:        # Tradeoff vs aiter/sglang/vllm: those engines accept the per-layer
+819-        # clone because their target models have much smaller max-pos; V4's 1M
+820-        # context window makes dedup essential. Forward path still does zero
+821-        # cache lookups — only attribute reads.
+822-        self.cos_cache, self.sin_cache = _build_cos_sin_cache(
+--
+852-        # rotate_style=1 → GPT-J / interleaved (matches V4's view_as_complex).
+853-        rotate_style = 1
+854-        num_tokens = positions.numel()
+855-        if key is not None:
+856:            aiter.rope_cached_positions_2c_fwd_inplace(
+857-                query.view(1, num_tokens, -1, self.rotary_dim),
+858-                key.view(1, num_tokens, -1, self.rotary_dim),
+859-                self.cos_cache,
+860-                self.sin_cache,
+--
+863-                reuse_freqs_front_part=True,
+864-                nope_first=False,
+865-            )
+866-        else:
+867:            aiter.rope_cached_positions_fwd_inplace(
+868-                query.view(1, num_tokens, -1, self.rotary_dim),
+869-                self.cos_cache,
+870-                self.sin_cache,
+871-                positions.view(1, num_tokens),
+--
+1215-            prefix=f"{prefix}.wq_b",
+1216-        )
+1217-        # weights_proj: BF16 in reference. Replicated because the layer is
+1218-        # tiny (dim × n_heads = 7168 × 64 ≈ 896KB BF16) and column-parallel
+1219:        # sharding produces a degenerate N=8 GEMM with no aiter tuned
+1220-        # config; full replication keeps N=64.
+1221-        self.weights_proj = ReplicatedLinear(
+1222-            self.dim,
+1223-            self.n_heads,
+--
+1260-        )
+1261-        self.rotary_emb: Optional[_V4RoPE] = None
+1262-
+1263-        # Register self in static_forward_context so the
+1264:        # `torch.ops.aiter.indexer_score_topk` dispatcher can look us up by
+1265-        # `layer_name` (= self.prefix). Same pattern as V4 MoE registration.
+1266-        get_current_atom_config().compilation_config.static_forward_context[
+1267-            prefix
+1268-        ] = self
+--
+1277-            torch.Tensor
+1278-        ] = None,  # per_1x128 scale paired with qr_full
+1279-    ) -> torch.Tensor:
+1280-        """Q proj + RoPE + FP8-quant + weights compute (have module state),
+1281:        then dispatch to `torch.ops.aiter.indexer_score_topk`, which calls
+1282-        back into `self.indexer_score_topk(q_fp8, weights, self.index_topk)`.
+1283-
+1284-        Caller must invoke `self.compressor` once batched BEFORE this so all
+1285-        seqs' Indexer kv_cache is already populated.
+--
+1380-    def score_topk_from(
+1381-        self, q_fp8: torch.Tensor, weights: torch.Tensor
+1382-    ) -> torch.Tensor:
+1383-        """Eager paged gather + score + top-k (reads compressor KV cache)."""
+1384:        return torch.ops.aiter.indexer_score_topk(
+1385-            q_fp8, weights, self.prefix, self.index_topk
+1386-        )  # [total_tokens, index_topk] int32
+1387-
+1388-    def indexer_score_topk(

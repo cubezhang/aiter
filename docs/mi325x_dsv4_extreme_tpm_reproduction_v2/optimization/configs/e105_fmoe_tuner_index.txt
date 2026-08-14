@@ -1,0 +1,13 @@
+86:torch.set_default_device("cuda")
+317:        self.parser.add_argument(
+323:        self.parser.add_argument(
+329:        self.parser.add_argument(
+335:        self.parser.add_argument(
+338:            default=None,
+3539:    def run_config(self, args):
+3561:            # per_1x32 fp4-weight MoE (gate_mode defaults to SEPARATED, which
+3621:                # Match the production/test path used by op_tests/test_moe_2stage.py.
+4095:        from collections import defaultdict
+4098:        grouped_rets = defaultdict(list)
+4551:                    # production fused_moe path (the wrapper-based call would
+4553:                    # aten::fill_ kernel that isn't on the production stream).

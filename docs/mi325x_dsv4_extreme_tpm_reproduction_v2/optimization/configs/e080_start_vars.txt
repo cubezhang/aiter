@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+RUN_ROOT=/data/models/mi325_dsv4_perf_tuning_20260803_065439
+ATOM_SOURCE=/data/models/mi325_dsv4_reuse_tuning_20260801_103501/02_source/ATOM_official
+C57_KERNEL=/data/models/mi325_dsv4_model_tuning_round2_20260802/57_topk_ob_hybrid_bpp_20260802_141900/aiter/csrc/kernels/topk_per_row_kernels.cu
+ROUTER_SOURCE=/data/models/mi325_dsv4_reuse_tuning_20260801_103501/08_dual_tp4/router.py
+IMAGE=rocm/atom-dev:nightly_202607271535
+
+test -s "$C57_KERNEL"
+test -s "$ROUTER_SOURCE"
+for port in 18000 18001 18080; do
+  ! ss -ltn "sport = :$port" | rg -q ":$port\\b"
+done
+for name in mi325_dsv4_e004_dual mi325_dsv4_e004_router; do
+  ! docker ps -a --format '{{.Names}}' | rg -qx "$name"
+done
+
+docker run -d --name mi325_dsv4_e004_dual --network host --ipc=host --shm-size=128G --device /dev/kfd --device /dev/dri --group-add video \
+  -v /data/DeepSeek-V4-Flash-FP8:/data/DeepSeek-V4-Flash-FP8:ro \

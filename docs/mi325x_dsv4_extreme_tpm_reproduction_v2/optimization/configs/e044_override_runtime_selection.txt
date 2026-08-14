@@ -1,0 +1,8 @@
+logs/e004_18001_server.log:308:[aiter] shape is M:4, N:4096, K:4096, not found tuned config in /tmp/aiter_configs/a8w8_blockscale_bpreshuffle_tuned_gemm.csv, will use default config!
+logs/e004_18001_server.log:319:[aiter] shape is M:4, N:4096, K:4096, not found tuned config in /tmp/aiter_configs/a8w8_blockscale_bpreshuffle_tuned_gemm.csv, will use default config!
+logs/e004_18001_server.log:338:[aiter] shape is M:4, N:4096, K:4096, not found tuned config in /tmp/aiter_configs/a8w8_blockscale_bpreshuffle_tuned_gemm.csv, will use default config!
+logs/e004_18001_server.log:339:[aiter] shape is M:4, N:4096, K:4096, not found tuned config in /tmp/aiter_configs/a8w8_blockscale_bpreshuffle_tuned_gemm.csv, will use default config!
+logs/e004_18000_server.log:319:[aiter] shape is M:4, N:4096, K:4096, not found tuned config in /tmp/aiter_configs/a8w8_blockscale_bpreshuffle_tuned_gemm.csv, will use default config!
+logs/e004_18000_server.log:327:[aiter] shape is M:4, N:4096, K:4096, not found tuned config in /tmp/aiter_configs/a8w8_blockscale_bpreshuffle_tuned_gemm.csv, will use default config!
+logs/e004_18000_server.log:347:[aiter] shape is M:4, N:4096, K:4096, not found tuned config in /tmp/aiter_configs/a8w8_blockscale_bpreshuffle_tuned_gemm.csv, will use default config!
+logs/e004_18000_server.log:350:[aiter] shape is M:4, N:4096, K:4096, not found tuned config in /tmp/aiter_configs/a8w8_blockscale_bpreshuffle_tuned_gemm.csv, will use default config!

@@ -1,0 +1,46 @@
+   6631 1067486 /app/aiter-test/aiter/configs/a8w8_blockscale_tuned_gemm.csv
+     59    8846 /app/aiter-test/aiter/configs/a8w8_blockscale_bpreshuffle_tuned_gemm.csv
+   6690 1076332 total
+gfx,cu_num,M,N,K,libtype,kernelId,splitK,us,kernelName,tflops,bw,errRatio
+gfx950,256,1,2048,3072,ck,8,2,4.8294,a8w8_blockscale_1x128x128_256x16x64x256_16x16_16x16_1x1_16x16x1_16x16x1_1x16x1x16_4_1x1_intrawave_v1,2.61,1304.22,0.0
+gfx950,256,2,2048,3072,ck,8,2,4.9071,a8w8_blockscale_1x128x128_256x16x64x256_16x16_16x16_1x1_16x16x1_16x16x1_1x16x1x16_4_1x1_intrawave_v1,5.13,1285.03,0.0
+/app/aiter-test/aiter/jit/core.py:95:AITER_CONFIG_GEMM_A8W8 = os.getenv(
+/app/aiter-test/aiter/jit/core.py:96:    "AITER_CONFIG_GEMM_A8W8",
+/app/aiter-test/aiter/jit/core.py:100:AITER_CONFIG_GEMM_A8W8_BPRESHUFFLE = os.getenv(
+/app/aiter-test/aiter/jit/core.py:101:    "AITER_CONFIG_GEMM_A8W8_BPRESHUFFLE",
+/app/aiter-test/aiter/jit/core.py:105:AITER_CONFIG_GEMM_A8W8_BLOCKSCALE = os.getenv(
+/app/aiter-test/aiter/jit/core.py:106:    "AITER_CONFIG_GEMM_A8W8_BLOCKSCALE",
+/app/aiter-test/aiter/jit/core.py:107:    f"{AITER_ROOT_DIR}/aiter/configs/a8w8_blockscale_tuned_gemm.csv",
+/app/aiter-test/aiter/jit/core.py:120:AITER_CONFIG_GEMM_A8W8_BLOCKSCALE_BPRESHUFFLE = os.getenv(
+/app/aiter-test/aiter/jit/core.py:121:    "AITER_CONFIG_GEMM_A8W8_BLOCKSCALE_BPRESHUFFLE",
+/app/aiter-test/aiter/jit/core.py:122:    f"{AITER_ROOT_DIR}/aiter/configs/a8w8_blockscale_bpreshuffle_tuned_gemm.csv",
+/app/aiter-test/aiter/jit/core.py:151:    def AITER_CONFIG_GEMM_A8W8_FILE(self):
+/app/aiter-test/aiter/jit/core.py:153:            "AITER_CONFIG_GEMM_A8W8", AITER_CONFIG_GEMM_A8W8, "a8w8_tuned_gemm"
+/app/aiter-test/aiter/jit/core.py:157:    def AITER_CONFIG_GEMM_A8W8_BPRESHUFFLE_FILE(self):
+/app/aiter-test/aiter/jit/core.py:159:            "AITER_CONFIG_GEMM_A8W8_BPRESHUFFLE",
+/app/aiter-test/aiter/jit/core.py:160:            AITER_CONFIG_GEMM_A8W8_BPRESHUFFLE,
+/app/aiter-test/aiter/jit/core.py:165:    def AITER_CONFIG_GEMM_A8W8_BLOCKSCALE_FILE(self):
+/app/aiter-test/aiter/jit/core.py:167:            "AITER_CONFIG_GEMM_A8W8_BLOCKSCALE",
+/app/aiter-test/aiter/jit/core.py:168:            AITER_CONFIG_GEMM_A8W8_BLOCKSCALE,
+/app/aiter-test/aiter/jit/core.py:169:            "a8w8_blockscale_tuned_gemm",
+/app/aiter-test/aiter/jit/core.py:187:    def AITER_CONFIG_GEMM_A8W8_BLOCKSCALE_BPRESHUFFLE_FILE(self):
+/app/aiter-test/aiter/jit/core.py:189:            "AITER_CONFIG_GEMM_A8W8_BLOCKSCALE_BPRESHUFFLE",
+/app/aiter-test/aiter/jit/core.py:190:            AITER_CONFIG_GEMM_A8W8_BLOCKSCALE_BPRESHUFFLE,
+/app/aiter-test/aiter/jit/core.py:191:            "a8w8_blockscale_bpreshuffle_tuned_gemm",
+/app/aiter-test/aiter/ops/gemm_op_a8w8.py:443:        tuned_file = AITER_CONFIGS.AITER_CONFIG_GEMM_A8W8_FILE
+/app/aiter-test/aiter/ops/gemm_op_a8w8.py:498:        tuned_file = AITER_CONFIGS.AITER_CONFIG_GEMM_A8W8_BPRESHUFFLE_FILE
+/app/aiter-test/aiter/ops/gemm_op_a8w8.py:620:                AITER_CONFIGS.AITER_CONFIG_GEMM_A8W8_BPRESHUFFLE_FILE,
+/app/aiter-test/aiter/ops/gemm_op_a8w8.py:657:        m, n, k, q_dtype_w, AITER_CONFIGS.AITER_CONFIG_GEMM_A8W8_FILE
+/app/aiter-test/aiter/ops/gemm_op_a8w8.py:728:        AITER_CONFIGS.AITER_CONFIG_GEMM_A8W8_BPRESHUFFLE_FILE,
+/app/aiter-test/aiter/ops/gemm_op_a8w8.py:736:            AITER_CONFIGS.AITER_CONFIG_GEMM_A8W8_BPRESHUFFLE_FILE,
+/app/aiter-test/aiter/ops/gemm_op_a8w8.py:830:            m, n, k, AITER_CONFIGS.AITER_CONFIG_GEMM_A8W8_BLOCKSCALE_FILE
+/app/aiter-test/aiter/ops/gemm_op_a8w8.py:926:            AITER_CONFIGS.AITER_CONFIG_GEMM_A8W8_BLOCKSCALE_BPRESHUFFLE_FILE,
+/app/aiter-test/aiter/ops/gemm_op_a8w8.py:945:                f"[gfx1250] gemm_a8w8_blockscale_bpreshuffle untuned "
+/app/aiter-test/aiter/ops/gemm_op_a8w8.py:992:        m, n, k, AITER_CONFIGS.AITER_CONFIG_GEMM_A8W8_BLOCKSCALE_BPRESHUFFLE_FILE
+/app/aiter-test/aiter/aot/flydsl/gemm.py:61:    AITER_CONFIGS.AITER_CONFIG_GEMM_A8W8_FILE,
+/app/aiter-test/aiter/aot/flydsl/gemm.py:62:    AITER_CONFIGS.AITER_CONFIG_GEMM_A8W8_BPRESHUFFLE_FILE,
+/app/aiter-test/aiter/aot/flydsl/gemm.py:63:    AITER_CONFIGS.AITER_CONFIG_GEMM_A8W8_BLOCKSCALE_FILE,
+/app/aiter-test/aiter/aot/flydsl/gemm.py:64:    AITER_CONFIGS.AITER_CONFIG_GEMM_A8W8_BLOCKSCALE_BPRESHUFFLE_FILE,
+/app/aiter-test/aiter/utility/pretune.py:60:#   variants via --libtype all, but it writes to AITER_CONFIG_GEMM_A8W8_BLOCKSCALE.
+/app/aiter-test/aiter/utility/pretune.py:62:#   (AITER_CONFIG_GEMM_A8W8_BLOCKSCALE_BPRESHUFFLE_FILE) that no existing
+/app/aiter-test/aiter/utility/pretune.py:241:        # AITER_CONFIG_GEMM_A8W8_BLOCKSCALE), not instance attributes on

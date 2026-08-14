@@ -1,0 +1,500 @@
+atom/model_ops/attentions/triton_mla.py:41:        num_kv_splits = 4
+atom/model_ops/attentions/triton_mla.py:52:                num_kv_splits,
+atom/model_ops/attentions/aiter_mla.py:1650:        # (only hit when num_kv_splits > 1; passes==1 takes the bf16 fast path).
+atom/model_ops/attention_mla.py:1058:                4,  # num_kv_splits
+atom/model_ops/attention_mla.py:1126:                num_kv_splits = max(1, 16 // self.dcp_world_size)
+atom/model_ops/attention_mla.py:1128:                num_kv_splits = 16
+atom/model_ops/attention_mla.py:1150:                num_kv_splits=None if self.use_seg_mla else num_kv_splits,
+atom/model_ops/v4_kernels/paged_decode.py:43:CUDAGraph-safe: kv_splits and tile config depend only on capture-time
+atom/model_ops/v4_kernels/paged_decode.py:62:from aiter.ops.triton.attention.pa_decode_sparse import pa_decode_sparse
+atom/model_ops/v4_kernels/paged_decode.py:65:_MAX_KV_SPLITS = 64  # Hard cap on kv_splits (see _kv_splits_heuristic).
+atom/model_ops/v4_kernels/paged_decode.py:99:    """Pick (BLOCK_K, num_warps, num_stages) without autotune.
+atom/model_ops/v4_kernels/paged_decode.py:108:      - BLOCK_K=16 dominated (~78% of best configs for D=512); D=512 has
+atom/model_ops/v4_kernels/paged_decode.py:137:def _kv_splits_heuristic(
+atom/model_ops/v4_kernels/paged_decode.py:143:    max_kv_splits: int = _MAX_KV_SPLITS,
+atom/model_ops/v4_kernels/paged_decode.py:145:    """Pick KV_SPLITS to fill the GPU. CUDAGraph-safe: depends ONLY on
+atom/model_ops/v4_kernels/paged_decode.py:158:                                                          max_kv_splits))
+atom/model_ops/v4_kernels/paged_decode.py:160:    ``max_kv_splits`` (default 64) caps the number of split-kernel CTAs per
+atom/model_ops/v4_kernels/paged_decode.py:178:    return _prev_pow2(min(splits_to_fill, max_kv_splits))
+atom/model_ops/v4_kernels/paged_decode.py:210:    BLOCK_K: tl.constexpr,
+atom/model_ops/v4_kernels/paged_decode.py:216:    cases where ``kv_splits = 1`` (base grid already saturates the GPU). Skips
+atom/model_ops/v4_kernels/paged_decode.py:242:    num_tiles = tl.cdiv(kv_len, BLOCK_K)
+atom/model_ops/v4_kernels/paged_decode.py:249:    k_offs = tl.arange(0, BLOCK_K)
+atom/model_ops/v4_kernels/paged_decode.py:259:    # (BLOCK_K*BLOCK_D*2 = 16KB at bf16) staged in regs/LDS per CTA.
+atom/model_ops/v4_kernels/paged_decode.py:261:        k_start = j * BLOCK_K
+atom/model_ops/v4_kernels/paged_decode.py:282:            # [BLOCK_K, BLOCK_D] scales tile but in IR is a coalesced
+atom/model_ops/v4_kernels/paged_decode.py:345:    m_partial_ptr,  # [N, KV_SPLITS, H_padded] fp32
+atom/model_ops/v4_kernels/paged_decode.py:346:    l_partial_ptr,  # [N, KV_SPLITS, H_padded] fp32
+atom/model_ops/v4_kernels/paged_decode.py:347:    acc_partial_ptr,  # [N, KV_SPLITS, H_padded, D] fp32
+atom/model_ops/v4_kernels/paged_decode.py:366:    KV_SPLITS: tl.constexpr,
+atom/model_ops/v4_kernels/paged_decode.py:370:    BLOCK_K: tl.constexpr,
+atom/model_ops/v4_kernels/paged_decode.py:375:    """3D split-K + exp2-softmax sparse paged-decode. Grid: (N, ceil(H/BLOCK_H), KV_SPLITS).
+atom/model_ops/v4_kernels/paged_decode.py:403:    # KV_SPLITS is constexpr; tiles_per_segment derived at runtime. Splits
+atom/model_ops/v4_kernels/paged_decode.py:405:    # reduce kernel uses the same constexpr BLOCK_K/KV_SPLITS to compute
+atom/model_ops/v4_kernels/paged_decode.py:406:    # ``act_num_segments = cdiv(kv_len, tiles_per_segment * BLOCK_K)`` and
+atom/model_ops/v4_kernels/paged_decode.py:410:    tiles_per_segment = tl.cdiv(kv_len, KV_SPLITS * BLOCK_K)
+atom/model_ops/v4_kernels/paged_decode.py:411:    if pid_k * tiles_per_segment * BLOCK_K >= kv_len:
+atom/model_ops/v4_kernels/paged_decode.py:413:    num_tiles = tl.cdiv(kv_len, BLOCK_K)
+atom/model_ops/v4_kernels/paged_decode.py:422:    k_offs = tl.arange(0, BLOCK_K)
+atom/model_ops/v4_kernels/paged_decode.py:427:        k_start = j * BLOCK_K
+atom/model_ops/v4_kernels/paged_decode.py:484:    m_partial_ptr,  # [N, KV_SPLITS, H_padded] fp32
+atom/model_ops/v4_kernels/paged_decode.py:485:    l_partial_ptr,  # [N, KV_SPLITS, H_padded] fp32
+atom/model_ops/v4_kernels/paged_decode.py:486:    acc_partial_ptr,  # [N, KV_SPLITS, H_padded, D] fp32
+atom/model_ops/v4_kernels/paged_decode.py:506:    KV_SPLITS: tl.constexpr,
+atom/model_ops/v4_kernels/paged_decode.py:509:    BLOCK_K: tl.constexpr,
+atom/model_ops/v4_kernels/paged_decode.py:511:    """2D-tile reduce: combine KV_SPLITS partials, fold attn_sink, write
+atom/model_ops/v4_kernels/paged_decode.py:519:        tile load ``[KV_SPLITS, D_CHUNK]`` replaces strided 3D access.
+atom/model_ops/v4_kernels/paged_decode.py:521:    Why this wins on MI355 split path (T ≤ ~256, kv_splits > 1):
+atom/model_ops/v4_kernels/paged_decode.py:524:       ``[KV_SPLITS=64, BLOCK_H=1, BLOCK_D=512]`` = 32K fp32 = 128 KB —
+atom/model_ops/v4_kernels/paged_decode.py:526:       address compute. New ``[KV_SPLITS, D_CHUNK]`` = 64×64×4 = 16 KB
+atom/model_ops/v4_kernels/paged_decode.py:543:    k_offs = tl.arange(0, KV_SPLITS)
+atom/model_ops/v4_kernels/paged_decode.py:565:    tiles_per_segment = tl.cdiv(kv_len, KV_SPLITS * BLOCK_K)
+atom/model_ops/v4_kernels/paged_decode.py:566:    act_num_segments = tl.cdiv(kv_len, tl.maximum(tiles_per_segment, 1) * BLOCK_K)
+atom/model_ops/v4_kernels/paged_decode.py:574:    )  # [KV_SPLITS]
+atom/model_ops/v4_kernels/paged_decode.py:579:    )  # [KV_SPLITS]
+atom/model_ops/v4_kernels/paged_decode.py:590:    )  # [KV_SPLITS, D_CHUNK]
+atom/model_ops/v4_kernels/paged_decode.py:594:    alpha_split = tl.exp2(m_p - m_max)  # [KV_SPLITS]
+atom/model_ops/v4_kernels/paged_decode.py:609:    # (~1 extra ulp per element). Under split-K that per-kv_splits rounding
+atom/model_ops/v4_kernels/paged_decode.py:637:    kv_splits: int | None = None,
+atom/model_ops/v4_kernels/paged_decode.py:641:    exp2 softmax, CG-safe heuristic. ``block_h`` and ``kv_splits`` are
+atom/model_ops/v4_kernels/paged_decode.py:699:    if kv_splits is None:
+atom/model_ops/v4_kernels/paged_decode.py:700:        kv_splits = _kv_splits_heuristic(T, H, block_h)
+atom/model_ops/v4_kernels/paged_decode.py:707:        # MFMA work. Empirically BLOCK_K=32 wins ~20% over BLOCK_K=16 on fp8
+atom/model_ops/v4_kernels/paged_decode.py:726:    # GPU, kv_splits=1 and a single-pass fused kernel beats split+reduce by
+atom/model_ops/v4_kernels/paged_decode.py:728:    if kv_splits == 1:
+atom/model_ops/v4_kernels/paged_decode.py:753:            BLOCK_K=block_k,
+atom/model_ops/v4_kernels/paged_decode.py:765:    # the same constexpr BLOCK_K to derive ``act_num_segments``.
+atom/model_ops/v4_kernels/paged_decode.py:767:        (T, kv_splits, h_padded), dtype=torch.float32, device=q.device
+atom/model_ops/v4_kernels/paged_decode.py:771:        (T, kv_splits, h_padded, D), dtype=torch.float32, device=q.device
+atom/model_ops/v4_kernels/paged_decode.py:774:    grid_split = (T, n_head_blocks, kv_splits)
+atom/model_ops/v4_kernels/paged_decode.py:802:        kv_splits,
+atom/model_ops/v4_kernels/paged_decode.py:806:        BLOCK_K=block_k,
+atom/model_ops/v4_kernels/paged_decode.py:822:    #     latency-critical decode. The 2D tile [KV_SPLITS, D_CHUNK] should
+atom/model_ops/v4_kernels/paged_decode.py:856:        kv_splits,
+atom/model_ops/v4_kernels/paged_decode.py:859:        BLOCK_K=block_k,
+atom/model_ops/v4_kernels/paged_decode.py:920:    num_kv_splits: int | None = None,
+atom/model_ops/v4_kernels/paged_decode.py:1042:        num_kv_splits=num_kv_splits,
+atom/model_ops/v4_kernels/paged_decode.py:1091:        return pa_decode_sparse(
+atom/model_ops/v4_kernels/v4_quant.py:443:    num_kv_splits=1,  # accepted for parity; KV splitting does not change the math
+atom/model_ops/v4_kernels/v4_quant.py:454:        ``logits [total_q, num_kv_splits, num_heads, v_head_dim]`` FP32 and
+atom/model_ops/v4_kernels/v4_quant.py:455:        ``attn_lse [total_q, num_kv_splits, num_heads, 1]`` FP32. The final
+atom/model_ops/v4_kernels/v4_quant.py:461:    ``num_kv_splits`` / ``split_indptr`` / ``out_16_nosplit`` are accepted only
+atom/model_ops/v4_kernels/v4_quant.py:531:            (total_q, num_kv_splits, num_heads, v_head_dim),
+atom/model_ops/v4_kernels/v4_quant.py:539:            (total_q, num_kv_splits, num_heads, 1),
+atom/model_ops/v4_kernels/paged_prefill.py:68:_BLOCK_K = 32
+atom/model_ops/v4_kernels/paged_prefill.py:100:    BLOCK_K: tl.constexpr,
+atom/model_ops/v4_kernels/paged_prefill.py:101:    PREFIX_BLOCK_K: tl.constexpr,
+atom/model_ops/v4_kernels/paged_prefill.py:137:    k_offs = tl.arange(0, BLOCK_K)
+atom/model_ops/v4_kernels/paged_prefill.py:138:    p_k_offs = tl.arange(0, PREFIX_BLOCK_K)
+atom/model_ops/v4_kernels/paged_prefill.py:147:        for k_start in tl.range(0, p_len, PREFIX_BLOCK_K):
+atom/model_ops/v4_kernels/paged_prefill.py:195:    for k_start in tl.range(0, e_len, BLOCK_K):
+atom/model_ops/v4_kernels/paged_prefill.py:282:    BLOCK_K: tl.constexpr,
+atom/model_ops/v4_kernels/paged_prefill.py:283:    PREFIX_BLOCK_K: tl.constexpr,
+atom/model_ops/v4_kernels/paged_prefill.py:286:    # options from the shared kernel and keeps the proven BLOCK_K/PREFIX_BLOCK_K
+atom/model_ops/v4_kernels/paged_prefill.py:309:    p_k_offs = tl.arange(0, PREFIX_BLOCK_K)
+atom/model_ops/v4_kernels/paged_prefill.py:314:    for k_start in tl.range(0, p_len, PREFIX_BLOCK_K):
+atom/model_ops/v4_kernels/paged_prefill.py:339:    k_offs = tl.arange(0, BLOCK_K)
+atom/model_ops/v4_kernels/paged_prefill.py:344:    for e_k_start in tl.range(0, e_len, BLOCK_K):
+atom/model_ops/v4_kernels/paged_prefill.py:429:    block_k = _BLOCK_K
+atom/model_ops/v4_kernels/paged_prefill.py:471:            BLOCK_K=block_k,
+atom/model_ops/v4_kernels/paged_prefill.py:472:            PREFIX_BLOCK_K=prefix_block_k,
+atom/model_ops/v4_kernels/paged_prefill.py:504:        BLOCK_K=block_k,
+atom/model_ops/v4_kernels/paged_prefill.py:505:        PREFIX_BLOCK_K=prefix_block_k,
+atom/model_ops/v4_kernels/csa_translate_pack.py:51:# Target workgroup count for BLOCK_K tuning (see csa_translate_pack): grow the
+atom/model_ops/v4_kernels/csa_translate_pack.py:70:    BLOCK_K: tl.constexpr,
+atom/model_ops/v4_kernels/csa_translate_pack.py:116:    k_offs = pid_kb * BLOCK_K + tl.arange(0, BLOCK_K)
+atom/model_ops/v4_kernels/csa_translate_pack.py:242:    # BLOCK_K tuning: each program packs BLOCK_K slots of one token's row.
+atom/model_ops/v4_kernels/csa_translate_pack.py:245:    # (T * cdiv(index_topk, BLOCK_K)) to fill the GPU. So grow the tile only
+atom/model_ops/v4_kernels/csa_translate_pack.py:247:    # fat tiles (measured up to 3.2x over a fixed BLOCK_K=64 on gfx1250),
+atom/model_ops/v4_kernels/csa_translate_pack.py:251:    BLOCK_K = min(1024, triton.next_power_of_2(triton.cdiv(index_topk, n_tiles)))
+atom/model_ops/v4_kernels/csa_translate_pack.py:252:    grid = (T, triton.cdiv(index_topk, BLOCK_K))
+atom/model_ops/v4_kernels/csa_translate_pack.py:265:        BLOCK_K=BLOCK_K,
+atom/model_ops/sparse_attn_v4.py:56:    BLOCK_K: tl.constexpr,
+atom/model_ops/sparse_attn_v4.py:80:    k_offs = tl.arange(0, BLOCK_K)
+atom/model_ops/sparse_attn_v4.py:81:    for k_start in tl.range(0, K, BLOCK_K):
+atom/model_ops/sparse_attn_v4.py:191:        BLOCK_K=block_k,
+atom/model_ops/sparse_attn_v4.py:220:    BLOCK_K: tl.constexpr,
+atom/model_ops/sparse_attn_v4.py:244:    k_offs = tl.arange(0, BLOCK_K)
+atom/model_ops/sparse_attn_v4.py:245:    for k_start in tl.range(0, K, BLOCK_K):
+atom/model_ops/sparse_attn_v4.py:341:        BLOCK_K=block_k,
+atom/plugin/sglang/attention_backend/full_attention/metadata.py:30:    num_kv_splits: Optional[int] = None
+atom/plugin/sglang/attention_backend/full_attention/full_attention_backend.py:178:            self.prefill_ps_num_kv_splits = cu_num // math.gcd(self.num_kv_head, cu_num)
+atom/plugin/sglang/attention_backend/full_attention/full_attention_backend.py:180:            self.prefill_ps_num_kv_splits = None
+atom/plugin/sglang/attention_backend/full_attention/full_attention_backend.py:311:        num_kv_splits = None
+atom/plugin/sglang/attention_backend/full_attention/full_attention_backend.py:322:            num_kv_splits = self.max_split_per_batch
+atom/plugin/sglang/attention_backend/full_attention/full_attention_backend.py:335:                max_split_per_batch=num_kv_splits,
+atom/plugin/sglang/attention_backend/full_attention/full_attention_backend.py:354:            num_kv_splits=num_kv_splits,
+atom/plugin/sglang/attention_backend/full_attention/full_attention_backend.py:451:        num_kv_splits = None
+atom/plugin/sglang/attention_backend/full_attention/full_attention_backend.py:462:            num_kv_splits = self.max_split_per_batch
+atom/plugin/sglang/attention_backend/full_attention/full_attention_backend.py:475:                max_split_per_batch=num_kv_splits,
+atom/plugin/sglang/attention_backend/full_attention/full_attention_backend.py:494:            num_kv_splits=num_kv_splits,
+atom/plugin/sglang/attention_backend/full_attention/full_attention_backend.py:543:        num_kv_splits = None
+atom/plugin/sglang/attention_backend/full_attention/full_attention_backend.py:554:            num_kv_splits = self.max_split_per_batch
+atom/plugin/sglang/attention_backend/full_attention/full_attention_backend.py:567:                max_split_per_batch=num_kv_splits,
+atom/plugin/sglang/attention_backend/full_attention/full_attention_backend.py:586:            num_kv_splits=num_kv_splits,
+atom/plugin/sglang/attention_backend/full_attention/full_attention_backend.py:632:        num_kv_splits = None
+atom/plugin/sglang/attention_backend/full_attention/full_attention_backend.py:643:            num_kv_splits = self.max_split_per_batch
+atom/plugin/sglang/attention_backend/full_attention/full_attention_backend.py:656:                max_split_per_batch=num_kv_splits,
+atom/plugin/sglang/attention_backend/full_attention/full_attention_backend.py:675:            num_kv_splits=num_kv_splits,
+atom/plugin/sglang/attention_backend/full_attention/full_attention_backend.py:701:        num_kv_splits = None
+atom/plugin/sglang/attention_backend/full_attention/full_attention_backend.py:738:            num_kv_splits = self.prefill_ps_num_kv_splits
+atom/plugin/sglang/attention_backend/full_attention/full_attention_backend.py:756:            num_kv_splits=num_kv_splits,
+atom/plugin/sglang/attention_backend/full_attention/full_attention_backend.py:899:        num_kv_splits = None
+atom/plugin/sglang/attention_backend/full_attention/full_attention_backend.py:902:            num_kv_splits = self.max_split_per_batch
+atom/plugin/sglang/attention_backend/full_attention/full_attention_backend.py:916:                max_split_per_batch=num_kv_splits,
+atom/plugin/sglang/attention_backend/full_attention/full_attention_backend.py:942:            num_kv_splits=num_kv_splits,
+atom/plugin/sglang/attention_backend/full_attention/full_attention_backend.py:955:        num_kv_splits = None
+atom/plugin/sglang/attention_backend/full_attention/full_attention_backend.py:1025:                    num_kv_splits = self.max_split_per_batch
+atom/plugin/sglang/attention_backend/full_attention/full_attention_backend.py:1038:                        max_split_per_batch=num_kv_splits,
+atom/plugin/sglang/attention_backend/full_attention/full_attention_backend.py:1063:                    num_kv_splits=num_kv_splits,
+atom/plugin/sglang/attention_backend/full_attention/full_attention_backend.py:1123:                    num_kv_splits = self.max_split_per_batch
+atom/plugin/sglang/attention_backend/full_attention/full_attention_backend.py:1136:                        max_split_per_batch=num_kv_splits,
+atom/plugin/sglang/attention_backend/full_attention/full_attention_backend.py:1161:                    num_kv_splits=num_kv_splits,
+atom/plugin/sglang/attention_backend/full_attention/full_attention_backend.py:1212:                    num_kv_splits = self.max_split_per_batch
+atom/plugin/sglang/attention_backend/full_attention/full_attention_backend.py:1225:                        max_split_per_batch=num_kv_splits,
+atom/plugin/sglang/attention_backend/full_attention/full_attention_backend.py:1250:                    num_kv_splits=num_kv_splits,
+atom/plugin/sglang/attention_backend/full_attention/full_attention_backend.py:1289:        num_kv_splits = None
+atom/plugin/sglang/attention_backend/full_attention/full_attention_backend.py:1363:                    num_kv_splits = self.max_split_per_batch
+atom/plugin/sglang/attention_backend/full_attention/full_attention_backend.py:1376:                        max_split_per_batch=num_kv_splits,
+atom/plugin/sglang/attention_backend/full_attention/full_attention_backend.py:1401:                    num_kv_splits=num_kv_splits,
+atom/plugin/sglang/attention_backend/full_attention/full_attention_backend.py:1462:                    num_kv_splits = self.max_split_per_batch
+atom/plugin/sglang/attention_backend/full_attention/full_attention_backend.py:1475:                        max_split_per_batch=num_kv_splits,
+atom/plugin/sglang/attention_backend/full_attention/full_attention_backend.py:1500:                    num_kv_splits=num_kv_splits,
+atom/plugin/sglang/attention_backend/full_attention/full_attention_backend.py:1547:                    num_kv_splits = self.max_split_per_batch
+atom/plugin/sglang/attention_backend/full_attention/full_attention_backend.py:1560:                        max_split_per_batch=num_kv_splits,
+atom/plugin/sglang/attention_backend/full_attention/full_attention_backend.py:1585:                    num_kv_splits=num_kv_splits,
+atom/plugin/sglang/attention_backend/full_attention/full_attention_backend.py:2180:            md.num_kv_splits,
+atom/plugin/sglang/attention_backend/full_attention/full_attention_backend.py:2336:                num_kv_splits=md.num_kv_splits,
+atom/plugin/sglang/attention_backend/full_attention/full_attention_backend.py:2361:            num_kv_splits=md.num_kv_splits,
+/app/aiter-test/aiter/mla.py:29:    num_kv_splits_indptr,
+/app/aiter-test/aiter/mla.py:51:    cur_split_start = tl.load(num_kv_splits_indptr + cur_batch)
+/app/aiter-test/aiter/mla.py:52:    cur_split_end = tl.load(num_kv_splits_indptr + cur_batch + 1)
+/app/aiter-test/aiter/mla.py:53:    num_max_kv_splits = tl.load(num_kv_splits_indptr + BATCH_NUM)
+/app/aiter-test/aiter/mla.py:67:    num_valid_kv_splits = tl.minimum(
+/app/aiter-test/aiter/mla.py:71:        num_valid_kv_splits = tl.minimum(
+/app/aiter-test/aiter/mla.py:72:            num_valid_kv_splits, tl.load(valid_split_count + cur_batch)
+/app/aiter-test/aiter/mla.py:74:    FINAL_OUT = MAYBE_FINAL_OUT and num_max_kv_splits == BATCH_NUM
+/app/aiter-test/aiter/mla.py:95:            for split_kv_id in range(0, num_valid_kv_splits):
+/app/aiter-test/aiter/mla.py:127:    num_kv_splits,
+/app/aiter-test/aiter/mla.py:146:    # is driven by `bs * tg_factor * num_kv_splits`, not `bs * num_kv_splits`.
+/app/aiter-test/aiter/mla.py:149:    if num_kv_splits is None:
+/app/aiter-test/aiter/mla.py:187:        num_kv_splits = sorted(tmp, key=lambda x: x[0], reverse=True)[0][1]
+/app/aiter-test/aiter/mla.py:205:        num_kv_splits = min(
+/app/aiter-test/aiter/mla.py:206:            num_kv_splits,
+/app/aiter-test/aiter/mla.py:209:        if num_kv_splits > 1:
+/app/aiter-test/aiter/mla.py:210:            num_kv_splits = min(
+/app/aiter-test/aiter/mla.py:211:                num_kv_splits,
+/app/aiter-test/aiter/mla.py:215:    num_kv_splits_indptr = torch.arange(
+/app/aiter-test/aiter/mla.py:216:        0, (bs + 1) * num_kv_splits, num_kv_splits, dtype=torch.int, device="cuda"
+/app/aiter-test/aiter/mla.py:219:    return num_kv_splits, num_kv_splits_indptr
+/app/aiter-test/aiter/mla.py:283:    num_kv_splits=None,  # for experts only!!!
+/app/aiter-test/aiter/mla.py:284:    num_kv_splits_indptr=None,  # for experts only!!!
+/app/aiter-test/aiter/mla.py:324:    # num_kv_splits and ignores work_meta_data). See _use_persistent_mla_decode.
+/app/aiter-test/aiter/mla.py:326:    # Scope: only the dense vLLM-style decode (num_kv_splits left to aiter) is
+/app/aiter-test/aiter/mla.py:327:    # gated. Callers that pass an explicit num_kv_splits -- the sparse/expert
+/app/aiter-test/aiter/mla.py:331:    if persistent_mode and num_kv_splits is None:
+/app/aiter-test/aiter/mla.py:340:        if num_kv_splits is None or num_kv_splits_indptr is None:
+/app/aiter-test/aiter/mla.py:341:            num_kv_splits, num_kv_splits_indptr = get_meta_param(
+/app/aiter-test/aiter/mla.py:342:                num_kv_splits, bs, total_kv, nhead, max_seqlen_q, q.dtype
+/app/aiter-test/aiter/mla.py:370:            o.view((total_s, num_kv_splits, nhead, v_head_dim))
+/app/aiter-test/aiter/mla.py:372:                num_kv_splits == 1
+/app/aiter-test/aiter/mla.py:389:                (total_s, num_kv_splits, nhead, v_head_dim),
+/app/aiter-test/aiter/mla.py:396:            (total_s, num_kv_splits, nhead, 1), dtype=dtypes.fp32, device=device
+/app/aiter-test/aiter/mla.py:407:        # Initialized to num_kv_splits so a min() against it is a no-op until the
+/app/aiter-test/aiter/mla.py:410:            (bs,), num_kv_splits, dtype=dtypes.i32, device=device
+/app/aiter-test/aiter/mla.py:412:        use_valid_split_count_reduce = int(num_kv_splits > 1)
+/app/aiter-test/aiter/mla.py:421:            num_kv_splits_indptr,
+/app/aiter-test/aiter/mla.py:442:        if num_kv_splits == 1 and (
+/app/aiter-test/aiter/mla.py:477:            num_kv_splits_indptr,
+/app/aiter-test/aiter/mla.py:502:        if num_kv_splits is None:
+/app/aiter-test/aiter/mla.py:503:            num_kv_splits = get_mla_decode_fwd_max_splits(
+/app/aiter-test/aiter/mla.py:663:                num_kv_splits_indptr,
+/app/aiter-test/aiter/mla.py:691:            num_kv_splits,
+/app/aiter-test/aiter/mla.py:883:    num_kv_splits=None,  # for experts only!!!
+/app/aiter-test/aiter/mla.py:892:    num_kv_splits = 1
+/app/aiter-test/aiter/mla.py:894:    logits = o.view(bs, num_kv_splits, nhead, v_head_dim)
+/app/aiter-test/aiter/mla.py:896:    #     (bs, num_kv_splits, nhead, v_head_dim), dtype=dtypes.fp32, device=device
+/app/aiter-test/aiter/mla.py:899:        (bs, num_kv_splits, nhead, 1), dtype=dtypes.fp32, device=device
+/app/aiter-test/aiter/mla.py:1319:    out_16_nosplit=0,  # DEPRECATED/IGNORED: derived internally from num_kv_splits (V3-style)
+/app/aiter-test/aiter/mla.py:1320:    num_kv_splits=None,  # None -> auto-pick via V3 get_meta_param heuristic
+/app/aiter-test/aiter/mla.py:1333:        logits:   [total_q, num_kv_splits, num_heads, v_head_dim]   FP32
+/app/aiter-test/aiter/mla.py:1334:        attn_lse: [total_q, num_kv_splits, num_heads, 1]            FP32
+/app/aiter-test/aiter/mla.py:1339:    Single-pass mode (`num_kv_splits == 1`):
+/app/aiter-test/aiter/mla.py:1347:    Split-count selection (`num_kv_splits`):
+/app/aiter-test/aiter/mla.py:1354:    Multi-pass mode (`num_kv_splits > 1`):
+/app/aiter-test/aiter/mla.py:1357:         `num_kv_splits` is auto-picked, `get_meta_param` returns this
+/app/aiter-test/aiter/mla.py:1363:         FlashAttention LSE merge across the `num_kv_splits` axis and
+/app/aiter-test/aiter/mla.py:1410:    #   num_kv_splits is None  -> auto-pick via get_meta_param's
+/app/aiter-test/aiter/mla.py:1413:    #   num_kv_splits given     -> RESPECT it verbatim. The caller may have
+/app/aiter-test/aiter/mla.py:1420:    if num_kv_splits is None or split_indptr is None:
+/app/aiter-test/aiter/mla.py:1426:        meta_num_kv_splits, meta_split_indptr = get_meta_param(
+/app/aiter-test/aiter/mla.py:1427:            num_kv_splits,
+/app/aiter-test/aiter/mla.py:1436:        if num_kv_splits is None:
+/app/aiter-test/aiter/mla.py:1437:            num_kv_splits = meta_num_kv_splits
+/app/aiter-test/aiter/mla.py:1441:    out_16_nosplit = 1 if num_kv_splits == 1 else 0
+/app/aiter-test/aiter/mla.py:1444:    # kernel-native layout:   [num_seqs, max_seqlen_q, num_kv_splits, num_heads, v_head_dim]
+/app/aiter-test/aiter/mla.py:1449:    # num_kv_splits)` *before* its host-side reduce so
+/app/aiter-test/aiter/mla.py:1451:    #   [num_seqs, num_kv_splits, num_kv_heads, max_seqlen_q*gqa_ratio, v_head_dim]
+/app/aiter-test/aiter/mla.py:1456:    # The 4D contiguous view `[total_q, num_kv_splits, num_heads, dv]` is
+/app/aiter-test/aiter/mla.py:1463:    expected_logits_shape = (total_q, num_kv_splits, num_heads, v_head_dim)
+/app/aiter-test/aiter/mla.py:1464:    expected_lse_shape = (total_q, num_kv_splits, num_heads, 1)
+/app/aiter-test/aiter/mla.py:1480:            f"(kernel-native layout: [total_q, num_kv_splits, num_heads, v_head_dim] "
+/app/aiter-test/aiter/mla.py:1483:            f"[num_seqs, num_kv_splits, num_kv_heads, max_seqlen_q*gqa_ratio, v_head_dim]; "
+/app/aiter-test/aiter/mla.py:1510:    use_valid_split_count_reduce = int(num_kv_splits > 1)
+/app/aiter-test/aiter/mla.py:1525:        int(num_kv_splits),
+/app/aiter-test/aiter/mla.py:1535:    if num_kv_splits > 1:
+/app/aiter-test/aiter/mla.py:1553:            logits,  # Mid_O   [total_q, num_kv_splits, num_heads, dv]
+/app/aiter-test/aiter/mla.py:1554:            attn_lse,  # Mid_lse [total_q, num_kv_splits, num_heads, 1]
+/app/aiter-test/aiter/mla.py:1560:            split_indptr,  # num_kv_splits_indptr
+/app/aiter-test/aiter/mla.py:1562:            attn_lse.stride(0),  # stride_mid_ob = num_kv_splits * num_heads
+/app/aiter-test/aiter/mla.py:1572:            USE_VALID_SPLIT_COUNT_REDUCE=int(num_kv_splits > 1),
+/app/aiter-test/aiter/ops/triton/gluon/README.md:26:  <td nowrap>A/B: fp8_e4m3 (mfma_scaled)<br>Out: bf16/fp16<br>Per-tile scales:<br>A [M, K/GROUP_K],<br>B [N/GROUP_N, K/GROUP_K]<br>BLOCK_K=128, NUM_WARPS=4<br>(BM,BN) &isin; {(64,128),<br>(128,128),(128,256)}</td>
+/app/aiter-test/aiter/ops/triton/gluon/README.md:46:  <td rowspan="2" nowrap>(bh16bn64)<br>Q: bf16, KV: bf16<br>Out: bf16 (+fp32 lse<br>with -lse)<br>nhead &le; 16<br>batch_size &ge; 1<br>NUM_KV_SPLITS=<br>max(1,min(256//B,<br>cdiv(seq,64)))<br>(B*splits &le; 256)<br>PAGE_SIZE=1<br>BLOCK_H=16, BLOCK_N=64</td>
+/app/aiter-test/aiter/ops/triton/gluon/README.md:166:- **`bh64`** (`nhead in {64, 128}`): bf16 KV, BLOCK_H=64, BLOCK_N=64, multi-batch + XCD-aware 3-D grid. `NUM_KV_SPLITS` auto-picked &isin; {1, 2, 4} so the launch fills ~256 workgroups (one wave on MI350). When `NUM_KV_SPLITS == 1`, stage-1 writes the final attention output directly to `o` (no temp buffer, no reduce). When `NUM_KV_SPLITS > 1`, stage-1 writes per-split `(acc, fp32 lse)` and stage-2 (`_mla_softmax_reducev_kernel`) reduces them into `o`.
+/app/aiter-test/aiter/ops/triton/gluon/README.md:167:- **`bh16bn128`** (`nhead &le; 16`, `batch_size == 1`, fp8 KV): BLOCK_H=16, BLOCK_N=128, 2-D grid `(1, NUM_KV_SPLITS)` with token-bound `NUM_KV_SPLITS = max(1, min(256, min_kv_seq_len))` — 256 for the normal long-context path, reduced only for small kv (`min_kv_seq_len < 256`) so every split stays non-empty. Optional `kv_scale` dequant. Stage-2 reduce runs whenever `NUM_KV_SPLITS > 1` (skipped via the fast path only at `min_kv_seq_len == 1`). Supports the general case `num_iter &isin; {1, 2, ...}` (no `gl.assume(num_iter >= 3)`). `NHEAD < BLOCK_H` masks OOB heads on Q load and O store (wasted MFMA lanes are free; this regime is memory-bound).
+/app/aiter-test/aiter/ops/triton/gluon/README.md:168:- **`bh16bn64`** (`nhead &le; 16`, bf16 KV): BLOCK_H=16, BLOCK_N=64, 2-D grid `(batch_size, NUM_KV_SPLITS)` with block-bound `NUM_KV_SPLITS = max(1, min(256 // batch_size, cdiv(min_kv_seq_len, BLOCK_N)))` — fills ~256 WGs but never splits a sequence into more than its 64-token block count, so small kv is supported and it collapses to 1 (one WG per batch over the whole sequence) when `min_kv_seq_len <= 64`. Use when KV is kept in bf16 (no fp8 quant). Same `NHEAD < BLOCK_H` masking. Full decode (stage-1, plus stage-2 reduce into `o` when `NUM_KV_SPLITS > 1`).
+/app/aiter-test/aiter/ops/triton/gluon/README.md:186:| Grid | 3-D XCD-aware | 2-D `(1, NUM_KV_SPLITS)` | 2-D `(batch, NUM_KV_SPLITS)` |
+/app/aiter-test/aiter/ops/triton/gluon/README.md:187:| NUM_KV_SPLITS | auto &isin; {1, 2, 4} from (batch, nhead) | `max(1, min(256, min_kv_seq_len))` (token-bound; 256 for ctx &ge; 256) | `max(1, min(256 // batch_size, cdiv(min_kv_seq_len, 64)))` (block-bound; collapses to 1 for ctx &le; 64) |
+/app/aiter-test/aiter/ops/triton/gluon/README.md:189:| Seq constraint | `min_kv_seq_len > NUM_KV_SPLITS * (3 * BLOCK_N + NUM_KV_SPLITS)` (the `3` matches the kernel's `gl.assume(num_iter > 3)`) | `min_kv_seq_len &ge; 1` (small kv 1..256 supported; token-bound clamp keeps splits non-empty) | `min_kv_seq_len &ge; 1` (small kv 1..256 supported; block-bound clamp keeps splits non-empty) |
+/app/aiter-test/aiter/ops/triton/gluon/README.md:190:| Stage-2 reduce | skipped when `NUM_KV_SPLITS == 1` | skipped when `NUM_KV_SPLITS == 1` (i.e. `min_kv_seq_len == 1`) | skipped when `NUM_KV_SPLITS == 1` |
+/app/aiter-test/aiter/ops/triton/gluon/README.md:241:| ctx_lens | batch | NUM_KV_SPLITS | num_iter / split | us | TB/s |
+/app/aiter-test/aiter/ops/triton/gluon/gemm_a8w8_blockscale.py:22:# Supported (BLOCK_M, BLOCK_N) tiles; BLOCK_K=128 and NUM_WARPS=4 are baked in.
+/app/aiter-test/aiter/ops/triton/gluon/gemm_a8w8_blockscale.py:814:        "linear/padded layouts are baked for BLOCK_K=128 and NUM_WARPS=4",
+/app/aiter-test/aiter/ops/triton/gluon/mla_gluon.py:9:#                        NUM_KV_SPLITS auto-picked to fill ~256 WGs (in {1,2,4}).
+/app/aiter-test/aiter/ops/triton/gluon/mla_gluon.py:10:#                        Fast path: when NUM_KV_SPLITS==1, stage-1 writes the
+/app/aiter-test/aiter/ops/triton/gluon/mla_gluon.py:13:#                        nhead <= 16, batch_size=1, NUM_KV_SPLITS=256.
+/app/aiter-test/aiter/ops/triton/gluon/mla_gluon.py:19:#                        NUM_KV_SPLITS = max(1, 256 // batch_size). Full decode
+/app/aiter-test/aiter/ops/triton/gluon/mla_gluon.py:29:# Full decode for all regimes. For NUM_KV_SPLITS>1 stage-1 writes per-split acc +
+/app/aiter-test/aiter/ops/triton/gluon/mla_gluon.py:81:    Mid_lse,  # split>1: per-split fp32 lse [B, QLEN, H, NUM_KV_SPLITS] (else None)
+/app/aiter-test/aiter/ops/triton/gluon/mla_gluon.py:92:    NUM_KV_SPLITS: gl.constexpr,
+/app/aiter-test/aiter/ops/triton/gluon/mla_gluon.py:109:    # use 2-D (batch, split) — for batch_size=1 this is (1, NUM_KV_SPLITS).
+/app/aiter-test/aiter/ops/triton/gluon/mla_gluon.py:115:        cur_batch = gl.program_id(0) + (gl.program_id(2) // NUM_KV_SPLITS) * NUM_XCDS
+/app/aiter-test/aiter/ops/triton/gluon/mla_gluon.py:118:        split_kv_id = gl.program_id(2) % NUM_KV_SPLITS
+/app/aiter-test/aiter/ops/triton/gluon/mla_gluon.py:140:    # kv_len_per_split = gl.cdiv(cur_batch_seq_len, NUM_KV_SPLITS)
+/app/aiter-test/aiter/ops/triton/gluon/mla_gluon.py:145:    # (remainder = seq mod NUM_KV_SPLITS, in [0, NUM_KV_SPLITS)). Combined with
+/app/aiter-test/aiter/ops/triton/gluon/mla_gluon.py:146:    # the wrapper bound min_kv_seq_len >= NUM_KV_SPLITS this guarantees every
+/app/aiter-test/aiter/ops/triton/gluon/mla_gluon.py:150:    # ~(floor + NUM_KV_SPLITS - 1)/floor more work than the others.
+/app/aiter-test/aiter/ops/triton/gluon/mla_gluon.py:151:    kv_len_per_split = cur_batch_seq_len // NUM_KV_SPLITS
+/app/aiter-test/aiter/ops/triton/gluon/mla_gluon.py:154:    if split_kv_id == NUM_KV_SPLITS - 1:
+/app/aiter-test/aiter/ops/triton/gluon/mla_gluon.py:700:    if RETURN_LSE and NUM_KV_SPLITS == 1:
+/app/aiter-test/aiter/ops/triton/gluon/mla_gluon.py:709:    elif NUM_KV_SPLITS > 1:
+/app/aiter-test/aiter/ops/triton/gluon/mla_gluon.py:743:    NUM_KV_SPLITS: tl.constexpr,
+/app/aiter-test/aiter/ops/triton/gluon/mla_gluon.py:761:    kv_len_per_split = cur_batch_seq_len // NUM_KV_SPLITS
+/app/aiter-test/aiter/ops/triton/gluon/mla_gluon.py:771:    LOOP_START = NUM_KV_SPLITS - 1 if kv_len_per_split == 0 else 0
+/app/aiter-test/aiter/ops/triton/gluon/mla_gluon.py:772:    for split_kv_id in range(LOOP_START, NUM_KV_SPLITS):
+/app/aiter-test/aiter/ops/triton/gluon/mla_gluon.py:823:    fast path when NUM_KV_SPLITS==1) and writes the final attention into the
+/app/aiter-test/aiter/ops/triton/gluon/mla_gluon.py:900:        # Auto-pick NUM_KV_SPLITS so the launch fills ~256 workgroups (one wave on
+/app/aiter-test/aiter/ops/triton/gluon/mla_gluon.py:905:        NUM_KV_SPLITS = max(1, triton.next_power_of_2(triton.cdiv(256, base_grid)))
+/app/aiter-test/aiter/ops/triton/gluon/mla_gluon.py:913:        min_kv_seq_len_required = NUM_KV_SPLITS * (3 * BLOCK_N + NUM_KV_SPLITS)
+/app/aiter-test/aiter/ops/triton/gluon/mla_gluon.py:916:        ), f"mla_gluon[bh64] requires min_kv_seq_len > {min_kv_seq_len_required} (NUM_KV_SPLITS={NUM_KV_SPLITS}), got {min_kv_seq_len}"
+/app/aiter-test/aiter/ops/triton/gluon/mla_gluon.py:931:        # NUM_KV_SPLITS >= 1). Each clamp below keeps NUM_KV_SPLITS <= min_kv_seq_len,
+/app/aiter-test/aiter/ops/triton/gluon/mla_gluon.py:936:            NUM_KV_SPLITS = max(1, min(256 // (batch_size * qlen), min_kv_seq_len))
+/app/aiter-test/aiter/ops/triton/gluon/mla_gluon.py:938:            # Fill ~256 WGs (total WGs = B * NUM_KV_SPLITS <= 256, one MI350 wave),
+/app/aiter-test/aiter/ops/triton/gluon/mla_gluon.py:942:            # NUM_KV_SPLITS=1, i.e. one WG per batch computing the whole (short) seq.
+/app/aiter-test/aiter/ops/triton/gluon/mla_gluon.py:943:            NUM_KV_SPLITS = max(
+/app/aiter-test/aiter/ops/triton/gluon/mla_gluon.py:978:    if NUM_KV_SPLITS == 1:
+/app/aiter-test/aiter/ops/triton/gluon/mla_gluon.py:982:            logits_buf = o.view(batch_size, qlen, nhead, NUM_KV_SPLITS, head_dim_ckv)
+/app/aiter-test/aiter/ops/triton/gluon/mla_gluon.py:984:            logits_buf = o.view(batch_size, 1, nhead, NUM_KV_SPLITS, head_dim_ckv)
+/app/aiter-test/aiter/ops/triton/gluon/mla_gluon.py:992:            (batch_size, qlen, nhead, NUM_KV_SPLITS, head_dim_ckv),
+/app/aiter-test/aiter/ops/triton/gluon/mla_gluon.py:997:            (batch_size, qlen, nhead, NUM_KV_SPLITS),
+/app/aiter-test/aiter/ops/triton/gluon/mla_gluon.py:1022:            (batch_size // NUM_XCDS) * NUM_KV_SPLITS,
+/app/aiter-test/aiter/ops/triton/gluon/mla_gluon.py:1026:        grid = (batch_size, NUM_KV_SPLITS, qlen)
+/app/aiter-test/aiter/ops/triton/gluon/mla_gluon.py:1064:        NUM_KV_SPLITS=NUM_KV_SPLITS,
+/app/aiter-test/aiter/ops/triton/gluon/mla_gluon.py:1080:    if NUM_KV_SPLITS == 1:
+/app/aiter-test/aiter/ops/triton/gluon/mla_gluon.py:1108:        NUM_KV_SPLITS=NUM_KV_SPLITS,
+/app/aiter-test/aiter/ops/triton/fusions/mhc.py:117:    BLOCK_K = config.pop("BLOCK_K", 64)
+/app/aiter-test/aiter/ops/triton/fusions/mhc.py:118:    # Ensure BLOCK_K doesn't exceed K dimension
+/app/aiter-test/aiter/ops/triton/fusions/mhc.py:119:    BLOCK_K = min(BLOCK_K, triton.next_power_of_2(K))
+/app/aiter-test/aiter/ops/triton/fusions/mhc.py:133:        f"BLOCK_M={BLOCK_M} BLOCK_N={BLOCK_N} BLOCK_K={BLOCK_K} BLOCK_C={BLOCK_C} "
+/app/aiter-test/aiter/ops/triton/fusions/mhc.py:217:            BLOCK_K=BLOCK_K,
+/app/aiter-test/aiter/ops/triton/fusions/mhc.py:291:            BLOCK_K=BLOCK_K,
+/app/aiter-test/aiter/ops/triton/fusions/mhc.py:586:    #   - BLOCK_K  : per-CTA K-axis width in the post_pre split kernel; one
+/app/aiter-test/aiter/ops/triton/fusions/mhc.py:587:    #                CTA covers BLOCK_K K-elements of the next-pre GEMM,
+/app/aiter-test/aiter/ops/triton/fusions/mhc.py:588:    #                equivalent to BLOCK_K/n contiguous C-elements per stream.
+/app/aiter-test/aiter/ops/triton/fusions/mhc.py:589:    #                NUM_KSPLIT = cdiv(K, BLOCK_K).
+/app/aiter-test/aiter/ops/triton/fusions/mhc.py:591:    #                output parallelism). Independent of BLOCK_K.
+/app/aiter-test/aiter/ops/triton/fusions/mhc.py:598:    BLOCK_K = config.pop("BLOCK_K", min(512, triton.next_power_of_2(K)))
+/app/aiter-test/aiter/ops/triton/fusions/mhc.py:599:    BLOCK_K = min(BLOCK_K, triton.next_power_of_2(K))
+/app/aiter-test/aiter/ops/triton/fusions/mhc.py:606:    assert BLOCK_K % n == 0, (
+/app/aiter-test/aiter/ops/triton/fusions/mhc.py:607:        f"BLOCK_K ({BLOCK_K}) must be divisible by n ({n}) — each CTA owns "
+/app/aiter-test/aiter/ops/triton/fusions/mhc.py:608:        f"n contiguous BLOCK_K/n-wide C-slices of the next-pre GEMM"
+/app/aiter-test/aiter/ops/triton/fusions/mhc.py:611:    BLOCK_C_SPLIT = BLOCK_K // n
+/app/aiter-test/aiter/ops/triton/fusions/mhc.py:612:    NUM_KSPLIT = triton.cdiv(C, BLOCK_C_SPLIT)  # == cdiv(K, BLOCK_K)
+/app/aiter-test/aiter/ops/triton/fusions/mhc.py:624:        f"BLOCK_M={BLOCK_M} BLOCK_K={BLOCK_K} BLOCK_C_SPLIT={BLOCK_C_SPLIT} "
+/app/aiter-test/aiter/ops/triton/attention/pa_decode_sparse.py:5:indices. See ``_triton_kernels/attention/pa_decode_sparse.py`` for the
+/app/aiter-test/aiter/ops/triton/attention/pa_decode_sparse.py:8:This module exposes ``pa_decode_sparse`` — a 3D split-K + widened-BLOCK_H
+/app/aiter-test/aiter/ops/triton/attention/pa_decode_sparse.py:18:from aiter.ops.triton._triton_kernels.attention.pa_decode_sparse import (
+/app/aiter-test/aiter/ops/triton/attention/pa_decode_sparse.py:19:    _pa_decode_sparse as triton_pa_decode_sparse,
+/app/aiter-test/aiter/ops/triton/attention/pa_decode_sparse.py:20:    _pa_decode_sparse_reduce as triton_pa_decode_sparse_reduce,
+/app/aiter-test/aiter/ops/triton/attention/pa_decode_sparse.py:24:from aiter.ops.triton._gluon_kernels.gfx1250.attention.pa_decode_sparse import (
+/app/aiter-test/aiter/ops/triton/attention/pa_decode_sparse.py:25:    _pa_decode_sparse as gluon_pa_decode_sparse,
+/app/aiter-test/aiter/ops/triton/attention/pa_decode_sparse.py:26:    _pa_decode_sparse_reduce as gluon_pa_decode_sparse_reduce,
+/app/aiter-test/aiter/ops/triton/attention/pa_decode_sparse.py:38:def pa_decode_sparse(
+/app/aiter-test/aiter/ops/triton/attention/pa_decode_sparse.py:47:    kv_splits: Optional[int] = None,
+/app/aiter-test/aiter/ops/triton/attention/pa_decode_sparse.py:65:        kv_splits: override ``KV_SPLITS`` for the split-K grid axis. Default
+/app/aiter-test/aiter/ops/triton/attention/pa_decode_sparse.py:69:        skip_reduce: when the split-K path is active (``kv_splits > 1``), return
+/app/aiter-test/aiter/ops/triton/attention/pa_decode_sparse.py:72:            ``kv_splits == 1`` (the single-CTA path already produces the final
+/app/aiter-test/aiter/ops/triton/attention/pa_decode_sparse.py:78:        ``skip_reduce`` is set and ``kv_splits > 1`` instead returns the tuple
+/app/aiter-test/aiter/ops/triton/attention/pa_decode_sparse.py:80:        ``([N, KV_SPLITS, H_padded, D], [N, KV_SPLITS, H_padded],
+/app/aiter-test/aiter/ops/triton/attention/pa_decode_sparse.py:81:        [N, KV_SPLITS, H_padded])`` (all fp32).
+/app/aiter-test/aiter/ops/triton/attention/pa_decode_sparse.py:91:        raise RuntimeError("pa_decode_sparse requires CUDA/HIP tensors")
+/app/aiter-test/aiter/ops/triton/attention/pa_decode_sparse.py:93:        raise RuntimeError(f"pa_decode_sparse expects fp16/bf16 q, got {q.dtype}")
+/app/aiter-test/aiter/ops/triton/attention/pa_decode_sparse.py:147:    # larger per-tile KV gather latency -> BLOCK_K=32 is fastest there. Other
+/app/aiter-test/aiter/ops/triton/attention/pa_decode_sparse.py:159:    # gluon reduce with BLOCK_H=1 keeps KV_SPLITS and BLOCK_H entirely
+/app/aiter-test/aiter/ops/triton/attention/pa_decode_sparse.py:166:    # Infer KV_SPLITS from inputs when caller doesn't override.
+/app/aiter-test/aiter/ops/triton/attention/pa_decode_sparse.py:169:    # reduce kernel's tl.arange(0, KV_SPLITS) compiles; over-splitting past
+/app/aiter-test/aiter/ops/triton/attention/pa_decode_sparse.py:170:    # max_kv_splits is handled by the kernel (empty splits early-return and
+/app/aiter-test/aiter/ops/triton/attention/pa_decode_sparse.py:173:    if kv_splits is None:
+/app/aiter-test/aiter/ops/triton/attention/pa_decode_sparse.py:175:        max_kv_splits = max(1, triton.cdiv(max_kv_len, block_k))
+/app/aiter-test/aiter/ops/triton/attention/pa_decode_sparse.py:176:        kv_splits = max(1, max_num_wg // max(1, T * n_head_blocks))
+/app/aiter-test/aiter/ops/triton/attention/pa_decode_sparse.py:177:        kv_splits = min(max_kv_splits, kv_splits)
+/app/aiter-test/aiter/ops/triton/attention/pa_decode_sparse.py:178:        kv_splits = triton.next_power_of_2(kv_splits)
+/app/aiter-test/aiter/ops/triton/attention/pa_decode_sparse.py:183:        kv_splits = min(kv_splits, 1 << (_lds_cap.bit_length() - 1))
+/app/aiter-test/aiter/ops/triton/attention/pa_decode_sparse.py:184:        if kv_splits > 8:
+/app/aiter-test/aiter/ops/triton/attention/pa_decode_sparse.py:188:    if kv_splits == 1:
+/app/aiter-test/aiter/ops/triton/attention/pa_decode_sparse.py:195:            (T, kv_splits, h_padded), dtype=torch.float32, device=q.device
+/app/aiter-test/aiter/ops/triton/attention/pa_decode_sparse.py:199:            (T, kv_splits, h_padded, D), dtype=torch.float32, device=q.device
+/app/aiter-test/aiter/ops/triton/attention/pa_decode_sparse.py:215:        impl = gluon_pa_decode_sparse
+/app/aiter-test/aiter/ops/triton/attention/pa_decode_sparse.py:216:        reduce_impl = gluon_pa_decode_sparse_reduce
+/app/aiter-test/aiter/ops/triton/attention/pa_decode_sparse.py:218:        impl = triton_pa_decode_sparse
+/app/aiter-test/aiter/ops/triton/attention/pa_decode_sparse.py:219:        reduce_impl = triton_pa_decode_sparse_reduce
+/app/aiter-test/aiter/ops/triton/attention/pa_decode_sparse.py:221:    grid_attn = (T, n_head_blocks, kv_splits)
+/app/aiter-test/aiter/ops/triton/attention/pa_decode_sparse.py:255:        kv_splits,
+/app/aiter-test/aiter/ops/triton/attention/pa_decode_sparse.py:259:        BLOCK_K=block_k,
+/app/aiter-test/aiter/ops/triton/attention/pa_decode_sparse.py:270:    if kv_splits == 1:
+/app/aiter-test/aiter/ops/triton/attention/pa_decode_sparse.py:307:        kv_splits,
+/app/aiter-test/aiter/ops/triton/attention/pa_decode_sparse.py:310:        BLOCK_K=block_k,
+/app/aiter-test/aiter/ops/triton/attention/mla_decode_rope.py:52:    num_kv_splits,
+/app/aiter-test/aiter/ops/triton/attention/mla_decode_rope.py:71:    config["NUM_KV_SPLITS"] = num_kv_splits
+/app/aiter-test/aiter/ops/triton/attention/mla_decode_rope.py:75:        * config["NUM_KV_SPLITS"],
+/app/aiter-test/aiter/ops/triton/attention/mla_decode_rope.py:118:    num_kv_splits,
+/app/aiter-test/aiter/ops/triton/attention/mla_decode_rope.py:125:    config["NUM_KV_SPLITS"] = num_kv_splits
+/app/aiter-test/aiter/ops/triton/attention/mla_decode_rope.py:157:    num_kv_splits: int,
+/app/aiter-test/aiter/ops/triton/attention/mla_decode_rope.py:184:            (batch, num_q_heads, num_kv_splits, max_seq_len).
+/app/aiter-test/aiter/ops/triton/attention/mla_decode_rope.py:185:        num_kv_splits (int): Number of splits for split-K reduction parallelization.
+/app/aiter-test/aiter/ops/triton/attention/mla_decode_rope.py:233:        num_kv_splits,
+/app/aiter-test/aiter/ops/triton/attention/mla_decode_rope.py:246:        num_kv_splits,
+/app/aiter-test/aiter/ops/triton/attention/fp8_mqa_logits.py:189:            BLOCK_KV=block_kv,
+/app/aiter-test/aiter/ops/triton/attention/fp8_mqa_logits.py:240:            BLOCK_KV=block_kv,
+/app/aiter-test/aiter/ops/triton/attention/utils.py:17:    BLOCK_KB: int = 128,
+/app/aiter-test/aiter/ops/triton/attention/utils.py:69:        BLOCK_KB=BLOCK_KB,
+/app/aiter-test/aiter/ops/triton/attention/mla_decode.py:67:    NUM_KV_SPLITS: tl.constexpr,
+/app/aiter-test/aiter/ops/triton/attention/mla_decode.py:95:    kv_len_per_split = tl.cdiv(cur_batch_seq_len, NUM_KV_SPLITS)
+/app/aiter-test/aiter/ops/triton/attention/mla_decode.py:207:    num_kv_splits,
+/app/aiter-test/aiter/ops/triton/attention/mla_decode.py:216:    NUM_KV_SPLITS = num_kv_splits
+/app/aiter-test/aiter/ops/triton/attention/mla_decode.py:222:    grid = (batch, head_num, NUM_KV_SPLITS)
+/app/aiter-test/aiter/ops/triton/attention/mla_decode.py:270:        NUM_KV_SPLITS=NUM_KV_SPLITS,
+/app/aiter-test/aiter/ops/triton/attention/mla_decode.py:308:    NUM_KV_SPLITS: tl.constexpr,
+/app/aiter-test/aiter/ops/triton/attention/mla_decode.py:344:    kv_len_per_split = tl.cdiv(cur_batch_seq_len, NUM_KV_SPLITS)
+/app/aiter-test/aiter/ops/triton/attention/mla_decode.py:457:    num_kv_splits,
+/app/aiter-test/aiter/ops/triton/attention/mla_decode.py:492:    NUM_KV_SPLITS = num_kv_splits
+/app/aiter-test/aiter/ops/triton/attention/mla_decode.py:496:        NUM_KV_SPLITS,
+/app/aiter-test/aiter/ops/triton/attention/mla_decode.py:535:        NUM_KV_SPLITS=NUM_KV_SPLITS,
+/app/aiter-test/aiter/ops/triton/attention/mla_decode.py:558:    NUM_KV_SPLITS: tl.constexpr,
+/app/aiter-test/aiter/ops/triton/attention/mla_decode.py:577:    for split_kv_id in range(0, NUM_KV_SPLITS):
+/app/aiter-test/aiter/ops/triton/attention/mla_decode.py:578:        kv_len_per_split = tl.cdiv(cur_batch_seq_len, NUM_KV_SPLITS)
+/app/aiter-test/aiter/ops/triton/attention/mla_decode.py:616:    num_kv_splits,
+/app/aiter-test/aiter/ops/triton/attention/mla_decode.py:622:    NUM_KV_SPLITS = num_kv_splits
+/app/aiter-test/aiter/ops/triton/attention/mla_decode.py:640:        NUM_KV_SPLITS=NUM_KV_SPLITS,
+/app/aiter-test/aiter/ops/triton/attention/mla_decode.py:698:    num_kv_splits,
+/app/aiter-test/aiter/ops/triton/attention/mla_decode.py:705:    assert num_kv_splits == attn_logits.shape[2]
+/app/aiter-test/aiter/ops/triton/attention/mla_decode.py:729:            num_kv_splits,
+/app/aiter-test/aiter/ops/triton/attention/mla_decode.py:745:            num_kv_splits,
+/app/aiter-test/aiter/ops/triton/attention/mla_decode.py:760:        num_kv_splits,
+/app/aiter-test/aiter/ops/triton/attention/pa_prefill_sparse.py:122:        BLOCK_K=block_k,
+/app/aiter-test/aiter/ops/triton/conv/_utils.py:7:# BLOCK_K autotune candidates in _triton_kernels/conv/helpers.py — change with care.
+/app/aiter-test/aiter/ops/triton/conv/_utils.py:8:BLOCK_K = 64
+/app/aiter-test/aiter/ops/triton/conv/_prepack.py:20:from aiter.ops.triton.conv._utils import BLOCK_K, _storage_ptr
+/app/aiter-test/aiter/ops/triton/conv/_prepack.py:69:def prepack_oihw_to_kmajor(w_oihw: torch.Tensor, block_k: int = BLOCK_K):
+/app/aiter-test/aiter/ops/triton/conv/_prepack.py:82:def get_or_make_weight_pack(w_oihw: torch.Tensor, block_k: int = BLOCK_K):
+/app/aiter-test/aiter/ops/triton/conv/_prepack.py:97:def prepack_oihw_to_3x3(w_oihw: torch.Tensor, block_c: int = BLOCK_K):
+/app/aiter-test/aiter/ops/triton/conv/_prepack.py:111:def get_or_make_weight_pack_3x3(w_oihw: torch.Tensor, block_c: int = BLOCK_K):
+/app/aiter-test/aiter/ops/triton/conv/_prepack.py:126:def prepack_nchw_to_cblocked(x: torch.Tensor, block_c: int = BLOCK_K):
+/app/aiter-test/aiter/ops/triton/conv/_prepack.py:148:def prepack_winograd_filter_f4x3(w_oihw: torch.Tensor, block_c: int = BLOCK_K):
+/app/aiter-test/aiter/ops/triton/conv/_prepack.py:179:def get_or_make_winograd_filter_f4x3(w_oihw: torch.Tensor, block_c: int = BLOCK_K):
+/app/aiter-test/aiter/ops/triton/conv/conv2d.py:10:    BLOCK_K,
+/app/aiter-test/aiter/ops/triton/conv/conv2d.py:126:    block_k=BLOCK_K,
+/app/aiter-test/aiter/ops/triton/conv/conv2d.py:164:    block_k=BLOCK_K,
+/app/aiter-test/aiter/ops/triton/conv/conv2d.py:214:    block_k=BLOCK_K,
+/app/aiter-test/aiter/ops/triton/conv/conv2d.py:252:    block_k=BLOCK_K,
+/app/aiter-test/aiter/ops/triton/conv/conv2d.py:294:    block_k=BLOCK_K,
+/app/aiter-test/aiter/ops/triton/conv/conv2d.py:391:    block_k=BLOCK_K,
+/app/aiter-test/aiter/ops/triton/conv/conv2d.py:416:    block_k=BLOCK_K,
+/app/aiter-test/aiter/ops/triton/conv/conv2d.py:447:    block_k=BLOCK_K,
+/app/aiter-test/aiter/ops/triton/conv/_launch.py:71:    tile T x (BLOCK_K tile of K_out)."""
+/app/aiter-test/aiter/ops/triton/conv/_launch.py:74:        return (T, triton.cdiv(K_out, meta["BLOCK_K"]))
+/app/aiter-test/aiter/ops/triton/conv/DESIGN.md:264:- **Tile shape:** `BLOCK_M × BLOCK_N × BLOCK_K`, set per-arch in
+/app/aiter-test/aiter/ops/triton/conv/DESIGN.md:283:  the corresponding `[BLOCK_M, BLOCK_K]` slice of input and the matching
+/app/aiter-test/aiter/ops/triton/conv/DESIGN.md:284:  `[BLOCK_K, BLOCK_N]` slice of W3, and accumulates
+/app/aiter-test/aiter/ops/triton/conv/DESIGN.md:286:- Channel padding `C_pad` is rounded up to a multiple of `BLOCK_K` and the
+/app/aiter-test/aiter/ops/triton/conv/DESIGN.md:325:  coalesced **only when `BLOCK_K ≤ Cb`** — at the boundary, `cblock_idx`
+/app/aiter-test/aiter/ops/triton/moe/quant_moe.py:282:        BLOCK_K = triton.next_power_of_2(K)
+/app/aiter-test/aiter/ops/triton/moe/quant_moe.py:298:            BLOCK_K,
+/app/aiter-test/aiter/ops/triton/moe/quant_moe.py:302:        BLOCK_K = 256
+/app/aiter-test/aiter/ops/triton/moe/quant_moe.py:317:            BLOCK_K,
+/app/aiter-test/aiter/ops/triton/moe/moe_op_gemm_a8w4.py:118:    # Under CDNA4 swizzle, skip BLOCK_K<256 entries since unswizzle can't compile them.
+/app/aiter-test/aiter/ops/triton/moe/moe_op_gemm_a8w4.py:387:    # CDNA4 swizzle requires BLOCK_K % 256 == 0; some tuned small-K entries
+/app/aiter-test/aiter/ops/triton/moe/moe_routing_sigmoid_top1_fused.py:27:        config (Optional[dict]): Kernel tuning parameters (BLOCK_M, BLOCK_K).
+/app/aiter-test/aiter/ops/triton/utils/gemm_config_utils.py:258:        # If NUM_KSPLIT makes K too small, then BLOCK_K will decrease to be smaller than
+/app/aiter-test/aiter/ops/triton/configs/gfx942-MHC_FUSED_SINKHORN-C=512.json:4:        "BLOCK_K": 128,
+/app/aiter-test/aiter/ops/triton/configs/gfx942-MHC_FUSED_SINKHORN-C=512.json:13:        "BLOCK_K": 128,
+/app/aiter-test/aiter/ops/triton/configs/gfx942-MHC_FUSED_SINKHORN-C=512.json:22:        "BLOCK_K": 128,
+/app/aiter-test/aiter/ops/triton/configs/gfx942-MHC_FUSED_SINKHORN-C=512.json:31:        "BLOCK_K": 256,
+/app/aiter-test/aiter/ops/triton/configs/gfx942-MHC_FUSED_SINKHORN-C=512.json:40:        "BLOCK_K": 256,
+/app/aiter-test/aiter/ops/triton/configs/gfx942-MHC_FUSED_SINKHORN-C=512.json:49:        "BLOCK_K": 128,
+/app/aiter-test/aiter/ops/triton/configs/gfx950-MHC_FUSED_SINKHORN-C=4096.json:4:        "BLOCK_K": 256,
+/app/aiter-test/aiter/ops/triton/configs/gfx950-MHC_FUSED_SINKHORN-C=4096.json:13:        "BLOCK_K": 256,
+/app/aiter-test/aiter/ops/triton/configs/gfx950-MHC_FUSED_SINKHORN-C=4096.json:22:        "BLOCK_K": 128,
+/app/aiter-test/aiter/ops/triton/configs/gfx950-MHC_FUSED_SINKHORN-C=4096.json:31:        "BLOCK_K": 256,
+/app/aiter-test/aiter/ops/triton/configs/gfx950-MHC_FUSED_SINKHORN-C=4096.json:40:        "BLOCK_K": 256,
+/app/aiter-test/aiter/ops/triton/configs/gfx950-MHC_FUSED_SINKHORN-C=4096.json:49:        "BLOCK_K": 256,
+/app/aiter-test/aiter/ops/triton/configs/gfx950-MHC_FUSED_SINKHORN-C=4096.json:58:        "BLOCK_K": 256,
+/app/aiter-test/aiter/ops/triton/configs/gfx950-MHC_FUSED_SINKHORN.json:4:        "BLOCK_K": 64,
+/app/aiter-test/aiter/ops/triton/configs/gfx950-MHC_FUSED_SINKHORN.json:13:        "BLOCK_K": 64,
+/app/aiter-test/aiter/ops/triton/configs/gfx950-MHC_FUSED_SINKHORN.json:22:        "BLOCK_K": 64,
+/app/aiter-test/aiter/ops/triton/configs/conv/gfx950-CONV-3X3-NHWC.json:5:        "BLOCK_K": 64,
+/app/aiter-test/aiter/ops/triton/configs/conv/gfx1200-CONV-3X3-CBLOCKED.json:6:            "BLOCK_K": 64,
+/app/aiter-test/aiter/ops/triton/configs/conv/gfx1200-CONV-3X3-CBLOCKED.json:14:            "BLOCK_K": 128,
+/app/aiter-test/aiter/ops/triton/configs/conv/gfx1200-CONV-3X3-CBLOCKED.json:22:            "BLOCK_K": 64,
+/app/aiter-test/aiter/ops/triton/configs/conv/gfx1200-CONV-3X3-CBLOCKED.json:30:            "BLOCK_K": 64,
+/app/aiter-test/aiter/ops/triton/configs/conv/gfx1200-CONV-3X3-CBLOCKED.json:38:            "BLOCK_K": 64,
+/app/aiter-test/aiter/ops/triton/configs/conv/gfx1200-CONV-3X3-CBLOCKED.json:46:            "BLOCK_K": 128,
+/app/aiter-test/aiter/ops/triton/configs/conv/gfx1200-CONV-3X3-CBLOCKED.json:54:            "BLOCK_K": 64,
+/app/aiter-test/aiter/ops/triton/configs/conv/gfx1200-CONV-3X3-CBLOCKED.json:62:            "BLOCK_K": 64,
+/app/aiter-test/aiter/ops/triton/configs/conv/gfx1200-CONV-3X3-CBLOCKED.json:70:            "BLOCK_K": 128,
+/app/aiter-test/aiter/ops/triton/configs/conv/gfx1200-CONV-3X3-CBLOCKED.json:78:            "BLOCK_K": 64,
+/app/aiter-test/aiter/ops/triton/configs/conv/gfx1200-CONV-3X3-CBLOCKED.json:86:            "BLOCK_K": 64,
+/app/aiter-test/aiter/ops/triton/configs/conv/gfx1200-CONV-3X3-CBLOCKED.json:94:            "BLOCK_K": 128,
+/app/aiter-test/aiter/ops/triton/configs/conv/gfx1200-CONV-3X3-CBLOCKED.json:102:            "BLOCK_K": 64,
+/app/aiter-test/aiter/ops/triton/configs/conv/gfx1200-CONV-3X3-CBLOCKED.json:110:            "BLOCK_K": 64,
+/app/aiter-test/aiter/ops/triton/configs/conv/gfx1200-CONV-3X3-CBLOCKED.json:118:            "BLOCK_K": 64,
+/app/aiter-test/aiter/ops/triton/configs/conv/gfx1200-CONV-3X3-CBLOCKED.json:126:            "BLOCK_K": 64,
+/app/aiter-test/aiter/ops/triton/configs/conv/gfx1200-CONV-3X3-CBLOCKED.json:134:            "BLOCK_K": 64,
+/app/aiter-test/aiter/ops/triton/configs/conv/gfx1200-CONV-3X3-CBLOCKED.json:142:            "BLOCK_K": 64,
+/app/aiter-test/aiter/ops/triton/configs/conv/gfx1200-CONV-3X3-CBLOCKED.json:150:            "BLOCK_K": 128,
+/app/aiter-test/aiter/ops/triton/configs/conv/gfx1200-CONV-3X3-CBLOCKED.json:158:            "BLOCK_K": 64,
+/app/aiter-test/aiter/ops/triton/configs/conv/gfx1200-CONV-3X3-CBLOCKED.json:166:            "BLOCK_K": 64,
+/app/aiter-test/aiter/ops/triton/configs/conv/gfx1200-CONV-3X3-CBLOCKED.json:174:            "BLOCK_K": 128,
+/app/aiter-test/aiter/ops/triton/configs/conv/gfx1200-CONV-3X3-CBLOCKED.json:182:            "BLOCK_K": 64,
+/app/aiter-test/aiter/ops/triton/configs/conv/gfx1200-CONV-3X3-CBLOCKED.json:190:            "BLOCK_K": 128,
+/app/aiter-test/aiter/ops/triton/configs/conv/gfx1200-CONV-3X3-CBLOCKED.json:198:            "BLOCK_K": 128,
+/app/aiter-test/aiter/ops/triton/configs/conv/gfx1200-CONV-3X3-CBLOCKED.json:206:            "BLOCK_K": 64,
+/app/aiter-test/aiter/ops/triton/configs/conv/gfx1200-CONV-3X3-CBLOCKED.json:215:        "BLOCK_K": 128,
+/app/aiter-test/aiter/ops/triton/configs/conv/gfx1200-CONV-3X3-CBLOCKED.json:223:        "BLOCK_K": 64,
+/app/aiter-test/aiter/ops/triton/configs/conv/gfx1200-CONV-3X3-CBLOCKED.json:231:        "BLOCK_K": 64,
+/app/aiter-test/aiter/ops/triton/configs/conv/gfx942-CONV-1X1.json:5:        "BLOCK_K": 64,
+/app/aiter-test/aiter/ops/triton/configs/conv/gfx942-CONV-3X3-NHWC.json:5:        "BLOCK_K": 64,
+/app/aiter-test/aiter/ops/triton/configs/conv/gfx1201-CONV-WINO-F4X3-OUTPUT.json:4:            "BLOCK_K": 64,
+/app/aiter-test/aiter/ops/triton/configs/conv/gfx1201-CONV-WINO-F4X3-OUTPUT.json:9:            "BLOCK_K": 64,
+/app/aiter-test/aiter/ops/triton/configs/conv/gfx1201-CONV-WINO-F4X3-OUTPUT.json:14:            "BLOCK_K": 128,
+/app/aiter-test/aiter/ops/triton/configs/conv/gfx1201-CONV-WINO-F4X3-OUTPUT.json:19:            "BLOCK_K": 128,
+/app/aiter-test/aiter/ops/triton/configs/conv/gfx1201-CONV-WINO-F4X3-OUTPUT.json:24:            "BLOCK_K": 128,
+/app/aiter-test/aiter/ops/triton/configs/conv/gfx1201-CONV-WINO-F4X3-OUTPUT.json:29:            "BLOCK_K": 64,
+/app/aiter-test/aiter/ops/triton/configs/conv/gfx1201-CONV-WINO-F4X3-OUTPUT.json:34:            "BLOCK_K": 64,
+/app/aiter-test/aiter/ops/triton/configs/conv/gfx1201-CONV-WINO-F4X3-OUTPUT.json:39:            "BLOCK_K": 64,
+/app/aiter-test/aiter/ops/triton/configs/conv/gfx1201-CONV-WINO-F4X3-OUTPUT.json:44:            "BLOCK_K": 64,
+/app/aiter-test/aiter/ops/triton/configs/conv/gfx1201-CONV-WINO-F4X3-OUTPUT.json:49:            "BLOCK_K": 64,
+/app/aiter-test/aiter/ops/triton/configs/conv/gfx1201-CONV-WINO-F4X3-OUTPUT.json:54:            "BLOCK_K": 128,
+/app/aiter-test/aiter/ops/triton/configs/conv/gfx1201-CONV-WINO-F4X3-OUTPUT.json:59:            "BLOCK_K": 64,
+/app/aiter-test/aiter/ops/triton/configs/conv/gfx1201-CONV-WINO-F4X3-OUTPUT.json:64:            "BLOCK_K": 64,
+/app/aiter-test/aiter/ops/triton/configs/conv/gfx1201-CONV-WINO-F4X3-OUTPUT.json:69:            "BLOCK_K": 64,

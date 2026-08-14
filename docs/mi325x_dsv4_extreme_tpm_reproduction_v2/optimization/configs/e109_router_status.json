@@ -1,0 +1,1 @@
+{"policy":"least_connections","backends":{"http://127.0.0.1:18000":{"active":0,"requests":1},"http://127.0.0.1:18001":{"active":0,"requests":0}}}

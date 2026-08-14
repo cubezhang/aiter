@@ -1,0 +1,261 @@
+cu_num,token,model_dim,inter_dim,expert,topk,act_type,dtype,q_dtype_a,q_dtype_w,q_type,use_g1u1,doweight_stage1,block_m,ksplit,us1,kernelName1,err1,us2,kernelName2,err2,us,run_1stage,tflops,bw,_tag
+cu_num,token,model_dim,inter_dim,expert,topk,act_type,dtype,q_dtype_a,q_dtype_w,q_type,use_g1u1,doweight_stage1,block_m,ksplit,us1,kernelName1,err1,us2,kernelName2,err2,us,run_1stage,tflops,bw,_tag
+80,8,7168,256,256,8,ActivationType.Silu,torch.bfloat16,torch.float8_e4m3fnuz,torch.float8_e4m3fnuz,QuantType.per_1x128,1,1,16,0,124.9899,moe_ck2stages_gemm1_256x16x128x256_1x4_MulABScaleExpertWeightA8W8blkscale_v1_Nswizzle0_Quant4_MulRoutedWeight1_silu_F8_F8_B16,0.0%,81.8591,moe_ck2stages_gemm2_256x16x128x256_1x4_MulABScaleExpertWeightA8W8blkscale_v1_Nswizzle0_Quant4_MulRoutedWeight0_F8_F8_B16,16.6%,206.849,0,6.81,6814.78,
+80,2,7168,256,256,8,ActivationType.Silu,torch.bfloat16,torch.float8_e4m3fnuz,torch.float8_e4m3fnuz,QuantType.per_1x128,1,1,16,0,124.9899,moe_ck2stages_gemm1_256x16x128x256_1x4_MulABScaleExpertWeightA8W8blkscale_v1_Nswizzle0_Quant4_MulRoutedWeight1_silu_F8_F8_B16,0.0%,81.8591,moe_ck2stages_gemm2_256x16x128x256_1x4_MulABScaleExpertWeightA8W8blkscale_v1_Nswizzle0_Quant4_MulRoutedWeight0_F8_F8_B16,16.6%,206.849,0,6.81,6814.78,
+80,4,7168,256,256,8,ActivationType.Silu,torch.bfloat16,torch.float8_e4m3fnuz,torch.float8_e4m3fnuz,QuantType.per_1x128,1,1,16,0,124.9899,moe_ck2stages_gemm1_256x16x128x256_1x4_MulABScaleExpertWeightA8W8blkscale_v1_Nswizzle0_Quant4_MulRoutedWeight1_silu_F8_F8_B16,0.0%,81.8591,moe_ck2stages_gemm2_256x16x128x256_1x4_MulABScaleExpertWeightA8W8blkscale_v1_Nswizzle0_Quant4_MulRoutedWeight0_F8_F8_B16,16.6%,206.849,0,6.81,6814.78,
+80,16,7168,256,256,8,ActivationType.Silu,torch.bfloat16,torch.float8_e4m3fnuz,torch.float8_e4m3fnuz,QuantType.per_1x128,1,1,16,0,124.9899,moe_ck2stages_gemm1_256x16x128x256_1x4_MulABScaleExpertWeightA8W8blkscale_v1_Nswizzle0_Quant4_MulRoutedWeight1_silu_F8_F8_B16,0.0%,81.8591,moe_ck2stages_gemm2_256x16x128x256_1x4_MulABScaleExpertWeightA8W8blkscale_v1_Nswizzle0_Quant4_MulRoutedWeight0_F8_F8_B16,16.6%,206.849,0,6.81,6814.78,
+80,1,7168,256,256,8,ActivationType.Silu,torch.bfloat16,torch.float8_e4m3fnuz,torch.float8_e4m3fnuz,QuantType.per_1x128,1,1,16,0,124.9899,moe_ck2stages_gemm1_256x16x128x256_1x4_MulABScaleExpertWeightA8W8blkscale_v1_Nswizzle0_Quant4_MulRoutedWeight1_silu_F8_F8_B16,0.0%,81.8591,moe_ck2stages_gemm2_256x16x128x256_1x4_MulABScaleExpertWeightA8W8blkscale_v1_Nswizzle0_Quant4_MulRoutedWeight0_F8_F8_B16,16.6%,206.849,0,6.81,6814.78,
+80,8,7168,256,256,8,ActivationType.Silu,torch.bfloat16,torch.float8_e4m3fnuz,torch.float8_e4m3fnuz,QuantType.per_1x128,1,0,16,0,123.5681,moe_ck2stages_gemm1_256x16x128x256_1x4_MulABScaleExpertWeightA8W8blkscale_v1_Nswizzle0_Quant4_MulRoutedWeight0_silu_F8_F8_B16,0.0%,83.7681,moe_ck2stages_gemm2_256x16x128x256_1x4_MulABScaleExpertWeightA8W8blkscale_v1_Nswizzle0_Quant4_MulRoutedWeight1_F8_F8_B16,15.6%,207.3362,0,6.8,6798.77,
+80,2,7168,256,256,8,ActivationType.Silu,torch.bfloat16,torch.float8_e4m3fnuz,torch.float8_e4m3fnuz,QuantType.per_1x128,1,0,16,0,123.5681,moe_ck2stages_gemm1_256x16x128x256_1x4_MulABScaleExpertWeightA8W8blkscale_v1_Nswizzle0_Quant4_MulRoutedWeight0_silu_F8_F8_B16,0.0%,83.7681,moe_ck2stages_gemm2_256x16x128x256_1x4_MulABScaleExpertWeightA8W8blkscale_v1_Nswizzle0_Quant4_MulRoutedWeight1_F8_F8_B16,15.6%,207.3362,0,6.8,6798.77,
+80,1,7168,256,256,8,ActivationType.Silu,torch.bfloat16,torch.float8_e4m3fnuz,torch.float8_e4m3fnuz,QuantType.per_1x128,1,0,16,0,123.5681,moe_ck2stages_gemm1_256x16x128x256_1x4_MulABScaleExpertWeightA8W8blkscale_v1_Nswizzle0_Quant4_MulRoutedWeight0_silu_F8_F8_B16,0.0%,83.7681,moe_ck2stages_gemm2_256x16x128x256_1x4_MulABScaleExpertWeightA8W8blkscale_v1_Nswizzle0_Quant4_MulRoutedWeight1_F8_F8_B16,15.6%,207.3362,0,6.8,6798.77,
+80,4,7168,256,256,8,ActivationType.Silu,torch.bfloat16,torch.float8_e4m3fnuz,torch.float8_e4m3fnuz,QuantType.per_1x128,1,0,16,0,123.5681,moe_ck2stages_gemm1_256x16x128x256_1x4_MulABScaleExpertWeightA8W8blkscale_v1_Nswizzle0_Quant4_MulRoutedWeight0_silu_F8_F8_B16,0.0%,83.7681,moe_ck2stages_gemm2_256x16x128x256_1x4_MulABScaleExpertWeightA8W8blkscale_v1_Nswizzle0_Quant4_MulRoutedWeight1_F8_F8_B16,15.6%,207.3362,0,6.8,6798.77,
+80,16,7168,256,256,8,ActivationType.Silu,torch.bfloat16,torch.float8_e4m3fnuz,torch.float8_e4m3fnuz,QuantType.per_1x128,1,0,16,0,123.5681,moe_ck2stages_gemm1_256x16x128x256_1x4_MulABScaleExpertWeightA8W8blkscale_v1_Nswizzle0_Quant4_MulRoutedWeight0_silu_F8_F8_B16,0.0%,83.7681,moe_ck2stages_gemm2_256x16x128x256_1x4_MulABScaleExpertWeightA8W8blkscale_v1_Nswizzle0_Quant4_MulRoutedWeight1_F8_F8_B16,15.6%,207.3362,0,6.8,6798.77,
+80,4,7168,256,256,8,ActivationType.Gelu,torch.bfloat16,torch.float8_e4m3fnuz,torch.float8_e4m3fnuz,QuantType.per_1x128,1,0,16,0,124.4194,moe_ck2stages_gemm1_256x16x128x256_1x4_MulABScaleExpertWeightA8W8blkscale_v1_Nswizzle0_Quant4_MulRoutedWeight0_gelu_F8_F8_B16,0.0%,83.1785,moe_ck2stages_gemm2_256x16x128x256_1x4_MulABScaleExpertWeightA8W8blkscale_v1_Nswizzle0_Quant4_MulRoutedWeight1_F8_F8_B16,15.7%,207.5979,0,6.79,6790.19,
+80,16,7168,256,256,8,ActivationType.Gelu,torch.bfloat16,torch.float8_e4m3fnuz,torch.float8_e4m3fnuz,QuantType.per_1x128,1,0,16,0,124.4194,moe_ck2stages_gemm1_256x16x128x256_1x4_MulABScaleExpertWeightA8W8blkscale_v1_Nswizzle0_Quant4_MulRoutedWeight0_gelu_F8_F8_B16,0.0%,83.1785,moe_ck2stages_gemm2_256x16x128x256_1x4_MulABScaleExpertWeightA8W8blkscale_v1_Nswizzle0_Quant4_MulRoutedWeight1_F8_F8_B16,15.7%,207.5979,0,6.79,6790.19,
+80,2,7168,256,256,8,ActivationType.Gelu,torch.bfloat16,torch.float8_e4m3fnuz,torch.float8_e4m3fnuz,QuantType.per_1x128,1,0,16,0,124.4194,moe_ck2stages_gemm1_256x16x128x256_1x4_MulABScaleExpertWeightA8W8blkscale_v1_Nswizzle0_Quant4_MulRoutedWeight0_gelu_F8_F8_B16,0.0%,83.1785,moe_ck2stages_gemm2_256x16x128x256_1x4_MulABScaleExpertWeightA8W8blkscale_v1_Nswizzle0_Quant4_MulRoutedWeight1_F8_F8_B16,15.7%,207.5979,0,6.79,6790.19,
+80,8,7168,256,256,8,ActivationType.Gelu,torch.bfloat16,torch.float8_e4m3fnuz,torch.float8_e4m3fnuz,QuantType.per_1x128,1,0,16,0,124.4194,moe_ck2stages_gemm1_256x16x128x256_1x4_MulABScaleExpertWeightA8W8blkscale_v1_Nswizzle0_Quant4_MulRoutedWeight0_gelu_F8_F8_B16,0.0%,83.1785,moe_ck2stages_gemm2_256x16x128x256_1x4_MulABScaleExpertWeightA8W8blkscale_v1_Nswizzle0_Quant4_MulRoutedWeight1_F8_F8_B16,15.7%,207.5979,0,6.79,6790.19,
+80,1,7168,256,256,8,ActivationType.Gelu,torch.bfloat16,torch.float8_e4m3fnuz,torch.float8_e4m3fnuz,QuantType.per_1x128,1,0,16,0,124.4194,moe_ck2stages_gemm1_256x16x128x256_1x4_MulABScaleExpertWeightA8W8blkscale_v1_Nswizzle0_Quant4_MulRoutedWeight0_gelu_F8_F8_B16,0.0%,83.1785,moe_ck2stages_gemm2_256x16x128x256_1x4_MulABScaleExpertWeightA8W8blkscale_v1_Nswizzle0_Quant4_MulRoutedWeight1_F8_F8_B16,15.7%,207.5979,0,6.79,6790.19,
+80,4,7168,256,256,8,ActivationType.Gelu,torch.bfloat16,torch.float8_e4m3fnuz,torch.float8_e4m3fnuz,QuantType.per_1x128,1,1,16,0,124.1564,moe_ck2stages_gemm1_256x16x128x256_1x4_MulABScaleExpertWeightA8W8blkscale_v1_Nswizzle0_Quant4_MulRoutedWeight1_gelu_F8_F8_B16,0.0%,83.5223,moe_ck2stages_gemm2_256x16x128x256_1x4_MulABScaleExpertWeightA8W8blkscale_v1_Nswizzle0_Quant4_MulRoutedWeight0_F8_F8_B16,16.6%,207.6787,0,6.79,6787.55,
+80,8,7168,256,256,8,ActivationType.Gelu,torch.bfloat16,torch.float8_e4m3fnuz,torch.float8_e4m3fnuz,QuantType.per_1x128,1,1,16,0,124.1564,moe_ck2stages_gemm1_256x16x128x256_1x4_MulABScaleExpertWeightA8W8blkscale_v1_Nswizzle0_Quant4_MulRoutedWeight1_gelu_F8_F8_B16,0.0%,83.5223,moe_ck2stages_gemm2_256x16x128x256_1x4_MulABScaleExpertWeightA8W8blkscale_v1_Nswizzle0_Quant4_MulRoutedWeight0_F8_F8_B16,16.6%,207.6787,0,6.79,6787.55,
+80,2,7168,256,256,8,ActivationType.Gelu,torch.bfloat16,torch.float8_e4m3fnuz,torch.float8_e4m3fnuz,QuantType.per_1x128,1,1,16,0,124.1564,moe_ck2stages_gemm1_256x16x128x256_1x4_MulABScaleExpertWeightA8W8blkscale_v1_Nswizzle0_Quant4_MulRoutedWeight1_gelu_F8_F8_B16,0.0%,83.5223,moe_ck2stages_gemm2_256x16x128x256_1x4_MulABScaleExpertWeightA8W8blkscale_v1_Nswizzle0_Quant4_MulRoutedWeight0_F8_F8_B16,16.6%,207.6787,0,6.79,6787.55,
+80,1,7168,256,256,8,ActivationType.Gelu,torch.bfloat16,torch.float8_e4m3fnuz,torch.float8_e4m3fnuz,QuantType.per_1x128,1,1,16,0,124.1564,moe_ck2stages_gemm1_256x16x128x256_1x4_MulABScaleExpertWeightA8W8blkscale_v1_Nswizzle0_Quant4_MulRoutedWeight1_gelu_F8_F8_B16,0.0%,83.5223,moe_ck2stages_gemm2_256x16x128x256_1x4_MulABScaleExpertWeightA8W8blkscale_v1_Nswizzle0_Quant4_MulRoutedWeight0_F8_F8_B16,16.6%,207.6787,0,6.79,6787.55,
+80,16,7168,256,256,8,ActivationType.Gelu,torch.bfloat16,torch.float8_e4m3fnuz,torch.float8_e4m3fnuz,QuantType.per_1x128,1,1,16,0,124.1564,moe_ck2stages_gemm1_256x16x128x256_1x4_MulABScaleExpertWeightA8W8blkscale_v1_Nswizzle0_Quant4_MulRoutedWeight1_gelu_F8_F8_B16,0.0%,83.5223,moe_ck2stages_gemm2_256x16x128x256_1x4_MulABScaleExpertWeightA8W8blkscale_v1_Nswizzle0_Quant4_MulRoutedWeight0_F8_F8_B16,16.6%,207.6787,0,6.79,6787.55,
+80,1,7168,256,256,8,ActivationType.Silu,torch.bfloat16,torch.float8_e4m3fnuz,torch.float8_e4m3fnuz,QuantType.per_Tensor,1,1,32,0,120.6124,moe_ck2stages_gemm1_256x32x64x256_1x4_MulABScale_v1_Nswizzle0_Quant1_MulRoutedWeight1_silu_F8_F8_B16,0.0%,113.2457,moe_ck2stages_gemm2_256x32x64x128_1x4_MulABScaleExpertWeight_v1_Nswizzle0_Quant1_MulRoutedWeight0_F8_F8_B16,0.0%,233.8581,0,6.03,6027.72,
+80,2,7168,256,256,8,ActivationType.Silu,torch.bfloat16,torch.float8_e4m3fnuz,torch.float8_e4m3fnuz,QuantType.per_Tensor,1,1,32,0,120.6124,moe_ck2stages_gemm1_256x32x64x256_1x4_MulABScale_v1_Nswizzle0_Quant1_MulRoutedWeight1_silu_F8_F8_B16,0.0%,113.2457,moe_ck2stages_gemm2_256x32x64x128_1x4_MulABScaleExpertWeight_v1_Nswizzle0_Quant1_MulRoutedWeight0_F8_F8_B16,0.0%,233.8581,0,6.03,6027.72,
+80,4,7168,256,256,8,ActivationType.Silu,torch.bfloat16,torch.float8_e4m3fnuz,torch.float8_e4m3fnuz,QuantType.per_Tensor,1,1,32,0,120.6124,moe_ck2stages_gemm1_256x32x64x256_1x4_MulABScale_v1_Nswizzle0_Quant1_MulRoutedWeight1_silu_F8_F8_B16,0.0%,113.2457,moe_ck2stages_gemm2_256x32x64x128_1x4_MulABScaleExpertWeight_v1_Nswizzle0_Quant1_MulRoutedWeight0_F8_F8_B16,0.0%,233.8581,0,6.03,6027.72,
+80,16,7168,256,256,8,ActivationType.Silu,torch.bfloat16,torch.float8_e4m3fnuz,torch.float8_e4m3fnuz,QuantType.per_Tensor,1,1,32,0,120.6124,moe_ck2stages_gemm1_256x32x64x256_1x4_MulABScale_v1_Nswizzle0_Quant1_MulRoutedWeight1_silu_F8_F8_B16,0.0%,113.2457,moe_ck2stages_gemm2_256x32x64x128_1x4_MulABScaleExpertWeight_v1_Nswizzle0_Quant1_MulRoutedWeight0_F8_F8_B16,0.0%,233.8581,0,6.03,6027.72,
+80,8,7168,256,256,8,ActivationType.Silu,torch.bfloat16,torch.float8_e4m3fnuz,torch.float8_e4m3fnuz,QuantType.per_Tensor,1,1,32,0,120.6124,moe_ck2stages_gemm1_256x32x64x256_1x4_MulABScale_v1_Nswizzle0_Quant1_MulRoutedWeight1_silu_F8_F8_B16,0.0%,113.2457,moe_ck2stages_gemm2_256x32x64x128_1x4_MulABScaleExpertWeight_v1_Nswizzle0_Quant1_MulRoutedWeight0_F8_F8_B16,0.0%,233.8581,0,6.03,6027.72,
+80,1,7168,256,256,8,ActivationType.Gelu,torch.bfloat16,torch.float8_e4m3fnuz,torch.float8_e4m3fnuz,QuantType.per_Tensor,1,1,32,0,121.9866,moe_ck2stages_gemm1_256x32x64x256_1x4_MulABScale_v1_Nswizzle0_Quant1_MulRoutedWeight1_gelu_F8_F8_B16,0.0%,113.0687,moe_ck2stages_gemm2_256x32x64x128_1x4_MulABScaleExpertWeight_v1_Nswizzle0_Quant1_MulRoutedWeight0_F8_F8_B16,0.0%,235.0553,0,6.0,5997.02,
+80,8,7168,256,256,8,ActivationType.Gelu,torch.bfloat16,torch.float8_e4m3fnuz,torch.float8_e4m3fnuz,QuantType.per_Tensor,1,1,32,0,121.9866,moe_ck2stages_gemm1_256x32x64x256_1x4_MulABScale_v1_Nswizzle0_Quant1_MulRoutedWeight1_gelu_F8_F8_B16,0.0%,113.0687,moe_ck2stages_gemm2_256x32x64x128_1x4_MulABScaleExpertWeight_v1_Nswizzle0_Quant1_MulRoutedWeight0_F8_F8_B16,0.0%,235.0553,0,6.0,5997.02,
+80,2,7168,256,256,8,ActivationType.Gelu,torch.bfloat16,torch.float8_e4m3fnuz,torch.float8_e4m3fnuz,QuantType.per_Tensor,1,1,32,0,121.9866,moe_ck2stages_gemm1_256x32x64x256_1x4_MulABScale_v1_Nswizzle0_Quant1_MulRoutedWeight1_gelu_F8_F8_B16,0.0%,113.0687,moe_ck2stages_gemm2_256x32x64x128_1x4_MulABScaleExpertWeight_v1_Nswizzle0_Quant1_MulRoutedWeight0_F8_F8_B16,0.0%,235.0553,0,6.0,5997.02,
+80,16,7168,256,256,8,ActivationType.Gelu,torch.bfloat16,torch.float8_e4m3fnuz,torch.float8_e4m3fnuz,QuantType.per_Tensor,1,1,32,0,121.9866,moe_ck2stages_gemm1_256x32x64x256_1x4_MulABScale_v1_Nswizzle0_Quant1_MulRoutedWeight1_gelu_F8_F8_B16,0.0%,113.0687,moe_ck2stages_gemm2_256x32x64x128_1x4_MulABScaleExpertWeight_v1_Nswizzle0_Quant1_MulRoutedWeight0_F8_F8_B16,0.0%,235.0553,0,6.0,5997.02,
+80,4,7168,256,256,8,ActivationType.Gelu,torch.bfloat16,torch.float8_e4m3fnuz,torch.float8_e4m3fnuz,QuantType.per_Tensor,1,1,32,0,121.9866,moe_ck2stages_gemm1_256x32x64x256_1x4_MulABScale_v1_Nswizzle0_Quant1_MulRoutedWeight1_gelu_F8_F8_B16,0.0%,113.0687,moe_ck2stages_gemm2_256x32x64x128_1x4_MulABScaleExpertWeight_v1_Nswizzle0_Quant1_MulRoutedWeight0_F8_F8_B16,0.0%,235.0553,0,6.0,5997.02,
+80,2,7168,256,256,8,ActivationType.Silu,torch.bfloat16,torch.float8_e4m3fnuz,torch.float8_e4m3fnuz,QuantType.per_Token,1,1,32,0,118.5389,moe_ck2stages_gemm1_256x32x64x128_1x4_MulABScale_v1_Nswizzle0_Quant2_MulRoutedWeight1_silu_F8_F8_B16,0.0%,118.5512,moe_ck2stages_gemm2_256x32x64x128_1x4_MulABScaleExpertWeight_v1_Nswizzle0_Quant2_MulRoutedWeight0_F8_F8_B16,0.0%,237.0901,0,5.94,5945.55,
+80,8,7168,256,256,8,ActivationType.Silu,torch.bfloat16,torch.float8_e4m3fnuz,torch.float8_e4m3fnuz,QuantType.per_Token,1,1,32,0,118.5389,moe_ck2stages_gemm1_256x32x64x128_1x4_MulABScale_v1_Nswizzle0_Quant2_MulRoutedWeight1_silu_F8_F8_B16,0.0%,118.5512,moe_ck2stages_gemm2_256x32x64x128_1x4_MulABScaleExpertWeight_v1_Nswizzle0_Quant2_MulRoutedWeight0_F8_F8_B16,0.0%,237.0901,0,5.94,5945.55,
+80,16,7168,256,256,8,ActivationType.Silu,torch.bfloat16,torch.float8_e4m3fnuz,torch.float8_e4m3fnuz,QuantType.per_Token,1,1,32,0,118.5389,moe_ck2stages_gemm1_256x32x64x128_1x4_MulABScale_v1_Nswizzle0_Quant2_MulRoutedWeight1_silu_F8_F8_B16,0.0%,118.5512,moe_ck2stages_gemm2_256x32x64x128_1x4_MulABScaleExpertWeight_v1_Nswizzle0_Quant2_MulRoutedWeight0_F8_F8_B16,0.0%,237.0901,0,5.94,5945.55,
+80,4,7168,256,256,8,ActivationType.Silu,torch.bfloat16,torch.float8_e4m3fnuz,torch.float8_e4m3fnuz,QuantType.per_Token,1,1,32,0,118.5389,moe_ck2stages_gemm1_256x32x64x128_1x4_MulABScale_v1_Nswizzle0_Quant2_MulRoutedWeight1_silu_F8_F8_B16,0.0%,118.5512,moe_ck2stages_gemm2_256x32x64x128_1x4_MulABScaleExpertWeight_v1_Nswizzle0_Quant2_MulRoutedWeight0_F8_F8_B16,0.0%,237.0901,0,5.94,5945.55,
+80,1,7168,256,256,8,ActivationType.Silu,torch.bfloat16,torch.float8_e4m3fnuz,torch.float8_e4m3fnuz,QuantType.per_Token,1,1,32,0,118.5389,moe_ck2stages_gemm1_256x32x64x128_1x4_MulABScale_v1_Nswizzle0_Quant2_MulRoutedWeight1_silu_F8_F8_B16,0.0%,118.5512,moe_ck2stages_gemm2_256x32x64x128_1x4_MulABScaleExpertWeight_v1_Nswizzle0_Quant2_MulRoutedWeight0_F8_F8_B16,0.0%,237.0901,0,5.94,5945.55,
+80,16,7168,256,256,8,ActivationType.Gelu,torch.bfloat16,torch.float8_e4m3fnuz,torch.float8_e4m3fnuz,QuantType.per_Tensor,1,0,32,0,120.5717,moe_ck2stages_gemm1_256x32x64x256_1x4_MulABScale_v1_Nswizzle0_Quant1_MulRoutedWeight0_gelu_F8_F8_B16,0.0%,117.6181,moe_ck2stages_gemm2_256x32x64x128_1x4_MulABScaleExpertWeight_v1_Nswizzle0_Quant1_MulRoutedWeight1_F8_F8_B16,1.7%,238.1898,0,5.92,5918.1,
+80,2,7168,256,256,8,ActivationType.Gelu,torch.bfloat16,torch.float8_e4m3fnuz,torch.float8_e4m3fnuz,QuantType.per_Tensor,1,0,32,0,120.5717,moe_ck2stages_gemm1_256x32x64x256_1x4_MulABScale_v1_Nswizzle0_Quant1_MulRoutedWeight0_gelu_F8_F8_B16,0.0%,117.6181,moe_ck2stages_gemm2_256x32x64x128_1x4_MulABScaleExpertWeight_v1_Nswizzle0_Quant1_MulRoutedWeight1_F8_F8_B16,1.7%,238.1898,0,5.92,5918.1,
+80,8,7168,256,256,8,ActivationType.Gelu,torch.bfloat16,torch.float8_e4m3fnuz,torch.float8_e4m3fnuz,QuantType.per_Tensor,1,0,32,0,120.5717,moe_ck2stages_gemm1_256x32x64x256_1x4_MulABScale_v1_Nswizzle0_Quant1_MulRoutedWeight0_gelu_F8_F8_B16,0.0%,117.6181,moe_ck2stages_gemm2_256x32x64x128_1x4_MulABScaleExpertWeight_v1_Nswizzle0_Quant1_MulRoutedWeight1_F8_F8_B16,1.7%,238.1898,0,5.92,5918.1,
+80,4,7168,256,256,8,ActivationType.Gelu,torch.bfloat16,torch.float8_e4m3fnuz,torch.float8_e4m3fnuz,QuantType.per_Tensor,1,0,32,0,120.5717,moe_ck2stages_gemm1_256x32x64x256_1x4_MulABScale_v1_Nswizzle0_Quant1_MulRoutedWeight0_gelu_F8_F8_B16,0.0%,117.6181,moe_ck2stages_gemm2_256x32x64x128_1x4_MulABScaleExpertWeight_v1_Nswizzle0_Quant1_MulRoutedWeight1_F8_F8_B16,1.7%,238.1898,0,5.92,5918.1,
+80,1,7168,256,256,8,ActivationType.Gelu,torch.bfloat16,torch.float8_e4m3fnuz,torch.float8_e4m3fnuz,QuantType.per_Tensor,1,0,32,0,120.5717,moe_ck2stages_gemm1_256x32x64x256_1x4_MulABScale_v1_Nswizzle0_Quant1_MulRoutedWeight0_gelu_F8_F8_B16,0.0%,117.6181,moe_ck2stages_gemm2_256x32x64x128_1x4_MulABScaleExpertWeight_v1_Nswizzle0_Quant1_MulRoutedWeight1_F8_F8_B16,1.7%,238.1898,0,5.92,5918.1,
+80,16,7168,256,256,8,ActivationType.Silu,torch.bfloat16,torch.float8_e4m3fnuz,torch.float8_e4m3fnuz,QuantType.per_Tensor,1,0,32,0,121.6233,moe_ck2stages_gemm1_256x32x64x256_1x4_MulABScale_v1_Nswizzle0_Quant1_MulRoutedWeight0_silu_F8_F8_B16,0.0%,117.3629,moe_ck2stages_gemm2_256x32x64x128_1x4_MulABScaleExpertWeight_v1_Nswizzle0_Quant1_MulRoutedWeight1_F8_F8_B16,1.3%,238.9862,0,5.9,5898.37,
+80,8,7168,256,256,8,ActivationType.Silu,torch.bfloat16,torch.float8_e4m3fnuz,torch.float8_e4m3fnuz,QuantType.per_Tensor,1,0,32,0,121.6233,moe_ck2stages_gemm1_256x32x64x256_1x4_MulABScale_v1_Nswizzle0_Quant1_MulRoutedWeight0_silu_F8_F8_B16,0.0%,117.3629,moe_ck2stages_gemm2_256x32x64x128_1x4_MulABScaleExpertWeight_v1_Nswizzle0_Quant1_MulRoutedWeight1_F8_F8_B16,1.3%,238.9862,0,5.9,5898.37,
+80,4,7168,256,256,8,ActivationType.Silu,torch.bfloat16,torch.float8_e4m3fnuz,torch.float8_e4m3fnuz,QuantType.per_Tensor,1,0,32,0,121.6233,moe_ck2stages_gemm1_256x32x64x256_1x4_MulABScale_v1_Nswizzle0_Quant1_MulRoutedWeight0_silu_F8_F8_B16,0.0%,117.3629,moe_ck2stages_gemm2_256x32x64x128_1x4_MulABScaleExpertWeight_v1_Nswizzle0_Quant1_MulRoutedWeight1_F8_F8_B16,1.3%,238.9862,0,5.9,5898.37,
+80,2,7168,256,256,8,ActivationType.Silu,torch.bfloat16,torch.float8_e4m3fnuz,torch.float8_e4m3fnuz,QuantType.per_Tensor,1,0,32,0,121.6233,moe_ck2stages_gemm1_256x32x64x256_1x4_MulABScale_v1_Nswizzle0_Quant1_MulRoutedWeight0_silu_F8_F8_B16,0.0%,117.3629,moe_ck2stages_gemm2_256x32x64x128_1x4_MulABScaleExpertWeight_v1_Nswizzle0_Quant1_MulRoutedWeight1_F8_F8_B16,1.3%,238.9862,0,5.9,5898.37,
+80,1,7168,256,256,8,ActivationType.Silu,torch.bfloat16,torch.float8_e4m3fnuz,torch.float8_e4m3fnuz,QuantType.per_Tensor,1,0,32,0,121.6233,moe_ck2stages_gemm1_256x32x64x256_1x4_MulABScale_v1_Nswizzle0_Quant1_MulRoutedWeight0_silu_F8_F8_B16,0.0%,117.3629,moe_ck2stages_gemm2_256x32x64x128_1x4_MulABScaleExpertWeight_v1_Nswizzle0_Quant1_MulRoutedWeight1_F8_F8_B16,1.3%,238.9862,0,5.9,5898.37,
+80,4,7168,256,256,8,ActivationType.Gelu,torch.bfloat16,torch.float8_e4m3fnuz,torch.float8_e4m3fnuz,QuantType.per_Token,1,1,32,0,119.4832,_ZN5aiter56fmoe_stage1_bf16_pertokenFp8_doweight_g1u1_32x64_4tg_pf3E,0.0%,131.8606,moe_ck2stages_gemm2_256x32x64x256_1x4_MulABScaleExpertWeight_v1_Nswizzle0_Quant2_MulRoutedWeight0_F8_F8_B16,0.0%,251.3438,0,5.61,5608.37,
+80,16,7168,256,256,8,ActivationType.Gelu,torch.bfloat16,torch.float8_e4m3fnuz,torch.float8_e4m3fnuz,QuantType.per_Token,1,1,32,0,119.4832,_ZN5aiter56fmoe_stage1_bf16_pertokenFp8_doweight_g1u1_32x64_4tg_pf3E,0.0%,131.8606,moe_ck2stages_gemm2_256x32x64x256_1x4_MulABScaleExpertWeight_v1_Nswizzle0_Quant2_MulRoutedWeight0_F8_F8_B16,0.0%,251.3438,0,5.61,5608.37,
+80,2,7168,256,256,8,ActivationType.Gelu,torch.bfloat16,torch.float8_e4m3fnuz,torch.float8_e4m3fnuz,QuantType.per_Token,1,1,32,0,119.4832,_ZN5aiter56fmoe_stage1_bf16_pertokenFp8_doweight_g1u1_32x64_4tg_pf3E,0.0%,131.8606,moe_ck2stages_gemm2_256x32x64x256_1x4_MulABScaleExpertWeight_v1_Nswizzle0_Quant2_MulRoutedWeight0_F8_F8_B16,0.0%,251.3438,0,5.61,5608.37,
+80,8,7168,256,256,8,ActivationType.Gelu,torch.bfloat16,torch.float8_e4m3fnuz,torch.float8_e4m3fnuz,QuantType.per_Token,1,1,32,0,119.4832,_ZN5aiter56fmoe_stage1_bf16_pertokenFp8_doweight_g1u1_32x64_4tg_pf3E,0.0%,131.8606,moe_ck2stages_gemm2_256x32x64x256_1x4_MulABScaleExpertWeight_v1_Nswizzle0_Quant2_MulRoutedWeight0_F8_F8_B16,0.0%,251.3438,0,5.61,5608.37,
+80,1,7168,256,256,8,ActivationType.Gelu,torch.bfloat16,torch.float8_e4m3fnuz,torch.float8_e4m3fnuz,QuantType.per_Token,1,1,32,0,119.4832,_ZN5aiter56fmoe_stage1_bf16_pertokenFp8_doweight_g1u1_32x64_4tg_pf3E,0.0%,131.8606,moe_ck2stages_gemm2_256x32x64x256_1x4_MulABScaleExpertWeight_v1_Nswizzle0_Quant2_MulRoutedWeight0_F8_F8_B16,0.0%,251.3438,0,5.61,5608.37,
+80,8,7168,256,256,8,ActivationType.Gelu,torch.bfloat16,torch.float8_e4m3fnuz,torch.float8_e4m3fnuz,QuantType.per_Token,1,0,32,0,120.3829,_ZN5aiter47fmoe_stage1_bf16_pertokenFp8_g1u1_32x64_4tg_pf3E,0.0%,134.4734,moe_ck2stages_gemm2_256x32x64x128_1x4_MulABScaleExpertWeight_v1_Nswizzle0_Quant2_MulRoutedWeight1_F8_F8_B16,1.6%,254.8563,0,5.53,5531.08,
+80,2,7168,256,256,8,ActivationType.Gelu,torch.bfloat16,torch.float8_e4m3fnuz,torch.float8_e4m3fnuz,QuantType.per_Token,1,0,32,0,120.3829,_ZN5aiter47fmoe_stage1_bf16_pertokenFp8_g1u1_32x64_4tg_pf3E,0.0%,134.4734,moe_ck2stages_gemm2_256x32x64x128_1x4_MulABScaleExpertWeight_v1_Nswizzle0_Quant2_MulRoutedWeight1_F8_F8_B16,1.6%,254.8563,0,5.53,5531.08,
+80,1,7168,256,256,8,ActivationType.Gelu,torch.bfloat16,torch.float8_e4m3fnuz,torch.float8_e4m3fnuz,QuantType.per_Token,1,0,32,0,120.3829,_ZN5aiter47fmoe_stage1_bf16_pertokenFp8_g1u1_32x64_4tg_pf3E,0.0%,134.4734,moe_ck2stages_gemm2_256x32x64x128_1x4_MulABScaleExpertWeight_v1_Nswizzle0_Quant2_MulRoutedWeight1_F8_F8_B16,1.6%,254.8563,0,5.53,5531.08,
+80,4,7168,256,256,8,ActivationType.Gelu,torch.bfloat16,torch.float8_e4m3fnuz,torch.float8_e4m3fnuz,QuantType.per_Token,1,0,32,0,120.3829,_ZN5aiter47fmoe_stage1_bf16_pertokenFp8_g1u1_32x64_4tg_pf3E,0.0%,134.4734,moe_ck2stages_gemm2_256x32x64x128_1x4_MulABScaleExpertWeight_v1_Nswizzle0_Quant2_MulRoutedWeight1_F8_F8_B16,1.6%,254.8563,0,5.53,5531.08,
+80,16,7168,256,256,8,ActivationType.Gelu,torch.bfloat16,torch.float8_e4m3fnuz,torch.float8_e4m3fnuz,QuantType.per_Token,1,0,32,0,120.3829,_ZN5aiter47fmoe_stage1_bf16_pertokenFp8_g1u1_32x64_4tg_pf3E,0.0%,134.4734,moe_ck2stages_gemm2_256x32x64x128_1x4_MulABScaleExpertWeight_v1_Nswizzle0_Quant2_MulRoutedWeight1_F8_F8_B16,1.6%,254.8563,0,5.53,5531.08,
+80,32,7168,256,256,8,ActivationType.Gelu,torch.bfloat16,torch.float8_e4m3fnuz,torch.float8_e4m3fnuz,QuantType.per_1x128,1,1,16,0,198.0641,moe_ck2stages_gemm1_256x16x128x256_1x4_MulABScaleExpertWeightA8W8blkscale_v1_Nswizzle0_Quant4_MulRoutedWeight1_gelu_F8_F8_B16,0.0%,130.4169,moe_ck2stages_gemm2_256x16x128x256_1x4_MulABScaleExpertWeightA8W8blkscale_v1_Nswizzle0_Quant4_MulRoutedWeight0_F8_F8_B16,16.6%,328.481,0,8.58,4292.41,
+80,32,7168,256,256,8,ActivationType.Silu,torch.bfloat16,torch.float8_e4m3fnuz,torch.float8_e4m3fnuz,QuantType.per_1x128,1,0,16,0,204.1789,moe_ck2stages_gemm1_256x16x128x256_1x4_MulABScaleExpertWeightA8W8blkscale_v1_Nswizzle0_Quant4_MulRoutedWeight0_silu_F8_F8_B16,0.0%,127.8428,moe_ck2stages_gemm2_256x16x128x256_1x4_MulABScaleExpertWeightA8W8blkscale_v1_Nswizzle0_Quant4_MulRoutedWeight1_F8_F8_B16,15.7%,332.0217,0,8.49,4246.63,
+80,32,7168,256,256,8,ActivationType.Gelu,torch.bfloat16,torch.float8_e4m3fnuz,torch.float8_e4m3fnuz,QuantType.per_1x128,1,0,16,0,204.8947,moe_ck2stages_gemm1_256x16x128x256_1x4_MulABScaleExpertWeightA8W8blkscale_v1_Nswizzle0_Quant4_MulRoutedWeight0_gelu_F8_F8_B16,0.0%,128.9358,moe_ck2stages_gemm2_256x16x128x256_1x4_MulABScaleExpertWeightA8W8blkscale_v1_Nswizzle0_Quant4_MulRoutedWeight1_F8_F8_B16,15.8%,333.8305,0,8.44,4223.62,
+80,32,7168,256,256,8,ActivationType.Silu,torch.bfloat16,torch.float8_e4m3fnuz,torch.float8_e4m3fnuz,QuantType.per_1x128,1,1,16,0,205.3401,moe_ck2stages_gemm1_256x16x128x256_1x4_MulABScaleExpertWeightA8W8blkscale_v1_Nswizzle0_Quant4_MulRoutedWeight1_silu_F8_F8_B16,0.0%,128.7497,moe_ck2stages_gemm2_256x16x128x256_1x4_MulABScaleExpertWeightA8W8blkscale_v1_Nswizzle0_Quant4_MulRoutedWeight0_F8_F8_B16,16.6%,334.0898,0,8.44,4220.35,
+80,32,7168,256,256,8,ActivationType.Silu,torch.bfloat16,torch.float8_e4m3fnuz,torch.float8_e4m3fnuz,QuantType.per_Tensor,1,1,32,0,188.7522,moe_ck2stages_gemm1_256x32x64x128_1x4_MulABScale_v1_Nswizzle0_Quant1_MulRoutedWeight1_silu_F8_F8_B16,0.0%,170.2119,moe_ck2stages_gemm2_256x32x64x128_1x4_MulABScaleExpertWeight_v1_Nswizzle0_Quant1_MulRoutedWeight0_F8_F8_B16,0.0%,358.96410000000003,0,7.85,3927.9,
+80,32,7168,256,256,8,ActivationType.Gelu,torch.bfloat16,torch.float8_e4m3fnuz,torch.float8_e4m3fnuz,QuantType.per_Tensor,1,1,32,0,191.3402,moe_ck2stages_gemm1_256x32x64x256_1x4_MulABScale_v1_Nswizzle0_Quant1_MulRoutedWeight1_gelu_F8_F8_B16,0.0%,169.9426,moe_ck2stages_gemm2_256x32x64x128_1x4_MulABScaleExpertWeight_v1_Nswizzle0_Quant1_MulRoutedWeight0_F8_F8_B16,0.0%,361.2828,0,7.8,3902.69,
+80,32,7168,256,256,8,ActivationType.Gelu,torch.bfloat16,torch.float8_e4m3fnuz,torch.float8_e4m3fnuz,QuantType.per_Tensor,1,0,32,0,188.5396,moe_ck2stages_gemm1_256x32x64x128_1x4_MulABScale_v1_Nswizzle0_Quant1_MulRoutedWeight0_gelu_F8_F8_B16,0.0%,176.4776,moe_ck2stages_gemm2_256x32x64x128_1x4_MulABScaleExpertWeight_v1_Nswizzle0_Quant1_MulRoutedWeight1_F8_F8_B16,1.6%,365.0172,0,7.72,3862.76,
+80,32,7168,256,256,8,ActivationType.Silu,torch.bfloat16,torch.float8_e4m3fnuz,torch.float8_e4m3fnuz,QuantType.per_Tensor,1,0,32,0,194.485,moe_ck2stages_gemm1_256x32x64x256_1x4_MulABScale_v1_Nswizzle0_Quant1_MulRoutedWeight0_silu_F8_F8_B16,0.0%,176.724,moe_ck2stages_gemm2_256x32x64x128_1x4_MulABScaleExpertWeight_v1_Nswizzle0_Quant1_MulRoutedWeight1_F8_F8_B16,1.3%,371.209,0,7.59,3798.33,
+80,1,7168,512,256,8,ActivationType.Silu,torch.bfloat16,torch.float8_e4m3fnuz,torch.float8_e4m3fnuz,QuantType.per_1x128,1,1,16,0,241.8455,moe_ck2stages_gemm1_256x16x128x256_1x4_MulABScaleExpertWeightA8W8blkscale_v1_Nswizzle0_Quant4_MulRoutedWeight1_silu_F8_F8_B16,0.0%,132.6515,moe_ck2stages_gemm2_256x16x128x256_1x4_MulABScaleExpertWeightA8W8blkscale_v1_Nswizzle0_Quant4_MulRoutedWeight0_F8_F8_B16,16.7%,374.497,0,7.53,7527.21,
+80,16,7168,512,256,8,ActivationType.Silu,torch.bfloat16,torch.float8_e4m3fnuz,torch.float8_e4m3fnuz,QuantType.per_1x128,1,1,16,0,241.8455,moe_ck2stages_gemm1_256x16x128x256_1x4_MulABScaleExpertWeightA8W8blkscale_v1_Nswizzle0_Quant4_MulRoutedWeight1_silu_F8_F8_B16,0.0%,132.6515,moe_ck2stages_gemm2_256x16x128x256_1x4_MulABScaleExpertWeightA8W8blkscale_v1_Nswizzle0_Quant4_MulRoutedWeight0_F8_F8_B16,16.7%,374.497,0,7.53,7527.21,
+80,8,7168,512,256,8,ActivationType.Silu,torch.bfloat16,torch.float8_e4m3fnuz,torch.float8_e4m3fnuz,QuantType.per_1x128,1,1,16,0,241.8455,moe_ck2stages_gemm1_256x16x128x256_1x4_MulABScaleExpertWeightA8W8blkscale_v1_Nswizzle0_Quant4_MulRoutedWeight1_silu_F8_F8_B16,0.0%,132.6515,moe_ck2stages_gemm2_256x16x128x256_1x4_MulABScaleExpertWeightA8W8blkscale_v1_Nswizzle0_Quant4_MulRoutedWeight0_F8_F8_B16,16.7%,374.497,0,7.53,7527.21,
+80,4,7168,512,256,8,ActivationType.Silu,torch.bfloat16,torch.float8_e4m3fnuz,torch.float8_e4m3fnuz,QuantType.per_1x128,1,1,16,0,241.8455,moe_ck2stages_gemm1_256x16x128x256_1x4_MulABScaleExpertWeightA8W8blkscale_v1_Nswizzle0_Quant4_MulRoutedWeight1_silu_F8_F8_B16,0.0%,132.6515,moe_ck2stages_gemm2_256x16x128x256_1x4_MulABScaleExpertWeightA8W8blkscale_v1_Nswizzle0_Quant4_MulRoutedWeight0_F8_F8_B16,16.7%,374.497,0,7.53,7527.21,
+80,2,7168,512,256,8,ActivationType.Silu,torch.bfloat16,torch.float8_e4m3fnuz,torch.float8_e4m3fnuz,QuantType.per_1x128,1,1,16,0,241.8455,moe_ck2stages_gemm1_256x16x128x256_1x4_MulABScaleExpertWeightA8W8blkscale_v1_Nswizzle0_Quant4_MulRoutedWeight1_silu_F8_F8_B16,0.0%,132.6515,moe_ck2stages_gemm2_256x16x128x256_1x4_MulABScaleExpertWeightA8W8blkscale_v1_Nswizzle0_Quant4_MulRoutedWeight0_F8_F8_B16,16.7%,374.497,0,7.53,7527.21,
+80,16,7168,512,256,8,ActivationType.Silu,torch.bfloat16,torch.float8_e4m3fnuz,torch.float8_e4m3fnuz,QuantType.per_1x128,1,0,16,0,245.7053,moe_ck2stages_gemm1_256x16x128x256_1x4_MulABScaleExpertWeightA8W8blkscale_v1_Nswizzle0_Quant4_MulRoutedWeight0_silu_F8_F8_B16,0.0%,130.3948,moe_ck2stages_gemm2_256x16x128x256_1x4_MulABScaleExpertWeightA8W8blkscale_v1_Nswizzle0_Quant4_MulRoutedWeight1_F8_F8_B16,15.3%,376.1001,0,7.49,7495.12,
+80,8,7168,512,256,8,ActivationType.Silu,torch.bfloat16,torch.float8_e4m3fnuz,torch.float8_e4m3fnuz,QuantType.per_1x128,1,0,16,0,245.7053,moe_ck2stages_gemm1_256x16x128x256_1x4_MulABScaleExpertWeightA8W8blkscale_v1_Nswizzle0_Quant4_MulRoutedWeight0_silu_F8_F8_B16,0.0%,130.3948,moe_ck2stages_gemm2_256x16x128x256_1x4_MulABScaleExpertWeightA8W8blkscale_v1_Nswizzle0_Quant4_MulRoutedWeight1_F8_F8_B16,15.3%,376.1001,0,7.49,7495.12,
+80,2,7168,512,256,8,ActivationType.Silu,torch.bfloat16,torch.float8_e4m3fnuz,torch.float8_e4m3fnuz,QuantType.per_1x128,1,0,16,0,245.7053,moe_ck2stages_gemm1_256x16x128x256_1x4_MulABScaleExpertWeightA8W8blkscale_v1_Nswizzle0_Quant4_MulRoutedWeight0_silu_F8_F8_B16,0.0%,130.3948,moe_ck2stages_gemm2_256x16x128x256_1x4_MulABScaleExpertWeightA8W8blkscale_v1_Nswizzle0_Quant4_MulRoutedWeight1_F8_F8_B16,15.3%,376.1001,0,7.49,7495.12,
+80,4,7168,512,256,8,ActivationType.Silu,torch.bfloat16,torch.float8_e4m3fnuz,torch.float8_e4m3fnuz,QuantType.per_1x128,1,0,16,0,245.7053,moe_ck2stages_gemm1_256x16x128x256_1x4_MulABScaleExpertWeightA8W8blkscale_v1_Nswizzle0_Quant4_MulRoutedWeight0_silu_F8_F8_B16,0.0%,130.3948,moe_ck2stages_gemm2_256x16x128x256_1x4_MulABScaleExpertWeightA8W8blkscale_v1_Nswizzle0_Quant4_MulRoutedWeight1_F8_F8_B16,15.3%,376.1001,0,7.49,7495.12,
+80,1,7168,512,256,8,ActivationType.Silu,torch.bfloat16,torch.float8_e4m3fnuz,torch.float8_e4m3fnuz,QuantType.per_1x128,1,0,16,0,245.7053,moe_ck2stages_gemm1_256x16x128x256_1x4_MulABScaleExpertWeightA8W8blkscale_v1_Nswizzle0_Quant4_MulRoutedWeight0_silu_F8_F8_B16,0.0%,130.3948,moe_ck2stages_gemm2_256x16x128x256_1x4_MulABScaleExpertWeightA8W8blkscale_v1_Nswizzle0_Quant4_MulRoutedWeight1_F8_F8_B16,15.3%,376.1001,0,7.49,7495.12,
+80,16,7168,512,256,8,ActivationType.Gelu,torch.bfloat16,torch.float8_e4m3fnuz,torch.float8_e4m3fnuz,QuantType.per_1x128,1,0,16,0,244.2105,moe_ck2stages_gemm1_256x16x128x256_1x4_MulABScaleExpertWeightA8W8blkscale_v1_Nswizzle0_Quant4_MulRoutedWeight0_gelu_F8_F8_B16,0.0%,132.0083,moe_ck2stages_gemm2_256x16x128x256_1x4_MulABScaleExpertWeightA8W8blkscale_v1_Nswizzle0_Quant4_MulRoutedWeight1_F8_F8_B16,15.3%,376.2188,0,7.49,7492.76,
+80,8,7168,512,256,8,ActivationType.Gelu,torch.bfloat16,torch.float8_e4m3fnuz,torch.float8_e4m3fnuz,QuantType.per_1x128,1,0,16,0,244.2105,moe_ck2stages_gemm1_256x16x128x256_1x4_MulABScaleExpertWeightA8W8blkscale_v1_Nswizzle0_Quant4_MulRoutedWeight0_gelu_F8_F8_B16,0.0%,132.0083,moe_ck2stages_gemm2_256x16x128x256_1x4_MulABScaleExpertWeightA8W8blkscale_v1_Nswizzle0_Quant4_MulRoutedWeight1_F8_F8_B16,15.3%,376.2188,0,7.49,7492.76,
+80,1,7168,512,256,8,ActivationType.Gelu,torch.bfloat16,torch.float8_e4m3fnuz,torch.float8_e4m3fnuz,QuantType.per_1x128,1,0,16,0,244.2105,moe_ck2stages_gemm1_256x16x128x256_1x4_MulABScaleExpertWeightA8W8blkscale_v1_Nswizzle0_Quant4_MulRoutedWeight0_gelu_F8_F8_B16,0.0%,132.0083,moe_ck2stages_gemm2_256x16x128x256_1x4_MulABScaleExpertWeightA8W8blkscale_v1_Nswizzle0_Quant4_MulRoutedWeight1_F8_F8_B16,15.3%,376.2188,0,7.49,7492.76,
+80,4,7168,512,256,8,ActivationType.Gelu,torch.bfloat16,torch.float8_e4m3fnuz,torch.float8_e4m3fnuz,QuantType.per_1x128,1,0,16,0,244.2105,moe_ck2stages_gemm1_256x16x128x256_1x4_MulABScaleExpertWeightA8W8blkscale_v1_Nswizzle0_Quant4_MulRoutedWeight0_gelu_F8_F8_B16,0.0%,132.0083,moe_ck2stages_gemm2_256x16x128x256_1x4_MulABScaleExpertWeightA8W8blkscale_v1_Nswizzle0_Quant4_MulRoutedWeight1_F8_F8_B16,15.3%,376.2188,0,7.49,7492.76,
+80,2,7168,512,256,8,ActivationType.Gelu,torch.bfloat16,torch.float8_e4m3fnuz,torch.float8_e4m3fnuz,QuantType.per_1x128,1,0,16,0,244.2105,moe_ck2stages_gemm1_256x16x128x256_1x4_MulABScaleExpertWeightA8W8blkscale_v1_Nswizzle0_Quant4_MulRoutedWeight0_gelu_F8_F8_B16,0.0%,132.0083,moe_ck2stages_gemm2_256x16x128x256_1x4_MulABScaleExpertWeightA8W8blkscale_v1_Nswizzle0_Quant4_MulRoutedWeight1_F8_F8_B16,15.3%,376.2188,0,7.49,7492.76,
+80,8,7168,512,256,8,ActivationType.Gelu,torch.bfloat16,torch.float8_e4m3fnuz,torch.float8_e4m3fnuz,QuantType.per_1x128,1,1,16,0,243.5773,moe_ck2stages_gemm1_256x16x128x256_1x4_MulABScaleExpertWeightA8W8blkscale_v1_Nswizzle0_Quant4_MulRoutedWeight1_gelu_F8_F8_B16,0.0%,134.825,moe_ck2stages_gemm2_256x16x128x256_1x4_MulABScaleExpertWeightA8W8blkscale_v1_Nswizzle0_Quant4_MulRoutedWeight0_F8_F8_B16,16.7%,378.4023,0,7.45,7449.52,
+80,2,7168,512,256,8,ActivationType.Gelu,torch.bfloat16,torch.float8_e4m3fnuz,torch.float8_e4m3fnuz,QuantType.per_1x128,1,1,16,0,243.5773,moe_ck2stages_gemm1_256x16x128x256_1x4_MulABScaleExpertWeightA8W8blkscale_v1_Nswizzle0_Quant4_MulRoutedWeight1_gelu_F8_F8_B16,0.0%,134.825,moe_ck2stages_gemm2_256x16x128x256_1x4_MulABScaleExpertWeightA8W8blkscale_v1_Nswizzle0_Quant4_MulRoutedWeight0_F8_F8_B16,16.7%,378.4023,0,7.45,7449.52,
+80,16,7168,512,256,8,ActivationType.Gelu,torch.bfloat16,torch.float8_e4m3fnuz,torch.float8_e4m3fnuz,QuantType.per_1x128,1,1,16,0,243.5773,moe_ck2stages_gemm1_256x16x128x256_1x4_MulABScaleExpertWeightA8W8blkscale_v1_Nswizzle0_Quant4_MulRoutedWeight1_gelu_F8_F8_B16,0.0%,134.825,moe_ck2stages_gemm2_256x16x128x256_1x4_MulABScaleExpertWeightA8W8blkscale_v1_Nswizzle0_Quant4_MulRoutedWeight0_F8_F8_B16,16.7%,378.4023,0,7.45,7449.52,
+80,1,7168,512,256,8,ActivationType.Gelu,torch.bfloat16,torch.float8_e4m3fnuz,torch.float8_e4m3fnuz,QuantType.per_1x128,1,1,16,0,243.5773,moe_ck2stages_gemm1_256x16x128x256_1x4_MulABScaleExpertWeightA8W8blkscale_v1_Nswizzle0_Quant4_MulRoutedWeight1_gelu_F8_F8_B16,0.0%,134.825,moe_ck2stages_gemm2_256x16x128x256_1x4_MulABScaleExpertWeightA8W8blkscale_v1_Nswizzle0_Quant4_MulRoutedWeight0_F8_F8_B16,16.7%,378.4023,0,7.45,7449.52,
+80,4,7168,512,256,8,ActivationType.Gelu,torch.bfloat16,torch.float8_e4m3fnuz,torch.float8_e4m3fnuz,QuantType.per_1x128,1,1,16,0,243.5773,moe_ck2stages_gemm1_256x16x128x256_1x4_MulABScaleExpertWeightA8W8blkscale_v1_Nswizzle0_Quant4_MulRoutedWeight1_gelu_F8_F8_B16,0.0%,134.825,moe_ck2stages_gemm2_256x16x128x256_1x4_MulABScaleExpertWeightA8W8blkscale_v1_Nswizzle0_Quant4_MulRoutedWeight0_F8_F8_B16,16.7%,378.4023,0,7.45,7449.52,
+80,8,7168,512,256,8,ActivationType.Gelu,torch.bfloat16,torch.float8_e4m3fnuz,torch.float8_e4m3fnuz,QuantType.per_Tensor,1,1,32,0,227.7593,moe_ck2stages_gemm1_256x32x64x128_1x4_MulABScale_v1_Nswizzle0_Quant1_MulRoutedWeight1_gelu_F8_F8_B16,0.0%,155.545,moe_ck2stages_gemm2_256x32x64x128_1x4_MulABScaleExpertWeight_v1_Nswizzle0_Quant1_MulRoutedWeight0_F8_F8_B16,0.0%,383.3043,0,7.35,7354.25,
+80,16,7168,512,256,8,ActivationType.Gelu,torch.bfloat16,torch.float8_e4m3fnuz,torch.float8_e4m3fnuz,QuantType.per_Tensor,1,1,32,0,227.7593,moe_ck2stages_gemm1_256x32x64x128_1x4_MulABScale_v1_Nswizzle0_Quant1_MulRoutedWeight1_gelu_F8_F8_B16,0.0%,155.545,moe_ck2stages_gemm2_256x32x64x128_1x4_MulABScaleExpertWeight_v1_Nswizzle0_Quant1_MulRoutedWeight0_F8_F8_B16,0.0%,383.3043,0,7.35,7354.25,
+80,2,7168,512,256,8,ActivationType.Gelu,torch.bfloat16,torch.float8_e4m3fnuz,torch.float8_e4m3fnuz,QuantType.per_Tensor,1,1,32,0,227.7593,moe_ck2stages_gemm1_256x32x64x128_1x4_MulABScale_v1_Nswizzle0_Quant1_MulRoutedWeight1_gelu_F8_F8_B16,0.0%,155.545,moe_ck2stages_gemm2_256x32x64x128_1x4_MulABScaleExpertWeight_v1_Nswizzle0_Quant1_MulRoutedWeight0_F8_F8_B16,0.0%,383.3043,0,7.35,7354.25,
+80,1,7168,512,256,8,ActivationType.Gelu,torch.bfloat16,torch.float8_e4m3fnuz,torch.float8_e4m3fnuz,QuantType.per_Tensor,1,1,32,0,227.7593,moe_ck2stages_gemm1_256x32x64x128_1x4_MulABScale_v1_Nswizzle0_Quant1_MulRoutedWeight1_gelu_F8_F8_B16,0.0%,155.545,moe_ck2stages_gemm2_256x32x64x128_1x4_MulABScaleExpertWeight_v1_Nswizzle0_Quant1_MulRoutedWeight0_F8_F8_B16,0.0%,383.3043,0,7.35,7354.25,
+80,4,7168,512,256,8,ActivationType.Gelu,torch.bfloat16,torch.float8_e4m3fnuz,torch.float8_e4m3fnuz,QuantType.per_Tensor,1,1,32,0,227.7593,moe_ck2stages_gemm1_256x32x64x128_1x4_MulABScale_v1_Nswizzle0_Quant1_MulRoutedWeight1_gelu_F8_F8_B16,0.0%,155.545,moe_ck2stages_gemm2_256x32x64x128_1x4_MulABScaleExpertWeight_v1_Nswizzle0_Quant1_MulRoutedWeight0_F8_F8_B16,0.0%,383.3043,0,7.35,7354.25,
+80,1,7168,256,256,8,ActivationType.Silu,torch.bfloat16,torch.bfloat16,torch.bfloat16,QuantType.No,1,1,32,0,238.507,moe_ck2stages_gemm1_256x32x64x128_1x4_TypeCastExpertWeight_v1_Nswizzle0_Quant0_MulRoutedWeight1_silu_B16_B16_B16,0.0%,146.2522,moe_ck2stages_gemm2_256x32x64x64_1x4_TypeCast_v1_Nswizzle0_Quant0_MulRoutedWeight0_B16_B16_B16,0.0%,384.7592,0,3.66,7326.74,
+80,16,7168,256,256,8,ActivationType.Silu,torch.bfloat16,torch.bfloat16,torch.bfloat16,QuantType.No,1,1,32,0,238.507,moe_ck2stages_gemm1_256x32x64x128_1x4_TypeCastExpertWeight_v1_Nswizzle0_Quant0_MulRoutedWeight1_silu_B16_B16_B16,0.0%,146.2522,moe_ck2stages_gemm2_256x32x64x64_1x4_TypeCast_v1_Nswizzle0_Quant0_MulRoutedWeight0_B16_B16_B16,0.0%,384.7592,0,3.66,7326.74,
+80,8,7168,256,256,8,ActivationType.Silu,torch.bfloat16,torch.bfloat16,torch.bfloat16,QuantType.No,1,1,32,0,238.507,moe_ck2stages_gemm1_256x32x64x128_1x4_TypeCastExpertWeight_v1_Nswizzle0_Quant0_MulRoutedWeight1_silu_B16_B16_B16,0.0%,146.2522,moe_ck2stages_gemm2_256x32x64x64_1x4_TypeCast_v1_Nswizzle0_Quant0_MulRoutedWeight0_B16_B16_B16,0.0%,384.7592,0,3.66,7326.74,
+80,4,7168,256,256,8,ActivationType.Silu,torch.bfloat16,torch.bfloat16,torch.bfloat16,QuantType.No,1,1,32,0,238.507,moe_ck2stages_gemm1_256x32x64x128_1x4_TypeCastExpertWeight_v1_Nswizzle0_Quant0_MulRoutedWeight1_silu_B16_B16_B16,0.0%,146.2522,moe_ck2stages_gemm2_256x32x64x64_1x4_TypeCast_v1_Nswizzle0_Quant0_MulRoutedWeight0_B16_B16_B16,0.0%,384.7592,0,3.66,7326.74,
+80,2,7168,256,256,8,ActivationType.Silu,torch.bfloat16,torch.bfloat16,torch.bfloat16,QuantType.No,1,1,32,0,238.507,moe_ck2stages_gemm1_256x32x64x128_1x4_TypeCastExpertWeight_v1_Nswizzle0_Quant0_MulRoutedWeight1_silu_B16_B16_B16,0.0%,146.2522,moe_ck2stages_gemm2_256x32x64x64_1x4_TypeCast_v1_Nswizzle0_Quant0_MulRoutedWeight0_B16_B16_B16,0.0%,384.7592,0,3.66,7326.74,
+80,2,7168,512,256,8,ActivationType.Silu,torch.bfloat16,torch.float8_e4m3fnuz,torch.float8_e4m3fnuz,QuantType.per_Tensor,1,1,32,0,231.5308,moe_ck2stages_gemm1_256x32x64x256_1x4_MulABScale_v1_Nswizzle0_Quant1_MulRoutedWeight1_silu_F8_F8_B16,0.0%,154.9071,moe_ck2stages_gemm2_256x32x64x128_1x4_MulABScaleExpertWeight_v1_Nswizzle0_Quant1_MulRoutedWeight0_F8_F8_B16,0.0%,386.4379,0,7.29,7294.62,
+80,16,7168,512,256,8,ActivationType.Silu,torch.bfloat16,torch.float8_e4m3fnuz,torch.float8_e4m3fnuz,QuantType.per_Tensor,1,1,32,0,231.5308,moe_ck2stages_gemm1_256x32x64x256_1x4_MulABScale_v1_Nswizzle0_Quant1_MulRoutedWeight1_silu_F8_F8_B16,0.0%,154.9071,moe_ck2stages_gemm2_256x32x64x128_1x4_MulABScaleExpertWeight_v1_Nswizzle0_Quant1_MulRoutedWeight0_F8_F8_B16,0.0%,386.4379,0,7.29,7294.62,
+80,4,7168,512,256,8,ActivationType.Silu,torch.bfloat16,torch.float8_e4m3fnuz,torch.float8_e4m3fnuz,QuantType.per_Tensor,1,1,32,0,231.5308,moe_ck2stages_gemm1_256x32x64x256_1x4_MulABScale_v1_Nswizzle0_Quant1_MulRoutedWeight1_silu_F8_F8_B16,0.0%,154.9071,moe_ck2stages_gemm2_256x32x64x128_1x4_MulABScaleExpertWeight_v1_Nswizzle0_Quant1_MulRoutedWeight0_F8_F8_B16,0.0%,386.4379,0,7.29,7294.62,
+80,8,7168,512,256,8,ActivationType.Silu,torch.bfloat16,torch.float8_e4m3fnuz,torch.float8_e4m3fnuz,QuantType.per_Tensor,1,1,32,0,231.5308,moe_ck2stages_gemm1_256x32x64x256_1x4_MulABScale_v1_Nswizzle0_Quant1_MulRoutedWeight1_silu_F8_F8_B16,0.0%,154.9071,moe_ck2stages_gemm2_256x32x64x128_1x4_MulABScaleExpertWeight_v1_Nswizzle0_Quant1_MulRoutedWeight0_F8_F8_B16,0.0%,386.4379,0,7.29,7294.62,
+80,1,7168,512,256,8,ActivationType.Silu,torch.bfloat16,torch.float8_e4m3fnuz,torch.float8_e4m3fnuz,QuantType.per_Tensor,1,1,32,0,231.5308,moe_ck2stages_gemm1_256x32x64x256_1x4_MulABScale_v1_Nswizzle0_Quant1_MulRoutedWeight1_silu_F8_F8_B16,0.0%,154.9071,moe_ck2stages_gemm2_256x32x64x128_1x4_MulABScaleExpertWeight_v1_Nswizzle0_Quant1_MulRoutedWeight0_F8_F8_B16,0.0%,386.4379,0,7.29,7294.62,
+80,2,7168,256,256,8,ActivationType.Gelu,torch.bfloat16,torch.bfloat16,torch.bfloat16,QuantType.No,1,1,32,0,239.8912,moe_ck2stages_gemm1_256x32x64x128_1x4_TypeCastExpertWeight_v1_Nswizzle0_Quant0_MulRoutedWeight1_gelu_B16_B16_B16,0.0%,147.6741,moe_ck2stages_gemm2_256x32x64x64_1x4_TypeCast_v1_Nswizzle0_Quant0_MulRoutedWeight0_B16_B16_B16,0.0%,387.5653,0,3.64,7273.69,
+# SPDX-License-Identifier: MIT
+# Copyright (C) 2024-2026, Advanced Micro Devices, Inc. All rights reserved.
+
+import torch
+import aiter
+import pandas as pd
+import os
+import sys
+import tempfile
+from aiter import QuantType
+from aiter.jit.core import (
+    get_asm_dir,
+    AITER_CSRC_DIR,
+    AITER_CONFIG_FMOE,
+    AITER_CONFIG_GROUPED_FMOE,
+    AITER_ROOT_DIR,
+)
+from aiter.fused_moe import (
+    fused_moe,
+    fused_topk,
+    moe_sorting,
+    asm_stage1,
+    torch_moe_stage1,
+    torch_moe_stage2,
+    torch_moe,
+    cktile_moe_stage1,
+    cktile_moe_stage2,
+    _mxfp4_a4w4_stage1_fw,
+    _mxfp4_a4w4_stage2_fw,
+)
+from aiter.ops.flydsl.mxfp4_kname import (
+    _parse_mxfp4_g1_kname,
+    _parse_mxfp4_g2_kname,
+)
+from aiter import ck_moe_stage1_fwd, ck_moe_stage2_fwd, dtype2str_dict
+from aiter.ops.shuffle import (
+    shuffle_weight,
+    shuffle_scale,
+    shuffle_scale_a16w4,
+    shuffle_weight_a16w4,
+    pack_int8_to_packed_int4,
+    shuffle_scale_for_int4,
+)
+from aiter.utility.mp_tuner import mp_tuner
+from aiter.int4_utils import (
+    rearrange_4bit_elements,
+    convert_int8_to_uint32_int4,
+)
+from aiter.ops.quant import per_1x32_i4_quant, per_1x32_f8_scale_f8_quant
+from aiter import dtypes
+from aiter import ActivationType as ActivationType
+from aiter.jit.utils.chip_info import get_gfx, get_gfx_runtime, gfx_from_cu_num
+import torch.nn.functional as F
+from einops import rearrange
+from aiter.utility.base_tuner import TunerCommon
+from aiter.utility import fp4_utils
+from aiter.utility.fp4_utils import moe_mxfp4_sort
+
+try:
+    from aiter.ops.flydsl.utils import is_flydsl_available
+except ImportError:
+
+    def is_flydsl_available():
+        return False
+
+
+if is_flydsl_available():
+    try:
+        from aiter.ops.flydsl.moe_kernels import (
+            get_flydsl_stage1_kernels,
+            get_flydsl_stage2_kernels,
+            get_flydsl_stage1_kernels_int4_bf16,
+            get_flydsl_stage2_kernels_int4_bf16,
+            flydsl_moe_stage1,
+            flydsl_moe_stage2,
+        )
+    except ImportError:
+
+        def is_flydsl_available():
+            return False
+
+
+sys.path.insert(0, f"{AITER_CSRC_DIR}/ck_gemm_moe_2stages_codegen/")
+from gemm_moe_ck2stages_common import get_gemm1_kernels_list, get_gemm2_kernels_list
+
+torch.set_default_device("cuda")
+torch.int4 = getattr(torch, "int4", torch.uint32)
+
+
+TUNE_MOE_EXPERT_BALANCE = (
+    os.environ.get("TUNE_MOE_EXPERT_BALANCE", "False").lower() == "true"
+)
+
+COS_DIFF_THRESHOLD = 1e-1
+
+
+def _manifest_flat_by_kernel(df: pd.DataFrame) -> dict:
+    """Map ``knl_name`` -> 0/1 when the manifest has a ``flat`` column.
+
+    If the column is absent, every kernel is treated as non-FLAT (equivalent
+    to all zeros). Only manifests that include FLAT 1-stage asm variants need
+    the column.
+    """
+    if "flat" not in df.columns:
+        return {}
+    return dict(zip(df["knl_name"], df["flat"].fillna(0).astype(int)))
+
+
+def torch_dynamic_mxfp8_quant(x: torch.Tensor):
+    """MXFP8 quantization (e4m3fn + e8m0 block scale, block=32).
+
+    Same numerics as ``aiter/bench_stage2_a8w4.py`` for a8w4 activations.
+    """
+    BLOCK = 32
+    orig_shape = x.shape
+    x_f32 = x.reshape(-1, x.shape[-1] // BLOCK, BLOCK).float()
+
+    amax, _ = torch.max(torch.abs(x_f32), dim=-1)
+    amax_i32 = amax.view(torch.int32)
+    amax_rounded = (amax_i32 + 0x200000) & 0xFF800000
+    exp_field = (amax_rounded >> 23) & 0xFF
+
+    e8m0_biased = torch.clamp(exp_field - 8, min=0)
+    quant_exp = 254 - e8m0_biased
+    quant_scale = (quant_exp << 23).view(torch.float32)
+
+    scaled = x_f32 * quant_scale.unsqueeze(-1)
+    fp8_vals = scaled.to(torch.float8_e4m3fn)
+    fp8_bytes = fp8_vals.view(torch.uint8)
+
+    e8m0_bytes = e8m0_biased.to(torch.uint8).view(dtypes.fp8_e8m0)
+    return fp8_bytes.view(*orig_shape), e8m0_bytes.view(
+        *orig_shape[:-1], orig_shape[-1] // BLOCK
+    )
+
+
+def cosine_diff_compare(ref, res, msg="", printLog=True):
+    from aiter import logger
+
+    x = ref.double().flatten()
+    y = res.double().flatten()
+    cos_diff = 1 - 2 * (x * y).sum().item() / max((x * x + y * y).sum().item(), 1e-12)
+    if printLog:
+        if cos_diff < COS_DIFF_THRESHOLD:
+            logger.info(f"{msg}[cosine_diff={cos_diff:.6f} \033[32mpassed~\033[0m]")
+        else:
+            logger.info(f"{msg}[cosine_diff={cos_diff:.6f} \033[31mfailed!\033[0m]")
+    # return real cos_diff (no flooring to 0) so small errors stay visible, not hidden
+    return cos_diff
+
+
+def tensor_compare_diagnostics(
+    ref, res, rtol=1e-2, atol=1e-2, max_items=3, sample_elements=4096
+):
+    """Return a compact, log-safe summary for run_config mismatches."""
+    try:
+        with torch.no_grad():
+            ref_flat = ref.detach().flatten()
+            res_flat = res.detach().flatten()
+            ref_numel = ref_flat.numel()

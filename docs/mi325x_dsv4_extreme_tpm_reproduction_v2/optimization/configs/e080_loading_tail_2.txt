@@ -1,0 +1,30 @@
+[aiter] Registering 783 cuda graph addresses
+[aiter] Registering 783 cuda graph addresses
+[atom 14:26:20] CUDA graph capture memory: 10 graphs | pool(reserved)=0.00GB allocated=0.22GB
+[atom 14:26:20] Post-init memory: actual=181.37GB (70.9%), target=212.47GB (83%), reserved=165.07GB, allocated=164.47GB
+[atom 14:26:20] Engine Core: cudagraph capture[1, 2, 4, 8, 16, 24, 32, 48, 64, 128] cost: 39.05 seconds, pool: 0.00GB
+[atom 14:26:20] Engine Core: load model runner success
+[atom 14:26:21] Post-init memory: actual=181.18GB (70.8%), target=212.47GB (83%), reserved=165.07GB, allocated=164.47GB
+[atom 14:26:21] Post-init memory: actual=181.43GB (70.9%), target=212.47GB (83%), reserved=165.07GB, allocated=164.47GB
+[atom 14:26:21] Post-init memory: actual=181.37GB (70.9%), target=212.47GB (83%), reserved=165.07GB, allocated=164.47GB
+[atom 14:26:21] Engine Core: EngineCore fully initialized and ready
+[atom 14:26:21] Engine Core Mgr: DP rank 0 is fully initialized and ready
+[atom 14:26:21] Engine Core Mgr: All EngineCores are fully initialized and ready
+[atom 14:26:21] Engine Core Mgr: All 1 EngineCores initialized and ready
+[atom 14:26:21] KV transfer config loaded: {}
+[atom 14:26:21] LLMEngine init with 1 data parallel ranks
+[atom 14:26:21] LLMEngine init with 1 data parallel ranks
+[atom 14:26:21] Starting server on 127.0.0.1:18000 (loop=uvloop)...
+INFO:     Started server process [10]
+INFO:     Waiting for application startup.
+[atom 14:26:21] Server started successfully and ready to accept requests
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:18000 (Press CTRL+C to quit)
+INFO:     127.0.0.1:44638 - "GET /v1/models HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44646 - "GET /v1/models HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44650 - "GET /v1/models HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44658 - "GET /v1/models HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41394 - "GET /v1/models HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41396 - "GET /v1/models HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41410 - "GET /v1/models HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55412 - "GET /v1/models HTTP/1.1" 200 OK

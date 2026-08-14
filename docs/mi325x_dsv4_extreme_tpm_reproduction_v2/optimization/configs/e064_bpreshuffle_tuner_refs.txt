@@ -1,0 +1,4 @@
+aiter/utility/pretune.py:67:    # cktile variant: covered by blockscale parent tuner (--libtype all)
+aiter/utility/pretune.py:69:    # bpreshuffle_cktile: covered by bpreshuffle parent tuner
+op_tests/tuning_tests/test_tune_pipeline.py:442:        """Smoke-test the a8w8 blockscale B-preshuffle ASM tuner path."""
+op_tests/tuning_tests/test_tune_pipeline.py:467:                "a8w8_blockscale bpreshuffle asm tuner failed",

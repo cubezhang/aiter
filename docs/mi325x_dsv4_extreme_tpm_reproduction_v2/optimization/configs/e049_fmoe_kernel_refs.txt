@@ -1,0 +1,3 @@
+/app/aiter-test/aiter/configs/model_configs/a8w8_blockscale_tuned_fmoe_ds_v3.csv
+/app/aiter-test/hsa/gfx942/fmoe/silu/fmoe_bf16_pertokenFp8_g1u1_vs_silu_1tg_ps_32x512.co
+/app/aiter-test/hsa/gfx942/fmoe/silu/fmoe_bf16_pertokenFp8_g1u1_silu.csv

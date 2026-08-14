@@ -1,0 +1,180 @@
+/app/aiter-test/aiter/fused_moe_bf16_asm.py:11:from aiter.fused_moe import fused_moe
+/app/aiter-test/aiter/fused_moe_bf16_asm.py:88:        aiter.fmoe(
+/app/aiter-test/aiter/fused_moe_bf16_asm.py:100:        # a16w8 smooth quant fmoe
+/app/aiter-test/aiter/fused_moe_bf16_asm.py:102:            aiter.fmoe_g1u1_a16(
+/app/aiter-test/aiter/fused_moe_bf16_asm.py:119:            aiter.fmoe_int8_g1u0_a16(
+/app/aiter-test/aiter/fused_moe_bf16_asm.py:162:        aiter.fmoe_fp8_blockscale_g1u1(
+/app/aiter-test/aiter/fused_moe_bf16_asm.py:181:        # a8w8 fmoe, opt: smooth quant
+/app/aiter-test/aiter/fused_moe_bf16_asm.py:238:                logger.warning("FMOE fall into pure torch quant...")
+/app/aiter-test/aiter/fused_moe_bf16_asm.py:241:            fmoe_func = aiter.fmoe_int8_g1u0(
+/app/aiter-test/aiter/fused_moe_bf16_asm.py:258:            aiter.fmoe_g1u1(
+/app/aiter-test/aiter/fused_moe_bf16_asm.py:301:    return fused_moe(
+/app/aiter-test/aiter/fused_moe.py:74:# per-kernel launches in fused_moe_2stages ("stage1"/"stage2"); None in production
+/app/aiter-test/aiter/fused_moe.py:441:def fused_moe(
+/app/aiter-test/aiter/fused_moe.py:472:    return fused_moe_(
+/app/aiter-test/aiter/fused_moe.py:499:def fused_moe_fake(
+/app/aiter-test/aiter/fused_moe.py:534:@torch_compile_guard(gen_fake=fused_moe_fake)
+/app/aiter-test/aiter/fused_moe.py:535:def fused_moe_(
+/app/aiter-test/aiter/fused_moe.py:700:    ), f"FLAT fmoe asm kernels require gfx942/gfx950; got {get_gfx()}. "
+/app/aiter-test/aiter/fused_moe.py:795:        return fused_moe_2stages(
+/app/aiter-test/aiter/fused_moe.py:833:def fused_moe_1stage(
+/app/aiter-test/aiter/fused_moe.py:863:        aiter.fmoe(
+/app/aiter-test/aiter/fused_moe.py:882:        aiter.fmoe_g1u1_tkw1(
+/app/aiter-test/aiter/fused_moe.py:918:                ), "a1_scale must be provided for quantized input for fused_moe"
+/app/aiter-test/aiter/fused_moe.py:946:            fmoe_func = functools.partial(
+/app/aiter-test/aiter/fused_moe.py:947:                aiter.fmoe_fp8_blockscale_g1u1,
+/app/aiter-test/aiter/fused_moe.py:953:            fmoe_func = aiter.fmoe_g1u1
+/app/aiter-test/aiter/fused_moe.py:955:            aiter.fmoe_int8_g1u0(
+/app/aiter-test/aiter/fused_moe.py:973:        fmoe_func(
+/app/aiter-test/aiter/fused_moe.py:1047:fused_moe_1stage_dict = {
+/app/aiter-test/aiter/fused_moe.py:1051:        (ActivationType.Silu,          QuantType.No,  dtypes.bf16,   dtypes.bf16,   dtypes.bf16,   False,   False) : aiter.fmoe,
+/app/aiter-test/aiter/fused_moe.py:1052:        (ActivationType.Silu,          QuantType.No,  dtypes.fp16,   dtypes.fp16,   dtypes.fp16,   False,   False) : aiter.fmoe,
+/app/aiter-test/aiter/fused_moe.py:1053:        (ActivationType.Gelu,   QuantType.per_Token,  dtypes.bf16,    dtypes.fp8,   dtypes.i4x2,    True,   False) : aiter.fmoe_g1u1,
+/app/aiter-test/aiter/fused_moe.py:1054:        (ActivationType.Silu,    QuantType.per_1x32,  dtypes.bf16,  dtypes.fp4x2,  dtypes.fp4x2,    True,   False) : aiter.fmoe_g1u1,
+/app/aiter-test/aiter/fused_moe.py:1055:        (ActivationType.Silu,   QuantType.per_Token,  dtypes.bf16,     dtypes.i8,     dtypes.i8,    True,   False) : aiter.fmoe_g1u1,
+/app/aiter-test/aiter/fused_moe.py:1056:        (ActivationType.Gelu,   QuantType.per_Token,  dtypes.bf16,     dtypes.i8,     dtypes.i8,    True,   False) : aiter.fmoe_g1u1,
+/app/aiter-test/aiter/fused_moe.py:1057:        (ActivationType.Silu,   QuantType.per_Token,  dtypes.bf16,    dtypes.fp8,    dtypes.fp8,    True,   False) : aiter.fmoe_g1u1,
+/app/aiter-test/aiter/fused_moe.py:1058:        (ActivationType.Gelu,   QuantType.per_Token,  dtypes.bf16,    dtypes.fp8,    dtypes.fp8,    True,   False) : aiter.fmoe_g1u1,
+/app/aiter-test/aiter/fused_moe.py:1059:        (ActivationType.Silu,   QuantType.per_1x128,  dtypes.bf16,    dtypes.fp8,    dtypes.fp8,    True,   False) : aiter.fmoe_g1u1,
+/app/aiter-test/aiter/fused_moe.py:1060:        (ActivationType.Silu,   QuantType.per_Token,  dtypes.bf16,     dtypes.i8,     dtypes.i8,   False,   False) : aiter.fmoe_int8_g1u0,
+/app/aiter-test/aiter/fused_moe.py:1061:        (ActivationType.Gelu,   QuantType.per_Token,  dtypes.bf16,     dtypes.i8,     dtypes.i8,   False,   False) : aiter.fmoe_int8_g1u0,
+/app/aiter-test/aiter/fused_moe.py:1065:        (ActivationType.Silu,    QuantType.per_1x32,   dtypes.bf16,   dtypes.fp4x2,  dtypes.fp4x2,    True,   False) : aiter.fmoe_g1u1,
+/app/aiter-test/aiter/fused_moe.py:1066:        (ActivationType.Silu,   QuantType.per_1x128,   dtypes.bf16,     dtypes.fp8,    dtypes.fp8,    True,   False) : aiter.fmoe_fp8_blockscale_g1u1,
+/app/aiter-test/aiter/fused_moe.py:1067:        (ActivationType.Gelu,   QuantType.per_1x128,   dtypes.bf16,     dtypes.fp8,    dtypes.fp8,    True,   False) : aiter.fmoe_fp8_blockscale_g1u1,
+/app/aiter-test/aiter/fused_moe.py:1068:        (ActivationType.Silu,   QuantType.per_Token,   dtypes.bf16,    dtypes.bf16,   dtypes.bf16,   False,   False) : aiter.fmoe,
+/app/aiter-test/aiter/fused_moe.py:1069:        (ActivationType.Silu,   QuantType.per_Token,   dtypes.bf16,     dtypes.fp8,    dtypes.fp8,    True,   True)  : aiter.fmoe_g1u1_tkw1,
+/app/aiter-test/aiter/fused_moe.py:1070:        (ActivationType.Silu,   QuantType.per_Token,   dtypes.bf16,     dtypes.fp8,    dtypes.fp8,    True,   False) : aiter.fmoe_g1u1,
+/app/aiter-test/aiter/fused_moe.py:1071:        (ActivationType.Gelu,   QuantType.per_Token,   dtypes.bf16,     dtypes.fp8,    dtypes.fp8,    True,   False) : aiter.fmoe_g1u1,
+/app/aiter-test/aiter/fused_moe.py:1111:    #  - prequant: fused_moe_2stages quantizes a1 before stage1.
+/app/aiter-test/aiter/fused_moe.py:1740:                f"[fused_moe] duplicate tuned rows (primary) in {tune_file}; "
+/app/aiter-test/aiter/fused_moe.py:1753:                f"[fused_moe] duplicate tuned rows after disabling act_type in {tune_file}; "
+/app/aiter-test/aiter/fused_moe.py:1762:    config_path = os.path.dirname(AITER_CONFIGS.AITER_CONFIG_FMOE_FILE)
+/app/aiter-test/aiter/fused_moe.py:1763:    tune_file = AITER_CONFIGS.AITER_CONFIG_FMOE_FILE
+/app/aiter-test/aiter/fused_moe.py:1764:    untune_file = os.path.join(config_path, "untuned_fmoe.csv")
+/app/aiter-test/aiter/fused_moe.py:1765:    profile_file = os.path.join(config_path, "profile_fmoe.csv")
+/app/aiter-test/aiter/fused_moe.py:1817:        logger.info("\033[34m Start tuning fmoe")
+/app/aiter-test/aiter/fused_moe.py:1824:            f"[Hint] tuned configs are saved in {tune_file}, you can set AITER_CONFIG_FMOE to this file to use tuned configs"
+/app/aiter-test/aiter/fused_moe.py:1854:        lock_path = os.path.join(bd_dir, f"lock_fmoe_tune_{lock_name}")
+/app/aiter-test/aiter/fused_moe.py:1874:                    f"[fused_moe] Opus stage2 config unsupported ({opus_reason}); "
+/app/aiter-test/aiter/fused_moe.py:1895:        ) in fused_moe_1stage_dict[get_gfx()]:
+/app/aiter-test/aiter/fused_moe.py:1942:                f"[fused_moe] tuned config found for {keys} but is_shuffled=False. "
+/app/aiter-test/aiter/fused_moe.py:1964:        f"[fused_moe] using {'1stage' if run_1stage else '2stage'}{' xbf16' if run_1stage_xbf16 else ''} {'default' if cfg is None else tag} for {keys} "
+/app/aiter-test/aiter/fused_moe.py:2003:                fused_moe_1stage,
+/app/aiter-test/aiter/fused_moe.py:2219:            f"[fused_moe] no tuned FlyDSL config for {keys}, "
+/app/aiter-test/aiter/fused_moe.py:2292:            "[fused_moe] SwiGLU MXFP4 with unshuffled weights not supported "
+/app/aiter-test/aiter/fused_moe.py:2424:def fused_moe_2stages(
+/app/aiter-test/aiter/fused_moe.py:2573:        ), "a1_scale must be provided for quantized input for fused_moe"
+/app/aiter-test/aiter/jit/utils/moe_recipes.py:119:def _get_tuned_fmoe_rows() -> List[Dict]:
+/app/aiter-test/aiter/jit/utils/moe_recipes.py:122:    tuned_paths = [configs_dir / "tuned_fmoe.csv"]
+/app/aiter-test/aiter/jit/utils/moe_recipes.py:123:    # NOTE: "*tuned_fmoe*.csv" also matches "*untuned_fmoe*.csv" (substring).
+/app/aiter-test/aiter/jit/utils/moe_recipes.py:130:        for p in sorted(model_configs_dir.glob("*tuned_fmoe*.csv"))
+/app/aiter-test/aiter/jit/utils/moe_recipes.py:146:    for row in _get_tuned_fmoe_rows():
+/app/aiter-test/aiter/jit/core.py:110:AITER_CONFIG_FMOE = os.getenv(
+/app/aiter-test/aiter/jit/core.py:111:    "AITER_CONFIG_FMOE",
+/app/aiter-test/aiter/jit/core.py:112:    f"{AITER_ROOT_DIR}/aiter/configs/tuned_fmoe.csv",
+/app/aiter-test/aiter/jit/core.py:115:AITER_CONFIG_GROUPED_FMOE = os.getenv(
+/app/aiter-test/aiter/jit/core.py:116:    "AITER_CONFIG_GROUPED_FMOE",
+/app/aiter-test/aiter/jit/core.py:117:    f"{AITER_ROOT_DIR}/aiter/configs/tuned_grouped_fmoe.csv",
+/app/aiter-test/aiter/jit/core.py:173:    def AITER_CONFIG_FMOE_FILE(self):
+/app/aiter-test/aiter/jit/core.py:175:            "AITER_CONFIG_FMOE", AITER_CONFIG_FMOE, "tuned_fmoe"
+/app/aiter-test/aiter/jit/core.py:179:    def AITER_CONFIG_GROUPED_FMOE_FILE(self):
+/app/aiter-test/aiter/jit/core.py:181:            "AITER_CONFIG_GROUPED_FMOE",
+/app/aiter-test/aiter/jit/core.py:182:            AITER_CONFIG_GROUPED_FMOE,
+/app/aiter-test/aiter/jit/core.py:183:            "tuned_grouped_fmoe",
+/app/aiter-test/aiter/ops/moe_op.py:112:@compile_ops("module_moe_fmoe_asm", ffi_type="ctypes")
+/app/aiter-test/aiter/ops/moe_op.py:113:def fmoe(
+/app/aiter-test/aiter/ops/moe_op.py:126:@compile_ops("module_moe_fmoe_asm", ffi_type="ctypes")
+/app/aiter-test/aiter/ops/moe_op.py:127:def fmoe_int8_g1u0(
+/app/aiter-test/aiter/ops/moe_op.py:145:@compile_ops("module_moe_fmoe_asm", ffi_type="ctypes")
+/app/aiter-test/aiter/ops/moe_op.py:146:def fmoe_g1u1(
+/app/aiter-test/aiter/ops/moe_op.py:165:@compile_ops("module_moe_fmoe_asm", ffi_type="ctypes")
+/app/aiter-test/aiter/ops/moe_op.py:166:def fmoe_g1u1_tkw1(
+/app/aiter-test/aiter/ops/moe_op.py:185:@compile_ops("module_moe_fmoe_asm", ffi_type="ctypes")
+/app/aiter-test/aiter/ops/moe_op.py:186:def fmoe_int8_g1u0_a16(
+/app/aiter-test/aiter/ops/moe_op.py:204:@compile_ops("module_moe_fmoe_asm", ffi_type="ctypes")
+/app/aiter-test/aiter/ops/moe_op.py:205:def fmoe_g1u1_a16(
+/app/aiter-test/aiter/ops/moe_op.py:223:@compile_ops("module_moe_fmoe_asm", ffi_type="ctypes")
+/app/aiter-test/aiter/ops/moe_op.py:224:def fmoe_fp8_blockscale_g1u1(
+/app/aiter-test/aiter/ops/moe_op.py:246:@compile_ops("module_moe_fmoe_asm", ffi_type="ctypes")
+/app/aiter-test/aiter/ops/triton/moe/moe_op.py:12:    _fused_moe_kernel_gptq_awq,
+/app/aiter-test/aiter/ops/triton/moe/moe_op.py:13:    _fused_moe_persistent_kernel_gptq_awq,
+/app/aiter-test/aiter/ops/triton/moe/moe_op.py:14:    _fused_moe_kernel,
+/app/aiter-test/aiter/ops/triton/moe/moe_op.py:15:    _fused_moe_persistent_kernel,
+/app/aiter-test/aiter/ops/triton/moe/moe_op.py:53:def fused_moe(
+/app/aiter-test/aiter/ops/triton/moe/moe_op.py:159:            _fused_moe_persistent_kernel_gptq_awq[grid](
+/app/aiter-test/aiter/ops/triton/moe/moe_op.py:201:            _fused_moe_kernel_gptq_awq[grid](
+/app/aiter-test/aiter/ops/triton/moe/moe_op.py:251:            _fused_moe_persistent_kernel[grid](
+/app/aiter-test/aiter/ops/triton/moe/moe_op.py:292:            _fused_moe_kernel[grid](
+/app/aiter-test/aiter/ops/triton/moe/moe_op_gemm_int8_smoothquant.py:460:def fused_moe_int8_smoothquant(
+/app/aiter-test/aiter/ops/triton/moe/moe_op_mxfp4_silu_fused.py:10:    _fused_moe_kernel_mxfp4_silu,
+/app/aiter-test/aiter/ops/triton/moe/moe_op_mxfp4_silu_fused.py:18:def fused_moe_mxfp4_silu(
+/app/aiter-test/aiter/ops/triton/moe/moe_op_mxfp4_silu_fused.py:104:    _fused_moe_kernel_mxfp4_silu[grid](
+/app/aiter-test/aiter/ops/triton/moe/moe_op_silu_fused.py:13:    _fused_moe_silu_kernel_gptq_awq,
+/app/aiter-test/aiter/ops/triton/moe/moe_op_silu_fused.py:14:    _fused_moe_persistent_silu_kernel_gptq_awq,
+/app/aiter-test/aiter/ops/triton/moe/moe_op_silu_fused.py:15:    _fused_moe_silu_kernel,
+/app/aiter-test/aiter/ops/triton/moe/moe_op_silu_fused.py:16:    _fused_moe_persistent_silu_kernel,
+/app/aiter-test/aiter/ops/triton/moe/moe_op_silu_fused.py:53:def fused_moe_silu(
+/app/aiter-test/aiter/ops/triton/moe/moe_op_silu_fused.py:157:            _fused_moe_persistent_silu_kernel_gptq_awq[grid](
+/app/aiter-test/aiter/ops/triton/moe/moe_op_silu_fused.py:200:            _fused_moe_silu_kernel_gptq_awq[grid](
+/app/aiter-test/aiter/ops/triton/moe/moe_op_silu_fused.py:249:            _fused_moe_persistent_silu_kernel[grid](
+/app/aiter-test/aiter/ops/triton/moe/moe_op_silu_fused.py:290:            _fused_moe_silu_kernel[grid](
+/app/aiter-test/aiter/ops/triton/moe/moe_op_mxfp4.py:11:    _fused_moe_kernel_mxfp4,
+/app/aiter-test/aiter/ops/triton/moe/moe_op_mxfp4.py:19:def fused_moe_mxfp4(
+/app/aiter-test/aiter/ops/triton/moe/moe_op_mxfp4.py:105:    _fused_moe_kernel_mxfp4[grid](
+/app/aiter-test/aiter/ops/triton/moe/moe_op_gelu.py:13:    _fused_moe_kernel,
+/app/aiter-test/aiter/ops/triton/moe/moe_op_gelu.py:14:    _fused_moe_persistent_kernel,
+/app/aiter-test/aiter/ops/triton/moe/moe_op_gelu.py:51:def fused_moe_gelu(
+/app/aiter-test/aiter/ops/triton/moe/moe_op_gelu.py:145:        _fused_moe_persistent_kernel[grid](
+/app/aiter-test/aiter/ops/triton/moe/moe_op_gelu.py:187:        _fused_moe_kernel[grid](
+/app/aiter-test/aiter/ops/triton/utils/moe_config_utils.py:48:    batch sizes to configurations of the fused_moe kernel. To evaluate the
+/app/aiter-test/aiter/ops/triton/_triton_kernels/moe/moe_op.py:14:_fused_moe_kernel_gptq_awq_repr = make_kernel_repr(
+/app/aiter-test/aiter/ops/triton/_triton_kernels/moe/moe_op.py:15:    "_fused_moe_kernel_gptq_awq",
+/app/aiter-test/aiter/ops/triton/_triton_kernels/moe/moe_op.py:35:_fused_moe_persistent_kernel_gptq_awq_repr = make_kernel_repr(
+/app/aiter-test/aiter/ops/triton/_triton_kernels/moe/moe_op.py:36:    "_fused_moe_persistent_kernel_gptq_awq",
+/app/aiter-test/aiter/ops/triton/_triton_kernels/moe/moe_op.py:57:_fused_moe_kernel_repr = make_kernel_repr(
+/app/aiter-test/aiter/ops/triton/_triton_kernels/moe/moe_op.py:58:    "_fused_moe_kernel",
+/app/aiter-test/aiter/ops/triton/_triton_kernels/moe/moe_op.py:76:_fused_moe_persistent_kernel_repr = make_kernel_repr(
+/app/aiter-test/aiter/ops/triton/_triton_kernels/moe/moe_op.py:77:    "_fused_moe_persistent_kernel",
+/app/aiter-test/aiter/ops/triton/_triton_kernels/moe/moe_op.py:102:@triton.jit(repr=_fused_moe_kernel_gptq_awq_repr)
+/app/aiter-test/aiter/ops/triton/_triton_kernels/moe/moe_op.py:103:def _fused_moe_kernel_gptq_awq(
+/app/aiter-test/aiter/ops/triton/_triton_kernels/moe/moe_op.py:340:@triton.jit(repr=_fused_moe_persistent_kernel_gptq_awq_repr)
+/app/aiter-test/aiter/ops/triton/_triton_kernels/moe/moe_op.py:341:def _fused_moe_persistent_kernel_gptq_awq(
+/app/aiter-test/aiter/ops/triton/_triton_kernels/moe/moe_op.py:568:@triton.jit(repr=_fused_moe_kernel_repr)
+/app/aiter-test/aiter/ops/triton/_triton_kernels/moe/moe_op.py:569:def _fused_moe_kernel(
+/app/aiter-test/aiter/ops/triton/_triton_kernels/moe/moe_op.py:775:@triton.jit(repr=_fused_moe_persistent_kernel_repr)
+/app/aiter-test/aiter/ops/triton/_triton_kernels/moe/moe_op.py:776:def _fused_moe_persistent_kernel(
+/app/aiter-test/aiter/ops/triton/_triton_kernels/moe/moe_op.py:827:    This is the persistent version of the fused_moe kernel.
+/app/aiter-test/aiter/ops/triton/_triton_kernels/moe/moe_op_mxfp4_silu_fused.py:23:_fused_moe_kernel_mxfp4_silu_repr = make_kernel_repr(
+/app/aiter-test/aiter/ops/triton/_triton_kernels/moe/moe_op_mxfp4_silu_fused.py:24:    "_fused_moe_kernel_mxfp4_silu",
+/app/aiter-test/aiter/ops/triton/_triton_kernels/moe/moe_op_mxfp4_silu_fused.py:47:@triton.jit(repr=_fused_moe_kernel_mxfp4_silu_repr)
+/app/aiter-test/aiter/ops/triton/_triton_kernels/moe/moe_op_mxfp4_silu_fused.py:48:def _fused_moe_kernel_mxfp4_silu(
+/app/aiter-test/aiter/ops/triton/_triton_kernels/moe/moe_op_silu_fused.py:16:_fused_moe_silu_kernel_gptq_awq_repr = make_kernel_repr(
+/app/aiter-test/aiter/ops/triton/_triton_kernels/moe/moe_op_silu_fused.py:17:    "_fused_moe_silu_kernel_gptq_awq",
+/app/aiter-test/aiter/ops/triton/_triton_kernels/moe/moe_op_silu_fused.py:38:_fused_moe_persistent_silu_kernel_gptq_awq_repr = make_kernel_repr(
+/app/aiter-test/aiter/ops/triton/_triton_kernels/moe/moe_op_silu_fused.py:39:    "_fused_moe_persistent_silu_kernel_gptq_awq",
+/app/aiter-test/aiter/ops/triton/_triton_kernels/moe/moe_op_silu_fused.py:61:_fused_moe_silu_kernel_repr = make_kernel_repr(
+/app/aiter-test/aiter/ops/triton/_triton_kernels/moe/moe_op_silu_fused.py:62:    "_fused_moe_silu_kernel",
+/app/aiter-test/aiter/ops/triton/_triton_kernels/moe/moe_op_silu_fused.py:80:_fused_moe_persistent_silu_kernel_repr = make_kernel_repr(
+/app/aiter-test/aiter/ops/triton/_triton_kernels/moe/moe_op_silu_fused.py:81:    "_fused_moe_persistent_silu_kernel",
+/app/aiter-test/aiter/ops/triton/_triton_kernels/moe/moe_op_silu_fused.py:106:@triton.jit(repr=_fused_moe_silu_kernel_gptq_awq_repr)
+/app/aiter-test/aiter/ops/triton/_triton_kernels/moe/moe_op_silu_fused.py:107:def _fused_moe_silu_kernel_gptq_awq(
+/app/aiter-test/aiter/ops/triton/_triton_kernels/moe/moe_op_silu_fused.py:366:@triton.jit(repr=_fused_moe_persistent_silu_kernel_gptq_awq_repr)
+/app/aiter-test/aiter/ops/triton/_triton_kernels/moe/moe_op_silu_fused.py:367:def _fused_moe_persistent_silu_kernel_gptq_awq(
+/app/aiter-test/aiter/ops/triton/_triton_kernels/moe/moe_op_silu_fused.py:612:@triton.jit(repr=_fused_moe_silu_kernel_repr)
+/app/aiter-test/aiter/ops/triton/_triton_kernels/moe/moe_op_silu_fused.py:613:def _fused_moe_silu_kernel(
+/app/aiter-test/aiter/ops/triton/_triton_kernels/moe/moe_op_silu_fused.py:842:@triton.jit(repr=_fused_moe_persistent_silu_kernel_repr)
+/app/aiter-test/aiter/ops/triton/_triton_kernels/moe/moe_op_silu_fused.py:843:def _fused_moe_persistent_silu_kernel(
+/app/aiter-test/aiter/ops/triton/_triton_kernels/moe/moe_op_silu_fused.py:894:    This is the persistent version of the fused_moe kernel.
+/app/aiter-test/aiter/ops/triton/_triton_kernels/moe/moe_op_mxfp4.py:22:_fused_moe_kernel_mxfp4_repr = make_kernel_repr(
+/app/aiter-test/aiter/ops/triton/_triton_kernels/moe/moe_op_mxfp4.py:23:    "_fused_moe_kernel_mxfp4",
+/app/aiter-test/aiter/ops/triton/_triton_kernels/moe/moe_op_mxfp4.py:47:@triton.jit(repr=_fused_moe_kernel_mxfp4_repr)
+/app/aiter-test/aiter/ops/triton/_triton_kernels/moe/moe_op_mxfp4.py:48:def _fused_moe_kernel_mxfp4(
+/app/aiter-test/aiter/ops/triton/_triton_kernels/moe/moe_op_gelu.py:17:_fused_moe_kernel_gelu_repr = make_kernel_repr(
+/app/aiter-test/aiter/ops/triton/_triton_kernels/moe/moe_op_gelu.py:18:    "_fused_moe_kernel",
+/app/aiter-test/aiter/ops/triton/_triton_kernels/moe/moe_op_gelu.py:37:_fused_moe_persistent_kernel_gelu_repr = make_kernel_repr(
+/app/aiter-test/aiter/ops/triton/_triton_kernels/moe/moe_op_gelu.py:38:    "_fused_moe_persistent_kernel",
+/app/aiter-test/aiter/ops/triton/_triton_kernels/moe/moe_op_gelu.py:64:@triton.jit(repr=_fused_moe_kernel_gelu_repr)
+/app/aiter-test/aiter/ops/triton/_triton_kernels/moe/moe_op_gelu.py:65:def _fused_moe_kernel(
+/app/aiter-test/aiter/ops/triton/_triton_kernels/moe/moe_op_gelu.py:282:@triton.jit(repr=_fused_moe_persistent_kernel_gelu_repr)
+/app/aiter-test/aiter/ops/triton/_triton_kernels/moe/moe_op_gelu.py:283:def _fused_moe_persistent_kernel(
+/app/aiter-test/aiter/ops/triton/_triton_kernels/moe/moe_op_gelu.py:335:    This is the persistent version of the fused_moe kernel.

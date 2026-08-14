@@ -1,0 +1,17 @@
+[aiter] import [module_aiter_core] under /app/aiter-test/aiter/jit/module_aiter_core.so
+   token  model_dim  inter_dim  ...  doweight_stage1     gfx cu_num
+0      1       4096       2048  ...                1  gfx942    304
+
+[1 rows x 14 columns]
+=== Running production operator benchmark (default) ===
+============= Benchmark (default) Benchmark Results =============
+Shape                                    |    E2E(us) |   Status
+----------------------------------------------------------------
+(1, 4096, 2048, E=256, topk=6, ActivationType.Silu, torch.bfloat16, torch.float8_e4m3fnuz, torch.float8_e4m3fnuz, QuantType.per_1x128, g1u1=True, dw_s1=True) |        N/A |    ERROR
+keys: gfx=gfx942, cu_num=304, token=1, model_dim=4096, inter_dim=2048, expert=256, topk=6, act_type=ActivationType.Silu, dtype=torch.bfloat16, q_dtype_a=torch.float8_e4m3fnuz, q_dtype_w=torch.float8_e4m3fnuz, q_type=QuantType.per_1x128, use_g1u1=1, doweight_stage1=1
+reason: HIP out of memory. Tried to allocate 16.00 GiB. GPU 0 has a total capacity of 255.98 GiB of which 14.38 GiB is free. Of the allocated memory 20.00 GiB is allocated by PyTorch, and 4.00 GiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+
+============= Repro CSV (1 failed shapes) =============
+Copy the lines below into a CSV file to reproduce:
+gfx,token,model_dim,inter_dim,expert,topk,act_type,dtype,q_dtype_a,q_dtype_w,q_type,use_g1u1,doweight_stage1
+gfx942,1,4096,2048,256,6,ActivationType.Silu,torch.bfloat16,torch.float8_e4m3fnuz,torch.float8_e4m3fnuz,QuantType.per_1x128,1,1

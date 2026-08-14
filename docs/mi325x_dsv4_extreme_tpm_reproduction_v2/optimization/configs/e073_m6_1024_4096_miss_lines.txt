@@ -1,0 +1,1 @@
+No B-preshuffle fallback diagnostic for M:6, N:1024, K:4096 was present in either post-probe server log (rg exit 1).

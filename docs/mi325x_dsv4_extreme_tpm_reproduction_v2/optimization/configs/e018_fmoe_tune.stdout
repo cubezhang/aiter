@@ -1,0 +1,53 @@
+[aiter] import [module_aiter_core] under /app/aiter-test/aiter/jit/module_aiter_core.so
+Not exist tuned file: /work/experiments/e018_fmoe_tuned.csv
+      gfx  cu_num  token  ...               q_type  use_g1u1  doweight_stage1
+0  gfx942     304      1  ...  QuantType.per_1x128         1                1
+
+[1 rows x 14 columns]
+
+Start tuning ['gfx942' 304 1 4096 2048 256 6 'ActivationType.Silu' 'torch.bfloat16'
+ 'torch.float8_e4m3fnuz' 'torch.float8_e4m3fnuz' 'QuantType.per_1x128' 1 1]
+ASM kernel list file not exist: /app/aiter-test/hsa/gfx942/fmoe_2stages/fmoe_stage1_bf16_pertokenFp8_blockscale_doweight_g1u1.csv
+ASM kernel list file not exist: /app/aiter-test/hsa/gfx942/fmoe/silu/fmoe_bf16_blockscaleFp8_g1u1_silu_tkw1.csv
+stage1 asm tasks is 0, tasks_ck is 10, task_1stage is 0
+Distributing 10 task groups across 1 GPUs
+[aiter] import [module_aiter_core] under /app/aiter-test/aiter/jit/module_aiter_core.so
+[aiter] LoadKernel: _ZN5aiter24topksoftmax_4x256x6_bf16E hsaco: /app/aiter-test/hsa//gfx942/topksoftmax/topksoftmax_4x256x6_bf16.co
+[aiter] import [module_moe_sorting_opus] under /app/aiter-test/aiter/jit/module_moe_sorting_opus.so
+[aiter] import [module_moe_ck2stages_f8_f8_preshuffle_on_b16_silu_per_1x128_mulWeightStage1] under /app/aiter-test/aiter/jit/module_moe_ck2stages_f8_f8_preshuffle_on_b16_silu_per_1x128_mulWeightStage1.so
+[aiter] type hints mismatch, override to --> ck_moe_stage1(hidden_states: torch.Tensor, w1: torch.Tensor, w2: torch.Tensor, sorted_token_ids: torch.Tensor, sorted_expert_ids: torch.Tensor, num_valid_ids: torch.Tensor, out: torch.Tensor, topk: int, kernelName: str = None, w1_scale: Optional[torch.Tensor] = None, a1_scale: Optional[torch.Tensor] = None, block_m: Optional[int] = 32, sorted_weights: Optional[torch.Tensor] = None, quant_type: int = 0, activation: int = 0, splitk: Optional[int] = 1, non_temporal_load: bool = False, dst_type: Optional[str] = None, is_shuffled: bool = True) -> None
+[aiter] import [module_quant] under /app/aiter-test/aiter/jit/module_quant.so
+/opt/venv/lib/python3.12/site-packages/torch/profiler/profiler.py:217: UserWarning: Warning: Profiler clears events at the end of each cycle.Only events from the current cycle will be reported.To keep events across cycles, set acc_events=True.
+  _warn_once(
+[W803 09:49:58.148881288 collection.cpp:1148] Warning: ROCTracer produced duplicate flow start: 7 (function operator())
+[aiter] type hints mismatch, override to --> ck_moe_stage2(inter_states: torch.Tensor, w1: torch.Tensor, w2: torch.Tensor, sorted_token_ids: torch.Tensor, sorted_expert_ids: torch.Tensor, num_valid_ids: torch.Tensor, out: torch.Tensor, topk: int, kernelName: str = None, w2_scale: Optional[torch.Tensor] = None, a2_scale: Optional[torch.Tensor] = None, block_m: Optional[int] = 32, sorted_weights: Optional[torch.Tensor] = None, quant_type: int = 0, activation: int = 0, splitk: Optional[int] = 1, non_temporal_load: bool = False, dst_type: Optional[str] = None, is_shuffled: bool = True) -> None
+/app/aiter-test/csrc/ck_gemm_moe_2stages_codegen/gemm_moe_tune.py:4190: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  profileDF["_is_fused"] = (
+/app/aiter-test/csrc/ck_gemm_moe_2stages_codegen/gemm_moe_tune.py:4687: FutureWarning: The behavior of DataFrame concatenation with empty or all-NA entries is deprecated. In a future version, this will no longer exclude empty or all-NA columns when determining the result dtypes. To retain the old behavior, exclude the relevant entries before the concat operation.
+  profile_result = pd.concat([old_profile, profile_result])
+[aiter] processed 1 batches of 1, Processing Status ====> 100.0% tuned in fmoeTuner
+[aiter] ============= Tuning results Summary: ==============
+[aiter] Tuning Finished. tune 1 shapes, total tuning time is 12.1857 seconds
+[aiter] Successfully tuned shapes:
+[aiter] Failed shapes:
+Waiting for 10 tasks to complete (timeout=600s each)...
+
+[tune] all 10 tasks completed successfully
+Error: please check errRatio, stage1 and stage2 should be valid together!
+no valid candidate found for ('gfx942', 304, 1, 4096, 2048, 256, 6, <ActivationType.Silu: 0>, torch.bfloat16, torch.float8_e4m3fnuz, torch.float8_e4m3fnuz, <QuantType.per_1x128: 4>, 1, 1), please check the time or errRatio in all result file running with --profile_file
+Not exist tuned file: /app/aiter-test/aiter/configs/profile_fmoe.csv
+Not exist tuned file: /work/experiments/e018_fmoe_tuned.csv
+      gfx cu_num token model_dim inter_dim  ... run_1stage xbf16 flat tflops  bw
+0  gfx942    304     1      4096      2048  ...          0     0   -1     -1  -1
+
+[1 rows x 28 columns]
+[aiter] untuned shapes:
+[aiter] [91m[Tuning not Finished][0m some shapes are not tuned or all failed, please check the result file or tune with --profile_file to get more details
+      gfx  cu_num  token  ...               q_type  use_g1u1  doweight_stage1
+0  gfx942     304      1  ...  QuantType.per_1x128         1                1
+
+[1 rows x 14 columns]

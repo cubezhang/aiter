@@ -1,0 +1,11 @@
+--- /data/models/mi325_dsv4_perf_tuning_20260803_065439/inherited_state/e145_quick_all_reduce.original.py	2026-08-04 03:15:46.672657440 +0000
++++ /data/models/mi325_dsv4_perf_tuning_20260803_065439/patches/e145_quick_all_reduce.threshold_1p25m.py	2026-08-04 03:15:46.672657440 +0000
+@@ -69,7 +69,7 @@
+     # to keep the per-quant-level list indexable by QuickReduceRegime.value.
+     _QR_MIN_SIZE = {
+         (torch.float16, 2): [1 * MB, 2 * MB, 2 * MB, 1 * MB, 1 * MB],
+-        (torch.float16, 4): [1 * MB, 16 * MB, 4 * MB, 2 * MB, 2 * MB],
++        (torch.float16, 4): [1 * MB, 16 * MB, 4 * MB, 5 * MB // 4, 2 * MB],
+         (torch.float16, 8): [16 * MB, 4 * MB, 4 * MB, 8 * MB, 8 * MB],
+         (torch.bfloat16, 2): [2 * MB, 8 * MB, 8 * MB, 8 * MB, 8 * MB],
+         (torch.bfloat16, 4): [8 * MB, 64 * MB, 64 * MB, 16 * MB, 16 * MB],

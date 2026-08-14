@@ -1,0 +1,27 @@
+5:#include "asm_fmoe_configs.hpp"
+254:    std::string selectedKl      = kernel_name.empty() ? "" : arch_id + kernel_name;
+261:    if(selectedKl.empty())
+270:                if((inter_dim % cfg.subGU_n) == 0)
+272:                    tg_num = inter_dim / cfg.subGU_n *
+283:                        selectedKl = el.first;
+293:        AITER_CHECK(selectedKl != "",
+304:    auto it = cfgs->find(selectedKl);
+317:            return FMoeKernel(name, co_name, cfg.subGU_n, num_persistent_tgs, is_flat_dispatch);
+321:        AITER_CHECK(false, __func__, " not find kernel " + selectedKl);
+331:    int selectedTile  = 0;
+342:                selectedTile = tile;
+350:                    selectedTile = tile;
+356:    return selectedTile;
+433:    struct FMoeKernelConfig
+442:        static std::unordered_map<int, FMoeKernelConfig> gelu_kernel_int8_configs = {
+458:        static std::unordered_map<int, FMoeKernelConfig> silu_kernel_int8_configs = {
+467:        std::unordered_map<int, FMoeKernelConfig>* config_map = nullptr;
+483:        int selectedTile  = 0;
+488:                selectedTile = tile;
+492:        if(selectedTile == 0)
+500:        auto it = config_map->find(selectedTile);
+551:    struct FMoeKernelConfig
+570:        int selectedTile = get_heuristic_tile(
+572:        if(selectedTile == 512)
+578:        else if(selectedTile == 256)
+584:        else if(selectedTile == 128)

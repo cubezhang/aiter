@@ -1,0 +1,7 @@
+{
+  "total_token_throughput": 16150.575916619435,
+  "mean_ttft_ms": 6449.673054716965,
+  "mean_tpot_ms": 23.073591748847683,
+  "completed": 140,
+  "failed": null
+}

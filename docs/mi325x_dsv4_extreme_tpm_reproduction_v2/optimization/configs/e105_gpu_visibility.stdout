@@ -1,0 +1,85 @@
+crw-rw---- 1 root sgx 226, 128 Aug  3 15:51 /dev/dri/renderD128
+crw-rw---- 1 root sgx 226, 129 Aug  3 15:51 /dev/dri/renderD129
+crw-rw---- 1 root sgx 226, 130 Aug  3 15:51 /dev/dri/renderD130
+crw-rw---- 1 root sgx 226, 131 Aug  3 15:51 /dev/dri/renderD131
+crw-rw---- 1 root sgx 226, 132 Aug  3 15:51 /dev/dri/renderD132
+crw-rw---- 1 root sgx 226, 133 Aug  3 15:51 /dev/dri/renderD133
+crw-rw---- 1 root sgx 226, 134 Aug  3 15:51 /dev/dri/renderD134
+crw-rw---- 1 root sgx 226, 135 Aug  3 15:51 /dev/dri/renderD135
+crw-rw---- 1 root sgx 226, 136 Aug  3 15:51 /dev/dri/renderD136
+crw-rw---- 1 root sgx 226, 137 Aug  3 15:51 /dev/dri/renderD137
+crw-rw---- 1 root sgx 226, 138 Aug  3 15:51 /dev/dri/renderD138
+crw-rw---- 1 root sgx 226, 139 Aug  3 15:51 /dev/dri/renderD139
+crw-rw---- 1 root sgx 226, 140 Aug  3 15:51 /dev/dri/renderD140
+crw-rw---- 1 root sgx 226, 141 Aug  3 15:51 /dev/dri/renderD141
+crw-rw---- 1 root sgx 226, 142 Aug  3 15:51 /dev/dri/renderD142
+crw-rw---- 1 root sgx 226, 143 Aug  3 15:51 /dev/dri/renderD143
+crw-rw---- 1 root sgx 226, 144 Aug  3 15:51 /dev/dri/renderD144
+crw-rw---- 1 root sgx 226, 145 Aug  3 15:51 /dev/dri/renderD145
+crw-rw---- 1 root sgx 226, 146 Aug  3 15:51 /dev/dri/renderD146
+crw-rw---- 1 root sgx 226, 147 Aug  3 15:51 /dev/dri/renderD147
+crw-rw---- 1 root sgx 226, 148 Aug  3 15:51 /dev/dri/renderD148
+crw-rw---- 1 root sgx 226, 149 Aug  3 15:51 /dev/dri/renderD149
+crw-rw---- 1 root sgx 226, 150 Aug  3 15:51 /dev/dri/renderD150
+crw-rw---- 1 root sgx 226, 151 Aug  3 15:51 /dev/dri/renderD151
+crw-rw---- 1 root sgx 226, 152 Aug  3 15:51 /dev/dri/renderD152
+crw-rw---- 1 root sgx 226, 153 Aug  3 15:51 /dev/dri/renderD153
+crw-rw---- 1 root sgx 226, 154 Aug  3 15:51 /dev/dri/renderD154
+crw-rw---- 1 root sgx 226, 155 Aug  3 15:51 /dev/dri/renderD155
+crw-rw---- 1 root sgx 226, 156 Aug  3 15:51 /dev/dri/renderD156
+crw-rw---- 1 root sgx 226, 157 Aug  3 15:51 /dev/dri/renderD157
+crw-rw---- 1 root sgx 226, 158 Aug  3 15:51 /dev/dri/renderD158
+crw-rw---- 1 root sgx 226, 159 Aug  3 15:51 /dev/dri/renderD159
+crw-rw---- 1 root sgx 226, 160 Aug  3 15:51 /dev/dri/renderD160
+crw-rw---- 1 root sgx 226, 161 Aug  3 15:51 /dev/dri/renderD161
+crw-rw---- 1 root sgx 226, 162 Aug  3 15:51 /dev/dri/renderD162
+crw-rw---- 1 root sgx 226, 163 Aug  3 15:51 /dev/dri/renderD163
+crw-rw---- 1 root sgx 226, 164 Aug  3 15:51 /dev/dri/renderD164
+crw-rw---- 1 root sgx 226, 165 Aug  3 15:51 /dev/dri/renderD165
+crw-rw---- 1 root sgx 226, 166 Aug  3 15:51 /dev/dri/renderD166
+crw-rw---- 1 root sgx 226, 167 Aug  3 15:51 /dev/dri/renderD167
+crw-rw---- 1 root sgx 226, 168 Aug  3 15:51 /dev/dri/renderD168
+crw-rw---- 1 root sgx 226, 169 Aug  3 15:51 /dev/dri/renderD169
+crw-rw---- 1 root sgx 226, 170 Aug  3 15:51 /dev/dri/renderD170
+crw-rw---- 1 root sgx 226, 171 Aug  3 15:51 /dev/dri/renderD171
+crw-rw---- 1 root sgx 226, 172 Aug  3 15:51 /dev/dri/renderD172
+crw-rw---- 1 root sgx 226, 173 Aug  3 15:51 /dev/dri/renderD173
+crw-rw---- 1 root sgx 226, 174 Aug  3 15:51 /dev/dri/renderD174
+crw-rw---- 1 root sgx 226, 175 Aug  3 15:51 /dev/dri/renderD175
+crw-rw---- 1 root sgx 226, 176 Aug  3 15:51 /dev/dri/renderD176
+crw-rw---- 1 root sgx 226, 177 Aug  3 15:51 /dev/dri/renderD177
+crw-rw---- 1 root sgx 226, 178 Aug  3 15:51 /dev/dri/renderD178
+crw-rw---- 1 root sgx 226, 179 Aug  3 15:51 /dev/dri/renderD179
+crw-rw---- 1 root sgx 226, 180 Aug  3 15:51 /dev/dri/renderD180
+crw-rw---- 1 root sgx 226, 181 Aug  3 15:51 /dev/dri/renderD181
+crw-rw---- 1 root sgx 226, 182 Aug  3 15:51 /dev/dri/renderD182
+crw-rw---- 1 root sgx 226, 183 Aug  3 15:51 /dev/dri/renderD183
+crw-rw---- 1 root sgx 226, 184 Aug  3 15:51 /dev/dri/renderD184
+crw-rw---- 1 root sgx 226, 185 Aug  3 15:51 /dev/dri/renderD185
+crw-rw---- 1 root sgx 226, 186 Aug  3 15:51 /dev/dri/renderD186
+crw-rw---- 1 root sgx 226, 187 Aug  3 15:51 /dev/dri/renderD187
+crw-rw---- 1 root sgx 226, 188 Aug  3 15:51 /dev/dri/renderD188
+crw-rw---- 1 root sgx 226, 189 Aug  3 15:51 /dev/dri/renderD189
+crw-rw---- 1 root sgx 226, 190 Aug  3 15:51 /dev/dri/renderD190
+crw-rw---- 1 root sgx 226, 191 Aug  3 15:51 /dev/dri/renderD191
+crw-rw---- 1 root sgx 235,   0 Aug  3 15:51 /dev/kfd
+[37mROCk module version 6.16.13 is loaded[0m
+=====================    
+HSA System Attributes    
+=====================    
+Runtime Version:         1.18
+Runtime Ext Version:     1.15
+System Timestamp Freq.:  1000.000000MHz
+Sig. Max Wait Duration:  18446744073709551615 (0xFFFFFFFFFFFFFFFF) (timestamp count)
+Machine Model:           LARGE                              
+System Endianness:       LITTLE                             
+Mwaitx:                  DISABLED
+XNACK enabled:           NO
+DMAbuf Support:          YES
+VMM Support:             YES
+
+==========               
+HSA Agents               
+==========               
+*******                  
+Agent 1                  

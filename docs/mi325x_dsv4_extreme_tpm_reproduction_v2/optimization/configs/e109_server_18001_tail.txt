@@ -1,0 +1,80 @@
+[atom 16:01:56] Engine Core: output send 1 reqs
+INFO:     127.0.0.1:38780 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+[aiter] shape is M:15540, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:3885, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+INFO:     127.0.0.1:38792 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38806 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38814 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38820 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38832 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38846 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38862 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38878 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38880 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38896 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38898 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38914 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38922 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38926 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38928 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38934 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38940 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38944 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38954 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38956 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38970 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38972 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38982 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38988 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39000 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39016 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39020 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+[atom 16:01:57] Engine Core: output send 63 reqs
+INFO:     127.0.0.1:39048 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39036 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39062 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39078 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39080 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39088 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39100 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39116 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39132 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39140 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39150 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39152 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39158 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39162 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39170 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39172 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39184 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39186 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39194 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39204 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39206 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39220 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39226 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39228 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39240 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39244 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39256 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39264 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39266 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39278 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39292 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39298 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39322 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39330 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39308 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39344 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+[atom 16:02:40] Server shutting down, releasing resources...
+[atom 16:02:40] Engine Core Mgr: Shutting down all 1 EngineCores
+[atom 16:02:45] AsyncIOProcManager(ModelRunner): received signal 15 (SIGTERM), exiting...
+[atom 16:02:45] AsyncIOProcManager(ModelRunner): shutdown all runners...
+[atom 16:02:46] AsyncIOProcManager(ModelRunner): All runners are shutdown.
+[atom 16:02:46] Engine Core Mgr: All EngineCores shut down
+INFO:     Application shutdown complete.
+INFO:     Finished server process [19607]
+/usr/lib/python3.12/multiprocessing/resource_tracker.py:254: UserWarning: resource_tracker: There appear to be 4 leaked semaphore objects to clean up at shutdown
+  warnings.warn('resource_tracker: There appear to be %d '

@@ -1,0 +1,2 @@
+[aiter] import [module_aiter_core] under /app/aiter-test/aiter/jit/module_aiter_core.so
+[atom 16:20:07] Raised RLIMIT_NOFILE soft limit 1024 -> 65535 (hard=524288)

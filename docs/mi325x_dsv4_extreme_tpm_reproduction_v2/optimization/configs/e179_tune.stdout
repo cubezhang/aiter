@@ -1,0 +1,61 @@
+Not exist tuned file: /work/experiments/e179_bpreshuffle_tuned.csv
+      gfx  cu_num       M     N     K
+0  gfx942     304  131072  8192  1024
+1  gfx942     304  131072  1536  4096
+2  gfx942     304  131072  4096  2048
+Compare candidate CSV will be written to /tmp/aiter_compare/e179_bpreshuffle_tuned.1.candidate.csv
+=== Running pre-tune benchmark (batch 1/1) ===
+[Task Grouping] Grouped 18 tasks into 3 groups by info_keys
+Distributing 3 task groups across 8 GPUs
+[aiter] LoadKernel: _ZN5aiter42fp8gemm_bf16_blockscale_BpreShuffle_32x128E hsaco: /app/aiter-test/hsa//gfx942/fp8gemm_blockscale/fp8gemm_bf16_blockscale_BpreShuffle_32x128.co
+[aiter] LoadKernel: _ZN5aiter42fp8gemm_bf16_blockscale_BpreShuffle_32x128E hsaco: /app/aiter-test/hsa//gfx942/fp8gemm_blockscale/fp8gemm_bf16_blockscale_BpreShuffle_32x128.co
+[aiter] LoadKernel: _ZN5aiter42fp8gemm_bf16_blockscale_BpreShuffle_32x128E hsaco: /app/aiter-test/hsa//gfx942/fp8gemm_blockscale/fp8gemm_bf16_blockscale_BpreShuffle_32x128.co
+[aiter] LoadKernel: _ZN5aiter42fp8gemm_bf16_blockscale_BpreShuffle_48x128E hsaco: /app/aiter-test/hsa//gfx942/fp8gemm_blockscale/fp8gemm_bf16_blockscale_BpreShuffle_48x128.co
+[aiter] LoadKernel: _ZN5aiter42fp8gemm_bf16_blockscale_BpreShuffle_48x128E hsaco: /app/aiter-test/hsa//gfx942/fp8gemm_blockscale/fp8gemm_bf16_blockscale_BpreShuffle_48x128.co
+[aiter] LoadKernel: _ZN5aiter42fp8gemm_bf16_blockscale_BpreShuffle_48x128E hsaco: /app/aiter-test/hsa//gfx942/fp8gemm_blockscale/fp8gemm_bf16_blockscale_BpreShuffle_48x128.co
+[aiter] LoadKernel: _ZN5aiter42fp8gemm_bf16_blockscale_BpreShuffle_64x128E hsaco: /app/aiter-test/hsa//gfx942/fp8gemm_blockscale/fp8gemm_bf16_blockscale_BpreShuffle_64x128.co
+[aiter] LoadKernel: _ZN5aiter42fp8gemm_bf16_blockscale_BpreShuffle_64x128E hsaco: /app/aiter-test/hsa//gfx942/fp8gemm_blockscale/fp8gemm_bf16_blockscale_BpreShuffle_64x128.co
+[aiter] LoadKernel: _ZN5aiter42fp8gemm_bf16_blockscale_BpreShuffle_80x128E hsaco: /app/aiter-test/hsa//gfx942/fp8gemm_blockscale/fp8gemm_bf16_blockscale_BpreShuffle_80x128.co
+[aiter] LoadKernel: _ZN5aiter42fp8gemm_bf16_blockscale_BpreShuffle_64x128E hsaco: /app/aiter-test/hsa//gfx942/fp8gemm_blockscale/fp8gemm_bf16_blockscale_BpreShuffle_64x128.co
+[aiter] LoadKernel: _ZN5aiter42fp8gemm_bf16_blockscale_BpreShuffle_96x128E hsaco: /app/aiter-test/hsa//gfx942/fp8gemm_blockscale/fp8gemm_bf16_blockscale_BpreShuffle_96x128.co
+[aiter] LoadKernel: _ZN5aiter43fp8gemm_bf16_blockscale_BpreShuffle_128x128E hsaco: /app/aiter-test/hsa//gfx942/fp8gemm_blockscale/fp8gemm_bf16_blockscale_BpreShuffle_128x128.co
+[aiter] LoadKernel: _ZN5aiter42fp8gemm_bf16_blockscale_BpreShuffle_80x128E hsaco: /app/aiter-test/hsa//gfx942/fp8gemm_blockscale/fp8gemm_bf16_blockscale_BpreShuffle_80x128.co
+[aiter] LoadKernel: _ZN5aiter42fp8gemm_bf16_blockscale_BpreShuffle_80x128E hsaco: /app/aiter-test/hsa//gfx942/fp8gemm_blockscale/fp8gemm_bf16_blockscale_BpreShuffle_80x128.co
+[aiter] LoadKernel: _ZN5aiter42fp8gemm_bf16_blockscale_BpreShuffle_96x128E hsaco: /app/aiter-test/hsa//gfx942/fp8gemm_blockscale/fp8gemm_bf16_blockscale_BpreShuffle_96x128.co
+[aiter] LoadKernel: _ZN5aiter42fp8gemm_bf16_blockscale_BpreShuffle_96x128E hsaco: /app/aiter-test/hsa//gfx942/fp8gemm_blockscale/fp8gemm_bf16_blockscale_BpreShuffle_96x128.co
+[aiter] LoadKernel: _ZN5aiter43fp8gemm_bf16_blockscale_BpreShuffle_128x128E hsaco: /app/aiter-test/hsa//gfx942/fp8gemm_blockscale/fp8gemm_bf16_blockscale_BpreShuffle_128x128.co
+[aiter] LoadKernel: _ZN5aiter43fp8gemm_bf16_blockscale_BpreShuffle_128x128E hsaco: /app/aiter-test/hsa//gfx942/fp8gemm_blockscale/fp8gemm_bf16_blockscale_BpreShuffle_128x128.co
+Waiting for 3 tasks to complete (no timeout limit)...
+=== Running post-tune benchmark (verification) for batch 1/1 ===
+[aiter] LoadKernel: _ZN5aiter43fp8gemm_bf16_blockscale_BpreShuffle_128x128E hsaco: /app/aiter-test/hsa//gfx942/fp8gemm_blockscale/fp8gemm_bf16_blockscale_BpreShuffle_128x128.co
+Not exist tuned file: /work/experiments/e179_bpreshuffle_tuned.csv
+      gfx cu_num       M  ...  tflops      bw errRatio
+0  gfx942    304  131072  ...  734.00  764.40      0.0
+1  gfx942    304  131072  ...  993.46  569.73      0.0
+2  gfx942    304  131072  ...  889.49  546.29      0.0
+
+[3 rows x 13 columns]
+Empty DataFrame
+Columns: [gfx, cu_num, M, N, K, libtype, kernelId, splitK, us, kernelName, tflops, bw, errRatio]
+Index: []
+============= Tune Performance Comparison =============
+Shape                                    |   Pre-E2E(us) |   Post-E2E(us) |  Speedup |   Status
+-----------------------------------------------------------------------------------------------
+(131072, 1536, 4096)                     |       1981.35 |        1690.71 |    1.17x |       OK
+keys: gfx=gfx942, cu_num=304, M=131072, N=1536, K=4096
+(131072, 4096, 2048)                     |       2611.24 |        2500.92 |    1.04x |       OK
+keys: gfx=gfx942, cu_num=304, M=131072, N=4096, K=2048
+(131072, 8192, 1024)                     |       2995.31 |        2903.81 |    1.03x |       OK
+keys: gfx=gfx942, cu_num=304, M=131072, N=8192, K=1024
+============= Compare Report =============
+Total shapes: 3 | Updated: 3 (improved: 3, new: 0) | Skipped: 0
+Threshold: >= 1.0% improvement to update /work/experiments/e179_bpreshuffle_tuned.csv
+
+--- Updated (3 shapes) ---
+Shape                                    |    Pre(us) |   Post(us) |   Improve |             Action
+---------------------------------------------------------------------------------------------------
+(131072, 1536, 4096)                     |    1981.35 |    1690.71 |    14.67% |             UPDATE
+(131072, 4096, 2048)                     |    2611.24 |    2500.92 |     4.22% |             UPDATE
+(131072, 8192, 1024)                     |    2995.31 |    2903.81 |     3.05% |             UPDATE
+
+Compare candidate CSV written to /tmp/aiter_compare/e179_bpreshuffle_tuned.1.candidate.csv

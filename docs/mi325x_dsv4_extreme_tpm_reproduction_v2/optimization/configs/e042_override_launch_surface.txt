@@ -1,0 +1,3 @@
+commands/e004_start_dual_tp4_131k_singlecontainer.sh:19:docker run -d --name mi325_dsv4_e004_dual --network host --ipc=host --shm-size=128G --device /dev/kfd --device /dev/dri --group-add video \
+commands/e004_start_dual_tp4_131k_singlecontainer.sh:28:unset AITER_REBUILD AITER_CONFIG_GEMM_BF16 AITER_CONFIG_FMOE AITER_CONFIG_GEMM_A8W8_BLOCKSCALE_BPRESHUFFLE ATOM_USE_TRITON_MOE
+commands/e004_start_dual_tp4_131k_singlecontainer.sh:68:docker run -d --name mi325_dsv4_e004_router --network host --entrypoint bash \

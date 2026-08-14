@@ -1,0 +1,1 @@
+29:export AITER_CONFIG_GEMM_A8W8_BLOCKSCALE_BPRESHUFFLE=/work/experiments/e077_bpreshuffle_18row_overlay.csv

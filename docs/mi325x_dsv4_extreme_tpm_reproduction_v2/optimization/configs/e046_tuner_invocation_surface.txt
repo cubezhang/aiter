@@ -1,0 +1,3 @@
+504:    def run_config(self, args):
+525:                self._get_run_config_err_ratio_limit(row, args)
+556:                err_ratio = checkAllclose(out, ref, msg=f"run_config {shape_str}")

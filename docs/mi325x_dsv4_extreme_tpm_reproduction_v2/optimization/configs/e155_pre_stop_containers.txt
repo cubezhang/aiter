@@ -1,0 +1,2 @@
+c31d44ec3e50 mi325_dsv4_e004_router Up 19 minutes "bash -lc 'exec pyth…"
+38b36e621329 mi325_dsv4_e004_dual Up 21 minutes "bash -lc '\nset -euo…"

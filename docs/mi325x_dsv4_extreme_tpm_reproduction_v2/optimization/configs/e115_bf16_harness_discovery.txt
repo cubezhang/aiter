@@ -1,0 +1,2 @@
+Command: rg --files /data/DeepSeek-V4-Flash-FP8 /data/models/mi325_dsv4_perf_tuning_20260803_065439 2>/dev/null | rg 'gemm_bf16.*tune\.py$|bf16.*tuned_gemm\.csv$' | head -30
+Result: no matching production BF16 tuner or tuned-GEMM table artifact found.

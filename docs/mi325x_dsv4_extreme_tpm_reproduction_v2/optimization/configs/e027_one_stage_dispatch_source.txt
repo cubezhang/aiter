@@ -1,0 +1,180 @@
+687-    stage1_func = getattr(metadata.stage1, "func", metadata.stage1)
+688-    need_bias_support = _needs_swiglu_bias_support(dtype, quant_type)
+689-    need_local_topk_ids = (
+690:        not metadata.run_1stage
+691-        and need_bias_support
+692-        and metadata.has_bias
+693-        and metadata.ksplit > 1
+--
+763-            local_topk_ids = None
+764-    _opus_a8w4.check_route_bucket_metadata(metadata, sorted_expert_ids, logger)
+765-
+766:    if metadata.run_1stage:
+767-        _stage1_call = functools.partial(
+768-            metadata.stage1,
+769-            hidden_states,
+--
+944-
+945-        if quant_type == QuantType.per_1x128:
+946-            fmoe_func = functools.partial(
+947:                aiter.fmoe_fp8_blockscale_g1u1,
+948-                fc_scale_blkn=128,
+949-                fc_scale_blkk=128,
+950-                block_size_M=block_size_M,
+--
+1063-    "gfx950":
+1064-    {
+1065-        (ActivationType.Silu,    QuantType.per_1x32,   dtypes.bf16,   dtypes.fp4x2,  dtypes.fp4x2,    True,   False) : aiter.fmoe_g1u1,
+1066:        (ActivationType.Silu,   QuantType.per_1x128,   dtypes.bf16,     dtypes.fp8,    dtypes.fp8,    True,   False) : aiter.fmoe_fp8_blockscale_g1u1,
+1067:        (ActivationType.Gelu,   QuantType.per_1x128,   dtypes.bf16,     dtypes.fp8,    dtypes.fp8,    True,   False) : aiter.fmoe_fp8_blockscale_g1u1,
+1068-        (ActivationType.Silu,   QuantType.per_Token,   dtypes.bf16,    dtypes.bf16,   dtypes.bf16,   False,   False) : aiter.fmoe,
+1069-        (ActivationType.Silu,   QuantType.per_Token,   dtypes.bf16,     dtypes.fp8,    dtypes.fp8,    True,   True)  : aiter.fmoe_g1u1_tkw1,
+1070-        (ActivationType.Silu,   QuantType.per_Token,   dtypes.bf16,     dtypes.fp8,    dtypes.fp8,    True,   False) : aiter.fmoe_g1u1,
+--
+1100-    stage2: Optional[Callable]
+1101-    block_m: int
+1102-    ksplit: int
+1103:    run_1stage: bool = False
+1104-    has_bias: bool = False
+1105-    use_non_temporal_load: bool = True
+1106-    fuse_quant: str = ""
+--
+1880-        ksplit = 0
+1881-        kernelName1 = ""
+1882-        kernelName2 = ""
+1883:        run_1stage = False
+1884:        run_1stage_xbf16 = False
+1885-        # No tuned config => default host moe_sort. For FLAT, run tuner and set flat=1.
+1886-        cfg_flat = False
+1887-        if (
+--
+1895-        ) in fused_moe_1stage_dict[get_gfx()]:
+1896-            if q_type == QuantType.per_1x128:
+1897-                # for fp8 blockscale, ck has better performance so disable assembly kernel
+1898:                run_1stage = token > 32 and (inter_dim % 128 == 0)
+1899-            elif q_type == QuantType.per_Token and q_dtype_w == dtypes.i8:
+1900:                run_1stage = token > 32
+1901-            elif q_type == QuantType.per_Token and q_dtype_w == dtypes.fp8:
+1902:                run_1stage = token > 16 or inter_dim % 128 != 0
+1903-            elif q_type != QuantType.per_1x32:
+1904:                run_1stage = token < 256
+1905-
+1906:            if run_1stage and q_type == QuantType.per_1x128 and get_gfx() == "gfx950":
+1907:                run_1stage_xbf16 = int(os.environ.get("AITER_XBFLOAT16", "0")) == 1
+1908-
+1909-        block_m = (
+1910-            BLOCK_SIZE_M
+1911:            if run_1stage
+1912-            else (
+1913-                (64 if token > 32 else 16)
+1914-                if q_type == QuantType.per_1x128
+--
+1917-        )
+1918-        ksplit = (
+1919-            ksplit
+1920:            if (run_1stage)
+1921-            else (
+1922-                get_ksplit(token, topk, expert, inter_dim, model_dim)
+1923-                if q_type in [QuantType.per_1x128, QuantType.per_1x32]
+--
+1926-        )
+1927-        use_non_temporal_load = use_nt(token, topk, expert)
+1928-        aiter.logger.info(
+1929:            f"run_1stage = {run_1stage}, xbf16 = {run_1stage_xbf16}, ksplit = {ksplit} q_type = {q_type} block_m = {block_m} use_nt = {use_non_temporal_load}, estimated_m_per_expert = {token * topk // expert}"
+1930-        )
+1931-    else:
+1932-        block_m = cfg["block_m"]
+--
+1936-            ksplit = 0
+1937-        kernelName1 = cfg["kernelName1"]
+1938-        kernelName2 = cfg["kernelName2"]
+1939:        run_1stage = cfg.get("run_1stage", False)
+1940:        if not is_shuffled and not run_1stage:
+1941-            logger.warning(
+1942-                f"[fused_moe] tuned config found for {keys} but is_shuffled=False. "
+1943-                "Tuned kernels are optimized for preshuffled weights (preshuffle_on). "
+1944-                "Running with preshuffle_off may produce incorrect results."
+1945-            )
+1946-        if "xbf16" in cfg:
+1947:            run_1stage_xbf16 = run_1stage and bool(int(cfg["xbf16"]))
+1948-        else:
+1949:            run_1stage_xbf16 = run_1stage and "blockscaleBf16" in str(kernelName1)
+1950-        if "flat" in cfg:
+1951:            cfg_flat = run_1stage and bool(int(cfg["flat"]))
+1952-        else:
+1953-            cfg_flat = False
+1954-    is_opus_cfg = cfg is not None and _opus_a8w4.is_opus_a8w4_stage2_kernel(
+--
+1961-
+1962-    tag = f"({kernelName1=}, {kernelName2=})"
+1963-    logger.info(
+1964:        f"[fused_moe] using {'1stage' if run_1stage else '2stage'}{' xbf16' if run_1stage_xbf16 else ''} {'default' if cfg is None else tag} for {keys} "
+1965-    )
+1966-
+1967-    def get_block_m() -> int:
+--
+1992-            prequant=False,
+1993-        )
+1994-
+1995:    if run_1stage:
+1996-        # never hard code block_m for 1-stage since it can be tuned by kernel itself, and we have different heuristics for different quant types
+1997-        # # TODO: enable this approach for other quant types and archs
+1998-        # if q_type == QuantType.per_1x128 and get_gfx() == "gfx950":
+--
+2004-                kernelName=kernelName1,
+2005-                activation=activation,
+2006-                quant_type=q_type,
+2007:                xbf16=run_1stage_xbf16,
+2008-            ),
+2009-            None,
+2010-            block_m,
+2011-            ksplit,
+2012:            run_1stage,
+2013-            flat=cfg_flat,
+2014-            **route_bucket_metadata,
+2015-        )
+--
+2078-            stage2_func,
+2079-            block_m,
+2080-            int(ksplit),
+2081:            run_1stage,
+2082-            has_bias=enable_bias and is_flydsl1,
+2083-            fuse_quant=_fuse_quant,
+2084-            stage2_has_bias=enable_bias and is_flydsl2,
+--
+2108-            ),
+2109-            get_block_m(),
+2110-            ksplit,
+2111:            run_1stage=False,
+2112-            has_bias=True,
+2113-            stage2_has_bias=True,
+2114-        )
+--
+2276-            ),
+2277-            _cktile_block_m,
+2278-            _split_k,
+2279:            run_1stage,
+2280-            has_bias=activation == ActivationType.Swiglu,
+2281-            stage2_has_bias=activation == ActivationType.Swiglu,
+2282-        )
+--
+2311-            ),
+2312-            _cktile_block_m,
+2313-            _split_k,
+2314:            run_1stage,
+2315-            has_bias=True,
+2316-            stage2_has_bias=True,
+2317-        )
+--
+2373-            stage2_func,
+2374-            block_m,
+2375-            int(ksplit),
+2376:            run_1stage,
+2377-            **route_bucket_metadata,
+2378-        )
+2379-
+--
+2416-        stage2_func,
+2417-        block_m,
+2418-        ksplit,
+2419:        run_1stage,

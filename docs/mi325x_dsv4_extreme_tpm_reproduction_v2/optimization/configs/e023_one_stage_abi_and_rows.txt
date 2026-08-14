@@ -1,0 +1,99 @@
+            q_dtype_a=q_dtype_a,
+            q_dtype_w=q_dtype_w,
+            w1_scale=w1_scale,
+            w2_scale=w2_scale,
+            a1_scale=a1_scale,
+            a2_scale=a2_scale,
+            num_local_tokens=num_local_tokens,
+            # following for cktile support
+            hidden_pad=hidden_pad,
+            intermediate_pad=intermediate_pad,
+            bias1=bias1,
+            bias2=bias2,
+            topk_ids=local_topk_ids if local_topk_ids is not None else topk_ids,
+            topk_weights=topk_weight,
+            # only for flydsl dsv4
+            swiglu_limit=swiglu_limit,
+            gate_mode=gate_mode,
+            expert_mask=expert_mask,
+            m_indices=sort_m_indices,
+            reverse_sorted=sort_reverse_sorted,
+        )
+
+
+def fused_moe_1stage(
+    hidden_states,
+    w1,  # [expert(local_expert:EP), inter_dim*2, dim] N,K
+    w2,  # [expert(local_expert:EP), dim, inter_dim]
+    topk,
+    sorted_ids,
+    sorted_weights,
+    sorted_expert_ids,
+    num_valid_ids,
+    moe_buf,
+    isG1U1,
+    block_size_M=32,
+    activation=ActivationType.Silu,
+    quant_type=QuantType.No,
+    xbf16=False,
+    kernelName: str = "",
+    # following for quant
+    q_dtype_a=None,
+    q_dtype_w=None,
+    w1_scale=None,  # [expert(local_expert:EP), inter_dim, 1]
+    w2_scale=None,  # [expert(local_expert:EP), model_dim, 1]
+    a1_scale=None,  # [expert(local_expert:EP), 1, model_dim]
+    a2_scale=None,  # [expert(local_expert:EP), 1, inter_dim]
+    num_local_tokens: Optional[torch.tensor] = None,
+    M: int = None,
+    device=None,
+    doweight_stage1: bool = None,
+):
+    if quant_type == QuantType.No and activation == ActivationType.Silu and not isG1U1:
+        # pure bf16
+        aiter.fmoe(
+            moe_buf,
+            hidden_states,
+            w1,
+            w2,
+            sorted_ids,
+            sorted_weights,
+            sorted_expert_ids,
+            num_valid_ids,
+            topk,
+        )
+    elif quant_type == QuantType.per_Token and doweight_stage1 and isG1U1:
+        a8_type = w1.dtype
+        _, model_dim, _ = w2.shape
+
+        a8 = torch.empty((M, model_dim), dtype=a8_type, device=device)
+        a8_scale = torch.empty(M, dtype=dtypes.fp32, device=device)
+        aiter.dynamic_per_token_scaled_quant(a8, hidden_states, a8_scale)
+
+        aiter.fmoe_g1u1_tkw1(
+            moe_buf,
+            a8,
+            w1,
+            w2,
+            sorted_ids,
+            sorted_weights,
+            sorted_expert_ids,
+            num_valid_ids,
+            topk,
+            a8_scale,
+            w1_scale,
+            w2_scale,
+            kernelName,
+            a2_scale,
+            activation,
+        )
+    else:
+        if xbf16:
+knl_name,co_name,atm,vskip,smf,tg_num_perCU,ps,subGU_m,subGU_n,flat
+_ZN5aiter47fmoe_bf16_blockscaleFp8_g1u1_vs_silu_1tg_32x128E,fmoe_bf16_blockscaleFp8_g1u1_vs_silu_1tg_32x128.co,0,1,0,1,0,32,128,0
+_ZN5aiter47fmoe_bf16_blockscaleFp8_g1u1_vs_silu_1tg_32x256E,fmoe_bf16_blockscaleFp8_g1u1_vs_silu_1tg_32x256.co,0,1,0,1,0,32,256,0
+_ZN5aiter52fmoe_bf16_blockscaleFp8_g1u1_novs_silu_1tg_ps_32x128E,fmoe_bf16_blockscaleFp8_g1u1_novs_silu_1tg_ps_32x128.co,0,0,0,1,1,32,128,0
+_ZN5aiter52fmoe_bf16_blockscaleFp8_g1u1_novs_silu_1tg_ps_32x256E,fmoe_bf16_blockscaleFp8_g1u1_novs_silu_1tg_ps_32x256.co,0,0,0,1,1,32,256,0
+_ZN5aiter50fmoe_bf16_blockscaleFp8_g1u1_vs_silu_1tg_ps_32x128E,fmoe_bf16_blockscaleFp8_g1u1_vs_silu_1tg_ps_32x128.co,0,1,0,1,1,32,128,0
+_ZN5aiter50fmoe_bf16_blockscaleFp8_g1u1_vs_silu_1tg_ps_32x256E,fmoe_bf16_blockscaleFp8_g1u1_vs_silu_1tg_ps_32x256.co,0,1,0,1,1,32,256,0
+_ZN5aiter49fmoe_bf16_blockscaleFp8_g1u1_novs_silu_1tg_32x128E,fmoe_bf16_blockscaleFp8_g1u1_novs_silu_1tg_32x128.co,0,0,0,1,0,32,128,0

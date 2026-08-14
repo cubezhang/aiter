@@ -1,0 +1,36 @@
+/data/models/mi325_dsv4_reuse_tuning_20260801_103501/02_source/ATOM_official/atom/utils/envs.py-222-    # --- MoE (DeepSeek-style shared experts) ---
+/data/models/mi325_dsv4_reuse_tuning_20260801_103501/02_source/ATOM_official/atom/utils/envs.py-223-    # Dual-stream MoE only when num_tokens <= threshold; 0 disables dual-stream registration.
+/data/models/mi325_dsv4_reuse_tuning_20260801_103501/02_source/ATOM_official/atom/utils/envs.py:224:    "ATOM_DUAL_STREAM_MOE_TOKEN_THRESHOLD": lambda: int(
+/data/models/mi325_dsv4_reuse_tuning_20260801_103501/02_source/ATOM_official/atom/utils/envs.py:225:        os.getenv("ATOM_DUAL_STREAM_MOE_TOKEN_THRESHOLD", "1024")
+/data/models/mi325_dsv4_reuse_tuning_20260801_103501/02_source/ATOM_official/atom/utils/envs.py-226-    ),
+/data/models/mi325_dsv4_reuse_tuning_20260801_103501/02_source/ATOM_official/atom/utils/envs.py-227-    # Gate/Up interleave mode for MoE weight preshuffle and kernel gate_mode.
+--
+/data/models/mi325_dsv4_reuse_tuning_20260801_103501/02_source/ATOM_official/atom/models/deepseek_v2.py-1135-            if not self.is_rocm_aiter_fusion_shared_expert_enabled:
+/data/models/mi325_dsv4_reuse_tuning_20260801_103501/02_source/ATOM_official/atom/models/deepseek_v2.py-1136-                tbo_active = get_current_atom_config().enable_tbo
+/data/models/mi325_dsv4_reuse_tuning_20260801_103501/02_source/ATOM_official/atom/models/deepseek_v2.py:1137:                if envs.ATOM_DUAL_STREAM_MOE_TOKEN_THRESHOLD > 0 and not tbo_active:
+/data/models/mi325_dsv4_reuse_tuning_20260801_103501/02_source/ATOM_official/atom/models/deepseek_v2.py-1138-                    self._use_dual_stream = True
+/data/models/mi325_dsv4_reuse_tuning_20260801_103501/02_source/ATOM_official/atom/models/deepseek_v2.py-1139-                intermediate_size = (
+--
+/data/models/mi325_dsv4_reuse_tuning_20260801_103501/02_source/ATOM_official/atom/models/deepseek_v4.py-2865-            self.shared_experts is not None
+/data/models/mi325_dsv4_reuse_tuning_20260801_103501/02_source/ATOM_official/atom/models/deepseek_v4.py-2866-            and self.alt_stream is not None
+/data/models/mi325_dsv4_reuse_tuning_20260801_103501/02_source/ATOM_official/atom/models/deepseek_v4.py:2867:            and envs.ATOM_DUAL_STREAM_MOE_TOKEN_THRESHOLD > 0
+/data/models/mi325_dsv4_reuse_tuning_20260801_103501/02_source/ATOM_official/atom/models/deepseek_v4.py-2868-        )
+/data/models/mi325_dsv4_reuse_tuning_20260801_103501/02_source/ATOM_official/atom/models/deepseek_v4.py-2869-        # Register self in static_forward_context so the custom op dispatcher
+--
+/data/models/mi325_dsv4_reuse_tuning_20260801_103501/02_source/ATOM_official/atom/models/deepseek_v4.py-3430-    opaque op, so call the underlying methods directly rather than re-entering
+/data/models/mi325_dsv4_reuse_tuning_20260801_103501/02_source/ATOM_official/atom/models/deepseek_v4.py-3431-    the maybe_dual_stream_forward custom op)."""
+/data/models/mi325_dsv4_reuse_tuning_20260801_103501/02_source/ATOM_official/atom/models/deepseek_v4.py:3432:    threshold = envs.ATOM_DUAL_STREAM_MOE_TOKEN_THRESHOLD
+/data/models/mi325_dsv4_reuse_tuning_20260801_103501/02_source/ATOM_official/atom/models/deepseek_v4.py-3433-    num_tokens = x.shape[0]
+/data/models/mi325_dsv4_reuse_tuning_20260801_103501/02_source/ATOM_official/atom/models/deepseek_v4.py-3434-    if moe._use_dual_stream and 0 < num_tokens <= threshold:
+--
+/data/models/mi325_dsv4_reuse_tuning_20260801_103501/02_source/ATOM_official/atom/model_ops/module_dispatch_ops.py-40-#
+/data/models/mi325_dsv4_reuse_tuning_20260801_103501/02_source/ATOM_official/atom/model_ops/module_dispatch_ops.py-41-# Per-token gating: decode benefits from dual-stream, prefill doesn't —
+/data/models/mi325_dsv4_reuse_tuning_20260801_103501/02_source/ATOM_official/atom/model_ops/module_dispatch_ops.py:42:# threshold from `envs.ATOM_DUAL_STREAM_MOE_TOKEN_THRESHOLD`.
+/data/models/mi325_dsv4_reuse_tuning_20260801_103501/02_source/ATOM_official/atom/model_ops/module_dispatch_ops.py-43-
+/data/models/mi325_dsv4_reuse_tuning_20260801_103501/02_source/ATOM_official/atom/model_ops/module_dispatch_ops.py-44-
+--
+/data/models/mi325_dsv4_reuse_tuning_20260801_103501/02_source/ATOM_official/atom/model_ops/module_dispatch_ops.py-50-        layer_name
+/data/models/mi325_dsv4_reuse_tuning_20260801_103501/02_source/ATOM_official/atom/model_ops/module_dispatch_ops.py-51-    ]
+/data/models/mi325_dsv4_reuse_tuning_20260801_103501/02_source/ATOM_official/atom/model_ops/module_dispatch_ops.py:52:    threshold = envs.ATOM_DUAL_STREAM_MOE_TOKEN_THRESHOLD
+/data/models/mi325_dsv4_reuse_tuning_20260801_103501/02_source/ATOM_official/atom/model_ops/module_dispatch_ops.py-53-    num_tokens = hidden_states.shape[0]
+/data/models/mi325_dsv4_reuse_tuning_20260801_103501/02_source/ATOM_official/atom/model_ops/module_dispatch_ops.py-54-    # Under TBO the two micro-batches already overlap on separate threads

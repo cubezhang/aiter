@@ -1,0 +1,1 @@
+  38529       01:18 /opt/venv/bin/python csrc/ck_gemm_a8w8_blockscale/gemm_a8w8_blockscale_tune.py --preshuffle --libtype ck --mp 1 -i /work/experiments/e058_bpreshuffle_1x1536x4096.csv -o /work/experiments/e058_bpreshuffle_tuned.csv -o2 /work/experiments/e058_bpreshuffle_profile.csv --compare --update_improved --warmup 5 --iters 20 --timeout 150

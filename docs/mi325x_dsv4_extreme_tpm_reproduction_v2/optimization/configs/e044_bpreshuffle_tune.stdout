@@ -1,0 +1,31 @@
+[aiter] import [module_aiter_core] under /app/aiter-test/aiter/jit/module_aiter_core.so
+Not exist tuned file: /work/experiments/e044_bpreshuffle_tuned.csv
+      gfx  cu_num  M     N     K
+0  gfx942     304  4  4096  4096
+Compare candidate CSV will be written to /tmp/aiter_compare/e044_bpreshuffle_tuned.1.candidate.csv
+=== Running pre-tune benchmark (batch 1/1) ===
+[aiter] merge tuned file under model_configs/ and configs/ /app/aiter-test/aiter/configs/a8w8_blockscale_bpreshuffle_tuned_gemm.csv:/app/aiter-test/aiter/configs/model_configs/a8w8_blockscale_bpreshuffle_tuned_gemm_dsv3.csv:/app/aiter-test/aiter/configs/model_configs/a8w8_blockscale_bpreshuffle_tuned_gemm_qwen3.5_397b.csv:/app/aiter-test/aiter/configs/model_configs/dsv4_a8w8_blockscale_bpreshuffle_tuned_gemm.csv:/app/aiter-test/aiter/configs/model_configs/a8w8_blockscale_bpreshuffle_tuned_gemm_mm2.5.csv:/app/aiter-test/aiter/configs/model_configs/glm5_a8w8_blockscale_bpreshuffle_tuned_gemm.csv:/app/aiter-test/aiter/configs/model_configs/a8w8_blockscale_bpreshuffle_tuned_gemm_glm5.2.csv:/app/aiter-test/aiter/configs/model_configs/a8w8_blockscale_bpreshuffle_tuned_gemm_qwen3_235b.csv
+[aiter] shape is M:4, N:4096, K:4096, not found tuned config in /tmp/aiter_configs/a8w8_blockscale_bpreshuffle_tuned_gemm.csv, will use default config!
+[aiter] import [module_gemm_a8w8_blockscale_bpreshuffle] under /app/aiter-test/aiter/jit/module_gemm_a8w8_blockscale_bpreshuffle.so
+/opt/venv/lib/python3.12/site-packages/torch/profiler/profiler.py:217: UserWarning: Warning: Profiler clears events at the end of each cycle.Only events from the current cycle will be reported.To keep events across cycles, set acc_events=True.
+  _warn_once(
+[W803 11:16:17.284049681 collection.cpp:1148] Warning: ROCTracer produced duplicate flow start: 15 (function operator())
+[aiter] run_config (4, 4096, 4096)[checkAllclose atol=0.01 rtol=0.01 [32mpassed~[0m]
+Distributing 33 task groups across 8 GPUs
+[aiter] import [module_aiter_core] under /app/aiter-test/aiter/jit/module_aiter_core.so
+[aiter] import [module_aiter_core] under /app/aiter-test/aiter/jit/module_aiter_core.so
+[aiter] import [module_aiter_core] under /app/aiter-test/aiter/jit/module_aiter_core.so
+[aiter] import [module_aiter_core] under /app/aiter-test/aiter/jit/module_aiter_core.so
+[aiter] import [module_aiter_core] under /app/aiter-test/aiter/jit/module_aiter_core.so
+[aiter] import [module_aiter_core] under /app/aiter-test/aiter/jit/module_aiter_core.so
+[aiter] import [module_aiter_core] under /app/aiter-test/aiter/jit/module_aiter_core.so
+[aiter] import [module_aiter_core] under /app/aiter-test/aiter/jit/module_aiter_core.so
+[aiter] [pid=113 pname=SpawnPoolWorker-5] start build [module_gemm_a8w8_blockscale_bpreshuffle_tune] under /app/aiter-test/aiter/jit/build/module_gemm_a8w8_blockscale_bpreshuffle_tune
+[aiter] [pid=114 pname=SpawnPoolWorker-6] waiting for baton release at /app/aiter-test/aiter/jit/build/lock_module_gemm_a8w8_blockscale_bpreshuffle_tune
+[aiter] [pid=112 pname=SpawnPoolWorker-4] waiting for baton release at /app/aiter-test/aiter/jit/build/lock_module_gemm_a8w8_blockscale_bpreshuffle_tune
+[aiter] [pid=110 pname=SpawnPoolWorker-2] waiting for baton release at /app/aiter-test/aiter/jit/build/lock_module_gemm_a8w8_blockscale_bpreshuffle_tune
+[aiter] [pid=111 pname=SpawnPoolWorker-3] waiting for baton release at /app/aiter-test/aiter/jit/build/lock_module_gemm_a8w8_blockscale_bpreshuffle_tune
+[aiter] [pid=116 pname=SpawnPoolWorker-8] waiting for baton release at /app/aiter-test/aiter/jit/build/lock_module_gemm_a8w8_blockscale_bpreshuffle_tune
+[aiter] [pid=109 pname=SpawnPoolWorker-1] waiting for baton release at /app/aiter-test/aiter/jit/build/lock_module_gemm_a8w8_blockscale_bpreshuffle_tune
+[aiter] [pid=115 pname=SpawnPoolWorker-7] waiting for baton release at /app/aiter-test/aiter/jit/build/lock_module_gemm_a8w8_blockscale_bpreshuffle_tune
+[aiter] Current hipcc not support: -mllvm -amdgpu-coerce-illegal-types=1, skip it.

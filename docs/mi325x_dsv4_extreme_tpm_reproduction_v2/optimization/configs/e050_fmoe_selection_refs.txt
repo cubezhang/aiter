@@ -1,0 +1,6 @@
+/app/aiter-test/aiter/jit/build/module_moe_fmoe_asm/build/.ninja_log:3:0	9818	1785164612636193926	asm_fmoe.cuda.o	b75e144742edc08e
+/app/aiter-test/aiter/jit/build/module_moe_fmoe_asm/build/build.ninja:27:build asm_fmoe.cuda.o: cuda_compile /app/aiter-test/csrc/py_itfs_cu/asm_fmoe.cu
+/app/aiter-test/aiter/jit/build/module_moe_fmoe_asm/build/build.ninja:32:build module_moe_fmoe_asm.so: link asm_fmoe.cuda.o asm_moe_2stage.cuda.o
+/app/aiter-test/aiter/jit/build/module_moe_fmoe_asm/blob/asm_fmoe_configs.hpp:7:#define ADD_CFG(atm, vskip, smf, tg_num_perCU, ps, subGU_m, subGU_n, flat, arch, path, knl_name, co_name)         \
+/app/aiter-test/aiter/jit/build/module_moe_fmoe_asm/blob/asm_fmoe_configs.hpp:9:        arch knl_name, { knl_name, path co_name, arch, atm, vskip, smf, tg_num_perCU, ps, subGU_m, subGU_n, flat }         \
+/app/aiter-test/aiter/jit/build/module_moe_fmoe_asm/blob/asm_fmoe_configs.hpp:23:    int subGU_n;

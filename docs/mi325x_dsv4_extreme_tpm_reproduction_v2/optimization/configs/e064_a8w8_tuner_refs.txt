@@ -1,0 +1,67 @@
+38989 aiter/ops/gemm_op_a8w8.py
+441:def get_CKGEMM_config(M: int, N: int, K: int, tuned_file=None):
+442:    if tuned_file is None:
+443:        tuned_file = AITER_CONFIGS.AITER_CONFIG_GEMM_A8W8_FILE
+444:    if tuned_file not in _CKGEMM_CONFIG_CACHE:
+445:        ckgemm_dict = pd.read_csv(f"{tuned_file}").drop_duplicates()
+449:            _CKGEMM_CONFIG_CACHE[tuned_file] = ckgemm_dict.set_index(
+452:            _CKGEMM_HAS_GFX[tuned_file] = True
+455:                f"{tuned_file} has no 'gfx' column -- falling back to cu_num-only key. "
+456:                "Re-run the tuner or migrate the CSV to add a gfx column."
+458:            _CKGEMM_CONFIG_CACHE[tuned_file] = ckgemm_dict.set_index(
+461:            _CKGEMM_HAS_GFX[tuned_file] = False
+465:    has_gfx = _CKGEMM_HAS_GFX[tuned_file]
+471:        config = _CKGEMM_CONFIG_CACHE[tuned_file].get(key, None)
+475:                    f"shape is M:{M}, N:{N}, K:{K}, found padded_M: {padded_M}, N:{N}, K:{K} is tuned on cu_num = {cu_num} in {tuned_file} , kernel name is {config['kernelName']}!"
+480:            f"shape is M:{M}, N:{N}, K:{K}, not found tuned config in {tuned_file}, will use default config!"
+495:    tuned_file=None,
+497:    if tuned_file is None:
+498:        tuned_file = AITER_CONFIGS.AITER_CONFIG_GEMM_A8W8_BPRESHUFFLE_FILE
+500:    if tuned_file not in _GEMM_QUANT_TYPE_CACHE:
+501:        asmGemmDictDf = pd.read_csv(tuned_file).drop_duplicates()
+505:            _GEMM_QUANT_TYPE_CACHE[tuned_file] = asmGemmDictDf.set_index(
+508:            _GEMM_QUANT_TYPE_HAS_GFX[tuned_file] = True
+511:                f"{tuned_file} has no 'gfx' column -- falling back to cu_num-only key. "
+512:                "Re-run the tuner or migrate the CSV to add a gfx column."
+514:            _GEMM_QUANT_TYPE_CACHE[tuned_file] = asmGemmDictDf.set_index(
+517:            _GEMM_QUANT_TYPE_HAS_GFX[tuned_file] = False
+521:    has_gfx = _GEMM_QUANT_TYPE_HAS_GFX[tuned_file]
+531:        config = _GEMM_QUANT_TYPE_CACHE[tuned_file].get(key, None)
+534:                msg = f"shape M:{M}, N:{N}, K:{K} q_dtype_w:{q_dtype_w}, found padded_M: {padded_M}, N:{N}, K:{K} is tuned, in {tuned_file}!"
+543:            f"shape is M:{M}, N:{N}, K:{K}, q_dtype_w:{q_dtype_w}, not found tuned config in {tuned_file}, will use default config!"
+751:        from ..ops.flydsl.gemm_tune.flydsl_gemm_a8w8_bpreshuffle_wmma_common import (
+763:                f"[gfx1250] gemm_a8w8_bpreshuffle untuned M={m}, N={n}, K={k}; "
+933:        from ..ops.flydsl.gemm_tune.flydsl_gemm_a8w8_blockscale_bpreshuffle_wmma_common import (
+945:                f"[gfx1250] gemm_a8w8_blockscale_bpreshuffle untuned "
+999:        # the triton impl load its own tuned config internally. WQ is already
+1037:                opus_gemm_a8w8_blockscale_bpreshuffle_tune,
+1040:            return opus_gemm_a8w8_blockscale_bpreshuffle_tune(
+1070:def gen_gemm_a8w8_tune_fake_tensors(
+1083:    "module_gemm_a8w8_tune",
+1084:    fc_name="gemm_a8w8_tune",
+1085:    gen_fake=gen_gemm_a8w8_tune_fake_tensors,
+1087:def gemm_a8w8_tune(
+1098:def gen_gemm_a8w8_blockscale_tune_fake_tensors(
+1111:    "module_gemm_a8w8_blockscale_tune",
+1112:    fc_name="gemm_a8w8_blockscale_tune",
+1113:    gen_fake=gen_gemm_a8w8_blockscale_tune_fake_tensors,
+1115:def gemm_a8w8_blockscale_tune(
+1127:    "module_gemm_a8w8_blockscale_cktile_tune",
+1128:    fc_name="gemm_a8w8_blockscale_cktile_tune",
+1129:    gen_fake=gen_gemm_a8w8_blockscale_tune_fake_tensors,
+1131:def gemm_a8w8_blockscale_cktile_tune(
+1144:    "module_gemm_a8w8_bpreshuffle_tune",
+1145:    fc_name="gemm_a8w8_bpreshuffle_tune",
+1146:    gen_fake=gen_gemm_a8w8_blockscale_tune_fake_tensors,
+1148:def gemm_a8w8_bpreshuffle_tune(
+1160:    "module_gemm_a8w8_blockscale_bpreshuffle_cktile_tune",
+1161:    fc_name="gemm_a8w8_blockscale_bpreshuffle_cktile_tune",
+1162:    gen_fake=gen_gemm_a8w8_blockscale_tune_fake_tensors,
+1164:def gemm_a8w8_blockscale_bpreshuffle_cktile_tune(
+1177:    "module_gemm_a8w8_blockscale_bpreshuffle_tune",
+1178:    fc_name="gemm_a8w8_blockscale_bpreshuffle_tune",
+1179:    gen_fake=gen_gemm_a8w8_blockscale_tune_fake_tensors,
+1181:def gemm_a8w8_blockscale_bpreshuffle_tune(
+1193:    "module_gemm_a8w8_bpreshuffle_cktile_tune",
+1194:    fc_name="gemm_a8w8_bpreshuffle_cktile_tune",
+1196:def gemm_a8w8_bpreshuffle_cktile_tune(

@@ -1,0 +1,3 @@
+0848162dad4a mi325_dsv4_e010_atom Up 40 seconds
+fb8ab23a6af9 mi325_dsv4_e004_router Up 5 minutes
+dacb401b1eaf mi325_dsv4_e004_dual Up 7 minutes

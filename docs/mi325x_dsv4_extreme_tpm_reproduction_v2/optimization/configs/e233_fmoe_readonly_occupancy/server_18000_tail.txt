@@ -1,0 +1,977 @@
+[atom 10:59:25] Request 0 arrived, input tokens: 24, pending requests: 1
+[atom 10:59:25] API: Created request_id=cmpl-6df3e77eb59541debc136572cbb7ec2c, seq_id=0
+[atom 10:59:25] Request 1 arrived, input tokens: 24, pending requests: 2
+INFO:     127.0.0.1:41088 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 10:59:25] API: Created request_id=cmpl-92e8272a81b94286bd8f28a12d44c1b3, seq_id=1
+INFO:     127.0.0.1:41100 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 10:59:25] Scheduled prefill batch: 1 reqs, 24 new tokens (cached: [0], new: [24]), req_ids: (0,)
+[aiter] import [module_cache] under /app/aiter-test/aiter/jit/module_cache.so
+[aiter] import [module_cache] under /app/aiter-test/aiter/jit/module_cache.so
+[aiter] import [module_cache] under /app/aiter-test/aiter/jit/module_cache.so
+[aiter] import [module_cache] under /app/aiter-test/aiter/jit/module_cache.so
+[aiter] shape is M:96, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:24, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:96, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:24, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:96, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:24, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:96, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:24, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[atom 10:59:30] Scheduled prefill batch: 1 reqs, 24 new tokens (cached: [0], new: [24]), req_ids: (1,)
+[aiter] shape is M:6, N:32320, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:6, N:32320, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:6, N:32320, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:6, N:32320, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:2, N:32320, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:2, N:32320, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:2, N:32320, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:2, N:32320, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:8, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:2, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:2, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:2, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:8, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:2, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:2, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:2, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:8, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:2, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:2, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:2, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:8, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:2, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:2, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:2, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:2, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:2, N:256, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using skinny solution:2
+[aiter] run_1stage = False, xbf16 = False, ksplit = 4 q_type = QuantType.per_1x128 block_m = 16 use_nt = True, estimated_m_per_expert = 0
+[aiter] [fused_moe] using 2stage default for ('gfx942', 304, 2, 4096, 512, 257, 7, 'ActivationType.Silu', 'torch.bfloat16', 'torch.float8_e4m3fnuz', 'torch.float8_e4m3fnuz', 'QuantType.per_1x128', True, False) 
+[aiter] shape is M:2, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:2, N:256, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using skinny solution:2
+[aiter] run_1stage = False, xbf16 = False, ksplit = 4 q_type = QuantType.per_1x128 block_m = 16 use_nt = True, estimated_m_per_expert = 0
+[aiter] [fused_moe] using 2stage default for ('gfx942', 304, 2, 4096, 512, 257, 7, 'ActivationType.Silu', 'torch.bfloat16', 'torch.float8_e4m3fnuz', 'torch.float8_e4m3fnuz', 'QuantType.per_1x128', True, False) 
+[aiter] shape is M:2, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:2, N:256, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using skinny solution:2
+[aiter] run_1stage = False, xbf16 = False, ksplit = 4 q_type = QuantType.per_1x128 block_m = 16 use_nt = True, estimated_m_per_expert = 0
+[aiter] [fused_moe] using 2stage default for ('gfx942', 304, 2, 4096, 512, 257, 7, 'ActivationType.Silu', 'torch.bfloat16', 'torch.float8_e4m3fnuz', 'torch.float8_e4m3fnuz', 'QuantType.per_1x128', True, False) 
+[aiter] shape is M:2, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:2, N:256, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using skinny solution:2
+[aiter] run_1stage = False, xbf16 = False, ksplit = 4 q_type = QuantType.per_1x128 block_m = 16 use_nt = True, estimated_m_per_expert = 0
+[aiter] [fused_moe] using 2stage default for ('gfx942', 304, 2, 4096, 512, 257, 7, 'ActivationType.Silu', 'torch.bfloat16', 'torch.float8_e4m3fnuz', 'torch.float8_e4m3fnuz', 'QuantType.per_1x128', True, False) 
+[atom 10:59:31] Request 2 arrived, input tokens: 24, pending requests: 1
+[atom 10:59:31] Request 3 arrived, input tokens: 24, pending requests: 2
+[atom 10:59:31] API: Created request_id=cmpl-df9b130133dd4b8d80b3931c768abace, seq_id=2
+[atom 10:59:31] Request 4 arrived, input tokens: 24, pending requests: 3
+INFO:     127.0.0.1:41112 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 10:59:31] Request 5 arrived, input tokens: 24, pending requests: 4
+[atom 10:59:31] API: Created request_id=cmpl-134ca3464cd9464d8c8739b02d5eef1f, seq_id=3
+[atom 10:59:31] API: Created request_id=cmpl-a12b21a8d3e34f68a50f1f864dae8f8a, seq_id=4
+INFO:     127.0.0.1:41116 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41118 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 10:59:31] API: Created request_id=cmpl-e0a2c276e46448a69df9473c5ec03015, seq_id=5
+INFO:     127.0.0.1:41120 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 10:59:31] Engine Core: output send 2 reqs
+[atom 10:59:31] Scheduled prefill batch: 1 reqs, 24 new tokens (cached: [0], new: [24]), req_ids: (2,)
+[atom 10:59:31] Scheduled prefill batch: 3 reqs, 72 new tokens (cached: [0, 0, 0], new: [24, 24, 24]), req_ids: (3, 4, 5)
+[aiter] shape is M:3, N:32320, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:3, N:32320, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:288, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:72, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:288, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:72, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:12, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:12, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:3, N:32320, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:288, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:3, N:32320, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:72, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:288, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:72, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:12, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:12, N:32320, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:12, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:12, N:32320, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:48, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:48, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:4, N:32320, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:4, N:32320, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:16, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:16, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:4, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:4, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:4, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:4, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:12, N:32320, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:4, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:4, N:256, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using skinny solution:2
+[aiter] shape is M:4, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:4, N:256, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using skinny solution:2
+[aiter] shape is M:12, N:32320, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:48, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:48, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:4, N:32320, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:16, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:4, N:32320, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:4, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:4, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:16, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:4, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:4, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:4, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:4, N:256, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using skinny solution:2
+[aiter] shape is M:4, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:4, N:256, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using skinny solution:2
+[atom 10:59:32] Engine Core: output send 2 reqs
+[atom 10:59:32] Request 6 arrived, input tokens: 24, pending requests: 3
+[atom 10:59:32] Request 7 arrived, input tokens: 24, pending requests: 4
+[atom 10:59:32] API: Created request_id=cmpl-527ddd21ac5445a59e0ddc36348f2a38, seq_id=6
+INFO:     127.0.0.1:41132 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 10:59:32] API: Created request_id=cmpl-abcb15a0b11d4175b76588d38bab86d7, seq_id=7
+INFO:     127.0.0.1:41140 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 10:59:32] Scheduled prefill batch: 2 reqs, 48 new tokens (cached: [0, 0], new: [24, 24]), req_ids: (6, 7)
+[atom 10:59:32] Engine Core: output send 1 reqs
+[atom 10:59:32] Request 8 arrived, input tokens: 24, pending requests: 4
+[atom 10:59:32] API: Created request_id=cmpl-ba4c57da816b4af88a9c407a4b7b9742, seq_id=8
+INFO:     127.0.0.1:41150 - "POST /v1/completions HTTP/1.1" 200 OK
+[aiter] shape is M:192, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:192, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:192, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:192, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[atom 10:59:32] Scheduled prefill batch: 1 reqs, 24 new tokens (cached: [0], new: [24]), req_ids: (8,)
+[atom 10:59:32] Engine Core: output send 1 reqs
+[atom 10:59:32] Request 9 arrived, input tokens: 24, pending requests: 4
+[atom 10:59:32] API: Created request_id=cmpl-850820e703b144bcba05f70967e4346a, seq_id=9
+INFO:     127.0.0.1:41160 - "POST /v1/completions HTTP/1.1" 200 OK
+[aiter] shape is M:9, N:32320, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:9, N:32320, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:9, N:32320, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:9, N:32320, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:36, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:9, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:9, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:36, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:36, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:9, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:36, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:9, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:9, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:9, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:9, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:9, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:9, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:9, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:9, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:9, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:9, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:9, N:256, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:9, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:9, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:9, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:9, N:256, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:9, N:256, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:9, N:256, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[atom 10:59:32] Scheduled prefill batch: 1 reqs, 24 new tokens (cached: [0], new: [24]), req_ids: (9,)
+[atom 10:59:33] Engine Core: output send 1 reqs
+[atom 10:59:33] Request 10 arrived, input tokens: 24, pending requests: 4
+[atom 10:59:33] API: Created request_id=cmpl-4ef1545ccd1b4886b795844784f66239, seq_id=10
+INFO:     127.0.0.1:41166 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 10:59:33] Scheduled prefill batch: 1 reqs, 24 new tokens (cached: [0], new: [24]), req_ids: (10,)
+[atom 10:59:33] Engine Core: output send 1 reqs
+[atom 10:59:33] Request 11 arrived, input tokens: 24, pending requests: 4
+[atom 10:59:33] API: Created request_id=cmpl-4333b1cf84ff4f44850c1c7fefb300fc, seq_id=11
+INFO:     127.0.0.1:60810 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 10:59:33] Scheduled prefill batch: 1 reqs, 24 new tokens (cached: [0], new: [24]), req_ids: (11,)
+[atom 10:59:33] Engine Core: output send 1 reqs
+[atom 10:59:33] Request 12 arrived, input tokens: 24, pending requests: 4
+[atom 10:59:33] API: Created request_id=cmpl-0c674b7f95204bbb8c92f939381e2aff, seq_id=12
+INFO:     127.0.0.1:60818 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 10:59:33] Scheduled prefill batch: 1 reqs, 24 new tokens (cached: [0], new: [24]), req_ids: (12,)
+[atom 10:59:33] Engine Core: output send 1 reqs
+[atom 10:59:33] Request 13 arrived, input tokens: 24, pending requests: 4
+[atom 10:59:33] API: Created request_id=cmpl-2a3c6729f8ef46d38f966844f91da36c, seq_id=13
+INFO:     127.0.0.1:60824 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 10:59:33] Scheduled prefill batch: 1 reqs, 24 new tokens (cached: [0], new: [24]), req_ids: (13,)
+[atom 10:59:33] Engine Core: output send 1 reqs
+[atom 10:59:33] Request 14 arrived, input tokens: 24, pending requests: 4
+[atom 10:59:33] API: Created request_id=cmpl-bc178cc3bb084cfe94135838bb30f7fe, seq_id=14
+INFO:     127.0.0.1:60838 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 10:59:33] Scheduled prefill batch: 1 reqs, 24 new tokens (cached: [0], new: [24]), req_ids: (14,)
+[atom 10:59:33] Engine Core: output send 1 reqs
+[atom 10:59:33] Request 15 arrived, input tokens: 24, pending requests: 4
+[atom 10:59:33] API: Created request_id=cmpl-f98a546b2cc5427b97366100445e7439, seq_id=15
+INFO:     127.0.0.1:60840 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 10:59:33] Scheduled prefill batch: 1 reqs, 24 new tokens (cached: [0], new: [24]), req_ids: (15,)
+[atom 10:59:34] Engine Core: output send 1 reqs
+[atom 10:59:34] Request 16 arrived, input tokens: 24, pending requests: 4
+[atom 10:59:34] API: Created request_id=cmpl-2a18ed9cafaa4fdcaa3761e0b75274d4, seq_id=16
+INFO:     127.0.0.1:60856 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 10:59:34] Scheduled prefill batch: 1 reqs, 24 new tokens (cached: [0], new: [24]), req_ids: (16,)
+[atom 10:59:34] Engine Core: output send 1 reqs
+[atom 10:59:34] Request 17 arrived, input tokens: 24, pending requests: 4
+[atom 10:59:34] API: Created request_id=cmpl-95037d27f62348c9a4cd35b3164ffd0d, seq_id=17
+INFO:     127.0.0.1:60868 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 10:59:34] Scheduled prefill batch: 1 reqs, 24 new tokens (cached: [0], new: [24]), req_ids: (17,)
+[atom 10:59:34] Engine Core: output send 1 reqs
+[atom 10:59:34] Request 18 arrived, input tokens: 24, pending requests: 4
+[atom 10:59:34] API: Created request_id=cmpl-adf5022f4f2440629e36755501b5819a, seq_id=18
+INFO:     127.0.0.1:60884 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 10:59:34] Scheduled prefill batch: 1 reqs, 24 new tokens (cached: [0], new: [24]), req_ids: (18,)
+[atom 10:59:34] Engine Core: output send 2 reqs
+[atom 10:59:34] Request 19 arrived, input tokens: 24, pending requests: 3
+[atom 10:59:34] API: Created request_id=cmpl-f37049c059d54be0b24cd90b98a89bb4, seq_id=19
+[atom 10:59:34] Request 20 arrived, input tokens: 24, pending requests: 4
+INFO:     127.0.0.1:60898 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 10:59:34] API: Created request_id=cmpl-437d9a44aa5b447f8903803957486a4e, seq_id=20
+INFO:     127.0.0.1:60900 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 10:59:34] Scheduled prefill batch: 2 reqs, 48 new tokens (cached: [0, 0], new: [24, 24]), req_ids: (19, 20)
+[atom 10:59:34] Engine Core: output send 1 reqs
+[atom 10:59:34] Request 21 arrived, input tokens: 24, pending requests: 4
+[atom 10:59:34] API: Created request_id=cmpl-b50e44b3279a437fb4b517e2435ef642, seq_id=21
+INFO:     127.0.0.1:60902 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 10:59:34] Scheduled prefill batch: 1 reqs, 24 new tokens (cached: [0], new: [24]), req_ids: (21,)
+[atom 10:59:34] Engine Core: output send 1 reqs
+[atom 10:59:34] Request 22 arrived, input tokens: 24, pending requests: 4
+[atom 10:59:34] API: Created request_id=cmpl-3b043908cb1f4ce2acccb35dbfc2602b, seq_id=22
+INFO:     127.0.0.1:60906 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 10:59:34] Scheduled prefill batch: 1 reqs, 24 new tokens (cached: [0], new: [24]), req_ids: (22,)
+[atom 10:59:35] Engine Core: output send 1 reqs
+[atom 10:59:35] Request 23 arrived, input tokens: 24, pending requests: 4
+[atom 10:59:35] API: Created request_id=cmpl-2eca0f927f964c5f9ce874bb9775876d, seq_id=23
+INFO:     127.0.0.1:60912 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 10:59:35] Scheduled prefill batch: 1 reqs, 24 new tokens (cached: [0], new: [24]), req_ids: (23,)
+[atom 10:59:35] Engine Core: output send 1 reqs
+[atom 10:59:35] Request 24 arrived, input tokens: 24, pending requests: 4
+[atom 10:59:35] API: Created request_id=cmpl-3b501f5f08884e498b5451c231dd75e2, seq_id=24
+INFO:     127.0.0.1:60928 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 10:59:35] Scheduled prefill batch: 1 reqs, 24 new tokens (cached: [0], new: [24]), req_ids: (24,)
+[atom 10:59:35] Engine Core: output send 1 reqs
+[atom 10:59:35] Request 25 arrived, input tokens: 24, pending requests: 4
+[atom 10:59:35] API: Created request_id=cmpl-7b371470c8d1415da889d2b75cb95748, seq_id=25
+INFO:     127.0.0.1:60934 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 10:59:35] Scheduled prefill batch: 1 reqs, 24 new tokens (cached: [0], new: [24]), req_ids: (25,)
+[atom 10:59:35] Engine Core: output send 1 reqs
+[atom 10:59:35] Engine Core: output send 1 reqs
+[atom 10:59:36] Engine Core: output send 1 reqs
+[atom 10:59:36] Engine Core: executing utility command: get_mtp_statistics
+[atom 10:59:36] Engine Core: output send 1 reqs
+[atom 10:59:36] Engine Core: utility command 'get_mtp_statistics' finished in 0.00s
+INFO:     127.0.0.1:60936 - "GET /debug/mtp_stats HTTP/1.1" 200 OK
+[atom 10:59:41] Request 26 arrived, input tokens: 48, pending requests: 1
+[atom 10:59:41] Request 27 arrived, input tokens: 48, pending requests: 2
+[atom 10:59:41] API: Created request_id=cmpl-47880640780c4269b3008b04c63c5ead, seq_id=26
+INFO:     127.0.0.1:60938 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 10:59:41] API: Created request_id=cmpl-4cfe3239aab44e6c89728b132e42e315, seq_id=27
+INFO:     127.0.0.1:60952 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 10:59:41] Scheduled prefill batch: 1 reqs, 48 new tokens (cached: [0], new: [48]), req_ids: (26,)
+[atom 10:59:41] Scheduled prefill batch: 1 reqs, 48 new tokens (cached: [0], new: [48]), req_ids: (27,)
+[atom 10:59:41] Engine Core: output send 1 reqs
+[atom 10:59:41] Request 28 arrived, input tokens: 48, pending requests: 1
+[atom 10:59:41] Request 29 arrived, input tokens: 48, pending requests: 2
+[atom 10:59:41] Request 30 arrived, input tokens: 48, pending requests: 3
+[atom 10:59:41] API: Created request_id=cmpl-fa0f6c0da14641e5a06f6407837e900c, seq_id=28
+[atom 10:59:41] Request 31 arrived, input tokens: 48, pending requests: 4
+[atom 10:59:41] API: Created request_id=cmpl-4c6be7e24ef545f9bf1a3ac88e3f8875, seq_id=29
+INFO:     127.0.0.1:60956 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60958 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 10:59:41] API: Created request_id=cmpl-244b90a4369c4697919e6096b6c20703, seq_id=30
+[atom 10:59:41] API: Created request_id=cmpl-163a9e12158040bc9b1552bd030da5d2, seq_id=31
+INFO:     127.0.0.1:60968 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60982 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 10:59:41] Engine Core: output send 1 reqs
+[atom 10:59:41] Scheduled prefill batch: 4 reqs, 192 new tokens (cached: [0, 0, 0, 0], new: [48, 48, 48, 48]), req_ids: (28, 29, 30, 31)
+[aiter] shape is M:768, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:768, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:768, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:768, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[atom 10:59:42] Engine Core: output send 1 reqs
+[atom 10:59:42] Request 32 arrived, input tokens: 48, pending requests: 4
+[atom 10:59:42] API: Created request_id=cmpl-0ff8ff1f3d4946a99f9d167ca0c193ae, seq_id=32
+INFO:     127.0.0.1:60992 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 10:59:42] Scheduled prefill batch: 1 reqs, 48 new tokens (cached: [0], new: [48]), req_ids: (32,)
+[atom 10:59:42] Engine Core: output send 1 reqs
+[atom 10:59:42] Request 33 arrived, input tokens: 48, pending requests: 4
+[atom 10:59:42] API: Created request_id=cmpl-4b35c7ba12c04799b17a095e75b50bd1, seq_id=33
+INFO:     127.0.0.1:32772 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 10:59:42] Scheduled prefill batch: 1 reqs, 48 new tokens (cached: [0], new: [48]), req_ids: (33,)
+[atom 10:59:42] Engine Core: output send 2 reqs
+[atom 10:59:42] Request 34 arrived, input tokens: 48, pending requests: 3
+[atom 10:59:42] API: Created request_id=cmpl-8c1f111f662f4b33994fe4344e9c400e, seq_id=34
+[atom 10:59:42] Request 35 arrived, input tokens: 48, pending requests: 4
+INFO:     127.0.0.1:32774 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 10:59:42] API: Created request_id=cmpl-6e8fe782e6fd4d0b8e8fd4ac6ab40d8e, seq_id=35
+INFO:     127.0.0.1:32776 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 10:59:42] Scheduled prefill batch: 2 reqs, 96 new tokens (cached: [0, 0], new: [48, 48]), req_ids: (34, 35)
+[aiter] shape is M:384, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:384, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:384, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:384, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[atom 10:59:42] Engine Core: output send 1 reqs
+[atom 10:59:42] Request 36 arrived, input tokens: 48, pending requests: 4
+[atom 10:59:42] API: Created request_id=cmpl-92490b4eb8da4fec929efa8e20bf1a2b, seq_id=36
+INFO:     127.0.0.1:32786 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 10:59:42] Scheduled prefill batch: 1 reqs, 48 new tokens (cached: [0], new: [48]), req_ids: (36,)
+[atom 10:59:42] Engine Core: output send 1 reqs
+[atom 10:59:42] Request 37 arrived, input tokens: 48, pending requests: 4
+[atom 10:59:42] API: Created request_id=cmpl-37cb687691f14384880aafe9832b0127, seq_id=37
+INFO:     127.0.0.1:32794 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 10:59:42] Scheduled prefill batch: 1 reqs, 48 new tokens (cached: [0], new: [48]), req_ids: (37,)
+[atom 10:59:43] Engine Core: output send 1 reqs
+[atom 10:59:43] Request 38 arrived, input tokens: 48, pending requests: 4
+[atom 10:59:43] API: Created request_id=cmpl-6feee136ccce448d89ecbf458c91a5f4, seq_id=38
+INFO:     127.0.0.1:49024 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 10:59:43] [MTP Stats Interval] Average toks/fwd: 2.32, Accepted/Total Draft tokens: 1324/2000, Acceptance rate: 66.20%, Accepted tokens distribution: {0: '18.60%', 1: '30.40%', 2: '51.00%'}
+[atom 10:59:43] [MTP Stats         ] Average toks/fwd: 2.32, Accepted/Total Draft tokens: 1324/2000, Acceptance rate: 66.20%, Accepted tokens distribution: {0: '18.60%', 1: '30.40%', 2: '51.00%'}
+[atom 10:59:43] Scheduled prefill batch: 1 reqs, 48 new tokens (cached: [0], new: [48]), req_ids: (38,)
+[atom 10:59:43] Engine Core: output send 1 reqs
+[atom 10:59:43] Request 39 arrived, input tokens: 48, pending requests: 4
+[atom 10:59:43] API: Created request_id=cmpl-47f5b0c681ff48bab9e7addd591786ca, seq_id=39
+INFO:     127.0.0.1:49032 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 10:59:43] Scheduled prefill batch: 1 reqs, 48 new tokens (cached: [0], new: [48]), req_ids: (39,)
+[atom 10:59:43] Engine Core: output send 1 reqs
+[atom 10:59:43] Request 40 arrived, input tokens: 48, pending requests: 4
+[atom 10:59:43] API: Created request_id=cmpl-696ad7d137b247b1a52b93b60683a189, seq_id=40
+INFO:     127.0.0.1:49036 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 10:59:43] Scheduled prefill batch: 1 reqs, 48 new tokens (cached: [0], new: [48]), req_ids: (40,)
+[atom 10:59:43] Engine Core: output send 1 reqs
+[atom 10:59:43] Request 41 arrived, input tokens: 48, pending requests: 4
+[atom 10:59:43] API: Created request_id=cmpl-fd6a115604f1472786bf2b25b4916844, seq_id=41
+INFO:     127.0.0.1:49052 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 10:59:43] Scheduled prefill batch: 1 reqs, 48 new tokens (cached: [0], new: [48]), req_ids: (41,)
+[atom 10:59:43] Engine Core: output send 1 reqs
+[atom 10:59:43] Request 42 arrived, input tokens: 48, pending requests: 4
+[atom 10:59:43] API: Created request_id=cmpl-91d5c0179dbd438da964c569d5916cc4, seq_id=42
+INFO:     127.0.0.1:49062 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 10:59:43] Scheduled prefill batch: 1 reqs, 48 new tokens (cached: [0], new: [48]), req_ids: (42,)
+[atom 10:59:44] Engine Core: output send 1 reqs
+[atom 10:59:44] Request 43 arrived, input tokens: 48, pending requests: 4
+[atom 10:59:44] API: Created request_id=cmpl-25c9f48c0b3840418c78ed603c19dc7f, seq_id=43
+INFO:     127.0.0.1:49068 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 10:59:44] Scheduled prefill batch: 1 reqs, 48 new tokens (cached: [0], new: [48]), req_ids: (43,)
+[atom 10:59:44] Engine Core: output send 1 reqs
+[atom 10:59:44] Request 44 arrived, input tokens: 48, pending requests: 4
+[atom 10:59:44] API: Created request_id=cmpl-31283073b3294dd0bff5f7c197943ea0, seq_id=44
+INFO:     127.0.0.1:49078 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 10:59:44] Scheduled prefill batch: 1 reqs, 48 new tokens (cached: [0], new: [48]), req_ids: (44,)
+[atom 10:59:44] Engine Core: output send 1 reqs
+[atom 10:59:44] Request 45 arrived, input tokens: 48, pending requests: 4
+[atom 10:59:44] API: Created request_id=cmpl-6a322333171747f4a2c1a6446d5498a0, seq_id=45
+INFO:     127.0.0.1:49084 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 10:59:44] Scheduled prefill batch: 1 reqs, 48 new tokens (cached: [0], new: [48]), req_ids: (45,)
+[atom 10:59:44] Engine Core: output send 1 reqs
+[atom 10:59:44] Request 46 arrived, input tokens: 48, pending requests: 4
+[atom 10:59:44] API: Created request_id=cmpl-1db1f857a23e40e1bba0294f2d6774de, seq_id=46
+INFO:     127.0.0.1:49086 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 10:59:44] Scheduled prefill batch: 1 reqs, 48 new tokens (cached: [0], new: [48]), req_ids: (46,)
+[atom 10:59:44] Engine Core: output send 1 reqs
+[atom 10:59:44] Request 47 arrived, input tokens: 48, pending requests: 4
+[atom 10:59:44] API: Created request_id=cmpl-52ec844e42d944ebba245fb89005fd2f, seq_id=47
+INFO:     127.0.0.1:49102 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 10:59:44] Scheduled prefill batch: 1 reqs, 48 new tokens (cached: [0], new: [48]), req_ids: (47,)
+[atom 10:59:45] Engine Core: output send 2 reqs
+[atom 10:59:45] Request 48 arrived, input tokens: 48, pending requests: 3
+[atom 10:59:45] API: Created request_id=cmpl-fc10ceff627d42d3920d2575c5197c45, seq_id=48
+[atom 10:59:45] Request 49 arrived, input tokens: 48, pending requests: 4
+INFO:     127.0.0.1:49110 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 10:59:45] API: Created request_id=cmpl-c31b7b9beb2c454dae6c5960a10ddd16, seq_id=49
+INFO:     127.0.0.1:49114 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 10:59:45] Scheduled prefill batch: 2 reqs, 96 new tokens (cached: [0, 0], new: [48, 48]), req_ids: (48, 49)
+[atom 10:59:45] Engine Core: output send 1 reqs
+[atom 10:59:45] Request 50 arrived, input tokens: 48, pending requests: 4
+[atom 10:59:45] API: Created request_id=cmpl-ef61df4d773b43948af182612713df8a, seq_id=50
+INFO:     127.0.0.1:49122 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 10:59:45] Scheduled prefill batch: 1 reqs, 48 new tokens (cached: [0], new: [48]), req_ids: (50,)
+[atom 10:59:45] Engine Core: output send 1 reqs
+[atom 10:59:45] Engine Core: output send 1 reqs
+[atom 10:59:45] Engine Core: output send 1 reqs
+[atom 10:59:45] Request 51 arrived, input tokens: 48, pending requests: 2
+[atom 10:59:45] API: Created request_id=cmpl-af964d2a901b43fe881c427ab086fe64, seq_id=51
+INFO:     127.0.0.1:49132 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 10:59:45] Scheduled prefill batch: 1 reqs, 48 new tokens (cached: [0], new: [48]), req_ids: (51,)
+[atom 10:59:45] Engine Core: output send 1 reqs
+[atom 10:59:46] Engine Core: output send 1 reqs
+[atom 10:59:46] Engine Core: executing utility command: get_mtp_statistics
+[atom 10:59:46] Engine Core: utility command 'get_mtp_statistics' finished in 0.00s
+INFO:     127.0.0.1:49138 - "GET /debug/mtp_stats HTTP/1.1" 200 OK
+[atom 10:59:51] Request 52 arrived, input tokens: 70, pending requests: 1
+[atom 10:59:51] API: Created request_id=cmpl-9a8234c102db413f9be37ee5575f956c, seq_id=52
+[atom 10:59:51] Request 53 arrived, input tokens: 70, pending requests: 2
+INFO:     127.0.0.1:49146 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 10:59:51] API: Created request_id=cmpl-2e04ae3b6e7243818ba60c2b4313a274, seq_id=53
+INFO:     127.0.0.1:49162 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 10:59:51] Scheduled prefill batch: 1 reqs, 70 new tokens (cached: [0], new: [70]), req_ids: (52,)
+[aiter] shape is M:70, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:70, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:70, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:70, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:70, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:70, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:70, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:70, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:70, N:256, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:70, N:256, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:70, N:256, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:70, N:256, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:70, N:2048, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:70, N:2048, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:70, N:512, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:70, N:512, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:70, N:2048, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:70, N:64, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:70, N:512, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:70, N:64, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:70, N:64, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:70, N:2048, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:70, N:512, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:70, N:64, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:70, N:1024, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:70, N:1024, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:70, N:1024, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:70, N:1024, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:280, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:70, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:280, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:70, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:280, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:70, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:280, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:70, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[atom 10:59:51] Scheduled prefill batch: 1 reqs, 70 new tokens (cached: [0], new: [70]), req_ids: (53,)
+[atom 10:59:51] Engine Core: output send 1 reqs
+[atom 10:59:51] Request 54 arrived, input tokens: 70, pending requests: 1
+[atom 10:59:51] API: Created request_id=cmpl-13fc2955d92748e5a8ae35ebde71a582, seq_id=54
+[atom 10:59:51] Request 55 arrived, input tokens: 70, pending requests: 2
+INFO:     127.0.0.1:49168 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 10:59:51] Request 56 arrived, input tokens: 70, pending requests: 3
+[atom 10:59:51] Request 57 arrived, input tokens: 70, pending requests: 4
+[atom 10:59:51] API: Created request_id=cmpl-f32afcf2a66b471c9454c96f549f63a2, seq_id=55
+INFO:     127.0.0.1:49180 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 10:59:51] API: Created request_id=cmpl-a75ba4317d5643119d2468e4fdaef4d7, seq_id=56
+[atom 10:59:51] API: Created request_id=cmpl-b6abd6ddf4854380bbfbbd52b488c0f7, seq_id=57
+INFO:     127.0.0.1:49192 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49204 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 10:59:51] Engine Core: output send 1 reqs
+[atom 10:59:51] Scheduled prefill batch: 1 reqs, 70 new tokens (cached: [0], new: [70]), req_ids: (54,)
+[atom 10:59:51] Scheduled prefill batch: 3 reqs, 210 new tokens (cached: [0, 0, 0], new: [70, 70, 70]), req_ids: (55, 56, 57)
+[aiter] shape is M:210, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:210, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:210, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:210, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:210, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:210, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:210, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:210, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:210, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:210, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:210, N:256, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:210, N:256, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:210, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:210, N:256, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:210, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:210, N:256, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:210, N:2048, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:210, N:2048, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:210, N:512, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:210, N:512, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:210, N:2048, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:210, N:512, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:210, N:2048, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:210, N:64, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:210, N:64, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:210, N:512, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:210, N:64, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:210, N:64, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:210, N:1024, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:210, N:1024, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:210, N:1024, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:210, N:1024, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:840, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:210, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:840, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:210, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:840, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:210, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:840, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:210, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[atom 10:59:52] Engine Core: output send 2 reqs
+[atom 10:59:52] Request 58 arrived, input tokens: 70, pending requests: 3
+[atom 10:59:52] API: Created request_id=cmpl-a5342afb0123452e800b12094eddb728, seq_id=58
+[atom 10:59:52] Request 59 arrived, input tokens: 70, pending requests: 4
+INFO:     127.0.0.1:49216 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 10:59:52] API: Created request_id=cmpl-f7a0942a65d3416688170d3898b8e600, seq_id=59
+INFO:     127.0.0.1:49226 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 10:59:52] Scheduled prefill batch: 2 reqs, 140 new tokens (cached: [0, 0], new: [70, 70]), req_ids: (58, 59)
+[atom 10:59:52] Engine Core: output send 1 reqs
+[atom 10:59:52] Request 60 arrived, input tokens: 70, pending requests: 4
+[atom 10:59:52] API: Created request_id=cmpl-6460f365fdb8416ca56cd87a20b8b9f4, seq_id=60
+INFO:     127.0.0.1:49232 - "POST /v1/completions HTTP/1.1" 200 OK
+[aiter] shape is M:140, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:140, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:140, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:140, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:140, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:140, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:140, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:140, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:140, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:140, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:140, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:140, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:140, N:256, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:140, N:256, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:140, N:256, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:140, N:256, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:140, N:2048, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:140, N:2048, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:140, N:2048, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:140, N:2048, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:140, N:512, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:140, N:512, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:140, N:512, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:140, N:512, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:140, N:64, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:140, N:64, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:140, N:64, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:140, N:64, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:140, N:1024, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:140, N:1024, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:140, N:1024, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:140, N:1024, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:560, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:140, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:560, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:140, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:560, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:560, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:140, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:140, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[atom 10:59:52] Scheduled prefill batch: 1 reqs, 70 new tokens (cached: [0], new: [70]), req_ids: (60,)
+[atom 10:59:52] Engine Core: output send 1 reqs
+[atom 10:59:52] Request 61 arrived, input tokens: 70, pending requests: 4
+[atom 10:59:52] API: Created request_id=cmpl-30411b3b7aec40b2b45ffe5b0b63bb1b, seq_id=61
+INFO:     127.0.0.1:49248 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 10:59:52] Scheduled prefill batch: 1 reqs, 70 new tokens (cached: [0], new: [70]), req_ids: (61,)
+[atom 10:59:52] Engine Core: output send 2 reqs
+[atom 10:59:52] Request 62 arrived, input tokens: 70, pending requests: 3
+[atom 10:59:52] API: Created request_id=cmpl-30d3bc10a604450a84c824b0b6358c95, seq_id=62
+[atom 10:59:52] Request 63 arrived, input tokens: 70, pending requests: 4
+INFO:     127.0.0.1:49252 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 10:59:52] API: Created request_id=cmpl-4af12654fd554159b2be1a6f902a2eb0, seq_id=63
+INFO:     127.0.0.1:49268 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 10:59:52] Scheduled prefill batch: 2 reqs, 140 new tokens (cached: [0, 0], new: [70, 70]), req_ids: (62, 63)
+[atom 10:59:53] Engine Core: output send 1 reqs
+[atom 10:59:53] Request 64 arrived, input tokens: 70, pending requests: 4
+[atom 10:59:53] API: Created request_id=cmpl-ffa93e556ba945ab998fb0a0f57053d0, seq_id=64
+INFO:     127.0.0.1:41124 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 10:59:53] Scheduled prefill batch: 1 reqs, 70 new tokens (cached: [0], new: [70]), req_ids: (64,)
+[atom 10:59:53] Engine Core: output send 1 reqs
+[atom 10:59:53] Request 65 arrived, input tokens: 70, pending requests: 4
+[atom 10:59:53] API: Created request_id=cmpl-e41de82ac6674ce188fc888c5bdab5a8, seq_id=65
+INFO:     127.0.0.1:41126 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 10:59:53] Scheduled prefill batch: 1 reqs, 70 new tokens (cached: [0], new: [70]), req_ids: (65,)
+[atom 10:59:53] Engine Core: output send 1 reqs
+[atom 10:59:53] Request 66 arrived, input tokens: 70, pending requests: 4
+[atom 10:59:53] API: Created request_id=cmpl-3ba62c448d284888af8bbbafd3dad887, seq_id=66
+INFO:     127.0.0.1:41134 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 10:59:53] Scheduled prefill batch: 1 reqs, 70 new tokens (cached: [0], new: [70]), req_ids: (66,)
+[atom 10:59:53] Engine Core: output send 1 reqs
+[atom 10:59:53] Request 67 arrived, input tokens: 70, pending requests: 4
+[atom 10:59:53] API: Created request_id=cmpl-4f6684ecd521458783f79a56ff472fb4, seq_id=67
+INFO:     127.0.0.1:41142 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 10:59:53] Scheduled prefill batch: 1 reqs, 70 new tokens (cached: [0], new: [70]), req_ids: (67,)
+[atom 10:59:53] Engine Core: output send 1 reqs
+[atom 10:59:53] Request 68 arrived, input tokens: 70, pending requests: 4
+[atom 10:59:53] API: Created request_id=cmpl-386846445d684db78bb7761c53c0262f, seq_id=68
+INFO:     127.0.0.1:41150 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 10:59:53] Scheduled prefill batch: 1 reqs, 70 new tokens (cached: [0], new: [70]), req_ids: (68,)
+[atom 10:59:53] Engine Core: output send 1 reqs
+[atom 10:59:53] Request 69 arrived, input tokens: 70, pending requests: 4
+[atom 10:59:53] API: Created request_id=cmpl-5b95cf6c94174ec89ff689f092739742, seq_id=69
+INFO:     127.0.0.1:41160 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 10:59:53] Scheduled prefill batch: 1 reqs, 70 new tokens (cached: [0], new: [70]), req_ids: (69,)
+[atom 10:59:54] Engine Core: output send 2 reqs
+[atom 10:59:54] Request 70 arrived, input tokens: 70, pending requests: 3
+[atom 10:59:54] Request 71 arrived, input tokens: 70, pending requests: 4
+[atom 10:59:54] API: Created request_id=cmpl-df400becbb434a279c7d705904f8b229, seq_id=70
+INFO:     127.0.0.1:41162 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 10:59:54] API: Created request_id=cmpl-a40990ad92024e03b3d722e9de1d1d7c, seq_id=71
+INFO:     127.0.0.1:41176 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 10:59:54] Scheduled prefill batch: 2 reqs, 140 new tokens (cached: [0, 0], new: [70, 70]), req_ids: (70, 71)
+[atom 10:59:54] Engine Core: output send 1 reqs
+[atom 10:59:54] Request 72 arrived, input tokens: 70, pending requests: 4
+[atom 10:59:54] API: Created request_id=cmpl-067f24693d274e86a1548360f42ae7e8, seq_id=72
+INFO:     127.0.0.1:41180 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 10:59:54] Scheduled prefill batch: 1 reqs, 70 new tokens (cached: [0], new: [70]), req_ids: (72,)
+[atom 10:59:54] Engine Core: output send 1 reqs
+[atom 10:59:54] Request 73 arrived, input tokens: 70, pending requests: 4
+[atom 10:59:54] API: Created request_id=cmpl-d0cbba50a9f0485c93e622e45523777d, seq_id=73
+INFO:     127.0.0.1:41190 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 10:59:54] Scheduled prefill batch: 1 reqs, 70 new tokens (cached: [0], new: [70]), req_ids: (73,)
+[atom 10:59:54] [MTP Stats Interval] Average toks/fwd: 2.27, Accepted/Total Draft tokens: 1266/2000, Acceptance rate: 63.30%, Accepted tokens distribution: {0: '22.50%', 1: '28.40%', 2: '49.10%'}
+[atom 10:59:54] [MTP Stats         ] Average toks/fwd: 2.29, Accepted/Total Draft tokens: 2590/4000, Acceptance rate: 64.75%, Accepted tokens distribution: {0: '20.55%', 1: '29.40%', 2: '50.05%'}
+[atom 10:59:54] Engine Core: output send 1 reqs
+[atom 10:59:54] Request 74 arrived, input tokens: 70, pending requests: 4
+[atom 10:59:54] API: Created request_id=cmpl-67a70b26fa8844f58797258086a356d5, seq_id=74
+INFO:     127.0.0.1:41194 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 10:59:54] Scheduled prefill batch: 1 reqs, 70 new tokens (cached: [0], new: [70]), req_ids: (74,)
+[atom 10:59:54] Engine Core: output send 1 reqs
+[atom 10:59:54] Request 75 arrived, input tokens: 70, pending requests: 4
+[atom 10:59:54] API: Created request_id=cmpl-261c3cc89c6f4151bcf66a25e3d45666, seq_id=75
+INFO:     127.0.0.1:41198 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 10:59:54] Scheduled prefill batch: 1 reqs, 70 new tokens (cached: [0], new: [70]), req_ids: (75,)
+[atom 10:59:55] Engine Core: output send 1 reqs
+[atom 10:59:55] Request 76 arrived, input tokens: 70, pending requests: 4
+[atom 10:59:55] API: Created request_id=cmpl-28850f1c746643d2a962ab1ff5294b6c, seq_id=76
+INFO:     127.0.0.1:41204 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 10:59:55] Scheduled prefill batch: 1 reqs, 70 new tokens (cached: [0], new: [70]), req_ids: (76,)
+[atom 10:59:55] Engine Core: output send 1 reqs
+[atom 10:59:55] Request 77 arrived, input tokens: 70, pending requests: 4
+[atom 10:59:55] API: Created request_id=cmpl-321d73b47bc6447c913647cee4d68707, seq_id=77
+INFO:     127.0.0.1:41214 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 10:59:55] Scheduled prefill batch: 1 reqs, 70 new tokens (cached: [0], new: [70]), req_ids: (77,)
+[atom 10:59:55] Engine Core: output send 1 reqs
+[atom 10:59:55] Engine Core: output send 1 reqs
+[atom 10:59:55] Engine Core: output send 1 reqs
+[atom 10:59:55] Engine Core: executing utility command: get_mtp_statistics
+[atom 10:59:55] Engine Core: utility command 'get_mtp_statistics' finished in 0.00s
+[atom 10:59:55] Engine Core: output send 1 reqs
+INFO:     127.0.0.1:41230 - "GET /debug/mtp_stats HTTP/1.1" 200 OK
+[atom 11:00:00] Request 78 arrived, input tokens: 96, pending requests: 1
+[atom 11:00:00] Request 79 arrived, input tokens: 96, pending requests: 2
+[atom 11:00:00] API: Created request_id=cmpl-950b471ba2e94c0084c90b53185ce0c4, seq_id=78
+INFO:     127.0.0.1:41232 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 11:00:00] API: Created request_id=cmpl-12aba4248d974c9bb6479a970dfb9b46, seq_id=79
+INFO:     127.0.0.1:41236 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 11:00:00] Scheduled prefill batch: 1 reqs, 96 new tokens (cached: [0], new: [96]), req_ids: (78,)
+[atom 11:00:00] Scheduled prefill batch: 1 reqs, 96 new tokens (cached: [0], new: [96]), req_ids: (79,)
+[atom 11:00:01] Engine Core: output send 1 reqs
+[atom 11:00:01] Request 80 arrived, input tokens: 96, pending requests: 1
+[atom 11:00:01] Request 81 arrived, input tokens: 96, pending requests: 2
+[atom 11:00:01] Request 82 arrived, input tokens: 96, pending requests: 3
+[atom 11:00:01] Request 83 arrived, input tokens: 96, pending requests: 4
+[atom 11:00:01] API: Created request_id=cmpl-fbea96318ac64c7e81f9d4af2db15961, seq_id=80
+INFO:     127.0.0.1:41238 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 11:00:01] API: Created request_id=cmpl-48288844e2f14f188349a49ea9da745e, seq_id=81
+[atom 11:00:01] API: Created request_id=cmpl-2d0966541b5d4dc48c52f5624a94e7d1, seq_id=82
+[atom 11:00:01] API: Created request_id=cmpl-17cf1acfccdb4ec98d0d6b46f6abc134, seq_id=83
+INFO:     127.0.0.1:41266 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41252 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41282 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 11:00:01] Engine Core: output send 1 reqs
+[atom 11:00:01] Scheduled prefill batch: 4 reqs, 384 new tokens (cached: [0, 0, 0, 0], new: [96, 96, 96, 96]), req_ids: (80, 81, 82, 83)
+[aiter] shape is M:1536, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:1536, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:1536, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:1536, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[atom 11:00:01] Engine Core: output send 1 reqs
+[atom 11:00:01] Request 84 arrived, input tokens: 96, pending requests: 4
+[atom 11:00:01] API: Created request_id=cmpl-bc2c69489bbf4c9093fd2c313d545c5f, seq_id=84
+INFO:     127.0.0.1:41290 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 11:00:01] Scheduled prefill batch: 1 reqs, 96 new tokens (cached: [0], new: [96]), req_ids: (84,)
+[atom 11:00:01] Engine Core: output send 1 reqs
+[atom 11:00:01] Request 85 arrived, input tokens: 96, pending requests: 4
+[atom 11:00:01] API: Created request_id=cmpl-98799de13eae4169bfbc04736a6e7d96, seq_id=85
+INFO:     127.0.0.1:41300 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 11:00:01] Scheduled prefill batch: 1 reqs, 96 new tokens (cached: [0], new: [96]), req_ids: (85,)
+[atom 11:00:02] Engine Core: output send 1 reqs
+[atom 11:00:02] Request 86 arrived, input tokens: 96, pending requests: 4
+[atom 11:00:02] API: Created request_id=cmpl-429ed307d4ec4a2dbf17eb174cf45b38, seq_id=86
+INFO:     127.0.0.1:41304 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 11:00:02] Scheduled prefill batch: 1 reqs, 96 new tokens (cached: [0], new: [96]), req_ids: (86,)
+[atom 11:00:02] Engine Core: output send 1 reqs
+[atom 11:00:02] Request 87 arrived, input tokens: 96, pending requests: 4
+[atom 11:00:02] API: Created request_id=cmpl-a45750bdc5cc4fc7be86904c6f4a8a6d, seq_id=87
+INFO:     127.0.0.1:41308 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 11:00:02] Scheduled prefill batch: 1 reqs, 96 new tokens (cached: [0], new: [96]), req_ids: (87,)
+[atom 11:00:02] Engine Core: output send 1 reqs
+[atom 11:00:02] Request 88 arrived, input tokens: 96, pending requests: 4
+[atom 11:00:02] API: Created request_id=cmpl-ef82a4b2d5e04c57bef4835cce6686ca, seq_id=88
+INFO:     127.0.0.1:41322 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 11:00:02] Scheduled prefill batch: 1 reqs, 96 new tokens (cached: [0], new: [96]), req_ids: (88,)
+[atom 11:00:02] Engine Core: output send 1 reqs
+[atom 11:00:02] Request 89 arrived, input tokens: 96, pending requests: 4
+[atom 11:00:02] API: Created request_id=cmpl-0e2c1c8f550e446bb145beafb7c72009, seq_id=89
+INFO:     127.0.0.1:41330 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 11:00:02] Scheduled prefill batch: 1 reqs, 96 new tokens (cached: [0], new: [96]), req_ids: (89,)
+[atom 11:00:02] Engine Core: output send 1 reqs
+[atom 11:00:02] Request 90 arrived, input tokens: 96, pending requests: 4
+[atom 11:00:02] API: Created request_id=cmpl-5d98e3fcd8284b4e9a8fb70664ff20bd, seq_id=90
+INFO:     127.0.0.1:41338 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 11:00:02] Scheduled prefill batch: 1 reqs, 96 new tokens (cached: [0], new: [96]), req_ids: (90,)
+[atom 11:00:02] Engine Core: output send 1 reqs
+[atom 11:00:02] Request 91 arrived, input tokens: 96, pending requests: 4
+[atom 11:00:02] API: Created request_id=cmpl-10ea398f8b934e129ae955b3d285547e, seq_id=91
+INFO:     127.0.0.1:41340 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 11:00:02] Scheduled prefill batch: 1 reqs, 96 new tokens (cached: [0], new: [96]), req_ids: (91,)
+[atom 11:00:03] Engine Core: output send 1 reqs
+[atom 11:00:03] Request 92 arrived, input tokens: 96, pending requests: 4
+[atom 11:00:03] API: Created request_id=cmpl-8569b36c61a144249d740845e927dd89, seq_id=92
+INFO:     127.0.0.1:54344 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 11:00:03] Scheduled prefill batch: 1 reqs, 96 new tokens (cached: [0], new: [96]), req_ids: (92,)
+[atom 11:00:03] Engine Core: output send 1 reqs
+[atom 11:00:03] Request 93 arrived, input tokens: 96, pending requests: 4
+[atom 11:00:03] API: Created request_id=cmpl-85f110a7f2124262a7e1af6d81bdecfc, seq_id=93
+INFO:     127.0.0.1:54346 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 11:00:03] Scheduled prefill batch: 1 reqs, 96 new tokens (cached: [0], new: [96]), req_ids: (93,)
+[atom 11:00:03] Engine Core: output send 1 reqs
+[atom 11:00:03] Request 94 arrived, input tokens: 96, pending requests: 4
+[atom 11:00:03] API: Created request_id=cmpl-30960734002e42ff8b3fb514e7ee3f39, seq_id=94
+INFO:     127.0.0.1:54354 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 11:00:03] Scheduled prefill batch: 1 reqs, 96 new tokens (cached: [0], new: [96]), req_ids: (94,)
+[atom 11:00:03] Engine Core: output send 1 reqs
+[atom 11:00:03] Request 95 arrived, input tokens: 96, pending requests: 4
+[atom 11:00:03] API: Created request_id=cmpl-e9cc73311b774a5eb185b03be52d023d, seq_id=95
+INFO:     127.0.0.1:54366 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 11:00:03] Scheduled prefill batch: 1 reqs, 96 new tokens (cached: [0], new: [96]), req_ids: (95,)
+[atom 11:00:03] Engine Core: output send 1 reqs
+[atom 11:00:03] Request 96 arrived, input tokens: 96, pending requests: 4
+[atom 11:00:03] API: Created request_id=cmpl-8502e94cdec84ee586c031b6e791d1fd, seq_id=96
+INFO:     127.0.0.1:54376 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 11:00:03] Scheduled prefill batch: 1 reqs, 96 new tokens (cached: [0], new: [96]), req_ids: (96,)
+[atom 11:00:04] Engine Core: output send 1 reqs
+[atom 11:00:04] Request 97 arrived, input tokens: 96, pending requests: 4
+[atom 11:00:04] API: Created request_id=cmpl-5591500b137b46a793eec1615f121844, seq_id=97
+INFO:     127.0.0.1:54388 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 11:00:04] Scheduled prefill batch: 1 reqs, 96 new tokens (cached: [0], new: [96]), req_ids: (97,)
+[atom 11:00:04] Engine Core: output send 1 reqs
+[atom 11:00:04] Request 98 arrived, input tokens: 96, pending requests: 4
+[atom 11:00:04] API: Created request_id=cmpl-c18365f6289141d889107f6c9b22c756, seq_id=98
+INFO:     127.0.0.1:54396 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 11:00:04] Scheduled prefill batch: 1 reqs, 96 new tokens (cached: [0], new: [96]), req_ids: (98,)
+[atom 11:00:04] Engine Core: output send 1 reqs
+[atom 11:00:04] Request 99 arrived, input tokens: 96, pending requests: 4
+[atom 11:00:04] API: Created request_id=cmpl-392e66f7db1346158e566b5be8161b75, seq_id=99
+INFO:     127.0.0.1:54406 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 11:00:04] Scheduled prefill batch: 1 reqs, 96 new tokens (cached: [0], new: [96]), req_ids: (99,)
+[atom 11:00:04] Engine Core: output send 1 reqs
+[atom 11:00:04] Request 100 arrived, input tokens: 96, pending requests: 4
+[atom 11:00:04] API: Created request_id=cmpl-d9f03a1609bc4df7a913feedf30c307e, seq_id=100
+INFO:     127.0.0.1:54416 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 11:00:04] Scheduled prefill batch: 1 reqs, 96 new tokens (cached: [0], new: [96]), req_ids: (100,)
+[atom 11:00:04] Engine Core: output send 1 reqs
+[atom 11:00:04] Request 101 arrived, input tokens: 96, pending requests: 4
+[atom 11:00:04] API: Created request_id=cmpl-11ea10662bd0437c9606ca835a05854b, seq_id=101
+INFO:     127.0.0.1:54418 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 11:00:04] Scheduled prefill batch: 1 reqs, 96 new tokens (cached: [0], new: [96]), req_ids: (101,)
+[atom 11:00:04] Engine Core: output send 1 reqs
+[atom 11:00:04] Request 102 arrived, input tokens: 96, pending requests: 4
+[atom 11:00:04] API: Created request_id=cmpl-4f99476c79c049299a9b4b7be201c4bf, seq_id=102
+INFO:     127.0.0.1:54434 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 11:00:04] Scheduled prefill batch: 1 reqs, 96 new tokens (cached: [0], new: [96]), req_ids: (102,)
+[atom 11:00:04] Engine Core: output send 1 reqs
+[atom 11:00:04] Request 103 arrived, input tokens: 96, pending requests: 4
+[atom 11:00:04] API: Created request_id=cmpl-1a0bbd67641c45898f6e5ea5385fcd96, seq_id=103
+INFO:     127.0.0.1:54444 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 11:00:05] Scheduled prefill batch: 1 reqs, 96 new tokens (cached: [0], new: [96]), req_ids: (103,)
+[atom 11:00:05] Engine Core: output send 1 reqs
+[atom 11:00:05] Engine Core: output send 1 reqs
+[atom 11:00:05] Engine Core: output send 1 reqs
+[atom 11:00:05] Engine Core: output send 1 reqs
+[atom 11:00:05] Engine Core: executing utility command: get_mtp_statistics
+[atom 11:00:05] Engine Core: utility command 'get_mtp_statistics' finished in 0.00s
+INFO:     127.0.0.1:54450 - "GET /debug/mtp_stats HTTP/1.1" 200 OK
+[atom 11:00:10] Request 104 arrived, input tokens: 128, pending requests: 1
+[atom 11:00:10] Request 105 arrived, input tokens: 128, pending requests: 2
+[atom 11:00:10] API: Created request_id=cmpl-d49a1dc90a264b7b87667864e1cf2310, seq_id=104
+INFO:     127.0.0.1:54456 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 11:00:10] API: Created request_id=cmpl-2f0cebcd14f847c3bfb541dbb061dd6f, seq_id=105
+INFO:     127.0.0.1:54472 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 11:00:10] Scheduled prefill batch: 1 reqs, 128 new tokens (cached: [0], new: [128]), req_ids: (104,)
+[aiter] shape is M:128, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:128, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:128, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:128, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:128, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:128, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:128, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:128, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:128, N:256, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:128, N:256, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:128, N:256, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:128, N:256, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:128, N:2048, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:128, N:512, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:128, N:2048, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:128, N:2048, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:128, N:64, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:128, N:512, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:128, N:512, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:128, N:64, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:128, N:64, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:128, N:2048, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:128, N:512, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:128, N:64, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:128, N:1024, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:128, N:1024, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:128, N:1024, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:128, N:1024, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:512, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:512, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:128, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:128, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:512, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:128, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:512, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:128, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[atom 11:00:10] Scheduled prefill batch: 1 reqs, 128 new tokens (cached: [0], new: [128]), req_ids: (105,)
+[atom 11:00:11] Engine Core: output send 1 reqs
+[atom 11:00:11] Engine Core: output send 1 reqs
+[atom 11:00:11] Request 106 arrived, input tokens: 128, pending requests: 1
+[atom 11:00:11] API: Created request_id=cmpl-d4b5b522278148108bb907c7b54a5a5b, seq_id=106
+INFO:     127.0.0.1:54476 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 11:00:11] Request 107 arrived, input tokens: 128, pending requests: 2
+[atom 11:00:11] Request 108 arrived, input tokens: 128, pending requests: 3
+[atom 11:00:11] Request 109 arrived, input tokens: 128, pending requests: 4
+[atom 11:00:11] API: Created request_id=cmpl-21d84d21267b42c88b949fe818bf0e4f, seq_id=107
+INFO:     127.0.0.1:54482 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 11:00:11] API: Created request_id=cmpl-a23c845d03c74cb7b763546f2f736625, seq_id=108
+[atom 11:00:11] API: Created request_id=cmpl-7e5a408250ae42e6818781481eea1baf, seq_id=109
+INFO:     127.0.0.1:54486 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54500 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 11:00:11] Scheduled prefill batch: 1 reqs, 128 new tokens (cached: [0], new: [128]), req_ids: (106,)
+[atom 11:00:11] Scheduled prefill batch: 3 reqs, 384 new tokens (cached: [0, 0, 0], new: [128, 128, 128]), req_ids: (107, 108, 109)
+[atom 11:00:11] [MTP Stats Interval] Average toks/fwd: 2.25, Accepted/Total Draft tokens: 1251/2000, Acceptance rate: 62.55%, Accepted tokens distribution: {0: '21.90%', 1: '31.10%', 2: '47.00%'}
+[atom 11:00:11] [MTP Stats         ] Average toks/fwd: 2.28, Accepted/Total Draft tokens: 3841/6000, Acceptance rate: 64.02%, Accepted tokens distribution: {0: '21.00%', 1: '29.97%', 2: '49.03%'}
+[atom 11:00:11] Engine Core: output send 1 reqs
+[atom 11:00:11] Request 110 arrived, input tokens: 128, pending requests: 4
+[atom 11:00:11] API: Created request_id=cmpl-10a13ca4cd124f40905865c1a5bb5691, seq_id=110
+INFO:     127.0.0.1:54504 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 11:00:11] Scheduled prefill batch: 1 reqs, 128 new tokens (cached: [0], new: [128]), req_ids: (110,)
+[atom 11:00:12] Engine Core: output send 2 reqs
+[atom 11:00:12] Request 111 arrived, input tokens: 128, pending requests: 3
+[atom 11:00:12] API: Created request_id=cmpl-4da90b0d00204cc5ba1fb458fe22c394, seq_id=111
+[atom 11:00:12] Request 112 arrived, input tokens: 128, pending requests: 4
+INFO:     127.0.0.1:54508 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 11:00:12] API: Created request_id=cmpl-75ecd1c64bbe47c2855bada570349ac6, seq_id=112
+INFO:     127.0.0.1:54520 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 11:00:12] Scheduled prefill batch: 2 reqs, 256 new tokens (cached: [0, 0], new: [128, 128]), req_ids: (111, 112)
+[aiter] shape is M:256, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:256, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:256, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:256, N:1536, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:256, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:256, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:256, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:256, N:8192, K:1024, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:256, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:256, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:256, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:256, N:4096, K:2048, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:256, N:256, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:256, N:256, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:256, N:256, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:256, N:256, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:256, N:2048, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:256, N:2048, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:256, N:2048, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:256, N:2048, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:256, N:512, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:256, N:512, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:256, N:512, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:256, N:512, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:256, N:64, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:256, N:64, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:256, N:64, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:256, N:64, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:256, N:1024, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:256, N:1024, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:256, N:1024, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:256, N:1024, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:1024, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:256, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:1024, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:256, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:1024, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:1024, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:256, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[aiter] shape is M:256, N:4096, K:4096, not found tuned config in /work/experiments/e077_bpreshuffle_18row_overlay.csv, will use default config!
+[atom 11:00:12] Engine Core: output send 1 reqs
+[atom 11:00:12] Request 113 arrived, input tokens: 128, pending requests: 4
+[atom 11:00:12] API: Created request_id=cmpl-d2a9d7366def44399e441a4a8bb73882, seq_id=113
+INFO:     127.0.0.1:54522 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 11:00:12] Scheduled prefill batch: 1 reqs, 128 new tokens (cached: [0], new: [128]), req_ids: (113,)
+[atom 11:00:12] Engine Core: output send 1 reqs
+[atom 11:00:12] Request 114 arrived, input tokens: 128, pending requests: 4
+[atom 11:00:12] API: Created request_id=cmpl-cba225c482744c739b0f2ba0a1f8b2ed, seq_id=114
+INFO:     127.0.0.1:54524 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 11:00:12] Scheduled prefill batch: 1 reqs, 128 new tokens (cached: [0], new: [128]), req_ids: (114,)
+[atom 11:00:12] Engine Core: output send 1 reqs
+[atom 11:00:12] Request 115 arrived, input tokens: 128, pending requests: 4
+[atom 11:00:12] API: Created request_id=cmpl-0a72b980bbc046e185d51de3c78bf441, seq_id=115
+INFO:     127.0.0.1:54540 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 11:00:12] Scheduled prefill batch: 1 reqs, 128 new tokens (cached: [0], new: [128]), req_ids: (115,)
+[atom 11:00:12] Engine Core: output send 1 reqs
+[atom 11:00:12] Request 116 arrived, input tokens: 128, pending requests: 4
+[atom 11:00:12] API: Created request_id=cmpl-cc1b4e5ee3e5487abb8953ab41c3af0a, seq_id=116
+INFO:     127.0.0.1:54544 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 11:00:12] Scheduled prefill batch: 1 reqs, 128 new tokens (cached: [0], new: [128]), req_ids: (116,)
+[atom 11:00:13] Engine Core: output send 1 reqs
+[atom 11:00:13] Request 117 arrived, input tokens: 128, pending requests: 4
+[atom 11:00:13] API: Created request_id=cmpl-595fb88130d348578d219a9792391465, seq_id=117
+INFO:     127.0.0.1:54554 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 11:00:13] Scheduled prefill batch: 1 reqs, 128 new tokens (cached: [0], new: [128]), req_ids: (117,)
+[atom 11:00:13] Engine Core: output send 1 reqs
+[atom 11:00:13] Request 118 arrived, input tokens: 128, pending requests: 4
+[atom 11:00:13] API: Created request_id=cmpl-8f917aa54e6a474184fca4e458e60937, seq_id=118
+INFO:     127.0.0.1:33536 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 11:00:13] Scheduled prefill batch: 1 reqs, 128 new tokens (cached: [0], new: [128]), req_ids: (118,)
+[atom 11:00:13] Engine Core: output send 1 reqs
+[atom 11:00:13] Request 119 arrived, input tokens: 128, pending requests: 4
+[atom 11:00:13] API: Created request_id=cmpl-2640e1a70f954c529868bf0aa1208420, seq_id=119
+INFO:     127.0.0.1:33542 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 11:00:13] Scheduled prefill batch: 1 reqs, 128 new tokens (cached: [0], new: [128]), req_ids: (119,)
+[atom 11:00:13] Engine Core: output send 1 reqs
+[atom 11:00:13] Request 120 arrived, input tokens: 128, pending requests: 4
+[atom 11:00:13] API: Created request_id=cmpl-75ed77dc30714632ab7e9dd469dc0793, seq_id=120
+INFO:     127.0.0.1:33550 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 11:00:13] Scheduled prefill batch: 1 reqs, 128 new tokens (cached: [0], new: [128]), req_ids: (120,)
+[atom 11:00:13] Engine Core: output send 1 reqs
+[atom 11:00:13] Request 121 arrived, input tokens: 128, pending requests: 4
+[atom 11:00:13] API: Created request_id=cmpl-b4e7f3db5ab94949ab3febbd23435b75, seq_id=121
+INFO:     127.0.0.1:33556 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 11:00:13] Scheduled prefill batch: 1 reqs, 128 new tokens (cached: [0], new: [128]), req_ids: (121,)
+[atom 11:00:13] Engine Core: output send 1 reqs
+[atom 11:00:13] Request 122 arrived, input tokens: 128, pending requests: 4
+[atom 11:00:13] API: Created request_id=cmpl-1084509cd48242b2abc659af91883dd7, seq_id=122
+INFO:     127.0.0.1:33560 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 11:00:13] Scheduled prefill batch: 1 reqs, 128 new tokens (cached: [0], new: [128]), req_ids: (122,)
+[atom 11:00:14] Engine Core: output send 1 reqs
+[atom 11:00:14] Request 123 arrived, input tokens: 128, pending requests: 4
+[atom 11:00:14] API: Created request_id=cmpl-473595d8d34947ef88e4e902654fd074, seq_id=123
+INFO:     127.0.0.1:33570 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 11:00:14] Scheduled prefill batch: 1 reqs, 128 new tokens (cached: [0], new: [128]), req_ids: (123,)
+[atom 11:00:14] Engine Core: output send 1 reqs
+[atom 11:00:14] Request 124 arrived, input tokens: 128, pending requests: 4
+[atom 11:00:14] API: Created request_id=cmpl-add5088c76134d159507a61091ab7dff, seq_id=124
+INFO:     127.0.0.1:33576 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 11:00:14] Scheduled prefill batch: 1 reqs, 128 new tokens (cached: [0], new: [128]), req_ids: (124,)
+[atom 11:00:14] Engine Core: output send 1 reqs
+[atom 11:00:14] Request 125 arrived, input tokens: 128, pending requests: 4
+[atom 11:00:14] API: Created request_id=cmpl-6aacb48d0c274b629a365fa404bb4483, seq_id=125
+INFO:     127.0.0.1:33582 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 11:00:14] Scheduled prefill batch: 1 reqs, 128 new tokens (cached: [0], new: [128]), req_ids: (125,)
+[atom 11:00:14] Engine Core: output send 1 reqs
+[atom 11:00:14] Request 126 arrived, input tokens: 128, pending requests: 4
+[atom 11:00:14] API: Created request_id=cmpl-ba8a9b3ad73d458b83a4c0e1b6c06a85, seq_id=126
+INFO:     127.0.0.1:33596 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 11:00:14] Scheduled prefill batch: 1 reqs, 128 new tokens (cached: [0], new: [128]), req_ids: (126,)
+[atom 11:00:14] Engine Core: output send 1 reqs
+[atom 11:00:14] Request 127 arrived, input tokens: 128, pending requests: 4
+[atom 11:00:14] API: Created request_id=cmpl-89c49e6b335c492b99fa0e735659ebe7, seq_id=127
+INFO:     127.0.0.1:33612 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 11:00:14] Scheduled prefill batch: 1 reqs, 128 new tokens (cached: [0], new: [128]), req_ids: (127,)
+[atom 11:00:14] Engine Core: output send 1 reqs
+[atom 11:00:14] Request 128 arrived, input tokens: 128, pending requests: 4
+[atom 11:00:14] API: Created request_id=cmpl-52ae041d28e04da48c3c0f4e9f371d5f, seq_id=128
+INFO:     127.0.0.1:33614 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 11:00:14] Scheduled prefill batch: 1 reqs, 128 new tokens (cached: [0], new: [128]), req_ids: (128,)
+[atom 11:00:15] Engine Core: output send 1 reqs
+[atom 11:00:15] Request 129 arrived, input tokens: 128, pending requests: 4
+[atom 11:00:15] API: Created request_id=cmpl-26505dce57574936a4bc932b6f7fc2d0, seq_id=129
+INFO:     127.0.0.1:33624 - "POST /v1/completions HTTP/1.1" 200 OK
+[atom 11:00:15] Scheduled prefill batch: 1 reqs, 128 new tokens (cached: [0], new: [128]), req_ids: (129,)
+[atom 11:00:15] Engine Core: output send 2 reqs
+[atom 11:00:15] Engine Core: output send 1 reqs
+[atom 11:00:15] Engine Core: executing utility command: get_mtp_statistics
+[atom 11:00:15] Engine Core: output send 1 reqs
+[atom 11:00:15] Engine Core: utility command 'get_mtp_statistics' finished in 0.00s
+INFO:     127.0.0.1:33634 - "GET /debug/mtp_stats HTTP/1.1" 200 OK

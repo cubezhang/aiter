@@ -1,0 +1,35 @@
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 2 is connected to 3 peer ranks. Expected number of connected peer ranks is : 3
+[Gloo] Rank 1 is connected to 3 peer ranks. Expected number of connected peer ranks is : 3
+[Gloo] Rank 3 is connected to 3 peer ranks. Expected number of connected peer ranks is : 3
+[Gloo] Rank 0 is connected to 3 peer ranks. Expected number of connected peer ranks is : 3
+[aiter] load RCCL version: 2.27.7
+[aiter] rank 1 in world size 4 is assigned as DP rank 0, PP rank 0, PCP rank 0, TP rank 1, EP rank 1
+[aiter] rank 3 in world size 4 is assigned as DP rank 0, PP rank 0, PCP rank 0, TP rank 3, EP rank 3
+[aiter] rank 2 in world size 4 is assigned as DP rank 0, PP rank 0, PCP rank 0, TP rank 2, EP rank 2
+[aiter] rank 0 in world size 4 is assigned as DP rank 0, PP rank 0, PCP rank 0, TP rank 0, EP rank 0
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+[atom.models.deepseek_v4 12:16:02] ckpt stores wo_a as BF16 on disk; allocating BF16 wo_a params (skipping FP8 + scale load-time dequant).
+[atom.models.deepseek_v4 12:16:02] ckpt stores wo_a as BF16 on disk; allocating BF16 wo_a params (skipping FP8 + scale load-time dequant).
+[atom.models.deepseek_v4 12:16:02] ckpt stores wo_a as BF16 on disk; allocating BF16 wo_a params (skipping FP8 + scale load-time dequant).
+[atom.models.deepseek_v4 12:16:02] ckpt stores wo_a as BF16 on disk; allocating BF16 wo_a params (skipping FP8 + scale load-time dequant).
+[atom 12:16:03] disable_mmap: False
+[atom 12:16:03] disable_mmap: False
+[atom 12:16:03] disable_mmap: False
+[atom 12:16:03] disable_mmap: False
+Loading safetensors shards[/data/DeepSeek-V4-Flash-FP8]:   0%|          | 0/46 [00:00<?, ?it/s]Loading safetensors shards[/data/DeepSeek-V4-Flash-FP8]:   2%|▏         | 1/46 [00:00<00:15,  2.88it/s]Loading safetensors shards[/data/DeepSeek-V4-Flash-FP8]:   4%|▍         | 2/46 [00:00<00:18,  2.41it/s]Loading safetensors shards[/data/DeepSeek-V4-Flash-FP8]:   7%|▋         | 3/46 [00:01<00:21,  1.96it/s]Loading safetensors shards[/data/DeepSeek-V4-Flash-FP8]:   9%|▊         | 4/46 [00:01<00:16,  2.49it/s]Loading safetensors shards[/data/DeepSeek-V4-Flash-FP8]:  11%|█         | 5/46 [00:02<00:16,  2.48it/s]Loading safetensors shards[/data/DeepSeek-V4-Flash-FP8]:  13%|█▎        | 6/46 [00:02<00:12,  3.15it/s]Loading safetensors shards[/data/DeepSeek-V4-Flash-FP8]:  15%|█▌        | 7/46 [00:02<00:09,  3.92it/s]Loading safetensors shards[/data/DeepSeek-V4-Flash-FP8]:  17%|█▋        | 8/46 [00:02<00:08,  4.39it/s]Loading safetensors shards[/data/DeepSeek-V4-Flash-FP8]:  20%|█▉        | 9/46 [00:02<00:10,  3.41it/s]Loading safetensors shards[/data/DeepSeek-V4-Flash-FP8]:  22%|██▏       | 10/46 [00:03<00:08,  4.00it/s]Loading safetensors shards[/data/DeepSeek-V4-Flash-FP8]:  24%|██▍       | 11/46 [00:03<00:13,  2.65it/s]Loading safetensors shards[/data/DeepSeek-V4-Flash-FP8]:  26%|██▌       | 12/46 [00:03<00:10,  3.24it/s]Loading safetensors shards[/data/DeepSeek-V4-Flash-FP8]:  28%|██▊       | 13/46 [00:04<00:08,  4.00it/s]Loading safetensors shards[/data/DeepSeek-V4-Flash-FP8]:  30%|███       | 14/46 [00:04<00:07,  4.05it/s]Loading safetensors shards[/data/DeepSeek-V4-Flash-FP8]:  33%|███▎      | 15/46 [00:04<00:06,  4.50it/s]Loading safetensors shards[/data/DeepSeek-V4-Flash-FP8]:  35%|███▍      | 16/46 [00:04<00:05,  5.26it/s]Loading safetensors shards[/data/DeepSeek-V4-Flash-FP8]:  37%|███▋      | 17/46 [00:04<00:05,  5.44it/s]Loading safetensors shards[/data/DeepSeek-V4-Flash-FP8]:  41%|████▏     | 19/46 [00:04<00:04,  6.37it/s]Loading safetensors shards[/data/DeepSeek-V4-Flash-FP8]:  43%|████▎     | 20/46 [00:05<00:03,  6.53it/s]Loading safetensors shards[/data/DeepSeek-V4-Flash-FP8]:  46%|████▌     | 21/46 [00:05<00:04,  5.85it/s]Loading safetensors shards[/data/DeepSeek-V4-Flash-FP8]:  48%|████▊     | 22/46 [00:06<00:08,  2.87it/s]Loading safetensors shards[/data/DeepSeek-V4-Flash-FP8]:  50%|█████     | 23/46 [00:06<00:07,  3.04it/s]Loading safetensors shards[/data/DeepSeek-V4-Flash-FP8]:  52%|█████▏    | 24/46 [00:06<00:06,  3.20it/s]Loading safetensors shards[/data/DeepSeek-V4-Flash-FP8]:  54%|█████▍    | 25/46 [00:06<00:06,  3.35it/s]Loading safetensors shards[/data/DeepSeek-V4-Flash-FP8]:  57%|█████▋    | 26/46 [00:07<00:05,  3.70it/s]Loading safetensors shards[/data/DeepSeek-V4-Flash-FP8]:  59%|█████▊    | 27/46 [00:07<00:04,  3.95it/s]Loading safetensors shards[/data/DeepSeek-V4-Flash-FP8]:  63%|██████▎   | 29/46 [00:07<00:03,  5.19it/s]Loading safetensors shards[/data/DeepSeek-V4-Flash-FP8]:  67%|██████▋   | 31/46 [00:07<00:02,  7.26it/s]Loading safetensors shards[/data/DeepSeek-V4-Flash-FP8]:  70%|██████▉   | 32/46 [00:08<00:02,  5.73it/s]

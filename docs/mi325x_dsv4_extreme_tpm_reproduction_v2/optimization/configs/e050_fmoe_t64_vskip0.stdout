@@ -1,0 +1,46 @@
+[aiter] import [module_aiter_core] under /app/aiter-test/aiter/jit/module_aiter_core.so
+[aiter] LoadKernel: _ZN5aiter24topksoftmax_4x256x6_bf16E hsaco: /app/aiter-test/hsa//gfx942/topksoftmax/topksoftmax_4x256x6_bf16.co
+/opt/venv/lib/python3.12/site-packages/torch/profiler/profiler.py:217: UserWarning: Warning: Profiler clears events at the end of each cycle.Only events from the current cycle will be reported.To keep events across cycles, set acc_events=True.
+  _warn_once(
+[W803 12:09:34.371056795 collection.cpp:1148] Warning: ROCTracer produced duplicate flow start: 1 (function operator())
+[aiter] import [module_moe_sorting] under /app/aiter-test/aiter/jit/module_moe_sorting.so
+[aiter] import [module_quant] under /app/aiter-test/aiter/jit/module_quant.so
+[AITER] /app/aiter-test/csrc/py_itfs_cu/asm_fmoe.cu:302 get_heuristic_kernel: No suitable kernel found for inter_dim: 2048, sub_X_cnt: 268, smf: 0, vskip: 0
+
+Running test: g1u1_fp8quant
+Traceback (most recent call last):
+  File "/app/aiter-test/op_tests/test_moe.py", line 499, in <module>
+    test_fmoe(
+  File "/app/aiter-test/op_tests/test_moe.py", line 247, in test_fmoe
+    out_b, avg_b = asm_moe_test(
+                   ^^^^^^^^^^^^^
+  File "/app/aiter-test/aiter/test_common.py", line 59, in wrapper
+    iter_used_memory, inputSize, _, _ = device_memory_profiling(
+                                        ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/aiter-test/aiter/test_common.py", line 168, in device_memory_profiling
+    _ = func(*args, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^
+  File "/app/aiter-test/op_tests/test_moe.py", line 76, in asm_moe_test
+    return asm_moe(
+           ^^^^^^^^
+  File "/app/aiter-test/aiter/fused_moe_bf16_asm.py", line 258, in asm_moe
+    aiter.fmoe_g1u1(
+  File "/app/aiter-test/aiter/jit/utils/torch_guard.py", line 289, in wrapper_custom
+    getattr(torch.ops.aiter, f"{loadName}")(*args, **kwargs)
+  File "/opt/venv/lib/python3.12/site-packages/torch/_ops.py", line 1209, in __call__
+    return self._op(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/aiter-test/aiter/jit/utils/torch_guard.py", line 312, in outer_wrapper
+    wrapper(*args, **kwargs)
+  File "/app/aiter-test/aiter/jit/utils/torch_guard.py", line 207, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/app/aiter-test/aiter/jit/core.py", line 1505, in ctypes_custom_wrapper
+    return ctypes_wrapper(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/aiter-test/aiter/jit/core.py", line 1501, in ctypes_wrapper
+    return ctypes_caller(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/aiter-test/aiter/jit/core.py", line 1474, in caller
+    raise RuntimeError(f"{fc_name} failed: {err_msg}")
+RuntimeError: fmoe_g1u1 failed: [AITER] /app/aiter-test/csrc/py_itfs_cu/asm_fmoe.cu:302 get_heuristic_kernel: No suitable kernel found for inter_dim: 2048, sub_X_cnt: 268, smf: 0, vskip: 0

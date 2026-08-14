@@ -1,0 +1,128 @@
+[aiter] import [module_aiter_core] under /app/aiter-test/aiter/jit/module_aiter_core.so
+Not exist tuned file: /work/experiments/e139_bpreshuffle_tuned.csv
+      gfx  cu_num    M     N     K
+0  gfx942     304  210  1536  4096
+1  gfx942     304  210  4096  2048
+2  gfx942     304  210  4096  4096
+3  gfx942     304  210  8192  1024
+Compare candidate CSV will be written to /tmp/aiter_compare/e139_bpreshuffle_tuned.1.candidate.csv
+=== Running pre-tune benchmark (batch 1/1) ===
+[aiter] merge tuned file under model_configs/ and configs/ /app/aiter-test/aiter/configs/a8w8_blockscale_bpreshuffle_tuned_gemm.csv:/app/aiter-test/aiter/configs/model_configs/a8w8_blockscale_bpreshuffle_tuned_gemm_dsv3.csv:/app/aiter-test/aiter/configs/model_configs/a8w8_blockscale_bpreshuffle_tuned_gemm_qwen3.5_397b.csv:/app/aiter-test/aiter/configs/model_configs/dsv4_a8w8_blockscale_bpreshuffle_tuned_gemm.csv:/app/aiter-test/aiter/configs/model_configs/a8w8_blockscale_bpreshuffle_tuned_gemm_mm2.5.csv:/app/aiter-test/aiter/configs/model_configs/glm5_a8w8_blockscale_bpreshuffle_tuned_gemm.csv:/app/aiter-test/aiter/configs/model_configs/a8w8_blockscale_bpreshuffle_tuned_gemm_glm5.2.csv:/app/aiter-test/aiter/configs/model_configs/a8w8_blockscale_bpreshuffle_tuned_gemm_qwen3_235b.csv
+[aiter] shape is M:210, N:1536, K:4096, not found tuned config in /tmp/aiter_configs/a8w8_blockscale_bpreshuffle_tuned_gemm.csv, will use default config!
+[aiter] import [module_gemm_a8w8_blockscale_bpreshuffle] under /app/aiter-test/aiter/jit/module_gemm_a8w8_blockscale_bpreshuffle.so
+/opt/venv/lib/python3.12/site-packages/torch/profiler/profiler.py:217: UserWarning: Warning: Profiler clears events at the end of each cycle.Only events from the current cycle will be reported.To keep events across cycles, set acc_events=True.
+  _warn_once(
+[W804 02:54:32.002780623 collection.cpp:1148] Warning: ROCTracer produced duplicate flow start: 15 (function operator())
+[aiter] run_config (210, 1536, 4096)[checkAllclose atol=0.01 rtol=0.01 [32mpassed~[0m]
+[aiter] shape is M:210, N:4096, K:2048, not found tuned config in /tmp/aiter_configs/a8w8_blockscale_bpreshuffle_tuned_gemm.csv, will use default config!
+[aiter] run_config (210, 4096, 2048)[checkAllclose atol=0.01 rtol=0.01 [32mpassed~[0m]
+[aiter] shape is M:210, N:4096, K:4096, not found tuned config in /tmp/aiter_configs/a8w8_blockscale_bpreshuffle_tuned_gemm.csv, will use default config!
+[aiter] run_config (210, 4096, 4096)[checkAllclose atol=0.01 rtol=0.01 [32mpassed~[0m]
+[aiter] shape is M:210, N:8192, K:1024, not found tuned config in /tmp/aiter_configs/a8w8_blockscale_bpreshuffle_tuned_gemm.csv, will use default config!
+[aiter] run_config (210, 8192, 1024)[checkAllclose atol=0.01 rtol=0.01 [32mpassed~[0m]
+[Task Grouping] Grouped 24 tasks into 4 groups by info_keys
+Distributing 4 task groups across 8 GPUs
+[aiter] import [module_aiter_core] under /app/aiter-test/aiter/jit/module_aiter_core.so
+[aiter] import [module_aiter_core] under /app/aiter-test/aiter/jit/module_aiter_core.so
+[aiter] import [module_aiter_core] under /app/aiter-test/aiter/jit/module_aiter_core.so
+[aiter] import [module_aiter_core] under /app/aiter-test/aiter/jit/module_aiter_core.so
+[aiter] import [module_aiter_core] under /app/aiter-test/aiter/jit/module_aiter_core.so
+[aiter] import [module_aiter_core] under /app/aiter-test/aiter/jit/module_aiter_core.so
+[aiter] import [module_aiter_core] under /app/aiter-test/aiter/jit/module_aiter_core.so
+[aiter] import [module_aiter_core] under /app/aiter-test/aiter/jit/module_aiter_core.so
+[aiter] LoadKernel: _ZN5aiter42fp8gemm_bf16_blockscale_BpreShuffle_32x128E hsaco: /app/aiter-test/hsa//gfx942/fp8gemm_blockscale/fp8gemm_bf16_blockscale_BpreShuffle_32x128.co
+/opt/venv/lib/python3.12/site-packages/torch/profiler/profiler.py:217: UserWarning: Warning: Profiler clears events at the end of each cycle.Only events from the current cycle will be reported.To keep events across cycles, set acc_events=True.
+  _warn_once(
+[W804 02:54:42.771361204 collection.cpp:1148] Warning: ROCTracer produced duplicate flow start: 3 (function operator())
+[aiter] LoadKernel: _ZN5aiter42fp8gemm_bf16_blockscale_BpreShuffle_32x128E hsaco: /app/aiter-test/hsa//gfx942/fp8gemm_blockscale/fp8gemm_bf16_blockscale_BpreShuffle_32x128.co
+/opt/venv/lib/python3.12/site-packages/torch/profiler/profiler.py:217: UserWarning: Warning: Profiler clears events at the end of each cycle.Only events from the current cycle will be reported.To keep events across cycles, set acc_events=True.
+  _warn_once(
+[W804 02:54:42.796046936 collection.cpp:1148] Warning: ROCTracer produced duplicate flow start: 3 (function operator())
+[aiter] LoadKernel: _ZN5aiter42fp8gemm_bf16_blockscale_BpreShuffle_32x128E hsaco: /app/aiter-test/hsa//gfx942/fp8gemm_blockscale/fp8gemm_bf16_blockscale_BpreShuffle_32x128.co
+[aiter] LoadKernel: _ZN5aiter42fp8gemm_bf16_blockscale_BpreShuffle_32x128E hsaco: /app/aiter-test/hsa//gfx942/fp8gemm_blockscale/fp8gemm_bf16_blockscale_BpreShuffle_32x128.co
+/opt/venv/lib/python3.12/site-packages/torch/profiler/profiler.py:217: UserWarning: Warning: Profiler clears events at the end of each cycle.Only events from the current cycle will be reported.To keep events across cycles, set acc_events=True.
+  _warn_once(
+/opt/venv/lib/python3.12/site-packages/torch/profiler/profiler.py:217: UserWarning: Warning: Profiler clears events at the end of each cycle.Only events from the current cycle will be reported.To keep events across cycles, set acc_events=True.
+  _warn_once(
+[W804 02:54:42.801588180 collection.cpp:1148] Warning: ROCTracer produced duplicate flow start: 3 (function operator())
+[W804 02:54:42.802009421 collection.cpp:1148] Warning: ROCTracer produced duplicate flow start: 3 (function operator())
+[aiter] LoadKernel: _ZN5aiter42fp8gemm_bf16_blockscale_BpreShuffle_48x128E hsaco: /app/aiter-test/hsa//gfx942/fp8gemm_blockscale/fp8gemm_bf16_blockscale_BpreShuffle_48x128.co
+[aiter] LoadKernel: _ZN5aiter42fp8gemm_bf16_blockscale_BpreShuffle_64x128E hsaco: /app/aiter-test/hsa//gfx942/fp8gemm_blockscale/fp8gemm_bf16_blockscale_BpreShuffle_64x128.co
+[aiter] LoadKernel: _ZN5aiter42fp8gemm_bf16_blockscale_BpreShuffle_48x128E hsaco: /app/aiter-test/hsa//gfx942/fp8gemm_blockscale/fp8gemm_bf16_blockscale_BpreShuffle_48x128.co
+[aiter] LoadKernel: _ZN5aiter42fp8gemm_bf16_blockscale_BpreShuffle_80x128E hsaco: /app/aiter-test/hsa//gfx942/fp8gemm_blockscale/fp8gemm_bf16_blockscale_BpreShuffle_80x128.co
+[aiter] LoadKernel: _ZN5aiter42fp8gemm_bf16_blockscale_BpreShuffle_48x128E hsaco: /app/aiter-test/hsa//gfx942/fp8gemm_blockscale/fp8gemm_bf16_blockscale_BpreShuffle_48x128.co
+[aiter] LoadKernel: _ZN5aiter42fp8gemm_bf16_blockscale_BpreShuffle_48x128E hsaco: /app/aiter-test/hsa//gfx942/fp8gemm_blockscale/fp8gemm_bf16_blockscale_BpreShuffle_48x128.co
+[aiter] LoadKernel: _ZN5aiter42fp8gemm_bf16_blockscale_BpreShuffle_64x128E hsaco: /app/aiter-test/hsa//gfx942/fp8gemm_blockscale/fp8gemm_bf16_blockscale_BpreShuffle_64x128.co
+[aiter] LoadKernel: _ZN5aiter42fp8gemm_bf16_blockscale_BpreShuffle_96x128E hsaco: /app/aiter-test/hsa//gfx942/fp8gemm_blockscale/fp8gemm_bf16_blockscale_BpreShuffle_96x128.co
+[aiter] LoadKernel: _ZN5aiter42fp8gemm_bf16_blockscale_BpreShuffle_64x128E hsaco: /app/aiter-test/hsa//gfx942/fp8gemm_blockscale/fp8gemm_bf16_blockscale_BpreShuffle_64x128.co
+[aiter] LoadKernel: _ZN5aiter42fp8gemm_bf16_blockscale_BpreShuffle_64x128E hsaco: /app/aiter-test/hsa//gfx942/fp8gemm_blockscale/fp8gemm_bf16_blockscale_BpreShuffle_64x128.co
+[aiter] LoadKernel: _ZN5aiter42fp8gemm_bf16_blockscale_BpreShuffle_80x128E hsaco: /app/aiter-test/hsa//gfx942/fp8gemm_blockscale/fp8gemm_bf16_blockscale_BpreShuffle_80x128.co
+[aiter] LoadKernel: _ZN5aiter43fp8gemm_bf16_blockscale_BpreShuffle_128x128E hsaco: /app/aiter-test/hsa//gfx942/fp8gemm_blockscale/fp8gemm_bf16_blockscale_BpreShuffle_128x128.co
+[aiter] LoadKernel: _ZN5aiter42fp8gemm_bf16_blockscale_BpreShuffle_80x128E hsaco: /app/aiter-test/hsa//gfx942/fp8gemm_blockscale/fp8gemm_bf16_blockscale_BpreShuffle_80x128.co
+[aiter] LoadKernel: _ZN5aiter42fp8gemm_bf16_blockscale_BpreShuffle_80x128E hsaco: /app/aiter-test/hsa//gfx942/fp8gemm_blockscale/fp8gemm_bf16_blockscale_BpreShuffle_80x128.co
+[aiter] LoadKernel: _ZN5aiter42fp8gemm_bf16_blockscale_BpreShuffle_96x128E hsaco: /app/aiter-test/hsa//gfx942/fp8gemm_blockscale/fp8gemm_bf16_blockscale_BpreShuffle_96x128.co
+[aiter] LoadKernel: _ZN5aiter42fp8gemm_bf16_blockscale_BpreShuffle_96x128E hsaco: /app/aiter-test/hsa//gfx942/fp8gemm_blockscale/fp8gemm_bf16_blockscale_BpreShuffle_96x128.co
+[aiter] LoadKernel: _ZN5aiter42fp8gemm_bf16_blockscale_BpreShuffle_96x128E hsaco: /app/aiter-test/hsa//gfx942/fp8gemm_blockscale/fp8gemm_bf16_blockscale_BpreShuffle_96x128.co
+[aiter] LoadKernel: _ZN5aiter43fp8gemm_bf16_blockscale_BpreShuffle_128x128E hsaco: /app/aiter-test/hsa//gfx942/fp8gemm_blockscale/fp8gemm_bf16_blockscale_BpreShuffle_128x128.co
+[aiter] LoadKernel: _ZN5aiter43fp8gemm_bf16_blockscale_BpreShuffle_128x128E hsaco: /app/aiter-test/hsa//gfx942/fp8gemm_blockscale/fp8gemm_bf16_blockscale_BpreShuffle_128x128.co
+[aiter] LoadKernel: _ZN5aiter43fp8gemm_bf16_blockscale_BpreShuffle_128x128E hsaco: /app/aiter-test/hsa//gfx942/fp8gemm_blockscale/fp8gemm_bf16_blockscale_BpreShuffle_128x128.co
+/app/aiter-test/aiter/utility/base_tuner.py:485: FutureWarning: The behavior of DataFrame concatenation with empty or all-NA entries is deprecated. In a future version, this will no longer exclude empty or all-NA columns when determining the result dtypes. To retain the old behavior, exclude the relevant entries before the concat operation.
+  profiledf = pd.concat([old_df, profiledf], ignore_index=True)
+/app/aiter-test/aiter/utility/base_tuner.py:1662: FutureWarning: The behavior of DataFrame concatenation with empty or all-NA entries is deprecated. In a future version, this will no longer exclude empty or all-NA columns when determining the result dtypes. To retain the old behavior, exclude the relevant entries before the concat operation.
+  self.success = pd.concat(
+/app/aiter-test/aiter/utility/base_tuner.py:442: FutureWarning: The behavior of DataFrame concatenation with empty or all-NA entries is deprecated. In a future version, this will no longer exclude empty or all-NA columns when determining the result dtypes. To retain the old behavior, exclude the relevant entries before the concat operation.
+  df_old = pd.concat([df_old, unmatched_rows], ignore_index=True)
+Waiting for 4 tasks to complete (no timeout limit)...
+=== Running post-tune benchmark (verification) for batch 1/1 ===
+[aiter] Setting AITER_CONFIG_GEMM_A8W8_BLOCKSCALE_BPRESHUFFLE=/tmp/aiter_compare/GemmA8W8BlockScaleTuner_compare_batch_1_1.csv for benchmark
+[aiter] LoadKernel: _ZN5aiter42fp8gemm_bf16_blockscale_BpreShuffle_48x128E hsaco: /app/aiter-test/hsa//gfx942/fp8gemm_blockscale/fp8gemm_bf16_blockscale_BpreShuffle_48x128.co
+[aiter] run_config (210, 1536, 4096)[checkAllclose atol=0.01 rtol=0.01 [32mpassed~[0m]
+[aiter] run_config (210, 4096, 2048)[checkAllclose atol=0.01 rtol=0.01 [32mpassed~[0m]
+[aiter] LoadKernel: _ZN5aiter42fp8gemm_bf16_blockscale_BpreShuffle_32x128E hsaco: /app/aiter-test/hsa//gfx942/fp8gemm_blockscale/fp8gemm_bf16_blockscale_BpreShuffle_32x128.co
+[aiter] run_config (210, 4096, 4096)[checkAllclose atol=0.01 rtol=0.01 [32mpassed~[0m]
+[aiter] LoadKernel: _ZN5aiter42fp8gemm_bf16_blockscale_BpreShuffle_64x128E hsaco: /app/aiter-test/hsa//gfx942/fp8gemm_blockscale/fp8gemm_bf16_blockscale_BpreShuffle_64x128.co
+[aiter] run_config (210, 8192, 1024)[checkAllclose atol=0.01 rtol=0.01 [32mpassed~[0m]
+/app/aiter-test/aiter/utility/base_tuner.py:1112: FutureWarning: The behavior of DataFrame concatenation with empty or all-NA entries is deprecated. In a future version, this will no longer exclude empty or all-NA columns when determining the result dtypes. To retain the old behavior, exclude the relevant entries before the concat operation.
+  merged = pd.concat([kept_old, improved_rows], ignore_index=True)
+[aiter] processed 1 batches of 1, Processing Status ====> 100.0% tuned in GemmA8W8BlockScaleTuner
+[aiter] ============= Tuning results Summary: ==============
+/app/aiter-test/aiter/utility/base_tuner.py:534: FutureWarning: The behavior of DataFrame concatenation with empty or all-NA entries is deprecated. In a future version, this will no longer exclude empty or all-NA columns when determining the result dtypes. To retain the old behavior, exclude the relevant entries before the concat operation.
+  tunedf = pd.concat([self.success, self.failed])
+[aiter] Tuning Finished. tune 4 shapes, total tuning time is 10.7242 seconds
+[aiter] Successfully tuned shapes:
+[aiter] Failed shapes:
+Not exist tuned file: /work/experiments/e139_bpreshuffle_tuned.csv
+      gfx cu_num    M  ...  tflops       bw errRatio
+0  gfx942    304  210  ...  182.61   538.80      0.0
+1  gfx942    304  210  ...  335.75  1004.32      0.0
+2  gfx942    304  210  ...  388.40  1067.00      0.0
+3  gfx942    304  210  ...  361.02  1234.17      0.0
+
+[4 rows x 13 columns]
+Empty DataFrame
+Columns: [gfx, cu_num, M, N, K, libtype, kernelId, splitK, us, kernelName, tflops, bw, errRatio]
+Index: []
+============= Tune Performance Comparison =============
+Shape                                    |   Pre-E2E(us) |   Post-E2E(us) |  Speedup |   Status
+-----------------------------------------------------------------------------------------------
+(210, 1536, 4096)                        |         22.18 |          14.38 |    1.54x |       OK
+keys: gfx=gfx942, cu_num=304, M=210, N=1536, K=4096
+(210, 4096, 2048)                        |         14.16 |          10.30 |    1.37x |       OK
+keys: gfx=gfx942, cu_num=304, M=210, N=4096, K=2048
+(210, 4096, 4096)                        |         27.02 |          18.47 |    1.46x |       OK
+keys: gfx=gfx942, cu_num=304, M=210, N=4096, K=4096
+(210, 8192, 1024)                        |         10.77 |           9.55 |    1.13x |       OK
+keys: gfx=gfx942, cu_num=304, M=210, N=8192, K=1024
+============= Compare Report =============
+Total shapes: 4 | Updated: 4 (improved: 4, new: 0) | Skipped: 0
+Threshold: >= 1.0% improvement to update /work/experiments/e139_bpreshuffle_tuned.csv
+
+--- Updated (4 shapes) ---
+Shape                                    |    Pre(us) |   Post(us) |   Improve |             Action
+---------------------------------------------------------------------------------------------------
+(210, 1536, 4096)                        |      22.18 |      14.38 |    35.19% |             UPDATE
+(210, 4096, 2048)                        |      14.16 |      10.30 |    27.25% |             UPDATE
+(210, 4096, 4096)                        |      27.02 |      18.47 |    31.65% |             UPDATE
+(210, 8192, 1024)                        |      10.77 |       9.55 |    11.32% |             UPDATE
+
+Compare candidate CSV written to /tmp/aiter_compare/e139_bpreshuffle_tuned.1.candidate.csv

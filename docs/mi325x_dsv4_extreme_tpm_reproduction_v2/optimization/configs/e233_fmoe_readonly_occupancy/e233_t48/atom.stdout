@@ -1,0 +1,37 @@
+Namespace(backend='openai', base_url='http://127.0.0.1:18000', host='127.0.0.1', port=8000, endpoint='/v1/completions', dataset_name='random', dataset_path=None, max_concurrency=4, model='/data/DeepSeek-V4-Flash-FP8', tokenizer='/data/DeepSeek-V4-Flash-FP8', best_of=1, use_beam_search=False, num_prompts=24, logprobs=None, request_rate=inf, burstiness=1.0, seed=20260803, trust_remote_code=False, disable_tqdm=True, profile=False, save_result=True, save_detailed=True, metadata=None, result_dir='/work/atom_benchmark/e233_t48', result_filename='result.json', ignore_eos=True, percentile_metrics='ttft,tpot,itl', metric_percentiles='99', goodput=None, sonnet_input_len=550, sonnet_output_len=150, sonnet_prefix_len=200, sharegpt_output_len=None, random_input_len=48, random_output_len=64, random_range_ratio=1.0, random_prefix_len=0, use_chat_template=False, hf_subset=None, hf_split=None, hf_output_len=None, tokenizer_mode='auto', served_model_name='DeepSeek-V3.2', lora_modules=None, num_warmups=2)
+-------------------  Input/Output Length Statistics  -------------------
+ input_lens : min=48    max=48    mean=48.00    avg_token_mismatch=0.00  
+ output_lens: min=64    max=64    mean=64.00   
+------------------------------------------------------------------------ 
+
+Starting initial single prompt test run...
+Warming up with 2 requests...
+Warmup completed.
+Traffic request rate: inf
+Burstiness factor: 1.0 (Poisson process)
+Maximum request concurrency: 4
+Starting main benchmark run...
+============ Serving Benchmark Result ============
+Successful requests:                     24        
+Benchmark duration (s):                  4.48      
+Total input tokens:                      1152      
+Total generated tokens:                  1557      
+Request throughput (req/s):              5.36      
+Output token throughput (tok/s):         347.80    
+Total Token throughput (tok/s):          605.14    
+Concurrency:                             3.80      
+Accept length:                           2.29      
+Acceptance rate (%):                     64.46     
+---------------Time to First Token----------------
+Mean TTFT (ms):                          128.63    
+Median TTFT (ms):                        95.90     
+P99 TTFT (ms):                           278.67    
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          9.07      
+Median TPOT (ms):                        9.47      
+P99 TPOT (ms):                           12.38     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           19.56     
+Median ITL (ms):                         14.50     
+P99 ITL (ms):                            83.46     
+==================================================

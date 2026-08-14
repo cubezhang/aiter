@@ -1,0 +1,60 @@
+[aiter] import [module_aiter_core] under /app/aiter-test/aiter/jit/module_aiter_core.so
+Traceback (most recent call last):
+  File "/app/aiter-test/aiter/jit/utils/chip_info.py", line 26, in _detect_native
+    result = subprocess.run(
+             ^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/opt/rocm-7.2.4/bin/rocminfo']' returned non-zero exit status 1.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/app/aiter-test/csrc/ck_gemm_a8w8_blockscale/gemm_a8w8_blockscale_tune.py", line 12, in <module>
+    import aiter
+  File "/app/aiter-test/aiter/__init__.py", line 88, in <module>
+    from .utility import dtypes as dtypes  # noqa: E402
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/aiter-test/aiter/utility/dtypes.py", line 5, in <module>
+    from ..ops.enum import QuantType, ActivationType
+  File "/app/aiter-test/aiter/ops/enum.py", line 19, in <module>
+    ActivationType = type(_ActivationType(0))
+                          ^^^^^^^^^^^^^^^^^^
+  File "/app/aiter-test/aiter/jit/utils/torch_guard.py", line 207, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/app/aiter-test/aiter/jit/core.py", line 1784, in custom_wrapper
+    return wrapper(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/aiter-test/aiter/jit/core.py", line 1751, in wrapper
+    func.arg_checked = check_args()
+                       ^^^^^^^^^^^^
+  File "/app/aiter-test/aiter/jit/core.py", line 1587, in check_args
+    get_asm_dir()
+  File "/app/aiter-test/aiter/jit/core.py", line 431, in get_asm_dir
+    return os.path.join(AITER_ASM_DIR, get_gfx())
+                                       ^^^^^^^^^
+  File "/app/aiter-test/aiter/jit/utils/chip_info.py", line 69, in get_gfx
+    gfx_num = get_gfx_custom_op()
+              ^^^^^^^^^^^^^^^^^^^
+  File "/app/aiter-test/aiter/jit/utils/torch_guard.py", line 291, in wrapper_custom
+    else getattr(torch.ops.aiter, f"{loadName}")(
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/venv/lib/python3.12/site-packages/torch/_ops.py", line 1209, in __call__
+    return self._op(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/aiter-test/aiter/jit/utils/torch_guard.py", line 331, in outer_wrapper_dummy
+    else (torch.empty(1, device=device), wrapper(*args, **kwargs))
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/aiter-test/aiter/jit/utils/torch_guard.py", line 207, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/app/aiter-test/aiter/jit/utils/chip_info.py", line 44, in get_gfx_custom_op
+    return get_gfx_custom_op_core()
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/aiter-test/aiter/jit/utils/chip_info.py", line 52, in get_gfx_custom_op_core
+    gfx = _detect_native()[0]
+          ^^^^^^^^^^^^^^^^
+  File "/app/aiter-test/aiter/jit/utils/chip_info.py", line 38, in _detect_native
+    raise RuntimeError(f"Get GPU arch from rocminfo failed: {e}") from e
+RuntimeError: Get GPU arch from rocminfo failed: Command '['/opt/rocm-7.2.4/bin/rocminfo']' returned non-zero exit status 1.

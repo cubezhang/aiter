@@ -1,0 +1,2 @@
+/mi325_dsv4_e004_dual true running
+/mi325_dsv4_e004_router true running

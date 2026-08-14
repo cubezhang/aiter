@@ -1,0 +1,6 @@
+gfx942,304,24,8192,1024,asm,0,1,6.5926,_ZN5aiter42fp8gemm_bf16_blockscale_BpreShuffle_32x128E,61.08,1335.8,0.0
+gfx942,304,24,4096,2048,asm,0,1,9.8361,_ZN5aiter42fp8gemm_bf16_blockscale_BpreShuffle_32x128E,40.94,877.82,0.0
+gfx942,304,48,4096,2048,asm,0,1,10.2589,_ZN5aiter42fp8gemm_bf16_blockscale_BpreShuffle_32x128E,78.5,865.6,0.0
+gfx942,304,96,4096,2048,asm,0,1,11.1001,_ZN5aiter42fp8gemm_bf16_blockscale_BpreShuffle_32x128E,145.1,844.29,0.0
+gfx942,304,72,4096,2048,asm,0,1,10.4634,_ZN5aiter42fp8gemm_bf16_blockscale_BpreShuffle_32x128E,115.45,872.17,0.0
+gfx942,304,120,4096,2048,asm,0,1,10.8161,_ZN5aiter42fp8gemm_bf16_blockscale_BpreShuffle_32x128E,186.14,889.18,0.0

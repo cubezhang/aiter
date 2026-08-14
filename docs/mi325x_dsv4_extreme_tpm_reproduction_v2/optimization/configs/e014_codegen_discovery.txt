@@ -1,0 +1,155 @@
+   8014 /app/aiter-test/hsa/codegen.py
+   3083 /app/aiter-test/hsa/gfx942/mla/mla_asm.csv
+  22967 /app/aiter-test/csrc/py_itfs_cu/asm_mla_v4.cu
+      0 /app/aiter-test/csrc/kernels/mla/hk/doc
+  96240 /app/aiter-test/csrc/kernels/mla/hk/hk_mla_buffer_managers.cuh
+  35945 /app/aiter-test/csrc/kernels/mla/hk/hk_mla_softmax.cuh
+  29220 /app/aiter-test/csrc/kernels/mla/hk/hk_mla_utils.cuh
+ 119946 /app/aiter-test/csrc/kernels/mla/hk/hk_mla_v40_buffer_managers_gen1.cuh
+  19049 /app/aiter-test/csrc/kernels/mla/hk/hk_mla_v40_fwd_decode_gen1_common.cuh
+  72253 /app/aiter-test/csrc/kernels/mla/hk/mi35x_v32_fwd_decode_m16x4_fp8_fp8.cuh
+  67220 /app/aiter-test/csrc/kernels/mla/hk/mi35x_v32_fwd_decode_m16x8_fp8_fp8.cuh
+  80223 /app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x4_fp8bf16_fp8bf16_gen1.cuh
+  84747 /app/aiter-test/csrc/kernels/mla/hk/mi35x_v40_fwd_decode_m16x8_fp8bf16_fp8bf16_gen1.cuh
+  48562 /app/aiter-test/csrc/kernels/mla/hk/mi3xx_v32_fwd_decode_m16x8_fp8_fp8.cuh
+ 687469 total
+/app/aiter-test/docs/DOCUMENTATION_AUDIT_REPORT.md:114:    '-gencode', 'arch=compute_942,code=sm_942',  # Should be gfx90a, gfx942
+/app/aiter-test/docs/newsletter/2026-05.md:20:Public manylinux wheels are published with each release for ROCm 7.0 / 7.1 / 7.2 × Python 3.10 / 3.12, fat-binary across `gfx942` (MI300/MI308/MI325X) and `gfx950` (MI355X):
+/app/aiter-test/docs/newsletter/2026-05.md:81:- **gfx950 (MI355X)** — maturing across MoE, MLA, and FMHA. Now the primary production target alongside gfx942.
+/app/aiter-test/docs/newsletter/2026-05.md:84:- **gfx942 (MI300/MI308/MI325X)** — continued tuning, e.g. dsv3 blockscale GEMM config in MI300 ([#2881](https://github.com/ROCm/aiter/pull/2881)).
+/app/aiter-test/docs/newsletter/2026-05.md:113:- **6-wheel matrix per release**: ROCm 7.0 / 7.1 / 7.2 × Python 3.10 / 3.12, manylinux_2_28 ABI, fat binary `gfx942;gfx950`.
+/app/aiter-test/docs/examples/isa_optimization/roundtrip.sh:8:#   ./roundtrip.sh <kernel.co> [--mcpu gfx942]
+/app/aiter-test/docs/examples/isa_optimization/roundtrip.sh:28:MCPU="gfx942"
+/app/aiter-test/docs/examples/isa_optimization/roundtrip.sh:33:            echo "Usage: $0 <kernel.co> [--mcpu gfx942]"
+/app/aiter-test/docs/examples/isa_optimization/roundtrip.sh:47:        echo "Usage: $0 <kernel.co> [--mcpu gfx942]"
+/app/aiter-test/docs/examples/isa_optimization/README.md:19:./roundtrip.sh /path/to/kernel.co --mcpu gfx942
+/app/aiter-test/docs/examples/isa_optimization/README.md:22:python3 analyze_kernel.py isa /path/to/kernel.co --mcpu gfx942
+/app/aiter-test/docs/examples/isa_optimization/README.md:35:./roundtrip.sh kernel.co --mcpu gfx942
+/app/aiter-test/docs/examples/isa_optimization/README.md:38:python3 extract_asm.py kernel.isa SYMBOL_NAME --target amdgcn-amd-amdhsa--gfx942 -o kernel.s
+/app/aiter-test/docs/isa_kernel_optimization.md:25:- An AMD GPU (gfx90a, gfx942, or newer)
+/app/aiter-test/docs/isa_kernel_optimization.md:50:/opt/rocm/llvm/bin/llvm-objdump -d --mcpu=gfx942 $KERNEL_CO > kernel.isa
+/app/aiter-test/docs/isa_kernel_optimization.md:53:Replace `gfx942` with your target GPU architecture.
+/app/aiter-test/docs/isa_kernel_optimization.md:73:/opt/rocm/llvm/bin/llvm-objdump --mcpu=gfx942 -s -j .note $KERNEL_CO
+/app/aiter-test/docs/isa_kernel_optimization.md:97:def extract(isa_path, kernel_symbol, target="amdgcn-amd-amdhsa--gfx942"):
+/app/aiter-test/docs/isa_kernel_optimization.md:161:    target = sys.argv[3] if len(sys.argv) > 3 else "amdgcn-amd-amdhsa--gfx942"
+/app/aiter-test/docs/isa_kernel_optimization.md:187:    -mcpu=gfx942 \
+/app/aiter-test/docs/isa_kernel_optimization.md:273:    -mcpu=gfx942 -o kernel_modified.co kernel_modified.s
+/app/aiter-test/docs/isa_kernel_optimization.md:443:| gfx942 | MI300X | CDNA3, wavefront 64, MFMA co-execution |
+/app/aiter-test/docs/isa_kernel_optimization.md:449:For a well-optimized attention kernel on gfx942:
+/app/aiter-test/3rdparty/composable_kernel/script/cmake-ck-dev.sh:13:#   GPU_TARGET             GPU target like gfx90a (default: gfx908;gfx90a;gfx942)
+/app/aiter-test/3rdparty/composable_kernel/script/cmake-ck-dev.sh:20:#   cmake-ck-dev.sh --preset=dev-gfx942 ..       # Custom preset
+/app/aiter-test/3rdparty/composable_kernel/script/cmake-ck-dev.sh:69:GPU_TARGETS="gfx908;gfx90a;gfx942"
+/app/aiter-test/3rdparty/composable_kernel/script/process_perf_data.sh:33:file=./perf_gemm_gfx942.log
+/app/aiter-test/3rdparty/composable_kernel/script/process_perf_data.sh:35:    python3 process_perf_data.py perf_gemm_gfx942.log
+/app/aiter-test/3rdparty/composable_kernel/script/process_perf_data.sh:37:file=./perf_onnx_gemm_gfx942.log
+/app/aiter-test/3rdparty/composable_kernel/script/process_perf_data.sh:39:    python3 process_perf_data.py perf_onnx_gemm_gfx942.log
+/app/aiter-test/3rdparty/composable_kernel/script/process_perf_data.sh:41:file=./perf_resnet50_N256_gfx942.log
+/app/aiter-test/3rdparty/composable_kernel/script/process_perf_data.sh:43:    python3 process_perf_data.py perf_resnet50_N256_gfx942.log
+/app/aiter-test/3rdparty/composable_kernel/script/process_perf_data.sh:45:file=./perf_resnet50_N4_gfx942.log
+/app/aiter-test/3rdparty/composable_kernel/script/process_perf_data.sh:47:    python3 process_perf_data.py perf_resnet50_N4_gfx942.log
+/app/aiter-test/3rdparty/composable_kernel/script/process_perf_data.sh:62:file=./perf_fmha_fwd_gfx942.log
+/app/aiter-test/3rdparty/composable_kernel/script/process_perf_data.sh:64:    python3 process_perf_data.py perf_fmha_fwd_gfx942.log
+/app/aiter-test/3rdparty/composable_kernel/script/process_perf_data.sh:66:file=./perf_fmha_bwd_gfx942.log
+/app/aiter-test/3rdparty/composable_kernel/script/process_perf_data.sh:68:    python3 process_perf_data.py perf_fmha_bwd_gfx942.log
+/app/aiter-test/3rdparty/composable_kernel/script/process_perf_data.sh:79:for gpu in "gfx90a" "gfx942"; do
+/app/aiter-test/3rdparty/composable_kernel/script/process_qa_data.sh:42:file=./perf_fmha_fwd_gfx942.log
+/app/aiter-test/3rdparty/composable_kernel/script/process_qa_data.sh:44:    python3 process_perf_data.py perf_fmha_fwd_gfx942.log
+/app/aiter-test/3rdparty/composable_kernel/script/process_qa_data.sh:46:file=./perf_fmha_bwd_gfx942.log
+/app/aiter-test/3rdparty/composable_kernel/script/process_qa_data.sh:48:    python3 process_perf_data.py perf_fmha_bwd_gfx942.log
+/app/aiter-test/3rdparty/composable_kernel/script/process_qa_data.sh:59:for gpu in "gfx90a" "gfx942"; do
+/app/aiter-test/3rdparty/composable_kernel/script/tools/README_ck-docker.md:56:export GPU_TARGET=gfx942                                             # Override GPU target detection
+/app/aiter-test/3rdparty/composable_kernel/experimental/builder/README.md:56:  -D GPU_TARGETS="gfx942"                                                                         \
+/app/aiter-test/3rdparty/composable_kernel/CHANGELOG.md:14:* Added TF32 convolution support on gfx942 and gfx950 in CK. It could be enabled/disabled via `DTYPES` of "tf32".
+/app/aiter-test/3rdparty/composable_kernel/rocm_ck/README.md:42:many GPU targets (e.g. gfx90a, gfx942, gfx1151).
+/app/aiter-test/3rdparty/composable_kernel/example/ck_tile/36_pooling/README.md:119:# you can replace <arch> with the appropriate architecture (for example gfx90a or gfx942) or leave it blank
+/app/aiter-test/3rdparty/composable_kernel/example/ck_tile/02_layernorm2d/README.md:36:../script/cmake-ck-dev.sh  ../ <arch>  # you can replace this <arch> to gfx90a, gfx942...
+/app/aiter-test/3rdparty/composable_kernel/example/ck_tile/06_permute/README.md:39:../script/cmake-ck-dev.sh  ../ <arch>  # you can replace this <arch> to gfx90a, gfx942...
+/app/aiter-test/3rdparty/composable_kernel/example/ck_tile/16_batched_gemm/README.md:43:# you can replace <arch> with the appropriate architecture (for example gfx90a or gfx942) or leave it blank
+/app/aiter-test/3rdparty/composable_kernel/example/ck_tile/11_add_rmsnorm2d_rdquant/README.md:35:sh ../script/cmake-ck-dev.sh  ../ <arch>  # you can replace this <arch> to gfx90a, gfx942...
+/app/aiter-test/3rdparty/composable_kernel/example/ck_tile/40_streamk_gemm/README.md:9:# you can replace <arch> with the appropriate architecture (for example gfx942) or leave it blank
+/app/aiter-test/3rdparty/composable_kernel/example/ck_tile/03_gemm/script/run_full_test.sh:13:# gpu architecture: e.g., gfx90a, or gfx942, etc.
+/app/aiter-test/3rdparty/composable_kernel/example/ck_tile/03_gemm/README.md:44:# you can replace <arch> with the appropriate architecture (for example gfx90a or gfx942) or leave it blank
+/app/aiter-test/3rdparty/composable_kernel/example/ck_tile/04_img2col/README.md:26:# you can replace <arch> with the appropriate architecture (for example gfx90a or gfx942) or leave it blank
+/app/aiter-test/3rdparty/composable_kernel/example/ck_tile/37_transpose/README.md:41:# you can replace <arch> with the appropriate architecture (for example gfx90a or gfx942) or leave it blank
+/app/aiter-test/3rdparty/composable_kernel/example/ck_tile/09_topk_softmax/README.md:31:../script/cmake-ck-dev.sh  ../ <arch>  # you can replace this <arch> to gfx90a, gfx942...
+/app/aiter-test/3rdparty/composable_kernel/example/ck_tile/38_block_scale_gemm/README.md:33:# you can replace <arch> with the appropriate architecture (for example gfx942) or leave it blank
+/app/aiter-test/3rdparty/composable_kernel/example/ck_tile/18_flatmm/README.md:29:# you can replace <arch> with the appropriate architecture (for example gfx90a or gfx942) or leave it blank
+/app/aiter-test/3rdparty/composable_kernel/example/ck_tile/12_smoothquant/README.md:32:sh ../script/cmake-ck-dev.sh  ../ <arch>  # you can replace this <arch> to gfx90a, gfx942...
+/app/aiter-test/3rdparty/composable_kernel/example/ck_tile/01_fmha/script/run_full_test.sh:13:# gpu architecture: e.g., gfx90a, or gfx942, etc.
+/app/aiter-test/3rdparty/composable_kernel/example/ck_tile/01_fmha/README.md:25:> The second argument is the gfx architectures string (e.g. "gfx950" or "gfx90a;gfx942").
+/app/aiter-test/3rdparty/composable_kernel/example/ck_tile/01_fmha/README.md:168:FP8 FMHA kernels are supported on gfx942/gfx950 machines with ROCm 6.0+. Three fp8-based precision modes are available via `-prec`:
+/app/aiter-test/3rdparty/composable_kernel/example/ck_tile/22_gemm_multi_abd/README.md:9:#you can replace < arch> with the appropriate architecture(for example gfx90a or gfx942) or \
+/app/aiter-test/3rdparty/composable_kernel/example/ck_tile/35_batched_transpose/script/run_full_test.sh:14:# gpu architecture: e.g., gfx90a, or gfx942, etc.
+/app/aiter-test/3rdparty/composable_kernel/example/ck_tile/35_batched_transpose/README.md:40:# you can replace <arch> with the appropriate architecture (for example gfx90a or gfx942) or leave it blank
+/app/aiter-test/3rdparty/composable_kernel/example/ck_tile/13_moe_sorting/README.md:35:sh ../script/cmake-ck-dev.sh  ../ <arch>  # you can replace this <arch> to gfx90a, gfx942...
+/app/aiter-test/3rdparty/composable_kernel/example/ck_tile/10_rmsnorm2d/README.md:34:sh ../script/cmake-ck-dev.sh  ../ <arch>  # you can replace this <arch> to gfx90a, gfx942...
+/app/aiter-test/3rdparty/composable_kernel/example/ck_tile/19_gemm_multi_d/README.md:46:#you can replace < arch> with the appropriate architecture(for example gfx90a or gfx942) or \
+/app/aiter-test/3rdparty/composable_kernel/tutorial/ck_tile/00_copy_kernel/README.md:14:# (for example gfx90a or gfx942) or leave it blank
+/app/aiter-test/3rdparty/composable_kernel/dispatcher/bindings/ctypes/GROUPED_GEMM_BRIDGE.md:99:- fp8/bf8 use the **FNUZ** encoding on gfx942 (matches the regular #8887 path);
+/app/aiter-test/3rdparty/composable_kernel/dispatcher/bindings/ctypes/GROUPED_GEMM_BRIDGE.md:114:    --arch gfx942 --dtype fp16 --layout rcr --csv grouped_results.csv
+/app/aiter-test/3rdparty/composable_kernel/dispatcher/heuristics/DATA_GENERATION.md:54:| `GPU_TARGETS` | (required) | Target GPU architectures. Supported: `gfx90a`, `gfx942`, `gfx950`, `gfx1201`. Semicolon-separated for multiple. |
+/app/aiter-test/3rdparty/composable_kernel/dispatcher/heuristics/DATA_GENERATION.md:224:| `arch` | str | `gfx942`, `gfx950`, etc. |
+/app/aiter-test/3rdparty/composable_kernel/dispatcher/include/ck_tile/dispatcher/README.md:201:auto gfx942_kernels = registry.filter_by_arch("gfx942");
+/app/aiter-test/3rdparty/composable_kernel/dispatcher/include/ck_tile/dispatcher/README.md:215:        "gfx942"
+/app/aiter-test/3rdparty/composable_kernel/dispatcher/include/ck_tile/dispatcher/README.md:220:DECL_GROUPED_CONV_KERNEL_ALL(all_conv_kernels, "gfx942");
+/app/aiter-test/3rdparty/composable_kernel/dispatcher/python/README.md:71:config = get_grouped_conv_default_config(variant="forward", arch="gfx942")
+/app/aiter-test/3rdparty/composable_kernel/dispatcher/STREAMK.md:11:> **Validated platform:** AMD Instinct MI300X (gfx942). See [Known limitations](#known-limitations)
+/app/aiter-test/3rdparty/composable_kernel/dispatcher/STREAMK.md:79:    --gpu-target gfx942 \
+/app/aiter-test/3rdparty/composable_kernel/dispatcher/STREAMK.md:116:hipcc -std=c++17 --offload-arch=gfx942 -O3 \
+/app/aiter-test/3rdparty/composable_kernel/dispatcher/STREAMK.md:154:hipcc -std=c++17 --offload-arch=gfx942 -O3 -I ../include -I include -c src/dispatcher.cpp -o dispatcher.o
+/app/aiter-test/3rdparty/composable_kernel/dispatcher/STREAMK.md:155:hipcc -std=c++17 --offload-arch=gfx942 -O3 -I ../include -I include -c src/registry.cpp   -o registry.o
+/app/aiter-test/3rdparty/composable_kernel/dispatcher/STREAMK.md:158:hipcc -std=c++17 --offload-arch=gfx942 -O3 \
+/app/aiter-test/3rdparty/composable_kernel/dispatcher/STREAMK.md:159:  -DCK_TILE_SINGLE_KERNEL_INCLUDE -DGFX_ARCH='"gfx942"' \
+/app/aiter-test/3rdparty/composable_kernel/dispatcher/STREAMK.md:162:hipcc --offload-arch=gfx942 drv04.o dispatcher.o registry.o -o streamk_registry_driver
+/app/aiter-test/3rdparty/composable_kernel/dispatcher/STREAMK.md:188:python3 tests/test_streamk_registry.py --arch gfx942
+/app/aiter-test/3rdparty/composable_kernel/dispatcher/STREAMK.md:189:python3 tests/test_streamk_registry.py --arch gfx942 --datatypes fp16,bf16 --layouts rcr,ccr
+/app/aiter-test/3rdparty/composable_kernel/dispatcher/examples/README.md:19:  -DGPU_TARGETS="gfx942" \
+/app/aiter-test/3rdparty/composable_kernel/dispatcher/examples/README.md:128:        "gfx942"
+/app/aiter-test/3rdparty/composable_kernel/dispatcher/examples/README.md:205:# Should show: gfx942, gfx90a, etc.
+/app/aiter-test/3rdparty/composable_kernel/dispatcher/examples/gemm/cpp/README.md:57:        "gfx942"
+/app/aiter-test/3rdparty/composable_kernel/dispatcher/examples/gemm/cpp/README.md:64:        "gfx942"
+/app/aiter-test/3rdparty/composable_kernel/dispatcher/examples/gemm/cpp/README.md:86:        "gfx942"
+/app/aiter-test/3rdparty/composable_kernel/dispatcher/examples/gemm/cpp/README.md:125:hipcc -std=c++17 --offload-arch=gfx942 -O3 -DCK_TILE_SINGLE_KERNEL_INCLUDE \
+/app/aiter-test/3rdparty/composable_kernel/dispatcher/examples/gemm/cpp/README.md:241:        "gfx942"                  // WHERE: target architecture
+/app/aiter-test/3rdparty/composable_kernel/dispatcher/README.md:5:**Validated Platform:** AMD Instinct MI300 series (gfx942)
+/app/aiter-test/3rdparty/composable_kernel/dispatcher/README.md:43:  -DGPU_TARGETS="gfx942" \
+/app/aiter-test/3rdparty/composable_kernel/dispatcher/README.md:108:  -DGPU_TARGETS="gfx942" \
+/app/aiter-test/3rdparty/composable_kernel/dispatcher/README.md:122:  -DCMAKE_BUILD_TYPE=Release -DGPU_TARGETS="gfx942" -DBUILD_DISPATCHER_EXAMPLES=ON && \
+/app/aiter-test/3rdparty/composable_kernel/dispatcher/README.md:147:# Example output: "gfx942"
+/app/aiter-test/3rdparty/composable_kernel/dispatcher/README.md:151:- **gfx942** - MI300X, MI300A, MI308, MI325 (Instinct MI300 series)
+/app/aiter-test/3rdparty/composable_kernel/dispatcher/README.md:269:  -DGPU_TARGETS="gfx942"
+/app/aiter-test/3rdparty/composable_kernel/dispatcher/README.md:278:  -DGPU_TARGETS="gfx942" \
+/app/aiter-test/3rdparty/composable_kernel/dispatcher/README.md:321:make generate_kernels_gfx942    # MI300X
+/app/aiter-test/3rdparty/composable_kernel/dispatcher/README.md:341:| `GPU_TARGETS` | None | Target GPU: `"gfx942"`, `"gfx90a"`, etc. |
+/app/aiter-test/3rdparty/composable_kernel/dispatcher/README.md:418:  Architecture: gfx942
+/app/aiter-test/3rdparty/composable_kernel/dispatcher/README.md:623:--offload-arch=gfx942  # Your target GPU
+/app/aiter-test/3rdparty/composable_kernel/dispatcher/README.md:747:- [2] **gemm_preshuffle:** `int8` preshuffle support is limited to gfx942 and gfx950 (entries in `preshuffle_warp_tile_combos`).
+/app/aiter-test/3rdparty/composable_kernel/dispatcher/README.md:774:| gfx942 | 32x32x8, 16x16x16, 32x32x16, 16x16x32, 4x64x16, 64x4x16 | 32x32x8, 16x16x16, 32x32x16, 16x16x32, 4x64x16, 64x4x16 | 32x32x16, 32x32x32, 16x16x32, 16x16x64 | 32x32x16, 32x32x32, 16x16x32, 16x16x64 | 32x32x16, 16x16x32 | -- |
+/app/aiter-test/3rdparty/composable_kernel/dispatcher/README.md:782:| gfx942 | 32x32x8, 16x16x16, 32x32x16, 16x16x32, 64x4x16 | 32x32x8, 16x16x16, 32x32x16, 16x16x32, 64x4x16 | 32x32x16, 32x32x32, 16x16x32, 16x16x64 | 32x32x16, 32x32x32, 16x16x64, 16x16x32 | 16x16x32, 32x32x16 |
+/app/aiter-test/3rdparty/composable_kernel/dispatcher/README.md:817:| `gfx942 not supported` | Check ROCm version (need 6.0+) |
+/app/aiter-test/3rdparty/composable_kernel/dispatcher/codegen/ADDING_NEW_GPU.md:135:| `cdna3` | MI300 series (gfx942) |
+/app/aiter-test/3rdparty/composable_kernel/dispatcher/codegen/ADDING_NEW_GPU.md:152:1. Check architecture key matches exactly (e.g., `"gfx942"` not `"GFX942"`)
+/app/aiter-test/3rdparty/composable_kernel/dispatcher/codegen/ADDING_NEW_GPU.md:161:filter = ArchFilter("gfx942")
+/app/aiter-test/3rdparty/composable_kernel/dispatcher/codegen/README.md:79:| `--gpu-target` | `gfx942`, `gfx90a`, `gfx950` | Target GPU |
+/app/aiter-test/3rdparty/composable_kernel/dispatcher/codegen/README.md:117:    --gpu-target gfx942 \
+/app/aiter-test/3rdparty/composable_kernel/dispatcher/codegen/README.md:144:    "gfx942": {
+/app/aiter-test/3rdparty/composable_kernel/profiler/README.md:270:  -D GPU_TARGETS="gfx942"                                                                         \
+/app/aiter-test/3rdparty/composable_kernel/profiler/README.md:284:  -D GPU_TARGETS="gfx942"                                                                         \
+/app/aiter-test/3rdparty/composable_kernel/profiler/README.md:298:  -D GPU_TARGETS="gfx942"                                                                         \
+/app/aiter-test/3rdparty/composable_kernel/profiler/README.md:331:  -D GPU_TARGETS="gfx942"                                                                         \
+/app/aiter-test/3rdparty/composable_kernel/test/ck_tile/memory_copy/README.md:40:# (for example gfx90a or gfx942) or leave it blank
+/app/aiter-test/3rdparty/composable_kernel/test/ck_tile/pooling_tile_engine/README.md:52:- **GPU targets**: gfx90a, gfx942
+/app/aiter-test/3rdparty/composable_kernel/README.md:76:    use a semicolon between each; for example, `gfx908;gfx90a;gfx942`.
+/app/aiter-test/3rdparty/composable_kernel/README.md:94:    you should use the `GPU_ARCHS` build argument, for example `GPU_ARCHS=gfx908;gfx1030;gfx1100;gfx942`.
+/app/aiter-test/3rdparty/composable_kernel/README.md:108:    * Defaults to GPU targets: `gfx908;gfx90a;gfx942`
+/app/aiter-test/3rdparty/composable_kernel/tile_engine/ops/gemm/README.md:192:# Replace [Arch] with your GPU architecture (e.g., gfx90a, gfx942)
+/app/aiter-test/3rdparty/composable_kernel/tile_engine/ops/gemm/README.md:225:# Build for gfx942 with fp8 and fp16 datatypes, rcr layout
+/app/aiter-test/3rdparty/composable_kernel/tile_engine/ops/gemm/README.md:227:../script/cmake-ck-dev.sh ../ gfx942 -DGEMM_DATATYPE="fp8;fp16" -DGEMM_LAYOUT="rcr;ccr;rrr;crr"
+/app/aiter-test/3rdparty/composable_kernel/tile_engine/operation_support_matrix.md:60:- [10] **grouped_gemm:** Tile engine filters to gfx942, gfx950, and gfx12-generic (gfx1201) targets only. Supports fp16 and fp8 datatypes with all 4 layouts.
+/app/aiter-test/3rdparty/composable_kernel/tile_engine/operation_support_matrix.md:61:- [11] **batched_gemm:** Tile engine supports fp16 with rcr layout only. The engine filters to gfx90a, gfx942, gfx950, and gfx1201 targets.
+/app/aiter-test/3rdparty/composable_kernel/tile_engine/operation_support_matrix.md:62:- [12] **mx_gemm:** Microscaling GEMM supporting fp4 and fp8 MX datatypes with rcr layout. Validated on gfx942 and gfx950 only.
+/app/aiter-test/3rdparty/composable_kernel/TERMINOLOGY.md:315:Tests that are part of CK's ctest suite and explicitly take more than 30s to finish on gfx942.
+/app/aiter-test/3rdparty/composable_kernel/TERMINOLOGY.md:318:Tests that are part of CK's ctest suite and take less than or equal to 30 seconds to finish on gfx942.
+/app/aiter-test/op_tests/cpp/mha/smoke_test_fwd_v3.sh:14:    echo "Current supoorted architecure: gfx942, gfx950"
+/app/aiter-test/op_tests/cpp/mha/smoke_test_fwd_v3.sh:53:run_gfx942_fwd_v3() {
+/app/aiter-test/op_tests/cpp/mha/smoke_test_fwd_v3.sh:116:    "gfx942")

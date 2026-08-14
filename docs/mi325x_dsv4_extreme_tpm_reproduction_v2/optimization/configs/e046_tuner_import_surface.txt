@@ -1,0 +1,42 @@
+# SPDX-License-Identifier: MIT
+# Copyright (C) 2024-2026, Advanced Micro Devices, Inc. All rights reserved.
+import os
+import sys
+from pathlib import Path
+
+import pandas as pd
+import torch
+import torch.nn.functional as F
+from einops import rearrange
+
+import aiter
+from aiter import dtypes
+from aiter.jit.core import (
+    AITER_CONFIG_GEMM_A8W8_BLOCKSCALE,
+    AITER_CONFIG_GEMM_A8W8_BLOCKSCALE_BPRESHUFFLE,
+    get_asm_dir,
+)
+from aiter.utility.base_tuner import GemmCommonTuner
+from aiter.utility.mp_tuner import mp_tuner
+from aiter.ops.shuffle import shuffle_weight
+from aiter.jit.utils.chip_info import get_gfx_runtime as get_gfx
+from aiter.ops.opus.gemm_op_a8w8 import (
+    opus_gemm_a8w8_blockscale_bpreshuffle_tune,
+)
+
+sys.path.insert(0, str(Path(__file__).parent.parent))
+from ck_gemm_a8w8_blockscale_bpreshuffle.gemm_a8w8_blockscale_bpreshuffle_common import (
+    kernels_list as candidate_kernels_bpreshuffle_dict,
+)
+from gemm_a8w8_blockscale_instance import candidate_kernels_dict
+from opus_gemm.opus_gemm_common import gfx942_a8w8_kernels_list
+
+# cktile
+from gemm_a8w8_blockscale_cktile_instance import (
+    candidate_kernels_cktile_dict,
+    BLOCK_PER_CU_MAX,
+)
+
+block_shape = (128, 128)
+
+

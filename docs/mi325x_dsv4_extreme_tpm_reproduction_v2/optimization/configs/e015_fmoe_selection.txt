@@ -1,0 +1,693 @@
+def fused_moe_(
+    hidden_states: torch.Tensor,
+    w1: torch.Tensor,  # [expert(local_expert:EP), inter_dim*2, dim] N,K
+    w2: torch.Tensor,  # [expert(local_expert:EP), dim, inter_dim]
+    topk_weight: torch.Tensor,
+    topk_ids: torch.Tensor,
+    expert_mask: Optional[torch.Tensor] = None,  # EP
+    activation: int = ActivationType.Silu.value,
+    quant_type: int = QuantType.No.value,
+    doweight_stage1: bool = False,
+    # following for quant
+    w1_scale: Optional[torch.Tensor] = None,  # [expert(local_expert:EP), inter_dim, 1]
+    w2_scale: Optional[torch.Tensor] = None,  # [expert(local_expert:EP), model_dim, 1]
+    a1_scale: Optional[torch.Tensor] = None,  # [expert(local_expert:EP), 1, model_dim]
+    a2_scale: Optional[torch.Tensor] = None,  # [expert(local_expert:EP), 1, inter_dim]
+    # following for tuning
+    block_size_M: int = -1,
+    num_local_tokens: Optional[torch.Tensor] = None,
+    moe_sorting_dispatch_policy: int = 0,
+    dtype: Optional[torch.dtype] = None,
+    hidden_pad: int = 0,
+    intermediate_pad: int = 0,
+    bias1: Optional[torch.Tensor] = None,
+    bias2: Optional[torch.Tensor] = None,
+    swiglu_limit: Optional[float] = None,
+    gate_mode: str = GateMode.SEPARATED.value,
+) -> torch.Tensor:
+    # We do such convert since custom_op schema restriction on block_size_M, and Enum type
+    activation = ActivationType(activation)
+    quant_type = QuantType(quant_type)
+    gate_mode = GateMode(gate_mode)
+    if block_size_M == -1:
+        block_size_M = None
+    """user API"""
+    M, topk = topk_ids.shape
+    E, model_dim, inter_dim = get_inter_dim(w1.shape, w2.shape)
+
+    assert w1.shape[1] in [
+        inter_dim,
+        inter_dim * 2,
+    ], f"Invalid MoE weight: {w1.shape=} {w2.shape=}"
+    isG1U1 = inter_dim != w1.shape[1]
+    isShuffled = getattr(w1, "is_shuffled", False) or getattr(w2, "is_shuffled", False)
+
+    global_E = E
+    if expert_mask is not None:
+        global_E = expert_mask.numel()
+    dtype = hidden_states.dtype if dtype is None else dtype
+    assert dtype in [
+        dtypes.fp16,
+        dtypes.bf16,
+    ], f"Fused_moe unsupported out dtype: {dtype}"
+    quant_type = quant_remap.get(quant_type, quant_type)
+    q_dtype_w = w1.dtype
+    q_dtype_a = w1.dtype if w1.dtype != torch.uint32 else dtypes.fp8
+    # If input is already FP8-quantized (e.g. from FP8 dispatch) with block scale,
+    # use FP8 as activation dtype to skip redundant re-quantization
+    if (
+        quant_type == QuantType.per_1x128
+        and hidden_states.dtype == dtypes.fp8
+        and a1_scale is not None
+    ):
+        q_dtype_a = dtypes.fp8
+    bf16_fp8_bound = int(os.environ.get("AITER_BF16_FP8_MOE_BOUND", "256"))
+    if quant_type == QuantType.per_1x32 and q_dtype_w == dtypes.i4x2:
+        # a16wi4: bf16 activations, int4 weights with groupwise scale
+        q_dtype_a = dtypes.bf16
+    elif quant_type == QuantType.per_1x32 and q_dtype_w == dtypes.fp8:
+        # mxfp8: both activation and weight are fp8 (per-1x32 e8m0 microscale).
+        q_dtype_a = dtypes.fp8
+    elif quant_type == QuantType.per_1x32:
+        if activation == ActivationType.Swiglu and gate_mode == GateMode.SEPARATED:
+            q_dtype_a = dtypes.bf16 if M < _SWIGLU_MXFP4_BF16_BOUND else dtypes.fp4x2
+        elif activation == ActivationType.Swiglu or gate_mode == GateMode.INTERLEAVE:
+            if get_gfx() != "gfx950" or M < bf16_fp8_bound:
+                q_dtype_a = dtypes.bf16
+            else:
+                q_dtype_a = dtypes.fp8
+        else:
+            q_dtype_a = dtypes.fp4x2
+
+    if get_gfx() == "gfx1250":
+        if os.environ.get("AITER_FORCE_A8W4", "0") in ("1"):
+            q_dtype_a = dtypes.fp8
+        else:
+            q_dtype_a = dtypes.fp4x2
+
+    grouped_a8w4_out = None
+    if is_flydsl_available():
+        try:
+            from aiter.ops.flydsl.grouped_moe_gfx1250 import (
+                _maybe_grouped_gfx1250_a8w4_moe,
+            )
+        except ImportError:
+            _maybe_grouped_gfx1250_a8w4_moe = None
+
+        if _maybe_grouped_gfx1250_a8w4_moe is not None:
+            grouped_a8w4_out = _maybe_grouped_gfx1250_a8w4_moe(
+                hidden_states,
+                w1,
+                w2,
+                topk_weight,
+                topk_ids,
+                E=E,
+                model_dim=model_dim,
+                inter_dim=inter_dim,
+                dtype=dtype,
+                activation=activation,
+                quant_type=quant_type,
+                q_dtype_a=q_dtype_a,
+                q_dtype_w=q_dtype_w,
+                isG1U1=isG1U1,
+                doweight_stage1=doweight_stage1,
+                w1_scale=w1_scale,
+                w2_scale=w2_scale,
+                expert_mask=expert_mask,
+                hidden_pad=hidden_pad,
+                intermediate_pad=intermediate_pad,
+                bias1=bias1,
+                bias2=bias2,
+                gate_mode=gate_mode,
+                swiglu_limit=swiglu_limit,
+            )
+
+    if grouped_a8w4_out is not None:
+        return grouped_a8w4_out
+
+    metadata = get_2stage_cfgs(
+        get_padded_M(M),  # consider token_num > 1024 as prefill
+        model_dim,
+        inter_dim,
+        E,
+        topk,
+        dtype,
+        q_dtype_a,
+        q_dtype_w,
+        quant_type,
+        isG1U1,
+        activation,
+        doweight_stage1,
+        hidden_pad,
+        intermediate_pad,
+        isShuffled,
+        gate_mode,
+        is_ep=expert_mask is not None,
+        has_stage2_bias=bias2 is not None,
+    )
+
+    block_size_M = metadata.block_m if block_size_M is None else block_size_M
+    # Ensure block_size_M is int (metadata.block_m from CSV may be float)
+    if block_size_M is not None:
+        block_size_M = int(block_size_M)
+    stage1_func = getattr(metadata.stage1, "func", metadata.stage1)
+    need_bias_support = _needs_swiglu_bias_support(dtype, quant_type)
+    need_local_topk_ids = (
+        not metadata.run_1stage
+        and need_bias_support
+        and metadata.has_bias
+        and metadata.ksplit > 1
+        and stage1_func in (_flydsl_stage1_wrapper, cktile_moe_stage1)
+        and expert_mask is not None
+    )
+    assert not metadata.flat or get_gfx() in (
+        "gfx942",
+        "gfx950",
+    ), f"FLAT fmoe asm kernels require gfx942/gfx950; got {get_gfx()}. "
+
+    sort_m_indices = None
+    sort_reverse_sorted = None
+    if metadata.output_aux:
+        # The a4w4 FlyDSL port routes through the adaptive/aux sort, which does
+        # not thread expert_mask into moe_sorting below -- EP masking would be
+        # silently ignored and tokens routed to the wrong experts. Fail loudly
+        # until EP support is added to the port.
+        if expert_mask is not None:
+            raise NotImplementedError(
+                "MXFP4 a4w4 FlyDSL port does not support expert-parallel yet "
+                "(expert_mask is dropped by the output_aux sort path)."
+            )
+        _kn2 = metadata.stage2.keywords.get("kernelName2", "")
+        _atomic = _parse_mxfp4_g2_kname(_kn2)["atomic"]
+        (
+            sorted_ids,
+            sorted_weights,
+            sorted_expert_ids,
+            num_valid_ids,
+            moe_buf,
+            sort_m_indices,
+            sort_reverse_sorted,
+        ) = moe_sorting(
+            topk_ids,
+            topk_weight,
+            global_E,
+            model_dim,
+            dtype,
+            block_size_M,
+            accumulate=_atomic,
+            output_aux=True,
+        )
+        local_topk_ids = None
+    else:
+        sorting_ret = moe_sorting(
+            topk_ids,
+            topk_weight,
+            global_E,
+            model_dim,
+            dtype,
+            block_size_M,
+            expert_mask,
+            num_local_tokens,
+            moe_sorting_dispatch_policy,
+            return_local_topk_ids=need_local_topk_ids,
+            accumulate=not stage2_uses_route_reduce(metadata.stage2),
+            flat=metadata.flat,
+        )
+        if need_local_topk_ids:
+            (
+                sorted_ids,
+                sorted_weights,
+                sorted_expert_ids,
+                num_valid_ids,
+                moe_buf,
+                local_topk_ids,
+            ) = sorting_ret
+        else:
+            sorted_ids, sorted_weights, sorted_expert_ids, num_valid_ids, moe_buf = (
+                sorting_ret
+            )
+            local_topk_ids = None
+    _opus_a8w4.check_route_bucket_metadata(metadata, sorted_expert_ids, logger)
+
+    if metadata.run_1stage:
+        _stage1_call = functools.partial(
+            metadata.stage1,
+            hidden_states,
+            w1,
+            w2,
+            topk,
+            sorted_ids,
+            sorted_weights,
+            sorted_expert_ids,
+            num_valid_ids,
+            moe_buf,
+            isG1U1,
+            block_size_M,
+            q_dtype_a=q_dtype_a,
+            q_dtype_w=q_dtype_w,
+            w1_scale=w1_scale,
+            w2_scale=w2_scale,
+            a1_scale=a1_scale,
+            a2_scale=a2_scale,
+            num_local_tokens=num_local_tokens,
+            M=M,
+            device=topk_ids.device,
+            doweight_stage1=doweight_stage1,
+        )
+        if kernel_bench_callable is not None:
+            kernel_bench_callable.append(("stage1", _stage1_call))
+        return _stage1_call()
+    else:
+        return fused_moe_2stages(
+            hidden_states,
+            w1,
+            w2,
+            topk,
+            sorted_ids,
+            sorted_weights,
+            sorted_expert_ids,
+            num_valid_ids,
+            moe_buf,
+            isG1U1,
+            block_size_M,
+            activation=activation,
+            quant_type=quant_type,
+            doweight_stage1=doweight_stage1,
+            q_dtype_a=q_dtype_a,
+            q_dtype_w=q_dtype_w,
+            w1_scale=w1_scale,
+            w2_scale=w2_scale,
+            a1_scale=a1_scale,
+            a2_scale=a2_scale,
+    q_type,
+    use_g1u1,
+    activation,
+    doweight_stage1,
+    hidden_pad,
+    intermediate_pad,
+    is_shuffled=True,
+    gate_mode=GateMode.SEPARATED.value,
+    is_ep=False,
+    has_stage2_bias=False,
+):
+    gate_mode = GateMode(gate_mode)
+    # Configs are keyed on (gfx, cu_num, ...) so archs that share a cu_num
+    # (e.g. gfx950 vs gfx1250, both report 256 CU) don't collide. Legacy CSVs
+    # without a `gfx` column are backfilled from cu_num at load time via
+    # ``_ensure_gfx_column`` (see gfx_from_cu_num).
+    _INDEX_COLS = [
+        "gfx",
+        "cu_num",
+        "token",
+        "model_dim",
+        "inter_dim",
+        "expert",
+        "topk",
+        "act_type",
+        "dtype",
+        "q_dtype_a",
+        "q_dtype_w",
+        "q_type",
+        "use_g1u1",
+        "doweight_stage1",
+    ]
+
+    def _ensure_gfx_column(df):
+        """Guarantee a usable `gfx` column, migrating legacy cu_num-only CSVs."""
+        if "gfx" not in df.columns:
+            df = df.copy()
+            df["gfx"] = df["cu_num"].map(gfx_from_cu_num)
+            return df
+        # Backfill placeholder/missing gfx (e.g. 0 filled when merging a config
+        # that lacks the column against ones that have it).
+        bad = df["gfx"].isna() | df["gfx"].astype(str).isin(["0", "", "nan", "None"])
+        if bad.any():
+            df = df.copy()
+            df.loc[bad, "gfx"] = df.loc[bad, "cu_num"].map(gfx_from_cu_num)
+        return df
+
+    def get_cfg_2stages(tune_file):
+        import pandas as pd
+
+        df = pd.read_csv(tune_file)
+        df = _ensure_gfx_column(df)
+        if "_tag" in df.columns:
+            df = df[df["_tag"].fillna("") != "flydsl_fallback"]
+
+        # Primary dict: keep original act_type for exact-match lookup.
+        df_primary = df.copy()
+        dup_mask = df_primary.duplicated(subset=_INDEX_COLS, keep="first")
+        if dup_mask.any():
+            logger.warning(
+                f"[fused_moe] duplicate tuned rows (primary) in {tune_file}; "
+                f"keeping first match for {int(dup_mask.sum())} rows"
+            )
+            df_primary = df_primary.loc[~dup_mask]
+        primary = df_primary.set_index(_INDEX_COLS).to_dict("index")
+
+        # Fallback dict: disable act_type so any activation can match.
+        df_fallback = df.copy()
+        if "act_type" in df_fallback.columns:
+            df_fallback["act_type"] = _ACT_TYPE_DISABLED_KEY
+        dup_mask = df_fallback.duplicated(subset=_INDEX_COLS, keep="first")
+        if dup_mask.any():
+            logger.warning(
+                f"[fused_moe] duplicate tuned rows after disabling act_type in {tune_file}; "
+                f"keeping first match for {int(dup_mask.sum())} rows"
+            )
+            df_fallback = df_fallback.loc[~dup_mask]
+        fallback = df_fallback.set_index(_INDEX_COLS).to_dict("index")
+
+        return primary, fallback
+
+    global cfg_2stages
+    config_path = os.path.dirname(AITER_CONFIGS.AITER_CONFIG_FMOE_FILE)
+    tune_file = AITER_CONFIGS.AITER_CONFIG_FMOE_FILE
+    untune_file = os.path.join(config_path, "untuned_fmoe.csv")
+    profile_file = os.path.join(config_path, "profile_fmoe.csv")
+    if cfg_2stages is None:
+        cfg_2stages = get_cfg_2stages(tune_file)
+    cu_num = get_cu_num()
+    gfx = get_gfx_runtime()
+    # EP convention: callers append one always-masked fake-expert slot to
+    # topk_ids, so runtime `topk` is routed_topk + 1. Tuned configs are keyed
+    # on routed_topk; strip the fake slot before building the lookup key.
+    topk -= int(is_ep)
+    keys = (
+        gfx,
+        cu_num,
+        token,
+        model_dim,
+        inter_dim,
+        expert,
+        topk,
+        str(activation),
+        str(dtype),
+        str(q_dtype_a),
+        str(q_dtype_w),
+        str(q_type),
+        use_g1u1,
+        doweight_stage1,
+    )
+    keys_disabled = (
+        gfx,
+        cu_num,
+        token,
+        model_dim,
+        inter_dim,
+        expert,
+        topk,
+        _ACT_TYPE_DISABLED_KEY,
+        str(dtype),
+        str(q_dtype_a),
+        str(q_dtype_w),
+        str(q_type),
+        use_g1u1,
+        doweight_stage1,
+    )
+
+    def MainFunc():
+        with open(untune_file, "a") as f:
+            if os.path.getsize(untune_file) == 0:
+                f.write(
+                    "token,model_dim,inter_dim,expert,topk,act_type,dtype,q_dtype_a,q_dtype_w,q_type,use_g1u1,doweight_stage1"
+                )
+            q_dtype_ws = q_dtype_w if q_dtype_w != torch.uint32 else "torch.int4"
+            f.write(
+                f"\n{token},{model_dim},{inter_dim},{expert},{topk},{activation},{dtype},{q_dtype_a},{q_dtype_ws},{q_type},{int(use_g1u1)},{int(doweight_stage1)}"
+            )
+        logger.info("\033[34m Start tuning fmoe")
+        os.system(
+            f"{PY} {AITER_CSRC_DIR}/ck_gemm_moe_2stages_codegen/gemm_moe_tune.py -i {untune_file} -o {tune_file} -o2 {profile_file} --last"
+        )
+
+    def FinalFunc():
+        logger.info(
+            f"[Hint] tuned configs are saved in {tune_file}, you can set AITER_CONFIG_FMOE to this file to use tuned configs"
+        )
+        logger.info("\033[0m")
+
+    def _lookup_cfg(c2s):
+        if not c2s:
+            return None
+        primary, fallback = c2s
+        result = primary.get(keys, None)
+        if result is None:
+            result = fallback.get(keys_disabled, None)
+        # Tier fallback: if current tier not found, try smaller tiers in descending order
+        if result is None and token > _PADDED_M_TIERS[0]:
+            tier_idx = _PADDED_M_TIERS.index(token) if token in _PADDED_M_TIERS else -1
+            for fallback_tier in reversed(_PADDED_M_TIERS[:tier_idx]):
+                # keys layout: (gfx, cu_num, token, ...); replace token (idx 2).
+                keys_fb = keys[:2] + (fallback_tier,) + keys[3:]
+                keys_fb_disabled = (
+                    keys_disabled[:2] + (fallback_tier,) + keys_disabled[3:]
+                )
+                result = primary.get(keys_fb, None)
+                if result is None:
+                    result = fallback.get(keys_fb_disabled, None)
+                if result is not None:
+                    break
+        return result
+
+    cfg = _lookup_cfg(cfg_2stages)
+    if cfg is None and os.environ.get("AITER_ONLINE_TUNE", "0") == "1":
+        lock_name = re.sub(r"[^\w.\-]", "_", str(keys))
+        lock_path = os.path.join(bd_dir, f"lock_fmoe_tune_{lock_name}")
+        mp_lock(lock_path, MainFunc=MainFunc, FinalFunc=FinalFunc)
+        cfg_2stages = get_cfg_2stages(tune_file)
+        cfg = _lookup_cfg(cfg_2stages)
+        if cfg is None:
+            logger.warning(f"Fmoe tuning not support for {keys}")
+    if cfg is not None:
+        kn2 = str(cfg.get("kernelName2", "") or "").strip()
+        if kn2.startswith("opus_"):
+            opus_supported, opus_reason = _opus_a8w4.cfg_is_supported(
+                kn2,
+                cfg=cfg,
+                gfx=gfx,
+                block_m=cfg.get("block_m", BLOCK_SIZE_M),
+                is_ep=is_ep,
+                has_stage2_bias=has_stage2_bias,
+            )
+            if not opus_supported:
+                cfg = None
+                logger.warning(
+                    f"[fused_moe] Opus stage2 config unsupported ({opus_reason}); "
+                    "using default heuristics"
+                )
+
+    use_non_temporal_load = False
+    if cfg is None or int(os.environ.get("AITER_BYPASS_TUNE_CONFIG", "0")):
+        ksplit = 0
+        kernelName1 = ""
+        kernelName2 = ""
+        run_1stage = False
+        run_1stage_xbf16 = False
+        # No tuned config => default host moe_sort. For FLAT, run tuner and set flat=1.
+        cfg_flat = False
+        if (
+            activation,
+            q_type,
+            dtype,
+            q_dtype_a,
+            q_dtype_w,
+            use_g1u1,
+            doweight_stage1,
+        ) in fused_moe_1stage_dict[get_gfx()]:
+            if q_type == QuantType.per_1x128:
+                # for fp8 blockscale, ck has better performance so disable assembly kernel
+                run_1stage = token > 32 and (inter_dim % 128 == 0)
+            elif q_type == QuantType.per_Token and q_dtype_w == dtypes.i8:
+                run_1stage = token > 32
+            elif q_type == QuantType.per_Token and q_dtype_w == dtypes.fp8:
+                run_1stage = token > 16 or inter_dim % 128 != 0
+            elif q_type != QuantType.per_1x32:
+                run_1stage = token < 256
+
+            if run_1stage and q_type == QuantType.per_1x128 and get_gfx() == "gfx950":
+                run_1stage_xbf16 = int(os.environ.get("AITER_XBFLOAT16", "0")) == 1
+
+        block_m = (
+            BLOCK_SIZE_M
+            if run_1stage
+            else (
+                (64 if token > 32 else 16)
+                if q_type == QuantType.per_1x128
+                else get_block_size_M(token, topk, expert, inter_dim)
+            )
+        )
+        ksplit = (
+            ksplit
+            if (run_1stage)
+            else (
+                get_ksplit(token, topk, expert, inter_dim, model_dim)
+                if q_type in [QuantType.per_1x128, QuantType.per_1x32]
+                else ksplit
+            )
+        )
+        use_non_temporal_load = use_nt(token, topk, expert)
+        aiter.logger.info(
+            f"run_1stage = {run_1stage}, xbf16 = {run_1stage_xbf16}, ksplit = {ksplit} q_type = {q_type} block_m = {block_m} use_nt = {use_non_temporal_load}, estimated_m_per_expert = {token * topk // expert}"
+        )
+    else:
+        block_m = cfg["block_m"]
+        if int(os.environ.get("AITER_KSPLIT", "0")) != -1:
+            ksplit = cfg["ksplit"]
+        else:
+            ksplit = 0
+        kernelName1 = cfg["kernelName1"]
+        kernelName2 = cfg["kernelName2"]
+        run_1stage = cfg.get("run_1stage", False)
+        if not is_shuffled and not run_1stage:
+            logger.warning(
+                f"[fused_moe] tuned config found for {keys} but is_shuffled=False. "
+                "Tuned kernels are optimized for preshuffled weights (preshuffle_on). "
+                "Running with preshuffle_off may produce incorrect results."
+            )
+        if "xbf16" in cfg:
+            run_1stage_xbf16 = run_1stage and bool(int(cfg["xbf16"]))
+        else:
+            run_1stage_xbf16 = run_1stage and "blockscaleBf16" in str(kernelName1)
+        if "flat" in cfg:
+            cfg_flat = run_1stage and bool(int(cfg["flat"]))
+        else:
+            cfg_flat = False
+    is_opus_cfg = cfg is not None and _opus_a8w4.is_opus_a8w4_stage2_kernel(
+        cfg.get("kernelName2", "")
+    )
+    route_bucket_metadata = _opus_a8w4.route_bucket_metadata(cfg) if is_opus_cfg else {}
+    opus_stage2_cfg_values = (
+        _opus_a8w4.stage2_cfg_values(cfg, block_m) if is_opus_cfg else {}
+    )
+
+    tag = f"({kernelName1=}, {kernelName2=})"
+    logger.info(
+        f"[fused_moe] using {'1stage' if run_1stage else '2stage'}{' xbf16' if run_1stage_xbf16 else ''} {'default' if cfg is None else tag} for {keys} "
+    )
+
+    def get_block_m() -> int:
+        if q_dtype_a == dtypes.fp8:
+            return 32
+        else:
+            return 16 if token < 2048 else 32 if token < 16384 else 64
+
+    if _is_mxfp4_kname(kernelName1) or _is_mxfp4_kname(kernelName2):
+        # gate_mode is a runtime weight-layout property, not a tuning key: route
+        # any a4w4 kernelName to the port; the bound interleave flag picks the
+        # compiled il/sep variant at runtime.
+        try:
+            _bm = _parse_mxfp4_g1_kname(kernelName1)["BM"]
+        except ValueError:
+            _bm = int(block_m) if block_m is not None else BLOCK_SIZE_M
+        return MOEMetadata(
+            stage1=functools.partial(
+                _mxfp4_a4w4_stage1_fw,
+                kernelName1=kernelName1,
+                interleave=(gate_mode == GateMode.INTERLEAVE),
+            ),
+            stage2=functools.partial(_mxfp4_a4w4_stage2_fw, kernelName2=kernelName2),
+            block_m=_bm,
+            ksplit=int(ksplit),
+            fuse_quant="fp4",
+            output_aux=True,
+            prequant=False,
+        )
+
+    if run_1stage:
+        # never hard code block_m for 1-stage since it can be tuned by kernel itself, and we have different heuristics for different quant types
+        # # TODO: enable this approach for other quant types and archs
+        # if q_type == QuantType.per_1x128 and get_gfx() == "gfx950":
+        #     tkn_per_epr = token * topk // expert
+        #     block_m = 64 if tkn_per_epr > 32 else block_m
+        return MOEMetadata(
+            functools.partial(
+                fused_moe_1stage,
+                kernelName=kernelName1,
+                activation=activation,
+                quant_type=q_type,
+                xbf16=run_1stage_xbf16,
+            ),
+            None,
+            block_m,
+            ksplit,
+            run_1stage,
+            flat=cfg_flat,
+            **route_bucket_metadata,
+        )
+    is_flydsl1 = isinstance(kernelName1, str) and kernelName1.startswith("flydsl_")
+    is_flydsl2 = isinstance(kernelName2, str) and kernelName2.startswith("flydsl_")
+    is_cktile2 = isinstance(kernelName2, str) and kernelName2.startswith("cktile_")
+    is_opus2 = _opus_a8w4.is_opus_a8w4_stage2_kernel(kernelName2)
+    if (is_flydsl1 or is_flydsl2) and is_flydsl_available():
+        enable_bias = (
+            _needs_swiglu_bias_support(dtype, q_type) and q_dtype_w == dtypes.fp4x2
+        )
+        _s1_fp4q = is_flydsl1 and "_fp4" in kernelName1.split("_t")[-1]
+        if is_flydsl1:
+        for p in sorted(model_configs_dir.glob("*tuned_fmoe*.csv"))
+        if "untuned" not in p.name
+    )
+
+    rows: List[Dict] = []
+    for path in tuned_paths:
+        if not path.exists():
+            continue
+        with path.open() as f:
+            rows.extend(csv.DictReader(f))
+    return rows
+
+
+def get_moe_ck2stages_prebuild_variants(aiter_csrc_dir: str) -> List[Dict]:
+    seen: Set[Tuple] = set()
+    results: List[Dict] = []
+    for row in _get_tuned_fmoe_rows():
+        kn1 = (row.get("kernelName1") or "").strip()
+        kn2 = (row.get("kernelName2") or "").strip()
+        if kn1.startswith("flydsl_") or kn2.startswith("flydsl_"):
+            continue
+
+        c_dtype = _normalize_dtype(row["dtype"])
+        a_dtype = _normalize_dtype(row.get("q_dtype_a") or row["dtype"])
+        b_dtype = _normalize_dtype(row.get("q_dtype_w") or row["dtype"])
+        quant_type = _normalize_quant_type(row["q_type"])
+        activation = _normalize_activation(row["act_type"])
+        mul_weight_stage = _get_mul_weight_stage(row)
+        need_splitk = _should_include_splitk(row, quant_type)
+
+        if activation == "swiglu":
+            continue
+
+        # A16W4 per_1x32 (bf16 activation, int4 weight) is owned by FlyDSL,
+        # not CK 2stages. CK has no matching instance — skip prebuild.
+        if quant_type == "per_1x32" and a_dtype == "b16" and b_dtype == "torch.int4":
+            continue
+
+        for preshuffle in _infer_preshuffle_modes(b_dtype, quant_type):
+            for splitk in [False, True] if need_splitk else [False]:
+                key = (
+                    a_dtype,
+                    b_dtype,
+                    c_dtype,
+                    quant_type,
+                    activation,
+                    mul_weight_stage,
+                    preshuffle,
+                    splitk,
+                )
+                if key in seen:
+                    continue
+                seen.add(key)
+                md_name, blob_gen_cmd = _build_moe_variant(
+                    aiter_csrc_dir=aiter_csrc_dir,
+                    a_dtype=a_dtype,
+                    b_dtype=b_dtype,
+                    c_dtype=c_dtype,
+                    activation=activation,
+                    quant_type=quant_type,
+                    mul_routed_weight_stage=mul_weight_stage,
+                    preshuffle_mode=preshuffle,
+                    is_splitk=splitk,
+                )
+                results.append({"md_name": md_name, "blob_gen_cmd": blob_gen_cmd})
+    return results

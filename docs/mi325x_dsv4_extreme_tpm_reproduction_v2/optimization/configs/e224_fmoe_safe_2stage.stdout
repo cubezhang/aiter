@@ -1,0 +1,75 @@
+Not exist tuned file: /work/experiments/e224_fmoe_safe_2stage_tuned.csv
+   token  model_dim  inter_dim  ...  doweight_stage1     gfx cu_num
+0     24       4096        512  ...            False  gfx942    304
+1     48       4096        512  ...            False  gfx942    304
+2     70       4096        512  ...            False  gfx942    304
+3     96       4096        512  ...            False  gfx942    304
+4    128       4096        512  ...            False  gfx942    304
+5   6100       4096        512  ...            False  gfx942    304
+
+[6 rows x 14 columns]
+
+Start tuning ['gfx942' 304 24 4096 512 257 7 'ActivationType.Silu' 'torch.bfloat16'
+ 'torch.float8_e4m3fnuz' 'torch.float8_e4m3fnuz' 'QuantType.per_1x128'
+ True False]
+stage1 asm tasks is 0, tasks_ck is 10, task_1stage is 0
+
+Start tuning ['gfx942' 304 48 4096 512 257 7 'ActivationType.Silu' 'torch.bfloat16'
+ 'torch.float8_e4m3fnuz' 'torch.float8_e4m3fnuz' 'QuantType.per_1x128'
+ True False]
+stage1 asm tasks is 0, tasks_ck is 20, task_1stage is 0
+
+Start tuning ['gfx942' 304 70 4096 512 257 7 'ActivationType.Silu' 'torch.bfloat16'
+ 'torch.float8_e4m3fnuz' 'torch.float8_e4m3fnuz' 'QuantType.per_1x128'
+ True False]
+stage1 asm tasks is 0, tasks_ck is 30, task_1stage is 0
+
+Start tuning ['gfx942' 304 96 4096 512 257 7 'ActivationType.Silu' 'torch.bfloat16'
+ 'torch.float8_e4m3fnuz' 'torch.float8_e4m3fnuz' 'QuantType.per_1x128'
+ True False]
+stage1 asm tasks is 0, tasks_ck is 40, task_1stage is 0
+
+Start tuning ['gfx942' 304 128 4096 512 257 7 'ActivationType.Silu' 'torch.bfloat16'
+ 'torch.float8_e4m3fnuz' 'torch.float8_e4m3fnuz' 'QuantType.per_1x128'
+ True False]
+stage1 asm tasks is 0, tasks_ck is 50, task_1stage is 0
+
+Start tuning ['gfx942' 304 6100 4096 512 257 7 'ActivationType.Silu' 'torch.bfloat16'
+ 'torch.float8_e4m3fnuz' 'torch.float8_e4m3fnuz' 'QuantType.per_1x128'
+ True False]
+stage1 asm tasks is 0, tasks_ck is 60, task_1stage is 0
+Distributing 60 task groups across 1 GPUs
+Waiting for 60 tasks to complete (timeout=20s each)...
+
+[tune] all 60 tasks completed successfully
+Error: please check errRatio, stage1 and stage2 should be valid together!
+no valid candidate found for ('gfx942', 304, 24, 4096, 512, 257, 7, <ActivationType.Silu: 0>, torch.bfloat16, torch.float8_e4m3fnuz, torch.float8_e4m3fnuz, <QuantType.per_1x128: 4>, True, False), please check the time or errRatio in all result file running with --profile_file
+Error: please check errRatio, stage1 and stage2 should be valid together!
+no valid candidate found for ('gfx942', 304, 48, 4096, 512, 257, 7, <ActivationType.Silu: 0>, torch.bfloat16, torch.float8_e4m3fnuz, torch.float8_e4m3fnuz, <QuantType.per_1x128: 4>, True, False), please check the time or errRatio in all result file running with --profile_file
+Error: please check errRatio, stage1 and stage2 should be valid together!
+no valid candidate found for ('gfx942', 304, 70, 4096, 512, 257, 7, <ActivationType.Silu: 0>, torch.bfloat16, torch.float8_e4m3fnuz, torch.float8_e4m3fnuz, <QuantType.per_1x128: 4>, True, False), please check the time or errRatio in all result file running with --profile_file
+Error: please check errRatio, stage1 and stage2 should be valid together!
+no valid candidate found for ('gfx942', 304, 96, 4096, 512, 257, 7, <ActivationType.Silu: 0>, torch.bfloat16, torch.float8_e4m3fnuz, torch.float8_e4m3fnuz, <QuantType.per_1x128: 4>, True, False), please check the time or errRatio in all result file running with --profile_file
+Error: please check errRatio, stage1 and stage2 should be valid together!
+no valid candidate found for ('gfx942', 304, 128, 4096, 512, 257, 7, <ActivationType.Silu: 0>, torch.bfloat16, torch.float8_e4m3fnuz, torch.float8_e4m3fnuz, <QuantType.per_1x128: 4>, True, False), please check the time or errRatio in all result file running with --profile_file
+no valid candidate found for ('gfx942', 304, 6100, 4096, 512, 257, 7, <ActivationType.Silu: 0>, torch.bfloat16, torch.float8_e4m3fnuz, torch.float8_e4m3fnuz, <QuantType.per_1x128: 4>, True, False), please check the time or errRatio in all result file running with --profile_file
+Not exist tuned file: /app/aiter-test/aiter/configs/profile_fmoe.csv
+Not exist tuned file: /work/experiments/e224_fmoe_safe_2stage_tuned.csv
+      gfx cu_num token model_dim inter_dim  ... run_1stage xbf16 flat tflops  bw
+0  gfx942    304    24      4096       512  ...          0     0   -1     -1  -1
+0  gfx942    304    48      4096       512  ...          0     0   -1     -1  -1
+0  gfx942    304    70      4096       512  ...          0     0   -1     -1  -1
+0  gfx942    304    96      4096       512  ...          0     0   -1     -1  -1
+0  gfx942    304   128      4096       512  ...          0     0   -1     -1  -1
+0  gfx942    304  6100      4096       512  ...          0     0   -1     -1  -1
+
+[6 rows x 28 columns]
+   token  model_dim  inter_dim  ...  doweight_stage1     gfx cu_num
+0     24       4096        512  ...            False  gfx942    304
+1     48       4096        512  ...            False  gfx942    304
+2     70       4096        512  ...            False  gfx942    304
+3     96       4096        512  ...            False  gfx942    304
+4    128       4096        512  ...            False  gfx942    304
+5   6100       4096        512  ...            False  gfx942    304
+
+[6 rows x 14 columns]

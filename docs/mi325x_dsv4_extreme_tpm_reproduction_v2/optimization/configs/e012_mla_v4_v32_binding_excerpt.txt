@@ -1,0 +1,364 @@
+// SPDX-License-Identifier: MIT
+// Copyright (C) 2024-2026, Advanced Micro Devices, Inc. All rights reserved.
+//
+// v4 MLA decode dispatcher
+//
+// This is a peer of csrc/py_itfs_cu/asm_mla.cu but targets the v4 18-slot
+// kernarg ABI which is *binary incompatible* with v3's 14-slot layout:
+//
+//   slot 8  = raw gqa_ratio          (not s_MQA = gqa_ratio*max_seqlen_q)
+//   slot 9  = num_kv_splits          (kernel "passes")
+//   slot 10 = total_kv = kv_seq_lens * num_seqs
+//   slot 11 = stride_page = page_size * dim_qk_packed (bytes)
+//   slot 14 = ptr_STP (split_indptr) -- NEW
+//   slot 15 = out_16_nosplit         -- NEW
+//   slot 16 = ptr_QROPE              -- NEW
+//   slot 17 = ptr_KVROPE             -- NEW
+//
+// scalar is hardcoded to 1/sqrt(kV4DimNope + kV4DimRope) = 1/sqrt(512),
+// independent of head_size (the dispatcher's softmax_scale arg is kept for
+// API parity but the kernel itself ignores it).
+//
+// All kernel selection is driven by hsa/gfx950/mla_v4/mla_v4_asm.csv via
+// hsa/codegen.py -m mla_v4 -> asm_mla_v4_configs.hpp -> cfg_mla_v4_asm.
+
+#include "aiter_tensor.h"
+#include "aiter_ctypes_error.h"
+#include "asm_mla_v4_configs.hpp"
+#include <hip/hip_fp16.h>
+#include <hip/hip_runtime.h>
+#include <algorithm>
+#include <cmath>
+#include <cstdio>
+#include <cstdlib>
+#include <hip/hip_fp16.h>
+#include <hip/hip_runtime.h>
+#include <string>
+#include <vector>
+#include <sys/stat.h>
+
+// Per-.so TLS error storage + aiter_get_last_error / aiter_clear_last_error
+// exports. Required so that AITER_CHECK failures in our dispatcher surface as
+// RuntimeError in Python instead of aborting the worker process.
+AITER_CTYPES_ERROR_DEF
+
+#ifndef EN_MLA_V4_KERNARG_PRELOAD
+#define EN_MLA_V4_KERNARG_PRELOAD 1
+#endif
+
+struct __attribute__((packed)) MlaV4KernelArgsLegacy
+{
+    void* ptr_R;
+    p2 _p_r; // 0:  splitData (logits) [FP32]
+    void* ptr_LSE;
+    p2 _p_lse; // 1:  splitLse (attn_lse) [FP32]
+    void* ptr_Q;
+    p2 _p_q; // 2:  Q packed FP8 + e8m0 scale
+    void* ptr_KV;
+    p2 _p_kv; // 3:  KV packed FP8
+    void* ptr_LTP;
+    p2 _p_ltp; // 4:  kv_indptr
+    void* ptr_LTD;
+    p2 _p_ltd; // 5:  kv_page_indices
+    void* ptr_LTL;
+    p2 _p_ltl; // 6:  kv_last_page_lens
+    float scalar_f;
+    p3 _p_sc; // 7:  1.0f/sqrtf(kV4DimNope+kV4DimRope)
+    unsigned int s_gqa_ratio;
+    p3 _p_gr; // 8:  raw gqa_ratio
+    unsigned int s_kv_split;
+    p3 _p_ps; // 9:  num_kv_splits == passes
+    unsigned int s_total_kv;
+    p3 _p_tk; // 10: kv_seq_lens * num_seqs
+    unsigned int s_stride_page;
+    p3 _p_sp; // 11: page_size * dim_qk_packed (bytes)
+    unsigned int s_log2_page;
+    p3 _p_lp; // 12: log2(page_size)
+    void* ptr_QTP;
+    p2 _p_qtp; // 13: qo_indptr
+    void* ptr_STP;
+    p2 _p_stp; // 14: split_indptr
+    unsigned int out_16_nosplit;
+    p3 _p_o16; // 15: 0 = fp32 split, 1 = bf16 nosplit
+    void* ptr_QROPE;
+    p2 _p_qrope; // 16
+    void* ptr_KVROPE;
+    p2 _p_kvrope; // 17
+    void* ptr_sink;
+    p2 _p_sink; // 18: [num_heads] FP32 attention sink logit
+    void* ptr_valid_split;
+    p2 _p_vs; // 19 (0x130)
+    unsigned int s_use_valid_split;
+    p3 _p_uvs; // 20 (0x140)
+};
+
+#if EN_MLA_V4_KERNARG_PRELOAD
+struct __attribute__((packed)) MlaV4KernelArgsPreload
+{
+    void* ptr_R;                    // 0x00  preload  splitData (logits) [FP32] (rw)
+    void* ptr_Q;                    // 0x08  preload  Q packed FP8 + e8m0 scale
+    void* ptr_KV;                   // 0x10  preload  KV packed FP8
+    void* ptr_LTP;                  // 0x18  preload  kv_indptr
+    void* ptr_LTL;                  // 0x20  preload  kv_last_page_lens
+    void* ptr_QTP;                  // 0x28  preload  qo_indptr
+    void* ptr_QROPE;                // 0x30  preload  Q rope BF16
+    void* ptr_KVROPE;               // 0x38  preload  KV rope BF16
+    float scalar_f;                 // 0x40  preload  1.0f/sqrtf(kV4DimNope+kV4DimRope)
+    unsigned int s_gqa_ratio;       // 0x44  preload  q_seq_lens (MQA = gqa*max_seqlen_q)
+    unsigned int s_kv_split;        // 0x48  preload  num_kv_splits == passes
+    unsigned int s_total_kv;        // 0x4C  preload  kv_seq_lens * num_seqs
+    unsigned int out_16_nosplit;    // 0x50  preload  0 = fp32 split, 1 = bf16 nosplit
+    void* ptr_LSE;                  // 0x54  tail     splitLse (attn_lse) [FP32] (rw)
+    void* ptr_LTD;                  // 0x5C  tail     kv_page_indices
+    void* ptr_valid_split;          // 0x64  tail     [num_seqs] i32 scratch (rw)
+    unsigned int s_use_valid_split; // 0x6C  tail     gates the valid_split write
+    void* ptr_sink;                 // 0x70  tail     [num_heads] FP32 attention sink logit
+};
+#endif
+
+// ----------------------------------------------------------------------------
+// kV4DimNope + kV4DimRope = 448 + 64 = 512. The kernel hardcodes
+// 1/sqrt(512) as its softmax pre-scale. 
+// ----------------------------------------------------------------------------
+static constexpr int kV4DimNope = 448;
+static constexpr int kV4DimRope = 64;
+
+// ----------------------------------------------------------------------------
+// Kernel selection — mirrors csrc/py_itfs_cu/asm_mla.cu::get_heuristic_kernel_mla
+// 1:1 in key set so v3 and v4 stay structurally identical.
+//
+// Lookup keys: (qType, kvType, Gqa, ps, qSeqLen, prefill, causal, lse).
+// `sub_Q` and `page_size` are NOT keys — sub_Q is derived in the dispatcher
+// (see the V3-style decision tree below) and page_size comes from KV->size(1).
+//
+// `num_kv_splits` ("passes") is also NOT a key — the .co supports any value
+// at runtime via slot 9 of the kernarg packet.
+// ----------------------------------------------------------------------------
+static std::string get_heuristic_kernel_mla_v4(const std::string& q_type,
+                                               const std::string& kv_type,
+                                               int gqa,
+                                               int ps,
+                                               int prefill,
+                                               int causal,
+                                               int qseqlen,
+                                               int lse,
+                                               const std::string& arch_id,
+                                               CFG* cfgs)
+{
+    for(const auto& el : *cfgs)
+    {
+        if(el.first.find(arch_id) != 0)
+            continue;
+        const auto& cfg = el.second;
+        if(cfg.qType != q_type || cfg.kvType != kv_type)
+            continue;
+        if(cfg.Gqa != gqa || cfg.ps != ps || cfg.prefill != prefill)
+            continue;
+        if(cfg.causal != causal || cfg.qSeqLen != qseqlen)
+            continue;
+        if(cfg.lse != lse)
+            continue;
+        return el.first;
+    }
+    AITER_CHECK(false,
+                __func__,
+                ": no shipped variant for "
+                " q_type:",
+                q_type,
+                " kv_type:",
+                kv_type,
+                " gqa:",
+                gqa,
+                " ps:",
+                ps,
+                " qSeqLen:",
+                qseqlen,
+                " prefill:",
+                prefill,
+                " causal:",
+                causal,
+                " lse:",
+                lse,
+                " arch:",
+                arch_id);
+    return "";
+}
+
+// ----------------------------------------------------------------------------
+// AITER_C_ITFS entry — exposed to Python via
+//   aiter/ops/attention.py::mla_decode_v4_asm  (@compile_ops ffi_type=ctypes)
+//
+// Mirrors mla_decode_stage1_asm_fwd in asm_mla.cu shape-wise but writes
+// the v4 nm 18-slot kernarg layout. Q/KV/output are aiter_tensor_t* (NOT
+// torch::Tensor) — see csrc/include/aiter_tensor.h for the C-friendly POD.
+//
+// Wrapped in AITER_CTYPES_DEFINE_ENTRYPOINT_VOID so that AITER_CHECK / HIP_CALL
+// failures (e.g. unsupported variant lookup, dtype mismatch) surface as a
+// clean Python RuntimeError via the aiter_get_last_error TLS bridge instead
+// of std::abort()-ing the worker process.
+// ----------------------------------------------------------------------------
+AITER_CTYPES_DEFINE_ENTRYPOINT_VOID(
+    mla_decode_v4_asm,
+    (aiter_tensor_t * Q,              // [total_query_len, num_heads, head_size]   FP8 packed Q+e8m0
+     aiter_tensor_t* qrope,           // [total_query_len, num_heads, kv_rotary]   BF16
+     aiter_tensor_t* KV,              // [num_page, page_size, num_kv_heads, head_size] FP8
+     aiter_tensor_t* kvrope,          // [num_page, page_size, num_kv_heads, kv_rotary] BF16
+     aiter_tensor_t* qo_indptr,       // [num_seqs+1]
+     aiter_tensor_t* kv_indptr,       // [num_seqs+1]
+     aiter_tensor_t* kv_page_indices, // [num_page_used]
+     aiter_tensor_t* split_indptr,      // [num_seqs+1]
+     aiter_tensor_t* sink,              // [num_heads] FP32 — see "ptr_sink" note above
+     int max_seqlen_q,
+     float softmax_scale, // ignored; v4 hardcodes 1/sqrt(512). Kept for API parity.
+     int out_16_nosplit,
+     int num_kv_splits, //
+     // outputs
+     aiter_tensor_t*
+         splitData, // [num_seqs, num_kv_splits, num_kv_heads, gqa*max_seqlen_q, v_head_dim] FP32
+     aiter_tensor_t* splitLse, // [num_seqs, num_kv_splits, num_kv_heads, gqa*max_seqlen_q, 1] FP32
+     aiter_tensor_t*
+         output, // [total_query_len, num_heads, v_head_dim] BF16 (used when out_16_nosplit==1)
+     aiter_tensor_t* valid_split_count, // [num_seqs] int32 scratch (slot 19), nullable
+     int use_valid_split_count_reduce,  // slot 20 flag; gates the kernel's valid_split write
+     // Moved to the tail: UNUSED on the nm path (page_size=1 -> kv_seq_len comes
+     // from the token-level kv_indptr). Nullable; the host guards the deref below
+     // and the kernel never loads through the pointer.
+     aiter_tensor_t* kv_last_page_lens, // [num_seqs] int32, nullable
+     hipStream_t stream),
+    (Q,
+     qrope,
+     KV,
+     kvrope,
+     qo_indptr,
+     kv_indptr,
+     kv_page_indices,
+     split_indptr,
+     sink,
+     max_seqlen_q,
+     softmax_scale,
+     out_16_nosplit,
+     num_kv_splits,
+     splitData,
+     splitLse,
+     output,
+     valid_split_count,
+     use_valid_split_count_reduce,
+     kv_last_page_lens,
+     stream))
+{
+    (void)softmax_scale;
+    (void)out_16_nosplit;
+    const unsigned int out_16_nosplit_derived =
+        (num_kv_splits == 1) ? 1u : 0u;
+    AITER_CHECK(sink != nullptr, __func__, ": `sink` must not be NULL");
+    AITER_CHECK(sink->data_ptr() != nullptr,
+                __func__,
+                ": `sink` data_ptr is NULL — caller must allocate "
+                "even when no sink is desired (use torch.full(-inf))");
+    AITER_CHECK(Q->is_contiguous(), __func__, ": only support Q.is_contiguous() for now");
+    AITER_CHECK(KV->is_contiguous(), __func__, ": only support KV.is_contiguous() for now");
+    AITER_CHECK(qrope->is_contiguous(), __func__, ": only support qrope.is_contiguous()");
+// SPDX-License-Identifier: MIT
+// Copyright (C) 2025-2026, Advanced Micro Devices, Inc. All rights reserved.
+
+#include "hk/mi35x_v32_fwd_decode_m16x4_fp8_fp8.cuh"
+#include "hk/mi35x_v32_fwd_decode_m16x8_fp8_fp8.cuh"
+#include "hk/mi3xx_v32_fwd_decode_m16x8_fp8_fp8.cuh"
+#include "mla.h"
+
+void hk_mla_v32_decode_fwd(aiter_tensor_t& query,
+                           aiter_tensor_t& kv_buffer,
+                           const aiter_tensor_t& qo_indptr,
+                           const aiter_tensor_t& kv_indptr,
+                           const aiter_tensor_t& kv_page_indices,
+                           const aiter_tensor_t& kv_last_page_lens,
+                           const aiter_tensor_t& work_indptr,
+                           const aiter_tensor_t& work_info_set,
+                           const int max_seqlen_q,
+                           const float softmax_scale,
+                           aiter_tensor_t& split_output,
+                           aiter_tensor_t& split_lse,
+                           aiter_tensor_t& final_output)
+{
+    const int32_t num_head = query.size(1);
+
+    if((num_head * max_seqlen_q) == 128)
+    {
+        const std::string gfx = get_gpu_arch();
+        if(gfx == "gfx942")
+        {
+            hk_mi3xx_mla_v32_fwd_decode_m16x8_fp8_fp8(query,
+                                                      kv_buffer,
+                                                      qo_indptr,
+                                                      kv_indptr,
+                                                      kv_page_indices,
+                                                      kv_last_page_lens,
+                                                      work_indptr,
+                                                      work_info_set,
+                                                      max_seqlen_q,
+                                                      softmax_scale,
+                                                      split_output,
+                                                      split_lse,
+                                                      final_output);
+        }
+        else if(gfx == "gfx950")
+        {
+            hk_mi35x_mla_v32_fwd_decode_m16x8_fp8_fp8(query,
+                                                      kv_buffer,
+                                                      qo_indptr,
+                                                      kv_indptr,
+                                                      kv_page_indices,
+                                                      kv_last_page_lens,
+                                                      work_indptr,
+                                                      work_info_set,
+                                                      max_seqlen_q,
+                                                      softmax_scale,
+                                                      split_output,
+                                                      split_lse,
+                                                      final_output);
+        }
+        else
+        {
+            AITER_CHECK(false,
+                        "hk_mla_v32_decode_fwd: unsupported GPU arch '",
+                        gfx,
+                        "' (supported: gfx942, gfx950).");
+        }
+    }
+    else if((num_head * max_seqlen_q) == 64)
+    {
+        const std::string gfx = get_gpu_arch();
+        if(gfx == "gfx950")
+        {
+            hk_mi35x_mla_v32_fwd_decode_m16x4_fp8_fp8(query,
+                                                      kv_buffer,
+                                                      qo_indptr,
+                                                      kv_indptr,
+                                                      kv_page_indices,
+                                                      kv_last_page_lens,
+                                                      work_indptr,
+                                                      work_info_set,
+                                                      max_seqlen_q,
+                                                      softmax_scale,
+                                                      split_output,
+                                                      split_lse,
+                                                      final_output);
+        }
+        else
+        {
+            AITER_CHECK(false,
+                        "hk_mla_v32_decode_fwd: unsupported GPU arch '",
+                        gfx,
+                        "' (supported: gfx950).");
+        }
+    }
+    else
+    {
+        AITER_CHECK(
+            false,
+            "hk_mla_v32_decode_fwd requires num_head * max_seqlen_q == 64 or 128, got num_head = ",
+            num_head,
+            ", max_seqlen_q = ",
+            max_seqlen_q);
+    }
+}

@@ -1,0 +1,11 @@
+--- aiter/ops/triton/attention/pa_decode_sparse.py
++++ aiter/ops/triton/attention/pa_decode_sparse.py
+@@ -151,7 +151,7 @@
+         max_num_wg = 1024
+     else:
+         block_k = 16 if D >= 256 else 32
+-        attn_num_warps = 4
++        attn_num_warps = 2
+         max_num_wg = 256
+     num_stages = 2
+     waves_per_eu = 1

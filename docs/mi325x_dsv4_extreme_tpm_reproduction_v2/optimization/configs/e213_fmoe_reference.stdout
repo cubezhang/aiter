@@ -1,0 +1,22 @@
+   token  model_dim  inter_dim  ...  doweight_stage1     gfx cu_num
+0    128       4096        512  ...            False  gfx942    304
+1  12200       4096        512  ...            False  gfx942    304
+
+[2 rows x 14 columns]
+=== Running production operator benchmark (default) ===
+[aiter] LoadKernel: _ZN5aiter50fmoe_bf16_blockscaleFp8_g1u1_vs_silu_1tg_ps_32x256E hsaco: /app/aiter-test/hsa//gfx942/fmoe/silu/fmoe_bf16_blockscaleFp8_g1u1_vs_silu_1tg_ps_32x256.co
+============= Benchmark (default) Benchmark Results =============
+Shape                                    |    E2E(us) |   Status
+----------------------------------------------------------------
+(128, 4096, 512, E=257, topk=7, ActivationType.Silu, torch.bfloat16, torch.float8_e4m3fnuz, torch.float8_e4m3fnuz, QuantType.per_1x128, g1u1=True, dw_s1=False) |     425.13 | MISMATCH
+keys: gfx=gfx942, cu_num=304, token=128, model_dim=4096, inter_dim=512, expert=257, topk=7, act_type=ActivationType.Silu, dtype=torch.bfloat16, q_dtype_a=torch.float8_e4m3fnuz, q_dtype_w=torch.float8_e4m3fnuz, q_type=QuantType.per_1x128, use_g1u1=True, doweight_stage1=False
+reason: err_ratio=0.323814(>--errRatio=0),logits_diff=7.42078e-05(>shape=out(128, 4096),ref(128, 4096), dtype=out=torch.bfloat16,ref=torch.bfloat16, numel=out=524288,ref=524288, sampled=4096/524288, mismatch=1291/4096, max_abs=0.09375, mean_abs=0.0190511, out_norm=131.221, ref_norm=131.218, top=[0:out=1.61719,ref=1.64844,abs=0.03125; 1152:out=0.0820312,ref=0.0515137,abs=0.0305176; 1920:out=-0.273438,ref=-0.289062,abs=0.015625])
+(12200, 4096, 512, E=257, topk=7, ActivationType.Silu, torch.bfloat16, torch.float8_e4m3fnuz, torch.float8_e4m3fnuz, QuantType.per_1x128, g1u1=True, dw_s1=False) |    2993.09 | MISMATCH
+keys: gfx=gfx942, cu_num=304, token=12200, model_dim=4096, inter_dim=512, expert=257, topk=7, act_type=ActivationType.Silu, dtype=torch.bfloat16, q_dtype_a=torch.float8_e4m3fnuz, q_dtype_w=torch.float8_e4m3fnuz, q_type=QuantType.per_1x128, use_g1u1=True, doweight_stage1=False
+reason: err_ratio=0.333807(>--errRatio=0),logits_diff=7.87377e-05(>shape=out(12200, 4096),ref(12200, 4096), dtype=out=torch.bfloat16,ref=torch.bfloat16, numel=out=49971200,ref=49971200, sampled=4096/49971200, mismatch=1370/4096, max_abs=0.129883, mean_abs=0.0201128, out_norm=132.124, ref_norm=132.166, top=[24405:out=-2.8125,ref=-2.76562,abs=0.046875; 73217:out=-0.0351562,ref=-0.0771484,abs=0.0419922; 122029:out=-1.17969,ref=-1.125,abs=0.0546875])
+
+============= Repro CSV (2 failed shapes) =============
+Copy the lines below into a CSV file to reproduce:
+gfx,token,model_dim,inter_dim,expert,topk,act_type,dtype,q_dtype_a,q_dtype_w,q_type,use_g1u1,doweight_stage1
+gfx942,128,4096,512,257,7,ActivationType.Silu,torch.bfloat16,torch.float8_e4m3fnuz,torch.float8_e4m3fnuz,QuantType.per_1x128,True,False
+gfx942,12200,4096,512,257,7,ActivationType.Silu,torch.bfloat16,torch.float8_e4m3fnuz,torch.float8_e4m3fnuz,QuantType.per_1x128,True,False

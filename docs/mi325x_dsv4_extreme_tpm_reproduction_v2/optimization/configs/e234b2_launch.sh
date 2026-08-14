@@ -1,0 +1,84 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+RUN_ROOT=/data/models/mi325_dsv4_perf_tuning_20260803_065439
+ATOM_SOURCE=/data/models/mi325_dsv4_reuse_tuning_20260801_103501/02_source/ATOM_official
+C57_KERNEL=/data/models/mi325_dsv4_model_tuning_round2_20260802/57_topk_ob_hybrid_bpp_20260802_141900/aiter/csrc/kernels/topk_per_row_kernels.cu
+ROUTER_SOURCE=/data/models/mi325_dsv4_reuse_tuning_20260801_103501/08_dual_tp4/router.py
+IMAGE=rocm/atom-dev:nightly_202607271535
+
+test -s "$C57_KERNEL"
+test -s "$ROUTER_SOURCE"
+for port in 18000 18001 18080; do
+  ! ss -ltn "sport = :$port" | rg -q ":$port\\b"
+done
+for name in mi325_dsv4_e004_dual mi325_dsv4_e004_router; do
+  ! docker ps -a --format '{{.Names}}' | rg -qx "$name"
+done
+
+docker run -d --name mi325_dsv4_e004_dual --network host --ipc=host --shm-size=128G --device /dev/kfd --device /dev/dri --group-add video \
+  -v /data/DeepSeek-V4-Flash-FP8:/data/DeepSeek-V4-Flash-FP8:ro \
+  -v "$ATOM_SOURCE":/app/ATOM:ro \
+  -v "$C57_KERNEL":/app/aiter-test/csrc/kernels/topk_per_row_kernels.cu:ro \
+  -v "$RUN_ROOT":/work \
+  -e AITER_QUICK_REDUCE_QUANTIZATION=INT4 \
+  -e PYTHONDONTWRITEBYTECODE=1 \
+  -e ATOM_DUAL_STREAM_MOE_TOKEN_THRESHOLD=1 \
+  -e ATOM_PCP_MOE_MERGE=1 \
+  "$IMAGE" bash -lc '
+set -euo pipefail
+unset AITER_REBUILD AITER_CONFIG_GEMM_BF16 AITER_CONFIG_FMOE AITER_CONFIG_GEMM_A8W8_BLOCKSCALE_BPRESHUFFLE ATOM_USE_TRITON_MOE
+export AITER_CONFIG_GEMM_A8W8_BLOCKSCALE_BPRESHUFFLE=/work/experiments/e077_bpreshuffle_18row_overlay.csv
+rm -f /app/aiter-test/aiter/jit/module_top_k_per_row.so
+cd /app/ATOM
+HIP_VISIBLE_DEVICES=0,1,2,3 python -m atom.entrypoints.openai_server \
+  --model /data/DeepSeek-V4-Flash-FP8 --served-model-name DeepSeek-V3.2 \
+  --tensor-parallel-size 4 --method mtp --num-speculative-tokens 2 \
+  --kv-cache-dtype fp8 --max-model-len 131072 --gpu-memory-utilization 0.83 \
+  --max-num-batched-tokens 131072 --max-num-seqs 128 \
+  --cudagraph-capture-sizes "[1,2,4,8,16,24,32,48,64,72,96,128]" \
+  --no-enable-prefix-caching --host 127.0.0.1 --server-port 18000 \
+  > /work/logs/e004_18000_server.log 2>&1 &
+pid_a=$!
+for _ in $(seq 1 180); do
+  curl -fsS --max-time 3 http://127.0.0.1:18000/v1/models >/dev/null && break
+  kill -0 "$pid_a" 2>/dev/null || exit 31
+  sleep 3
+done
+curl -fsS --max-time 3 http://127.0.0.1:18000/v1/models >/dev/null || exit 32
+HIP_VISIBLE_DEVICES=4,5,6,7 python -m atom.entrypoints.openai_server \
+  --model /data/DeepSeek-V4-Flash-FP8 --served-model-name DeepSeek-V3.2 \
+  --tensor-parallel-size 4 --method mtp --num-speculative-tokens 2 \
+  --kv-cache-dtype fp8 --max-model-len 131072 --gpu-memory-utilization 0.83 \
+  --max-num-batched-tokens 131072 --max-num-seqs 128 \
+  --cudagraph-capture-sizes "[1,2,4,8,16,24,32,48,64,72,96,128]" \
+  --no-enable-prefix-caching --host 127.0.0.1 --server-port 18001 \
+  > /work/logs/e004_18001_server.log 2>&1 &
+pid_b=$!
+trap "kill $pid_a $pid_b 2>/dev/null || true; wait $pid_a $pid_b 2>/dev/null || true" TERM INT EXIT
+wait -n "$pid_a" "$pid_b"'
+
+for _ in $(seq 1 300); do
+  if curl -fsS --max-time 3 http://127.0.0.1:18000/v1/models > "$RUN_ROOT/experiments/e004_models_18000.json" && \
+     curl -fsS --max-time 3 http://127.0.0.1:18001/v1/models > "$RUN_ROOT/experiments/e004_models_18001.json"; then
+    break
+  fi
+  docker inspect -f '{{.State.Running}}' mi325_dsv4_e004_dual | rg -qx true || exit 41
+  sleep 3
+done
+test -s "$RUN_ROOT/experiments/e004_models_18000.json"
+test -s "$RUN_ROOT/experiments/e004_models_18001.json"
+docker run -d --name mi325_dsv4_e004_router --network host --entrypoint bash \
+  -v "$ROUTER_SOURCE":/router.py:ro \
+  -e ROUTER_BACKENDS=http://127.0.0.1:18000,http://127.0.0.1:18001 \
+  -e ROUTER_POLICY=least_connections \
+  "$IMAGE" -lc 'exec python -m uvicorn router:app --app-dir / --host 127.0.0.1 --port 18080 --no-access-log' \
+  > "$RUN_ROOT/logs/e004_router_container_id.txt"
+for _ in $(seq 1 60); do
+  if curl -fsS --max-time 3 http://127.0.0.1:18080/router/status > "$RUN_ROOT/experiments/e004_router_status_start.json"; then
+    docker inspect mi325_dsv4_e004_dual mi325_dsv4_e004_router > "$RUN_ROOT/experiments/e004_container_inspect.json"
+    exit 0
+  fi
+  sleep 1
+done
+exit 42

@@ -1,0 +1,96 @@
+        )
+    config = get_CKGEMM_config(
+        m, n, k, AITER_CONFIGS.AITER_CONFIG_GEMM_A8W8_BLOCKSCALE_BPRESHUFFLE_FILE
+    )
+    # Triton path first: it allocates its own output, so skip the Y buffer the
+    # ck/asm paths below need.
+    if (config is not None and config["libtype"] == "triton") or get_gfx() == "gfx1250":
+        # kernelName optionally carries the backend hint ("triton"/"gluon");
+        # anything else -> None (auto gluon->triton detection). config=None lets
+        # the triton impl load its own tuned config internally. WQ is already
+        # (16,16)-shuffled == triton's (N//16, K*16) view; x_scale is
+        # column-major -> direct fit.
+        from aiter.ops.triton.gemm.basic.gemm_a8w8_blockscale import (
+            gemm_a8w8_blockscale_preshuffle as _gemm_a8w8_blockscale_preshuffle_triton,
+        )
+
+        kernelName = str(config.get("kernelName", "")) if config is not None else ""
+        backend = kernelName if kernelName in ("triton", "gluon") else None
+        xq = XQ if XQ.dtype != torch.uint8 else XQ.view(dtypes.fp8)
+        wq = WQ if WQ.dtype != torch.uint8 else WQ.view(dtypes.fp8)
+        return _gemm_a8w8_blockscale_preshuffle_triton(
+            xq,
+            wq.reshape(n // 16, k * 16),
+            x_scale,
+            w_scale,
+            dtype=dtype,
+            backend=backend,
+        )
+    if config is not None:
+        libtype = config["libtype"]
+        kernelName = str(config.get("kernelName", ""))
+        if libtype == "cktile":
+            return gemm_a8w8_blockscale_bpreshuffle_cktile(
+                XQ, WQ, x_scale, w_scale, Y, kernelName=kernelName
+            )
+        elif libtype == "ck":
+            return gemm_a8w8_blockscale_bpreshuffle_ck(
+                XQ, WQ, x_scale, w_scale, Y, kernelName=kernelName
+            )
+        elif libtype == "asm":
+            splitK = config["splitK"]
+            return gemm_a8w8_blockscale_bpreshuffle_asm(
+                XQ, WQ, Y, x_scale, w_scale, splitK=splitK, kernelName=kernelName
+            )
+        elif libtype == "opus":
+            kernelId = int(config["kernelId"])
+            from aiter.ops.opus.gemm_op_a8w8 import (
+                opus_gemm_a8w8_blockscale_bpreshuffle_tune,
+            )
+
+            return opus_gemm_a8w8_blockscale_bpreshuffle_tune(
+                XQ, WQ, x_scale, w_scale, Y, kernelId=kernelId
+            )
+        elif libtype == "flydsl" and is_flydsl_available():
+            return gemm_a8w8_blockscale_bpreshuffle_flydsl(
+                XQ, WQ, x_scale, w_scale, Y, config
+            )
+    try:
+        return gemm_a8w8_blockscale_bpreshuffle_ck(XQ, WQ, x_scale, w_scale, Y)
+    except RuntimeError as e:
+        raise RuntimeError(
+            f"gemm_a8w8_blockscale_bpreshuffle failed for shape M={m}, N={n}, K={k}, "
+            f"{dtype=}, config={config}: {e}"
+        ) from e
+
+
+def gfx950_a8w8_blockscale_ASM(
+    XQ: Tensor,
+    WQ: Tensor,
+    x_scale: Tensor,
+    w_scale: Tensor,
+    Y: Tensor,
+    dtype=dtypes.bf16,
+):
+    assert dtype in [
+        dtypes.bf16,
+    ], f"Output {dtype=} is currently not supported in gemm_a8w8"
+    return gfx950_a8w8_blockscale_asm(XQ, WQ, x_scale, w_scale, Y)  # noqa: F821
+
+
+def gen_gemm_a8w8_tune_fake_tensors(
+    XQ: torch.Tensor,
+    WQ: torch.Tensor,
+    x_scale: torch.Tensor,
+    w_scale: torch.Tensor,
+    Out: torch.Tensor,
+    kernelId: int = 0,
+    splitK: int = 0,
+) -> torch.Tensor:
+    return Out
+
+120:AITER_CONFIG_GEMM_A8W8_BLOCKSCALE_BPRESHUFFLE = os.getenv(
+121:    "AITER_CONFIG_GEMM_A8W8_BLOCKSCALE_BPRESHUFFLE",
+187:    def AITER_CONFIG_GEMM_A8W8_BLOCKSCALE_BPRESHUFFLE_FILE(self):
+189:            "AITER_CONFIG_GEMM_A8W8_BLOCKSCALE_BPRESHUFFLE",
+190:            AITER_CONFIG_GEMM_A8W8_BLOCKSCALE_BPRESHUFFLE,

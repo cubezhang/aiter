@@ -1,0 +1,54 @@
+[aiter] import [module_aiter_core] under /app/aiter-test/aiter/jit/module_aiter_core.so
+[aiter] merge tuned file under model_configs/ and configs/ /app/aiter-test/aiter/configs/a8w8_blockscale_bpreshuffle_tuned_gemm.csv:/app/aiter-test/aiter/configs/model_configs/a8w8_blockscale_bpreshuffle_tuned_gemm_dsv3.csv:/app/aiter-test/aiter/configs/model_configs/a8w8_blockscale_bpreshuffle_tuned_gemm_qwen3.5_397b.csv:/app/aiter-test/aiter/configs/model_configs/dsv4_a8w8_blockscale_bpreshuffle_tuned_gemm.csv:/app/aiter-test/aiter/configs/model_configs/a8w8_blockscale_bpreshuffle_tuned_gemm_mm2.5.csv:/app/aiter-test/aiter/configs/model_configs/glm5_a8w8_blockscale_bpreshuffle_tuned_gemm.csv:/app/aiter-test/aiter/configs/model_configs/a8w8_blockscale_bpreshuffle_tuned_gemm_glm5.2.csv:/app/aiter-test/aiter/configs/model_configs/a8w8_blockscale_bpreshuffle_tuned_gemm_qwen3_235b.csv
+[aiter] shape is M:30500, N:8192, K:1024, not found tuned config in /tmp/aiter_configs/a8w8_blockscale_bpreshuffle_tuned_gemm.csv, will use default config!
+[aiter] import [module_gemm_a8w8_blockscale_bpreshuffle] under /app/aiter-test/aiter/jit/module_gemm_a8w8_blockscale_bpreshuffle.so
+/opt/venv/lib/python3.12/site-packages/torch/profiler/profiler.py:217: UserWarning: Warning: Profiler clears events at the end of each cycle.Only events from the current cycle will be reported.To keep events across cycles, set acc_events=True.
+  _warn_once(
+[W804 05:58:03.774684500 collection.cpp:1148] Warning: ROCTracer produced duplicate flow start: 15 (function operator())
+[aiter] run_config (30500, 8192, 1024)[checkAllclose atol=0.01 rtol=0.01 [32mpassed~[0m]
+[aiter] shape is M:30500, N:1536, K:4096, not found tuned config in /tmp/aiter_configs/a8w8_blockscale_bpreshuffle_tuned_gemm.csv, will use default config!
+[aiter] run_config (30500, 1536, 4096)[checkAllclose atol=0.01 rtol=0.01 [32mpassed~[0m]
+[aiter] shape is M:30500, N:4096, K:2048, not found tuned config in /tmp/aiter_configs/a8w8_blockscale_bpreshuffle_tuned_gemm.csv, will use default config!
+[aiter] run_config (30500, 4096, 2048)[checkAllclose atol=0.01 rtol=0.01 [32mpassed~[0m]
+[aiter] shape is M:30500, N:4096, K:4096, not found tuned config in /tmp/aiter_configs/a8w8_blockscale_bpreshuffle_tuned_gemm.csv, will use default config!
+[aiter] run_config (30500, 4096, 4096)[checkAllclose atol=0.01 rtol=0.01 [32mpassed~[0m]
+[aiter] import [module_aiter_core] under /app/aiter-test/aiter/jit/module_aiter_core.so
+[aiter] import [module_aiter_core] under /app/aiter-test/aiter/jit/module_aiter_core.so
+[aiter] import [module_aiter_core] under /app/aiter-test/aiter/jit/module_aiter_core.so
+[aiter] import [module_aiter_core] under /app/aiter-test/aiter/jit/module_aiter_core.so
+[aiter] import [module_aiter_core] under /app/aiter-test/aiter/jit/module_aiter_core.so
+[aiter] import [module_aiter_core] under /app/aiter-test/aiter/jit/module_aiter_core.so
+[aiter] import [module_aiter_core] under /app/aiter-test/aiter/jit/module_aiter_core.so
+[aiter] import [module_aiter_core] under /app/aiter-test/aiter/jit/module_aiter_core.so
+/opt/venv/lib/python3.12/site-packages/torch/profiler/profiler.py:217: UserWarning: Warning: Profiler clears events at the end of each cycle.Only events from the current cycle will be reported.To keep events across cycles, set acc_events=True.
+  _warn_once(
+[W804 05:58:13.010993261 collection.cpp:1148] Warning: ROCTracer produced duplicate flow start: 3 (function operator())
+/opt/venv/lib/python3.12/site-packages/torch/profiler/profiler.py:217: UserWarning: Warning: Profiler clears events at the end of each cycle.Only events from the current cycle will be reported.To keep events across cycles, set acc_events=True.
+  _warn_once(
+/opt/venv/lib/python3.12/site-packages/torch/profiler/profiler.py:217: UserWarning: Warning: Profiler clears events at the end of each cycle.Only events from the current cycle will be reported.To keep events across cycles, set acc_events=True.
+  _warn_once(
+[W804 05:58:13.056472958 collection.cpp:1148] Warning: ROCTracer produced duplicate flow start: 3 (function operator())
+/opt/venv/lib/python3.12/site-packages/torch/profiler/profiler.py:217: UserWarning: Warning: Profiler clears events at the end of each cycle.Only events from the current cycle will be reported.To keep events across cycles, set acc_events=True.
+  _warn_once(
+[W804 05:58:13.076911673 collection.cpp:1148] Warning: ROCTracer produced duplicate flow start: 3 (function operator())
+[W804 05:58:13.094461010 collection.cpp:1148] Warning: ROCTracer produced duplicate flow start: 3 (function operator())
+/app/aiter-test/aiter/utility/base_tuner.py:485: FutureWarning: The behavior of DataFrame concatenation with empty or all-NA entries is deprecated. In a future version, this will no longer exclude empty or all-NA columns when determining the result dtypes. To retain the old behavior, exclude the relevant entries before the concat operation.
+  profiledf = pd.concat([old_df, profiledf], ignore_index=True)
+/app/aiter-test/aiter/utility/base_tuner.py:1662: FutureWarning: The behavior of DataFrame concatenation with empty or all-NA entries is deprecated. In a future version, this will no longer exclude empty or all-NA columns when determining the result dtypes. To retain the old behavior, exclude the relevant entries before the concat operation.
+  self.success = pd.concat(
+/app/aiter-test/aiter/utility/base_tuner.py:442: FutureWarning: The behavior of DataFrame concatenation with empty or all-NA entries is deprecated. In a future version, this will no longer exclude empty or all-NA columns when determining the result dtypes. To retain the old behavior, exclude the relevant entries before the concat operation.
+  df_old = pd.concat([df_old, unmatched_rows], ignore_index=True)
+[aiter] Setting AITER_CONFIG_GEMM_A8W8_BLOCKSCALE_BPRESHUFFLE=/tmp/aiter_compare/GemmA8W8BlockScaleTuner_compare_batch_1_1.csv for benchmark
+[aiter] run_config (30500, 8192, 1024)[checkAllclose atol=0.01 rtol=0.01 [32mpassed~[0m]
+[aiter] run_config (30500, 1536, 4096)[checkAllclose atol=0.01 rtol=0.01 [32mpassed~[0m]
+[aiter] run_config (30500, 4096, 2048)[checkAllclose atol=0.01 rtol=0.01 [32mpassed~[0m]
+[aiter] run_config (30500, 4096, 4096)[checkAllclose atol=0.01 rtol=0.01 [32mpassed~[0m]
+/app/aiter-test/aiter/utility/base_tuner.py:1112: FutureWarning: The behavior of DataFrame concatenation with empty or all-NA entries is deprecated. In a future version, this will no longer exclude empty or all-NA columns when determining the result dtypes. To retain the old behavior, exclude the relevant entries before the concat operation.
+  merged = pd.concat([kept_old, improved_rows], ignore_index=True)
+[aiter] processed 1 batches of 1, Processing Status ====> 100.0% tuned in GemmA8W8BlockScaleTuner
+[aiter] ============= Tuning results Summary: ==============
+/app/aiter-test/aiter/utility/base_tuner.py:534: FutureWarning: The behavior of DataFrame concatenation with empty or all-NA entries is deprecated. In a future version, this will no longer exclude empty or all-NA columns when determining the result dtypes. To retain the old behavior, exclude the relevant entries before the concat operation.
+  tunedf = pd.concat([self.success, self.failed])
+[aiter] Tuning Finished. tune 4 shapes, total tuning time is 11.5333 seconds
+[aiter] Successfully tuned shapes:
+[aiter] Failed shapes:

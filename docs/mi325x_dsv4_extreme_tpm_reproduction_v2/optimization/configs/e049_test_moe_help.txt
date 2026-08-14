@@ -1,0 +1,45 @@
+[aiter] import [module_aiter_core] under /app/aiter-test/aiter/jit/module_aiter_core.so
+usage: test_moe.py [-h]
+                   [-t [{test_fmoe_16_bit,g1u1_no_quant,g1u1_int8quant,g1u1_fp8quant,g1u0_int8smoothquant,g1u1_int8smoothquant,g1u1_fp8smoothquant,g1u1_int4} ...]]
+                   [-d [DTYPE ...]] [-m [TOKEN ...]] [-hd [HIDDEN_DIM ...]]
+                   [-id [INTER_DIM ...]] [-e [EXPERT]] [-k [TOPK]]
+                   [-a {silu,gelu}]
+
+select test
+
+options:
+  -h, --help            show this help message and exit
+  -t [{test_fmoe_16_bit,g1u1_no_quant,g1u1_int8quant,g1u1_fp8quant,g1u0_int8smoothquant,g1u1_int8smoothquant,g1u1_fp8smoothquant,g1u1_int4} ...], --test [{test_fmoe_16_bit,g1u1_no_quant,g1u1_int8quant,g1u1_fp8quant,g1u0_int8smoothquant,g1u1_int8smoothquant,g1u1_fp8smoothquant,g1u1_int4} ...]
+                        Select test to run.
+                            e.g.: -t test_fmoe_16_bit
+                                  or  -t test_fmoe_16_bit
+                                  or  -t g1u1_no_quant
+                                  or  -t g1u1_int8quant
+                                  or  -t g1u1_fp8quant
+                                  or  -t g1u0_int8smoothquant
+                                  or  -t g1u1_int8smoothquant
+                                  or  -t g1u1_fp8smoothquant
+                                  or  -t g1u1_int4
+  -d [DTYPE ...], --dtype [DTYPE ...]
+                        Data type.
+                            e.g.: -d bf16
+  -m [TOKEN ...], --token [TOKEN ...]
+                        Token Num.
+                            e.g.: -m 128
+  -hd [HIDDEN_DIM ...], --hidden_dim [HIDDEN_DIM ...]
+                        Hidden states dim.
+                            e.g.: -hd 4096
+  -id [INTER_DIM ...], --inter_dim [INTER_DIM ...]
+                        Intermediate dim.
+                            e.g.: -id 1024
+  -e [EXPERT], --expert [EXPERT]
+                        Number of experts.
+                            e.g.: -e 32
+  -k [TOPK], --topk [TOPK]
+                        Top-k value.
+                            e.g.: -k 5
+  -a {silu,gelu}, --activation {silu,gelu}
+                        Activation function.
+                            e.g.: -a silu
+                                  or -a gelu
+                            

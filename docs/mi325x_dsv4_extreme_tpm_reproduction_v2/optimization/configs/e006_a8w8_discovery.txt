@@ -1,0 +1,11 @@
+/app/aiter-test/aiter/configs/a8w8_blockscale_bpreshuffle_tuned_gemm.csv
+/app/aiter-test/aiter/configs/a8w8_blockscale_bpreshuffle_untuned_gemm.csv
+/app/aiter-test/aiter/configs/a8w8_blockscale_tuned_gemm.csv
+/app/aiter-test/aiter/configs/a8w8_blockscale_untuned_gemm.csv
+/app/aiter-test/aiter/configs/a8w8_bpreshuffle_tuned_gemm.csv
+/app/aiter-test/aiter/configs/a8w8_bpreshuffle_untuned_gemm.csv
+/app/aiter-test/aiter/configs/a8w8_tuned_batched_gemm.csv
+/app/aiter-test/aiter/configs/a8w8_tuned_gemm.csv
+/app/aiter-test/aiter/configs/a8w8_untuned_batched_gemm.csv
+/app/aiter-test/aiter/configs/a8w8_untuned_gemm.csv
+/app/aiter-test/aiter/configs/asm_a8w8_gemm.csv

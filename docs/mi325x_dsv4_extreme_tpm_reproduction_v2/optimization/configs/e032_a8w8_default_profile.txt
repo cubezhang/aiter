@@ -1,0 +1,8 @@
+      gfx  cu_num  M     N     K
+0  gfx942     304  1  1024  4096
+=== Running production operator benchmark (default) ===
+============= Benchmark (default) Benchmark Results =============
+Shape                                    |    E2E(us) |   Status
+----------------------------------------------------------------
+(1, 1024, 4096)                          |      18.46 |       OK
+keys: gfx=gfx942, cu_num=304, M=1, N=1024, K=4096

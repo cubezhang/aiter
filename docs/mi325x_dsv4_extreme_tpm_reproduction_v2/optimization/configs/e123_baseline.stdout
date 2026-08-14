@@ -1,0 +1,15 @@
+untunedf is        gfx  cu_num   M  ...        outdtype  scaleAB  bpreshuffle
+0  gfx942     304  39  ...  torch.bfloat16    False        False
+
+[1 rows x 10 columns]
+      gfx  cu_num   M  ...        outdtype  scaleAB  bpreshuffle
+0  gfx942     304  39  ...  torch.bfloat16    False        False
+
+[1 rows x 10 columns]
+=== Running production operator benchmark (default) ===
+============= Benchmark (default) Benchmark Results =============
+Shape                                    |    E2E(us) |   Status
+----------------------------------------------------------------
+(39, 256, 4096, torch.bfloat16, bias=False) |       7.96 |       OK
+keys: gfx=gfx942, cu_num=304, M=39, N=256, K=4096, bias=False, dtype=torch.bfloat16, outdtype=torch.bfloat16, scaleAB=False, bpreshuffle=False
+retried num is 0

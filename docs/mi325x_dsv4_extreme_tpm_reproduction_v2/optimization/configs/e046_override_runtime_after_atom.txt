@@ -1,0 +1,24 @@
+4423:[aiter] shape is M:7, N:32320, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+4424:[aiter] shape is M:7, N:32320, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+4425:[aiter] shape is M:7, N:32320, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+4426:[aiter] shape is M:7, N:32320, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+4427:[aiter] shape is M:28, N:4096, K:4096, not found tuned config in /work/experiments/e046_bpreshuffle_tuned.csv, will use default config!
+4428:[aiter] shape is M:28, N:4096, K:4096, not found tuned config in /work/experiments/e046_bpreshuffle_tuned.csv, will use default config!
+4429:[aiter] shape is M:28, N:4096, K:4096, not found tuned config in /work/experiments/e046_bpreshuffle_tuned.csv, will use default config!
+4430:[aiter] shape is M:28, N:4096, K:4096, not found tuned config in /work/experiments/e046_bpreshuffle_tuned.csv, will use default config!
+4431:[aiter] shape is M:7, N:1536, K:4096, not found tuned config in /work/experiments/e046_bpreshuffle_tuned.csv, will use default config!
+4432:[aiter] shape is M:7, N:8192, K:1024, not found tuned config in /work/experiments/e046_bpreshuffle_tuned.csv, will use default config!
+4433:[aiter] shape is M:7, N:1536, K:4096, not found tuned config in /work/experiments/e046_bpreshuffle_tuned.csv, will use default config!
+4434:[aiter] shape is M:7, N:1536, K:4096, not found tuned config in /work/experiments/e046_bpreshuffle_tuned.csv, will use default config!
+4435:[aiter] shape is M:7, N:1536, K:4096, not found tuned config in /work/experiments/e046_bpreshuffle_tuned.csv, will use default config!
+4436:[aiter] shape is M:7, N:8192, K:1024, not found tuned config in /work/experiments/e046_bpreshuffle_tuned.csv, will use default config!
+4437:[aiter] shape is M:7, N:8192, K:1024, not found tuned config in /work/experiments/e046_bpreshuffle_tuned.csv, will use default config!
+4438:[aiter] shape is M:7, N:8192, K:1024, not found tuned config in /work/experiments/e046_bpreshuffle_tuned.csv, will use default config!
+4439:[aiter] shape is M:7, N:4096, K:2048, not found tuned config in /work/experiments/e046_bpreshuffle_tuned.csv, will use default config!
+4440:[aiter] shape is M:7, N:256, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using skinny solution:2
+4441:[aiter] shape is M:7, N:4096, K:2048, not found tuned config in /work/experiments/e046_bpreshuffle_tuned.csv, will use default config!
+4442:[aiter] shape is M:7, N:4096, K:2048, not found tuned config in /work/experiments/e046_bpreshuffle_tuned.csv, will use default config!
+4443:[aiter] shape is M:7, N:4096, K:2048, not found tuned config in /work/experiments/e046_bpreshuffle_tuned.csv, will use default config!
+4444:[aiter] shape is M:7, N:256, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using skinny solution:2
+4445:[aiter] shape is M:7, N:256, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using skinny solution:2
+4446:[aiter] shape is M:7, N:256, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using skinny solution:2

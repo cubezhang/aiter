@@ -1,0 +1,22 @@
+[aiter] import [module_aiter_core] under /app/aiter-test/aiter/jit/module_aiter_core.so
+usage: test_moe_blockscale.py [-h] [-d [DTYPE ...]] [-m [M ...]] [-dim DIM]
+                              [-idim IDIM] [-e EXPERT] [-k TOPK]
+
+config input of test
+
+options:
+  -h, --help            show this help message and exit
+  -d [DTYPE ...], --dtype [DTYPE ...]
+                        Data type.
+                            e.g.: -d bf16
+  -m [M ...]            M of mnk.
+                            e.g.: -m 32
+  -dim DIM              Hidden dimension. Default is 7168.
+                            e.g.: -dim 7168
+  -idim IDIM            Intermediate dimension. Default is 256.
+                            e.g.: -idim 256
+  -e EXPERT, --expert EXPERT
+                        Number of experts. Default is 256.
+                            e.g.: -e 256
+  -k TOPK, --topk TOPK  Top-k value. Default is 8.
+                            e.g.: -k 8

@@ -1,0 +1,35 @@
+*** Begin Patch
+*** Update File: aiter/dist/parallel_state.py
+@@
+     def all_reduce(
+         self,
+         input_: torch.Tensor,
+-        ca_use_new: bool = True,
++        ca_use_new: bool | None = None,
+         ca_fp8_quant: bool = False,
+         prefill_support: bool = False,
+     ) -> torch.Tensor:
+@@
+-        return all_reduce_(
+-            input_,
+-            group_name=self.unique_name,
+-            ca_use_new=ca_use_new,
++        if ca_use_new is None:
++            ca_use_new = _resolve_ca_use_new()
++
++        return all_reduce_(
++            input_,
++            group_name=self.unique_name,
++            ca_use_new=ca_use_new,
+             ca_fp8_quant=ca_fp8_quant,
+             prefill_support=prefill_support,
+         )
+*** End Patch
+@@
+ _ENABLE_CUSTOM_ALL_REDUCE = True
++
++
++def _resolve_ca_use_new() -> bool:
++    value = os.environ.get("AITER_TP_ALLREDUCE_USE_NEW", "1").strip().lower()
++    return value not in {"0", "false", "off", "no"}
+*** End Patch

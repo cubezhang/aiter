@@ -1,0 +1,30 @@
+    return self._op(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/aiter-test/aiter/jit/utils/torch_guard.py", line 312, in outer_wrapper
+    wrapper(*args, **kwargs)
+  File "/app/aiter-test/aiter/jit/utils/torch_guard.py", line 207, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/app/aiter-test/aiter/ops/gemm_op_a8w8.py", line 1026, in gemm_a8w8_blockscale_bpreshuffle
+    return gemm_a8w8_blockscale_bpreshuffle_ck(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/aiter-test/aiter/jit/utils/torch_guard.py", line 289, in wrapper_custom
+    getattr(torch.ops.aiter, f"{loadName}")(*args, **kwargs)
+  File "/opt/venv/lib/python3.12/site-packages/torch/_ops.py", line 1209, in __call__
+    return self._op(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/aiter-test/aiter/jit/utils/torch_guard.py", line 312, in outer_wrapper
+    wrapper(*args, **kwargs)
+  File "/app/aiter-test/aiter/jit/utils/torch_guard.py", line 207, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/app/aiter-test/aiter/jit/core.py", line 1784, in custom_wrapper
+    return wrapper(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/aiter-test/aiter/jit/core.py", line 1780, in wrapper
+    return op(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+RuntimeError: gemm_a8w8_blockscale_bpreshuffle kernel 'a8w8_blockscale_bpreshuffle_1x128x128_256x16x64x256_16x16_16x16_16x16x1_16x16x1_16x16x1_1x16x1x16_4_1x1_intrawave_v1' is not present in the compiled registry. The tuned CSV references a kernel that was not built into aiter. Rebuild aiter (or remove this row from aiter/configs/a8w8_blockscale_bpreshuffle_tuned_gemm.csv) and try again.
+[atom 13:13:55] AsyncIOProcManager(ModelRunner): [ModelRunner1/4] proc died unexpectedly (exitcode=1), shutting down.
+[atom 13:13:55] AsyncIOProcManager(ModelRunner): shutdown all runners...
+[atom 13:13:57] AsyncIOProcManager(ModelRunner): All runners are shutdown.

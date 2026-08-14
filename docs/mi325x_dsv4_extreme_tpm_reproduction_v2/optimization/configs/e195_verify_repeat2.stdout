@@ -1,0 +1,20 @@
+      gfx  cu_num      M  ...   tflops      bw errRatio
+0  gfx942     304  30500  ...   920.71  539.59      0.0
+1  gfx942     304  30500  ...   870.45  545.55      0.0
+2  gfx942     304  30500  ...  1021.45  390.81      0.0
+3  gfx942     304  30500  ...   747.08  787.42      0.0
+
+[4 rows x 13 columns]
+=== Running production operator benchmark (tuned) ===
+[aiter] LoadKernel: _ZN5aiter43fp8gemm_bf16_blockscale_BpreShuffle_128x128E hsaco: /app/aiter-test/hsa//gfx942/fp8gemm_blockscale/fp8gemm_bf16_blockscale_BpreShuffle_128x128.co
+============= Benchmark (tuned) Benchmark Results =============
+Shape                                    |    E2E(us) |   Status
+----------------------------------------------------------------
+(30500, 1536, 4096)                      |     401.59 |       OK
+keys: gfx=gfx942, cu_num=304, M=30500, N=1536, K=4096
+(30500, 4096, 2048)                      |     593.21 |       OK
+keys: gfx=gfx942, cu_num=304, M=30500, N=4096, K=2048
+(30500, 4096, 4096)                      |    1012.96 |       OK
+keys: gfx=gfx942, cu_num=304, M=30500, N=4096, K=4096
+(30500, 8192, 1024)                      |     700.41 |       OK
+keys: gfx=gfx942, cu_num=304, M=30500, N=8192, K=1024

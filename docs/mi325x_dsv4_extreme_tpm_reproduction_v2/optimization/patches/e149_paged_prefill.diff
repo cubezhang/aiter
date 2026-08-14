@@ -1,0 +1,14 @@
+--- /data/models/mi325_dsv4_perf_tuning_20260803_065439/inherited_state/e149_paged_prefill.original.py	2026-08-04 03:34:43.761398339 +0000
++++ /data/models/mi325_dsv4_perf_tuning_20260803_065439/patches/e149_paged_prefill.py	2026-08-04 03:35:22.513866223 +0000
+@@ -66,9 +66,9 @@
+ # Fixed best-known Triton meta for DeepSeek-V4 TP=8 / local H=8 prefill.
+ _BLOCK_H = 16
+ _BLOCK_K = 32
+-_NUM_WARPS = 4
++_NUM_WARPS = 2
+ _NUM_STAGES = 1
+-_WAVES_PER_EU = 2
++_WAVES_PER_EU = 1
+ 
+ 
+ @triton.jit

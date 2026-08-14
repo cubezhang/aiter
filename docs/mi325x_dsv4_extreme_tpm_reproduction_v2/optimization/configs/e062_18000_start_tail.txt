@@ -1,0 +1,10 @@
+INFO:     Uvicorn running on http://127.0.0.1:18000 (Press CTRL+C to quit)
+INFO:     127.0.0.1:46970 - "GET /v1/models HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46982 - "GET /v1/models HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46986 - "GET /v1/models HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47000 - "GET /v1/models HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47014 - "GET /v1/models HTTP/1.1" 200 OK
+INFO:     127.0.0.1:32802 - "GET /v1/models HTTP/1.1" 200 OK
+INFO:     127.0.0.1:32808 - "GET /v1/models HTTP/1.1" 200 OK
+INFO:     127.0.0.1:32810 - "GET /v1/models HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40276 - "GET /v1/models HTTP/1.1" 200 OK

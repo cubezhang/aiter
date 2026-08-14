@@ -1,0 +1,3 @@
+docker: Error response from daemon: Conflict. The container name "/mi325_dsv4_e004_dual" is already in use by container "4b5ae434511a160e7d9f83dcf8c2483ba2fda54f6c6f2c24ea9ff21ed82368c1". You have to remove (or rename) that container to be able to reuse that name.
+
+Run 'docker run --help' for more information

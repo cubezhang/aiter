@@ -1,0 +1,8 @@
+      4 shape is M:1, N:4096, K:4096
+      4 shape is M:131072, N:4096, K:4096
+      4 shape is M:4, N:4096, K:4096
+      4 shape is M:524288, N:4096, K:4096
+      4 shape is M:1, N:4096, K:4096
+      4 shape is M:131072, N:4096, K:4096
+      4 shape is M:4, N:4096, K:4096
+      4 shape is M:524288, N:4096, K:4096

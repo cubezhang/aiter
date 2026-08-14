@@ -1,0 +1,1 @@
+{"id":"cmpl-b6527fee947e48a98a3c9e6df61c94aa","object":"text_completion","created":1785769350,"model":"DeepSeek-V3.2","choices":[{"index":0,"text":",","finish_reason":"max_tokens"}],"usage":{"prompt_tokens":4,"completion_tokens":1,"total_tokens":5,"ttft_s":0.5907,"tpot_s":0.0,"latency_s":0.5919},"kv_transfer_params":null}

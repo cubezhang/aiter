@@ -1,0 +1,62 @@
+Not exist tuned file: /work/experiments/e214_fmoe_token128_tuned.csv
+   token  model_dim  inter_dim  ...  doweight_stage1     gfx cu_num
+0    128       4096        512  ...            False  gfx942    304
+
+[1 rows x 14 columns]
+
+Start tuning ['gfx942' 304 128 4096 512 257 7 'ActivationType.Silu' 'torch.bfloat16'
+ 'torch.float8_e4m3fnuz' 'torch.float8_e4m3fnuz' 'QuantType.per_1x128'
+ True False]
+stage1 asm tasks is 18, tasks_ck is 10, task_1stage is 11
+Distributing 39 task groups across 1 GPUs
+[aiter] LoadKernel: _ZN5aiter59fmoe_stage1_bf16_pertokenFp8_blockscale_g1u1_16x128_4tg_pf2E hsaco: /app/aiter-test/hsa//gfx942/fmoe_2stages/fmoe_stage1_bf16_pertokenFp8_blockscale_g1u1_16x128_4tg_pf2.co
+[aiter] LoadKernel: _ZN5aiter59fmoe_stage1_bf16_pertokenFp8_blockscale_g1u1_16x128_4tg_pf3E hsaco: /app/aiter-test/hsa//gfx942/fmoe_2stages/fmoe_stage1_bf16_pertokenFp8_blockscale_g1u1_16x128_4tg_pf3.co
+[aiter] LoadKernel: _ZN5aiter59fmoe_stage1_bf16_pertokenFp8_blockscale_g1u1_16x256_3tg_pf2E hsaco: /app/aiter-test/hsa//gfx942/fmoe_2stages/fmoe_stage1_bf16_pertokenFp8_blockscale_g1u1_16x256_3tg_pf2.co
+[aiter] LoadKernel: _ZN5aiter59fmoe_stage1_bf16_pertokenFp8_blockscale_g1u1_16x256_2tg_pf3E hsaco: /app/aiter-test/hsa//gfx942/fmoe_2stages/fmoe_stage1_bf16_pertokenFp8_blockscale_g1u1_16x256_2tg_pf3.co
+[aiter] LoadKernel: _ZN5aiter59fmoe_stage1_bf16_pertokenFp8_blockscale_g1u1_16x512_2tg_pf2E hsaco: /app/aiter-test/hsa//gfx942/fmoe_2stages/fmoe_stage1_bf16_pertokenFp8_blockscale_g1u1_16x512_2tg_pf2.co
+[aiter] LoadKernel: _ZN5aiter55fmoe_stage1_bf16_pertokenFp8_blockscale_g1u1_16x512_pf3E hsaco: /app/aiter-test/hsa//gfx942/fmoe_2stages/fmoe_stage1_bf16_pertokenFp8_blockscale_g1u1_16x512_pf3.co
+[aiter] LoadKernel: _ZN5aiter59fmoe_stage1_bf16_pertokenFp8_blockscale_g1u1_32x128_3tg_pf2E hsaco: /app/aiter-test/hsa//gfx942/fmoe_2stages/fmoe_stage1_bf16_pertokenFp8_blockscale_g1u1_32x128_3tg_pf2.co
+[aiter] LoadKernel: _ZN5aiter59fmoe_stage1_bf16_pertokenFp8_blockscale_g1u1_32x128_3tg_pf3E hsaco: /app/aiter-test/hsa//gfx942/fmoe_2stages/fmoe_stage1_bf16_pertokenFp8_blockscale_g1u1_32x128_3tg_pf3.co
+[aiter] LoadKernel: _ZN5aiter59fmoe_stage1_bf16_pertokenFp8_blockscale_g1u1_32x256_2tg_pf2E hsaco: /app/aiter-test/hsa//gfx942/fmoe_2stages/fmoe_stage1_bf16_pertokenFp8_blockscale_g1u1_32x256_2tg_pf2.co
+[aiter] LoadKernel: _ZN5aiter59fmoe_stage1_bf16_pertokenFp8_blockscale_g1u1_32x256_2tg_pf3E hsaco: /app/aiter-test/hsa//gfx942/fmoe_2stages/fmoe_stage1_bf16_pertokenFp8_blockscale_g1u1_32x256_2tg_pf3.co
+[aiter] LoadKernel: _ZN5aiter55fmoe_stage1_bf16_pertokenFp8_blockscale_g1u1_32x512_pf2E hsaco: /app/aiter-test/hsa//gfx942/fmoe_2stages/fmoe_stage1_bf16_pertokenFp8_blockscale_g1u1_32x512_pf2.co
+[aiter] LoadKernel: _ZN5aiter55fmoe_stage1_bf16_pertokenFp8_blockscale_g1u1_32x512_pf3E hsaco: /app/aiter-test/hsa//gfx942/fmoe_2stages/fmoe_stage1_bf16_pertokenFp8_blockscale_g1u1_32x512_pf3.co
+[aiter] LoadKernel: _ZN5aiter59fmoe_stage1_bf16_pertokenFp8_blockscale_g1u1_64x128_2tg_pf2E hsaco: /app/aiter-test/hsa//gfx942/fmoe_2stages/fmoe_stage1_bf16_pertokenFp8_blockscale_g1u1_64x128_2tg_pf2.co
+[aiter] LoadKernel: _ZN5aiter59fmoe_stage1_bf16_pertokenFp8_blockscale_g1u1_64x128_2tg_pf3E hsaco: /app/aiter-test/hsa//gfx942/fmoe_2stages/fmoe_stage1_bf16_pertokenFp8_blockscale_g1u1_64x128_2tg_pf3.co
+[aiter] LoadKernel: _ZN5aiter55fmoe_stage1_bf16_pertokenFp8_blockscale_g1u1_64x256_pf2E hsaco: /app/aiter-test/hsa//gfx942/fmoe_2stages/fmoe_stage1_bf16_pertokenFp8_blockscale_g1u1_64x256_pf2.co
+[aiter] LoadKernel: _ZN5aiter55fmoe_stage1_bf16_pertokenFp8_blockscale_g1u1_64x256_pf3E hsaco: /app/aiter-test/hsa//gfx942/fmoe_2stages/fmoe_stage1_bf16_pertokenFp8_blockscale_g1u1_64x256_pf3.co
+[aiter] LoadKernel: _ZN5aiter56fmoe_stage1_bf16_pertokenFp8_blockscale_g1u1_128x128_pf2E hsaco: /app/aiter-test/hsa//gfx942/fmoe_2stages/fmoe_stage1_bf16_pertokenFp8_blockscale_g1u1_128x128_pf2.co
+[aiter] LoadKernel: _ZN5aiter56fmoe_stage1_bf16_pertokenFp8_blockscale_g1u1_128x128_pf3E hsaco: /app/aiter-test/hsa//gfx942/fmoe_2stages/fmoe_stage1_bf16_pertokenFp8_blockscale_g1u1_128x128_pf3.co
+[aiter] LoadKernel: _ZN5aiter60fmoe_bf16_a16_blockscaleFp8_g1u1_vs_silu_1tg_16x128_flat_pf3E hsaco: /app/aiter-test/hsa//gfx942/fmoe/silu/fmoe_bf16_a16_blockscaleFp8_g1u1_vs_silu_1tg_16x128_flat_pf3.co
+Waiting for 39 tasks to complete (timeout=10s each)...
+[!] Task 28 timed out after 10.0s (limit: 10s) - likely GPU hang or infinite loop
+
+[!] 1 consecutive tasks timed out (>= 1/1 GPUs likely stuck)
+[!] Triggering immediate pool restart...
+
+Pool restarted. Continuing with 10 remaining tasks...
+
+[aiter] LoadKernel: _ZN5aiter47fmoe_bf16_blockscaleFp8_g1u1_vs_silu_1tg_32x128E hsaco: /app/aiter-test/hsa//gfx942/fmoe/silu/fmoe_bf16_blockscaleFp8_g1u1_vs_silu_1tg_32x128.co
+[aiter] LoadKernel: _ZN5aiter52fmoe_bf16_blockscaleFp8_g1u1_novs_silu_1tg_ps_32x128E hsaco: /app/aiter-test/hsa//gfx942/fmoe/silu/fmoe_bf16_blockscaleFp8_g1u1_novs_silu_1tg_ps_32x128.co
+[aiter] LoadKernel: _ZN5aiter50fmoe_bf16_blockscaleFp8_g1u1_vs_silu_1tg_ps_32x128E hsaco: /app/aiter-test/hsa//gfx942/fmoe/silu/fmoe_bf16_blockscaleFp8_g1u1_vs_silu_1tg_ps_32x128.co
+[aiter] LoadKernel: _ZN5aiter49fmoe_bf16_blockscaleFp8_g1u1_novs_silu_1tg_32x128E hsaco: /app/aiter-test/hsa//gfx942/fmoe/silu/fmoe_bf16_blockscaleFp8_g1u1_novs_silu_1tg_32x128.co
+[aiter] LoadKernel: _ZN5aiter47fmoe_bf16_blockscaleFp8_g1u1_vs_silu_1tg_32x256E hsaco: /app/aiter-test/hsa//gfx942/fmoe/silu/fmoe_bf16_blockscaleFp8_g1u1_vs_silu_1tg_32x256.co
+[aiter] LoadKernel: _ZN5aiter52fmoe_bf16_blockscaleFp8_g1u1_novs_silu_1tg_ps_32x256E hsaco: /app/aiter-test/hsa//gfx942/fmoe/silu/fmoe_bf16_blockscaleFp8_g1u1_novs_silu_1tg_ps_32x256.co
+[aiter] LoadKernel: _ZN5aiter50fmoe_bf16_blockscaleFp8_g1u1_vs_silu_1tg_ps_32x256E hsaco: /app/aiter-test/hsa//gfx942/fmoe/silu/fmoe_bf16_blockscaleFp8_g1u1_vs_silu_1tg_ps_32x256.co
+[aiter] LoadKernel: _ZN5aiter49fmoe_bf16_blockscaleFp8_g1u1_novs_silu_1tg_32x256E hsaco: /app/aiter-test/hsa//gfx942/fmoe/silu/fmoe_bf16_blockscaleFp8_g1u1_novs_silu_1tg_32x256.co
+[aiter] LoadKernel: _ZN5aiter46fmoe_bf16_blockscaleFp8_g1u1_vs_ps_silu_64x256E hsaco: /app/aiter-test/hsa//gfx942/fmoe/silu/fmoe_bf16_blockscaleFp8_g1u1_vs_silu_1tg_psx_64x256.co
+[aiter] LoadKernel: _ZN5aiter43fmoe_bf16_blockscaleFp8_g1u1_vs_silu_64x256E hsaco: /app/aiter-test/hsa//gfx942/fmoe/silu/fmoe_bf16_blockscaleFp8_g1u1_vs_silu_1tg_64x256.co
+
+[tune] 1 of 39 tasks failed:
+  task 28: asm_1stage _ZN5aiter60fmoe_bf16_a16_blockscaleFp8_g1u1_vs_silu_1tg_16x128_flat_pf3E blockM=1 -> timeout/hang
+Error: please check errRatio, stage1 and stage2 should be valid together!
+Tuning result for ('gfx942', 304, 128, 4096, 512, 257, 7, <ActivationType.Silu: 0>, torch.bfloat16, torch.float8_e4m3fnuz, torch.float8_e4m3fnuz, <QuantType.per_1x128: 4>, True, False) is (np.int64(32), '_ZN5aiter50fmoe_bf16_blockscaleFp8_g1u1_vs_silu_1tg_ps_32x256E', None, '0.0%', '0.0%', np.int64(1)) 398.2263 us, 28.31 TFLOPS, 4064.21 GB/s
+Not exist tuned file: /app/aiter-test/aiter/configs/profile_fmoe.csv
+Not exist tuned file: /work/experiments/e214_fmoe_token128_tuned.csv
+      gfx cu_num token model_dim  ... xbf16 flat tflops       bw
+0  gfx942    304   128      4096  ...     0    0  28.31  4064.21
+
+[1 rows x 28 columns]
+Empty DataFrame
+Columns: [gfx, cu_num, token, model_dim, inter_dim, expert, topk, act_type, dtype, q_dtype_a, q_dtype_w, q_type, use_g1u1, doweight_stage1, block_m, ksplit, us1, kernelName1, err1, us2, kernelName2, err2, us, run_1stage, xbf16, flat, tflops, bw]
+Index: []

@@ -1,0 +1,9 @@
+    PID     ELAPSED %CPU %MEM COMMAND
+      1       03:08  5.2  0.1 python csrc/ck_gemm_a8w8_blockscale/gemm_a8w8_blockscale_tune.py --preshuffle --libtype all --mp 8 -i /work/experiments/e046_bpreshuffle_8x4096x4096.csv -o /work/experiments/e046_bpreshuffle_tuned.csv -o2 /work/experiments/e046_bpreshuffle_profile.csv --compare --update_improved
+    108       03:03  0.0  0.0 /opt/venv/bin/python -c from multiprocessing.resource_tracker import main;main(17)
+   2722       00:00  0.0  0.0 bash -lc ps -eo pid,etime,pcpu,pmem,args | head -n 20
+   2729       00:00  0.0  0.0 /opt/rocm-7.2.4/bin/hipcc -Wno-undefined-func-template -x hip -E -P /dev/null -o /dev/null
+   2732       00:00  0.0  0.0 sh -c -- /opt/rocm-7.2.4/bin/rocm_agent_enumerator -t GPU
+   2733       00:00  0.0  0.0 python3 /opt/rocm-7.2.4/bin/rocm_agent_enumerator -t GPU
+   2736       00:00  0.0  0.0 ps -eo pid,etime,pcpu,pmem,args
+   2737       00:00  0.0  0.0 head -n 20

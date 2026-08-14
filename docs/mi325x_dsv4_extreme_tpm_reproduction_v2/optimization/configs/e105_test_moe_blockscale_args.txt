@@ -1,0 +1,91 @@
+    a1_q = a1_q.view(-1, model_dim)
+    a1_scale = a1_scale.squeeze(-1)
+
+    # w2, fc2_scale = pertoken_quant(w2, quant_dtype=quant_dtype)
+
+    out_ref, us_ref = run_perftest(
+        torch_moe_blockscale,
+        a1_q,
+        w1_q,
+        w2_q,
+        topk_weights,
+        topk_ids,
+        dtype,
+        scale_blks=scale_blks,
+        fc1_scale=w1_scale,
+        fc2_scale=w2_scale,
+        a_scale=a1_scale,
+        num_warmup=1,
+        num_iters=2,
+    )
+    # out_ref2, us_ref = run_perftest(torch_moe,
+    #                                 input,
+    #                                 w1,
+    #                                 w2,
+    #                                 topk_weights,
+    #                                 topk_ids,
+    #                                 num_warmup=1, num_iters=2)
+    # msg = '111'
+    # checkAllclose(out_ref, out_ref2, rtol=0.01, atol=100, msg=msg)
+
+    out_asm, us_ref = run_perftest(
+        asm_moe_test,
+        a1_q,
+        shuffle_weight(w1_q, (16, 16)),
+        shuffle_weight(w2_q, (16, 16)),
+        topk_weights,
+        topk_ids,
+        w1_scale,
+        w2_scale,
+        a1_scale.t().contiguous(),
+        (scale_blk_n, scale_blk_k),
+    )
+    msg = f"[perf] a8w8 asm: {us_ref:>8.2f} us ...... {m=}, {model_dim=}, {inter_dim=}, {E=}, {shared_E=}, {topk=}, dtype: {dtype}"
+    checkAllclose(out_ref, out_asm, rtol=0.05, atol=0.05, msg=msg)
+
+
+parser = argparse.ArgumentParser(
+    formatter_class=argparse.RawTextHelpFormatter,
+    description="config input of test",
+)
+parser.add_argument(
+    "-d",
+    "--dtype",
+    type=dtypes.str2Dtype,
+    nargs="*",
+    default=[dtypes.d_dtypes["bf16"]],
+    help="""Data type.
+    e.g.: -d bf16""",
+)
+
+parser.add_argument(
+    "-m",
+    type=int,
+    nargs="*",
+    default=[1, 2, 5, 16, 32, 163840],
+    help="""M of mnk.
+    e.g.: -m 32""",
+)
+
+parser.add_argument(
+    "-dim",
+    type=int,
+    default=7168,
+    help="""Hidden dimension. Default is 7168.
+    e.g.: -dim 7168""",
+)
+
+parser.add_argument(
+    "-idim",
+    type=int,
+    default=256,
+    help="""Intermediate dimension. Default is 256.
+    e.g.: -idim 256""",
+)
+parser.add_argument(
+    "-e",
+    "--expert",
+    type=int,
+    default=256,
+    help="""Number of experts. Default is 256.
+    e.g.: -e 256""",

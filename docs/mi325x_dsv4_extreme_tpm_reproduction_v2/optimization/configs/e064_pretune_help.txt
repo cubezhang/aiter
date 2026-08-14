@@ -1,0 +1,21 @@
+usage: pretune.py [-h] [--libtype {ck,cktile,all}] [--list]
+                  [--repo_dir REPO_DIR]
+                  [modules]
+
+Tune GEMM shapes for the live GPU on an already-installed aiter.
+
+Examples:
+  python3 aiter/utility/pretune.py module_gemm_a8w8_blockscale_tune
+  python3 aiter/utility/pretune.py module_gemm_a8w8_tune,module_gemm_a8w8_blockscale_tune
+  python3 aiter/utility/pretune.py all
+  python3 aiter/utility/pretune.py --list
+
+positional arguments:
+  modules               Module name, comma-separated list, or 'all'.
+
+options:
+  -h, --help            show this help message and exit
+  --libtype {ck,cktile,all}
+                        Kernel families to tune (default: all).
+  --list                Print available tune modules and exit.
+  --repo_dir REPO_DIR   Path to aiter repo root (auto-detected by default).

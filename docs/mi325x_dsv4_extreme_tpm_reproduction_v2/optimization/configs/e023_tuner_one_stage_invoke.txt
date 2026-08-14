@@ -1,0 +1,152 @@
+
+                score = torch.randn((token, expert), dtype=dtype, device="cuda")
+                topk_weights, topk_ids = fused_topk(hidden, score, topk, True)
+                if q_type == QuantType.per_1x128:
+                    a1_qt, a1_scale = aiter.pertoken_quant(
+                        hidden.view(token, -1, 128), quant_dtype=q_dtype_a
+                    )
+                    a1_qt = a1_qt.view(token, model_dim)
+                    a1_scale = a1_scale.squeeze(-1)
+                elif q_type == QuantType.per_1x32 and q_dtype_w == dtypes.i4x2:
+                    a1_qt = hidden.to(dtypes.bf16)
+                    a1_scale = None
+                elif (
+                    q_type == QuantType.per_1x32
+                    and eff_q_dtype_a in [dtypes.bf16, dtypes.fp16]
+                    and q_dtype_w == dtypes.fp4x2
+                ):
+                    # a16w4 (bf16 activation): reference runs activation in bf16.
+                    a1_qt = hidden.to(dtype)
+                    a1_scale = None
+                elif (
+                    q_type == QuantType.per_1x32
+                    and q_dtype_a == dtypes.fp8
+                    and q_dtype_w == dtypes.fp8
+                ):
+                    # mxfp8 (a8w8): kernel quantizes the activation internally; the
+                    # reference runs activation in bf16 (mirror test_moe_2stage).
+                    a1_qt = hidden.to(dtype)
+                    a1_scale = None
+                else:
+                    # Use the *effective* activation dtype (what fused_moe runs),
+                    # not the config's nominal q_dtype_a. For Silu+SEPARATED fp4
+                    # weights this is fp4x2 (a4w4), so the reference quantizes the
+                    # activation to fp4 to match the kernel.
+                    torch_quant = aiter.get_torch_quant(q_type)
+                    a1_qt, a1_scale = torch_quant(hidden, quant_dtype=eff_q_dtype_a)
+
+                out, us = run_perftest(
+                    fused_moe,
+                    hidden,
+                    w1_qt_fmoe,
+                    w2_qt_fmoe,
+                    topk_weights,
+                    topk_ids,
+                    activation=act_type,
+                    quant_type=q_type,
+                    doweight_stage1=doweight_stage1,
+                    w1_scale=w1_scale_fmoe,
+                    w2_scale=w2_scale_fmoe,
+                    dtype=dtype,
+                    num_warmup=args.warmup,
+                    num_iters=args.iters,
+                )
+                # a16wi4: per_1x32_i4_quant stores int4 in an int8 container.
+                # The torch reference detects int4 weights by the i4x2 dtype, so
+                # pass an i4x2-reinterpreted view to the reference only (the kernel
+                # path above consumes the int8 w*_qt). Mirrors op_tests/test_moe_2stage.py.
+                w1_qt_ref, w2_qt_ref = w1_qt, w2_qt
+                if q_type == QuantType.per_1x32 and w1_qt.dtype == dtypes.i8:
+                    w1_qt_ref = w1_qt.view(dtypes.i4x2)
+                    w2_qt_ref = w2_qt.view(dtypes.i4x2)
+                ref = self.torch_moe_2stages(
+                    a1_qt,
+                    w1_qt_ref,
+                    w2_qt_ref,
+                    topk_weights,
+                    topk_ids,
+                    a1_scale=a1_scale,
+                    w1_scale=w1_scale,
+                    w2_scale=w2_scale,
+                    dtype=dtype,
+                    activation=act_type,
+                    quant_type=q_type,
+                    doweight_stage1=doweight_stage1,
+                )
+                if out.count_nonzero() == 0 and ref.count_nonzero() > 0:
+                    diag = tensor_compare_diagnostics(ref, out)
+                    status = (
+                        "error:output is all zeros (kernel produced no output); "
+                        f"{diag}"
+                    )
+                    err_ratio = 1.0
+                else:
+                    err_ratio = checkAllclose(out, ref, msg=f"run_config {shape_str}")
+                    # Element-wise err_ratio (atol/rtol) is overly strict for lossy
+                    # fp4/fp8 MoE: even a correct kernel differs on most elements
+                    # vs the higher-precision reference. op_tests/test_moe_2stage.py
+                    # judges these paths by cosine similarity (logits_diff) instead,
+                    # so accept a shape if either metric passes. A genuinely wrong
+                    # (uncorrelated) kernel still has large logits_diff and fails.
+                    _x = out.to(dtypes.fp32)
+                    _y = ref.to(dtypes.fp32)
+                    _den = (_x * _x + _y * _y).sum()
+                    logits_diff = (
+                        float(1.0 - (2.0 * (_x * _y).sum() / _den).item())
+                        if _den.item() != 0
+                        else 0.0
+                    )
+                    cos_tol = float(os.environ.get("AITER_RUN_CONFIG_COS_TOL", "0.01"))
+                    if err_ratio <= allowed_err_ratio or logits_diff <= cos_tol:
+                        status = "ok"
+                    else:
+                        diag = tensor_compare_diagnostics(ref, out)
+                        status = (
+                            f"mismatch:err_ratio={err_ratio:.6g}"
+                            f"(>{allowed_err_ratio_desc}),"
+                            f"logits_diff={logits_diff:.6g}(>{diag})"
+                        )
+                results.append(
+                    {
+                        "shape": shape_str,
+                        "e2e_us": us,
+                        "kernel_us": kernel_us,
+                        "status": status,
+                    }
+                )
+            except AssertionError as e:
+                # checkAllclose raises on catastrophic error (max_delta exceeds threshold).
+                # Demote to mismatch only when err_ratio also exceeds allowed_err_ratio,
+                # i.e. it is genuinely a precision issue. Otherwise keep as error so that
+                # rare outliers (e.g. a few NaN/zeros) are not silently swept under mismatch.
+            activation=activation,
+        )
+        return moe_buf
+
+    @staticmethod
+    def run_1stage_fmoe_g1u1(
+        hidden_states,
+        a1,
+        w1,
+        w2,
+        sorted_ids,
+        sorted_weights,
+        sorted_expert_ids,
+        num_valid_ids,
+        a1_scale,
+        w1_scale,
+        w2_scale,
+        fc2_smooth_scale=None,
+        quant_type=QuantType.No,
+        isG1U1=False,
+        activation=ActivationType.Silu,
+        kernel_name="",
+        topk=2,
+        dtype=dtypes.bf16,
+    ):
+        moe_buf = torch.zeros(
+            (a1.shape[0], a1.shape[1]),
+            dtype=dtype,
+            device="cuda",
+        )
+        aiter.fmoe_g1u1(

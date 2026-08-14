@@ -1,0 +1,5 @@
+[aiter] shape is M:24, N:8192, K:1024, not found tuned config in /work/experiments/e063_bpreshuffle_4row_overlay.csv, will use default config!
+[aiter] shape is M:24, N:1536, K:4096, not found tuned config in /work/experiments/e063_bpreshuffle_4row_overlay.csv, will use default config!
+[aiter] shape is M:24, N:8192, K:1024, not found tuned config in /work/experiments/e063_bpreshuffle_4row_overlay.csv, will use default config!
+[aiter] shape is M:24, N:1536, K:4096, not found tuned config in /work/experiments/e063_bpreshuffle_4row_overlay.csv, will use default config!
+[aiter] shape is M:24, N:8192, K:1024, not found tuned config in /work/experiments/e063_bpreshuffle_4row_overlay.csv, will use default config!

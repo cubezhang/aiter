@@ -1,0 +1,25 @@
+--- /data/models/mi325_dsv4_perf_tuning_20260803_065439/inherited_state/e130_pa_decode_sparse.original.py	2026-07-27 14:46:32.000000000 +0000
++++ /data/models/mi325_dsv4_perf_tuning_20260803_065439/patches/e130_pa_decode_sparse.py	2026-08-04 02:04:19.618485943 +0000
+@@ -177,6 +177,22 @@
+         kv_splits = min(max_kv_splits, kv_splits)
+         kv_splits = triton.next_power_of_2(kv_splits)
+ 
++        # gfx942 production traces show that a fixed ~256-CTA target severely
++        # over-splits short sparse spans (the reduce launch costs more than the
++        # attention work), while a few long-span capture shapes under-fill the
++        # GPU. Keep the default everywhere except the two regions validated by
++        # the multi-shape benchmark in e129:
++        #   * average KV span <= 320: one fused CTA, no reduce kernel;
++        #   * long spans where a power-of-two split lands near 768 total CTAs.
++        # This depends only on tensor shapes, so it remains CUDAGraph-safe.
++        avg_kv_len = triton.cdiv(max_kv_len, max(1, T))
++        if avg_kv_len <= 320:
++            kv_splits = 1
++        else:
++            fill_768 = triton.next_power_of_2(triton.cdiv(768, max(1, T)))
++            if T * fill_768 <= 800 and max_kv_len >= 98304:
++                kv_splits = fill_768
++
+     if use_gluon:
+         _lds_budget = arch_info._LDS_CAP_BYTES.get(DEVICE_ARCH)
+         _lds_cap = max(1, _lds_budget // (block_d * 4))

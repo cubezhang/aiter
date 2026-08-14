@@ -1,0 +1,11 @@
+commands/e003_run_original_locust.sh:15:curl -fsS http://127.0.0.1:18080/router/status > "$OUT/router_status_before.json"
+commands/e003_run_original_locust.sh:21:  '/root/locust_test/.venv/bin/locust -f /work/locustfile.py --headless --host http://127.0.0.1:18080 -u '"$USERS"' -r '"$USERS"' -t '"$DURATION"' --stop-timeout 90 --csv /work/'"$TEST_ID"'/locust --csv-full-history --logfile /work/'"$TEST_ID"'/locust.log --loglevel INFO --exit-code-on-error 1 --model-name DeepSeek-V3.2 --max-tokens 1024 --include-usage true --dataset-dir /work/dataset --interval 50 --sla-interval 60' \
+commands/e003_run_original_locust.sh:23:curl -fsS http://127.0.0.1:18080/router/status > "$OUT/router_status_after.json"
+commands/e003_start_dual_tp4_131k.sh:12:for port in 18000 18001 18080; do
+commands/e003_start_dual_tp4_131k.sh:62:  -e ROUTER_POLICY=least_connections \
+commands/e003_start_dual_tp4_131k.sh:63:  "$IMAGE" bash -lc 'exec python -m uvicorn router:app --app-dir / --host 127.0.0.1 --port 18080 --no-access-log' \
+commands/e003_start_dual_tp4_131k.sh:66:  if curl -fsS --max-time 3 http://127.0.0.1:18080/router/status > "$RUN_ROOT/experiments/e003_router_status_start.json"; then
+commands/e004_start_dual_tp4_131k_singlecontainer.sh:12:for port in 18000 18001 18080; do
+commands/e004_start_dual_tp4_131k_singlecontainer.sh:71:  -e ROUTER_POLICY=least_connections \
+commands/e004_start_dual_tp4_131k_singlecontainer.sh:72:  "$IMAGE" -lc 'exec python -m uvicorn router:app --app-dir / --host 127.0.0.1 --port 18080 --no-access-log' \
+commands/e004_start_dual_tp4_131k_singlecontainer.sh:75:  if curl -fsS --max-time 3 http://127.0.0.1:18080/router/status > "$RUN_ROOT/experiments/e004_router_status_start.json"; then

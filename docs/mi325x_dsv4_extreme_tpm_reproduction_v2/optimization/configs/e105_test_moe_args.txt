@@ -1,0 +1,151 @@
+                out_b2, avg_b2 = asm_moe_test(
+                    input,
+                    w1b,
+                    w2b,
+                    topk_weights,
+                    topk_ids,
+                    fc1_scale,
+                    fc2_scale,
+                    fc1_smooth_scale,
+                    fc2_smooth_scale,
+                    a16=True,
+                    activation=activation,
+                )
+                msg = f"[perf] a8w8 asm: {avg_b:>8.2f} vs a16w8 asm: {avg_b2:>8.2f} ......"
+                checkAllclose(ref2, out_b2, atol=100, msg=msg)
+
+        msg = f"[perf] {use_g1u1=} {token=}, quant={quantstr}, {model_dim=}, {inter_dim=}, {E=}, {shared_E=}, {topk=}, dtype: {dtype}, torch_avg: {avg_c:<8.2f} us, asm_avg: {avg_b:>8.2f} us ...... uplift: {avg_c/avg_b-1:.1%}"
+        checkAllclose(ref2, out_b, rtol=0.01, atol=100, msg=msg)
+
+
+parser = argparse.ArgumentParser(
+    formatter_class=argparse.RawTextHelpFormatter,
+    description="select test",
+)
+parser.add_argument(
+    "-t",
+    "--test",
+    type=str,
+    choices=[
+        "test_fmoe_16_bit",
+        "g1u1_no_quant",
+        "g1u1_int8quant",
+        "g1u1_fp8quant",
+        "g1u0_int8smoothquant",
+        "g1u1_int8smoothquant",
+        "g1u1_fp8smoothquant",
+        "g1u1_int4",
+    ],
+    default=[
+        "test_fmoe_16_bit",
+        "g1u1_no_quant",
+        "g1u1_int8quant",
+        "g1u1_fp8quant",
+        "g1u0_int8smoothquant",
+        "g1u1_int8smoothquant",
+        "g1u1_fp8smoothquant",
+        "g1u1_int4",
+    ],
+    nargs="*",
+    help="""Select test to run.
+    e.g.: -t test_fmoe_16_bit
+          or  -t test_fmoe_16_bit
+          or  -t g1u1_no_quant
+          or  -t g1u1_int8quant
+          or  -t g1u1_fp8quant
+          or  -t g1u0_int8smoothquant
+          or  -t g1u1_int8smoothquant
+          or  -t g1u1_fp8smoothquant
+          or  -t g1u1_int4""",
+)
+parser.add_argument(
+    "-d",
+    "--dtype",
+    type=dtypes.str2Dtype,
+    nargs="*",
+    default=[dtypes.d_dtypes["bf16"]],
+    help="""Data type.
+    e.g.: -d bf16""",
+)
+parser.add_argument(
+    "-m",
+    "--token",
+    type=int,
+    nargs="*",
+    default=[128],
+    help="""Token Num.
+    e.g.: -m 128""",
+)
+parser.add_argument(
+    "-hd",
+    "--hidden_dim",
+    type=int,
+    nargs="*",
+    default=[4096],
+    help="""Hidden states dim.
+    e.g.: -hd 4096""",
+)
+parser.add_argument(
+    "-id",
+    "--inter_dim",
+    type=int,
+    nargs="*",
+    default=[1024],
+    help="""Intermediate dim.
+    e.g.: -id 1024""",
+)
+parser.add_argument(
+    "-e",
+    "--expert",
+    type=int,
+    nargs="?",
+    default=None,
+    help="""Number of experts.
+    e.g.: -e 32""",
+)
+parser.add_argument(
+    "-k",
+    "--topk",
+    type=int,
+    nargs="?",
+    default=None,
+    help="""Top-k value.
+    e.g.: -k 5""",
+)
+parser.add_argument(
+    "-a",
+    "--activation",
+    type=str,
+    choices=[
+        "silu",
+        "gelu",
+    ],
+    default="silu",
+    help="""Activation function.
+    e.g.: -a silu
+          or -a gelu
+    """,
+)
+
+args = parser.parse_args()
+args.activation = dtypes.str2ActivationType(args.activation)
+
+
+for test in args.test:
+    print(f"\nRunning test: {test}")
+    if test == "test_fmoe_16_bit":
+        print("test test_fmoe 16 bit")
+        print("\ng1u0 no quant")
+        for dtype in args.dtype:
+            for m in args.token:
+                for hdim in args.hidden_dim:
+                    for idim in args.inter_dim:
+                        expert = 32 if args.expert is None else args.expert
+                        topk = 5 if args.topk is None else args.topk
+                        test_fmoe(
+                            dtype,
+                            m,
+                            hdim,
+                            idim,
+                            expert,
+                            topk,

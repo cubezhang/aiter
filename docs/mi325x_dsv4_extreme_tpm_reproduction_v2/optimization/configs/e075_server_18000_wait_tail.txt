@@ -1,0 +1,40 @@
+[aiter] shape is M:144, N:1536, K:4096, not found tuned config in /work/experiments/e075_bpreshuffle_16row_overlay.csv, will use default config!
+[aiter] shape is M:144, N:8192, K:1024, not found tuned config in /work/experiments/e075_bpreshuffle_16row_overlay.csv, will use default config!
+[aiter] shape is M:144, N:4096, K:2048, not found tuned config in /work/experiments/e075_bpreshuffle_16row_overlay.csv, will use default config!
+[aiter] shape is M:144, N:256, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:144, N:2048, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:144, N:512, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:144, N:64, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+Capturing bs=64, max_q_len=3:  20%|██        | 2/10 [00:29<01:36, 12.05s/it]Capturing bs=48, max_q_len=3:  20%|██        | 2/10 [00:29<01:36, 12.05s/it][aiter] shape is M:144, N:1536, K:4096, not found tuned config in /work/experiments/e075_bpreshuffle_16row_overlay.csv, will use default config!
+[aiter] shape is M:144, N:8192, K:1024, not found tuned config in /work/experiments/e075_bpreshuffle_16row_overlay.csv, will use default config!
+[aiter] shape is M:144, N:4096, K:2048, not found tuned config in /work/experiments/e075_bpreshuffle_16row_overlay.csv, will use default config!
+[aiter] shape is M:144, N:256, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:144, N:1536, K:4096, not found tuned config in /work/experiments/e075_bpreshuffle_16row_overlay.csv, will use default config!
+[aiter] shape is M:144, N:8192, K:1024, not found tuned config in /work/experiments/e075_bpreshuffle_16row_overlay.csv, will use default config!
+[aiter] shape is M:144, N:4096, K:2048, not found tuned config in /work/experiments/e075_bpreshuffle_16row_overlay.csv, will use default config!
+[aiter] shape is M:144, N:256, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:144, N:2048, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:144, N:512, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:144, N:64, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:144, N:2048, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:144, N:512, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:144, N:64, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:144, N:1024, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:144, N:1024, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:144, N:1024, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:144, N:1536, K:4096, not found tuned config in /work/experiments/e075_bpreshuffle_16row_overlay.csv, will use default config!
+[aiter] shape is M:144, N:8192, K:1024, not found tuned config in /work/experiments/e075_bpreshuffle_16row_overlay.csv, will use default config!
+[aiter] shape is M:144, N:4096, K:2048, not found tuned config in /work/experiments/e075_bpreshuffle_16row_overlay.csv, will use default config!
+[aiter] shape is M:144, N:256, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:144, N:2048, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:144, N:512, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:144, N:64, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:144, N:1024, K:4096 dtype='torch.bfloat16' otype='torch.bfloat16' bias=False, scaleAB=False, bpreshuffle=False, not found tuned config in /tmp/aiter_configs/bf16_tuned_gemm.csv, will use default config! using torch solution:0
+[aiter] shape is M:96, N:1536, K:4096, not found tuned config in /work/experiments/e075_bpreshuffle_16row_overlay.csv, will use default config!
+[aiter] shape is M:96, N:8192, K:1024, not found tuned config in /work/experiments/e075_bpreshuffle_16row_overlay.csv, will use default config!
+Capturing bs=48, max_q_len=3:  30%|███       | 3/10 [00:29<00:46,  6.62s/it]Capturing bs=32, max_q_len=3:  30%|███       | 3/10 [00:29<00:46,  6.62s/it][aiter] shape is M:96, N:1536, K:4096, not found tuned config in /work/experiments/e075_bpreshuffle_16row_overlay.csv, will use default config!
+[aiter] shape is M:96, N:8192, K:1024, not found tuned config in /work/experiments/e075_bpreshuffle_16row_overlay.csv, will use default config!
+[aiter] shape is M:96, N:1536, K:4096, not found tuned config in /work/experiments/e075_bpreshuffle_16row_overlay.csv, will use default config!
+[aiter] shape is M:96, N:8192, K:1024, not found tuned config in /work/experiments/e075_bpreshuffle_16row_overlay.csv, will use default config!
+[aiter] shape is M:96, N:1536, K:4096, not found tuned config in /work/experiments/e075_bpreshuffle_16row_overlay.csv, will use default config!
+[aiter] shape is M:96, N:8192, K:1024, not found tuned config in /work/experiments/e075_bpreshuffle_16row_overlay.csv, will use default config!

@@ -1,0 +1,2 @@
+5:_ZN5aiter55fmoe_bf16_pertokenFp8_g1u1_vs_multix_silu_1tg_ps_32x512E,fmoe_bf16_pertokenFp8_g1u1_vs_multix_silu_1tg_ps_32x512.co,0,1,2,1,1,32,512
+26:_ZN5aiter48fmoe_bf16_pertokenFp8_g1u1_vs_silu_1tg_ps_32x512E,fmoe_bf16_pertokenFp8_g1u1_vs_silu_1tg_ps_32x512.co,0,1,0,1,1,32,512
