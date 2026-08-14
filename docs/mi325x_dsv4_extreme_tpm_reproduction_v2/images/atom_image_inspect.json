@@ -1,0 +1,80 @@
+[
+    {
+        "Id": "sha256:66df2fb1c537f52d47f2d3bf973b8da15278dd2ee362b5307e3d29dfad69fa7d",
+        "RepoTags": [
+            "rocm/atom-dev:nightly_202607271535"
+        ],
+        "RepoDigests": [
+            "rocm/atom-dev@sha256:66df2fb1c537f52d47f2d3bf973b8da15278dd2ee362b5307e3d29dfad69fa7d"
+        ],
+        "Comment": "buildkit.dockerfile.v0",
+        "Created": "2026-07-27T15:33:59.86970441Z",
+        "Config": {
+            "Env": [
+                "PATH=/root/.cargo/bin:/usr/local/go/bin:/opt/venv/bin:/opt/rocm/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+                "DEBIAN_FRONTEND=noninteractive",
+                "LD_LIBRARY_PATH=/opt/rocm/lib",
+                "GPU_ARCH_LIST=gfx942;gfx950",
+                "PYTORCH_ROCM_ARCH=gfx942;gfx950"
+            ],
+            "Cmd": [
+                "/bin/bash"
+            ],
+            "Labels": {
+                "org.opencontainers.image.ref.name": "rocm/pytorch:rocm7.2.4_ubuntu24.04_py3.12_pytorch_release_2.10.0+rocm7.2.4.lw.git3d3aa833",
+                "org.opencontainers.image.version": "24.04"
+            },
+            "ArgsEscaped": true
+        },
+        "Architecture": "amd64",
+        "Os": "linux",
+        "Size": 15384317288,
+        "RootFS": {
+            "Type": "layers",
+            "Layers": [
+                "sha256:538812a4b9bd45adaac2b5e5b967daa6999aa44eb110aa32ae7c69702b906475",
+                "sha256:ba706710b01d46390833a8008c34d6becbace8529bb4540d800157003ebed56f",
+                "sha256:23b20c949681d946628cb8b61cbf454905ff70495bc5a210e11be6c1b998eaaa",
+                "sha256:003540beaa9be64258b60d8c2ac45a7d29d6bf6bd1e688a46f81e6776035b855",
+                "sha256:0d24e247c253c046e08a3309be9a74bbed6eab9ec8b457a34348d8809c69c18a",
+                "sha256:7f33f8effea8bd245556e74f2747817a178fe72316ae00494680437e776c33a7",
+                "sha256:a202ee0769d28be14d1817cd8c142dd1c1fc11271a9c2c2a50ec8255c0a574d3",
+                "sha256:76b2a40a425e7cb114972765472c1a411356d93e394910afc8722e040826debf",
+                "sha256:d6210afc00336a1a352197ca3b997406363b9a27dc5c1ada0d86f412ecfb4d7a",
+                "sha256:1f31834cf0b09de377bcb5f06eed5ca8a5ac842a2f31fde7118c92c5837e5cc6",
+                "sha256:4f9f2528e6064f000f4708edc3462975ffd5ba47d0aa02b6c6d8ca2b6dee6c9e",
+                "sha256:08c5effef3a5508ea54c3c4761513ed5a856f9a77b1b31786704a5cf33dbfc7a",
+                "sha256:223e9f26ad0f0b85b062bf12f9cf0c9c1f3786c6b445bf5bdea5b5093c30007a",
+                "sha256:a989e0d202dfc9ea4527c920ae1475b0069039914cefa5d27d6304649db830ca",
+                "sha256:b46c560c9d5829555a1a31e50729d9ff9ad90f2a9e7f71d9e7934307579114cb",
+                "sha256:2b7644ee2b3c9864b2e589276a647f76afba4c624ce79cd2eba852c334471616",
+                "sha256:bc6fcf43ced34b556e6e22f42c7914a4b40d6e8db4d6f59431b6f017c9dae291",
+                "sha256:3da8e0ea4a42e824996268aaffa3dc33d2eca631b4d1dfcf31f20c582ee3b006",
+                "sha256:4d48769ad9cc2bf31727ad8d48c2d9767b849156d4f18c0e9f7ed6fdb5911500",
+                "sha256:e50f61362f5bf5a94f4579da8cfef414deb92ef8d84f7217a2d91530723cd530",
+                "sha256:29d44464a1075335eb96d40fc1630a1f0a6a55c03d4b4099b13d0030146001d4",
+                "sha256:8b85431297c11f9a307917f22bf541ecc4223b05f5cd301b59eb913aaf655249",
+                "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+                "sha256:44d043825b8d159195b143542d5cc12bb809c3f5e98d6d044b8807cfbb2b87cc",
+                "sha256:db2ad7428d75898cfd593c86af4591fc3d33ed3d3263f6c1a074c6e01ce94da7",
+                "sha256:4d9af334cc9d0fe09ce97da3ee1ebf62be4665ba789881f784c4ef81412a6b60",
+                "sha256:9a5f8d57c1aec9f40bf2b6653cb975d362581a42638cbe0ae3bd117c3438743e"
+            ]
+        },
+        "Metadata": {
+            "LastTagTime": "2026-07-29T09:25:35.913759194Z"
+        },
+        "Descriptor": {
+            "mediaType": "application/vnd.docker.distribution.manifest.v2+json",
+            "digest": "sha256:66df2fb1c537f52d47f2d3bf973b8da15278dd2ee362b5307e3d29dfad69fa7d",
+            "size": 6040
+        },
+        "Identity": {
+            "Pull": [
+                {
+                    "Repository": "docker.io/rocm/atom-dev"
+                }
+            ]
+        }
+    }
+]

@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "nodes": [
+    {
+      "name": "mi325-node01",
+      "ssh_target": "user@192.0.2.10",
+      "port": 22,
+      "expected_gpus": 8,
+      "role": "worker"
+    },
+    {
+      "name": "mi325-node02",
+      "ssh_target": "user@192.0.2.11",
+      "port": 22,
+      "expected_gpus": 8,
+      "role": "worker"
+    }
+  ]
+}

@@ -1,0 +1,4 @@
+interface:
+  display_name: "MI325X POC Tuning"
+  short_description: "Reproduce and tune MI325X AI and HPC POCs"
+  default_prompt: "Use $mi325x-poc-tuning to baseline this MI325X system and run an evidence-driven, SLO-constrained POC tuning campaign."

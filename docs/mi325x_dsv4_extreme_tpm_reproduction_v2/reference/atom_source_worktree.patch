@@ -1,0 +1,136 @@
+diff --git a/atom/entrypoints/openai/api_server.py b/atom/entrypoints/openai/api_server.py
+index c8a24f28..070a2f81 100644
+--- a/atom/entrypoints/openai/api_server.py
++++ b/atom/entrypoints/openai/api_server.py
+@@ -18,6 +18,7 @@ import binascii
+ import io
+ import json
+ import logging
++import os
+ import time
+ import urllib.request
+ import uuid
+@@ -1754,6 +1755,15 @@ def main():
+         default=DEFAULT_PORT,
+         help="Server port (note: --port is used for internal engine communication)",
+     )
++    parser.add_argument(
++        "--chat-template",
++        type=str,
++        default=None,
++        help=(
++            "Override the tokenizer chat template with a Jinja template file "
++            "path or inline Jinja string."
++        ),
++    )
+     parser.add_argument(
+         "--default-chat-template-kwargs",
+         type=str,
+@@ -1787,6 +1797,14 @@ def main():
+ 
+     logger.info(f"Loading tokenizer from {args.model}...")
+     tokenizer = _load_tokenizer(args.model, args.trust_remote_code)
++    if args.chat_template:
++        if os.path.isfile(args.chat_template):
++            with open(args.chat_template, "r", encoding="utf-8") as template_file:
++                tokenizer.chat_template = template_file.read()
++            logger.info(f"Loaded chat template from file: {args.chat_template}")
++        else:
++            tokenizer.chat_template = args.chat_template
++            logger.info("Using inline chat template from --chat-template")
+     model_name = args.served_model_name if args.served_model_name else args.model
+     custom_message_encoder = load_custom_message_encoder(args.model)
+ 
+diff --git a/atom/entrypoints/openai/chat_encoders.py b/atom/entrypoints/openai/chat_encoders.py
+index d3fb0462..35cf612d 100644
+--- a/atom/entrypoints/openai/chat_encoders.py
++++ b/atom/entrypoints/openai/chat_encoders.py
+@@ -68,6 +68,15 @@ def _load_encoder_from_dir(model_path: str) -> Optional[MessageEncoder]:
+     # also valid is "chat" (non-thinking short-form). May need to add as an option.
+     # Revisit when a second model ships an encode_*.py — the default may need to be per-model.
+     def encode(messages, **kwargs):
++        # The existing strict-contract/Jinja path uses a boolean `thinking`
++        # template kwarg. DeepSeek-V4's Python encoder exposes the equivalent
++        # choice as `thinking_mode="thinking"|"chat"`; translate the legacy
++        # spelling so the same manifest semantics survive encoder dispatch.
++        legacy_thinking = kwargs.pop("thinking", None)
++        if legacy_thinking is not None:
++            kwargs.setdefault(
++                "thinking_mode", "thinking" if legacy_thinking else "chat"
++            )
+         kwargs.setdefault("thinking_mode", "thinking")
+         return raw(messages, **kwargs)
+ 
+diff --git a/atom/model_engine/arg_utils.py b/atom/model_engine/arg_utils.py
+index 8031ef5a..da4be02b 100644
+--- a/atom/model_engine/arg_utils.py
++++ b/atom/model_engine/arg_utils.py
+@@ -40,6 +40,7 @@ class EngineArgs:
+     decode_context_parallel_size: int = 1
+     prefill_context_parallel_size: int = 1
+     data_parallel_size: int = 1
++    data_parallel_master_port: int = 29500
+     enforce_eager: bool = False
+     enable_prefix_caching: bool = True
+     port: int = 8006
+@@ -124,6 +125,12 @@ class EngineArgs:
+             default=1,
+             help="Data parallel size.",
+         )
++        parser.add_argument(
++            "--data-parallel-master-port",
++            type=int,
++            default=29500,
++            help="Rendezvous port for this independent data-parallel group.",
++        )
+         parser.add_argument(
+             "--decode-context-parallel-size",
+             "-dcp",
+diff --git a/atom/model_engine/model_runner.py b/atom/model_engine/model_runner.py
+index d1f605a2..fb18ea0b 100644
+--- a/atom/model_engine/model_runner.py
++++ b/atom/model_engine/model_runner.py
+@@ -572,9 +572,15 @@ class tokenIDProcessor:
+                         num_new_seqs, tokens_per_seq
+                     )
+                     if self.use_spec:
+-                        # MTP mode: combine scheduled_tokens and draft_tokens
++                        # MTP mode: combine scheduled_tokens and draft_tokens.
++                        # scheduled_spec_decode_tokens is compacted to the new
++                        # decode requests by the scheduler.  new_curr_indices,
++                        # however, are positions in the full current batch and
++                        # are shifted when deferred requests occupy the front.
++                        # Indexing the compact matrix with those shifted
++                        # positions can therefore run past its last row.
+                         draft_tokens = batch.scheduled_spec_decode_tokens[
+-                            new_curr_indices
++                            :num_new_seqs
+                         ]
+                         new_token_ids[:, 1:] = draft_tokens
+                     self.input_ids.np[:num_new_tokens] = new_token_ids.flatten()
+diff --git a/atom/model_ops/fused_moe_triton.py b/atom/model_ops/fused_moe_triton.py
+index ac5d5b0f..3a540173 100644
+--- a/atom/model_ops/fused_moe_triton.py
++++ b/atom/model_ops/fused_moe_triton.py
+@@ -73,14 +73,19 @@ def _swizzle_mxfp4(
+     w2_triton_layout = w2.transpose(-2, -1)
+     w2_scale_triton_layout = w2_scale.transpose(-2, -1)
+ 
+-    if N_1 % 32 == 0 and K_1 % (32 * 8) == 0:
++    arch = get_arch()
++    # GFX94x kernels consume the native [K_groups, N] scale layout with
++    # SWIZZLE_MX_SCALE=None. AITER's shuffle_scale_moe only defines tiled
++    # layouts for gfx950 and gfx1250; calling it on gfx942 leaves its local
++    # `tiled` uninitialized.
++    if arch != "gfx942" and N_1 % 32 == 0 and K_1 % (32 * 8) == 0:
+         w1_scale_triton_layout, w1_swizzle_layout = shuffle_scale_moe(
+             w1_scale_triton_layout, return_layout=True
+         )
+     else:
+         w1_swizzle_layout = None
+ 
+-    if N_2 % 32 == 0 and K_2 % (32 * 8) == 0:
++    if arch != "gfx942" and N_2 % 32 == 0 and K_2 % (32 * 8) == 0:
+         w2_scale_triton_layout, w2_swizzle_layout = shuffle_scale_moe(
+             w2_scale_triton_layout, return_layout=True
+         )

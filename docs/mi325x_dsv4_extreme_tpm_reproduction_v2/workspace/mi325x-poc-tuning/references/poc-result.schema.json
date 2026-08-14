@@ -1,0 +1,95 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local.codex/skills/mi325x-poc-tuning/poc-result.schema.json",
+  "title": "MI325X POC result",
+  "type": "object",
+  "required": ["metadata", "correctness", "stability", "metrics"],
+  "properties": {
+    "metadata": {
+      "type": "object",
+      "required": [
+        "run_id", "timestamp_utc", "workload_type", "host_fingerprint",
+        "gpu_model", "physical_gpu_count", "visible_device_count", "gfx_version",
+        "partition_mode", "memory_partition_mode", "rocm_version", "driver_version",
+        "framework_or_engine", "framework_or_engine_version", "container_digest",
+        "artifact_id", "artifact_revision", "precision",
+        "checkpoint_storage_format", "weight_compute_format", "activation_compute_format",
+        "cache_or_gradient_format", "evidence_level", "kernel_preflight_status",
+        "tensor_parallel", "pipeline_parallel", "data_parallel", "expert_parallel",
+        "context_parallel", "workload_fingerprint", "command", "changes"
+      ],
+      "properties": {
+        "run_id": {"type": "string"},
+        "timestamp_utc": {"type": "string"},
+        "workload_type": {"enum": ["inference", "training", "fine_tuning", "diffusion", "hpc", "kernel", "acceptance"]},
+        "host_fingerprint": {"type": "string"},
+        "cluster_fingerprint": {"type": ["string", "null"]},
+        "gpu_model": {"const": "MI325X"},
+        "physical_gpu_count": {"type": "integer", "minimum": 1},
+        "visible_device_count": {"type": "integer", "minimum": 1},
+        "gfx_version": {"const": "gfx942"},
+        "pci_device_id": {"const": "1002:74a5"},
+        "partition_mode": {"type": "string"},
+        "memory_partition_mode": {"type": "string"},
+        "rocm_version": {"type": "string"},
+        "driver_version": {"type": "string"},
+        "framework_or_engine": {"type": "string"},
+        "framework_or_engine_version": {"type": "string"},
+        "container_image": {"type": "string"},
+        "container_digest": {"type": "string", "minLength": 1},
+        "artifact_id": {"type": "string"},
+        "artifact_revision": {"type": "string"},
+        "dataset_revision": {"type": ["string", "null"]},
+        "precision": {"type": "string"},
+        "checkpoint_storage_format": {"type": "string"},
+        "weight_compute_format": {"type": "string"},
+        "activation_compute_format": {"type": "string"},
+        "cache_or_gradient_format": {"type": "string"},
+        "collective_quantization": {"type": "string"},
+        "evidence_level": {"enum": ["MI325X_MEASURED", "MI325X_DOCUMENTED", "GFX942_INFERRED", "UNSUPPORTED_PORT"]},
+        "kernel_preflight_status": {"enum": ["PASS", "FAIL", "REVIEW", "NOT_RUN"]},
+        "tensor_parallel": {"type": "integer", "minimum": 1},
+        "pipeline_parallel": {"type": "integer", "minimum": 1},
+        "data_parallel": {"type": "integer", "minimum": 1},
+        "expert_parallel": {"type": "integer", "minimum": 1},
+        "context_parallel": {"type": "integer", "minimum": 1},
+        "workload_fingerprint": {"type": "string"},
+        "command": {"type": "string"},
+        "changes": {"type": "array", "items": {"type": "string"}}
+      },
+      "additionalProperties": true
+    },
+    "correctness": {
+      "type": "object",
+      "required": ["passed"],
+      "properties": {
+        "passed": {"type": "boolean"},
+        "score": {"type": ["number", "null"]},
+        "checks": {"type": "array", "items": {"type": "string"}},
+        "notes": {"type": "string"}
+      },
+      "additionalProperties": true
+    },
+    "stability": {
+      "type": "object",
+      "required": ["passed", "failed_operations", "new_uncorrectable_errors", "driver_resets"],
+      "properties": {
+        "passed": {"type": "boolean"},
+        "failed_operations": {"type": "integer", "minimum": 0},
+        "new_uncorrectable_errors": {"type": "integer", "minimum": 0},
+        "driver_resets": {"type": "integer", "minimum": 0},
+        "duration_seconds": {"type": "number", "minimum": 0}
+      },
+      "additionalProperties": true
+    },
+    "metrics": {
+      "type": "object",
+      "additionalProperties": {"type": ["number", "integer", "string", "boolean", "null"]}
+    },
+    "trials": {"type": "array", "items": {"type": "object"}},
+    "artifacts": {"type": "object", "additionalProperties": {"type": "string"}},
+    "tracking": {"type": "object", "additionalProperties": true},
+    "notes": {"type": "string"}
+  },
+  "additionalProperties": true
+}

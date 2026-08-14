@@ -1,0 +1,54 @@
+[
+    {
+        "Id": "sha256:7df3afaaaf1cca96eb9898ba7f23d9c5e4f531d86e8c02ab9f2f488eb9448631",
+        "RepoTags": [
+            "locust-awcloud:1.5"
+        ],
+        "RepoDigests": [
+            "locust-awcloud@sha256:7df3afaaaf1cca96eb9898ba7f23d9c5e4f531d86e8c02ab9f2f488eb9448631"
+        ],
+        "Created": "2025-12-11T03:11:08.290269314Z",
+        "Config": {
+            "Env": [
+                "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+            ],
+            "Entrypoint": [
+                "bash"
+            ],
+            "Cmd": [
+                "-c",
+                "sleep infinity"
+            ],
+            "Labels": {
+                "org.opencontainers.image.ref.name": "ubuntu",
+                "org.opencontainers.image.version": "24.04"
+            }
+        },
+        "Architecture": "amd64",
+        "Os": "linux",
+        "Size": 2411769255,
+        "RootFS": {
+            "Type": "layers",
+            "Layers": [
+                "sha256:107cbdaeec042e6154640c94972c638f4e2fee795902b149e8ce9acbd03d59d7",
+                "sha256:83ecaf010184ab93d3fd27ddc8ea20618eec545b247d1fc1db7079d02f00b474",
+                "sha256:d30dedac616406075d024b9cabe2720a5f6144822660ea8963601d4324a6f058",
+                "sha256:3e74f77773ff73441a21102f2ca09959a503675f4fbe5b9649823f0ba472b7da",
+                "sha256:b32b6c1e7fec2283885b6d94271e6360bc89c56e0c4c95fa5a1332be378bb6aa",
+                "sha256:b3218c84059dd434927b7b6f95cd547ee5c65d76c93b9bfc060ea8ab6fc0878c"
+            ]
+        },
+        "Metadata": {
+            "LastTagTime": "2026-07-26T04:23:29.418221121Z"
+        },
+        "Descriptor": {
+            "mediaType": "application/vnd.docker.distribution.manifest.v2+json",
+            "digest": "sha256:7df3afaaaf1cca96eb9898ba7f23d9c5e4f531d86e8c02ab9f2f488eb9448631",
+            "size": 1228,
+            "annotations": {
+                "io.containerd.image.name": "docker.io/library/locust-awcloud:1.5",
+                "org.opencontainers.image.ref.name": "1.5"
+            }
+        }
+    }
+]

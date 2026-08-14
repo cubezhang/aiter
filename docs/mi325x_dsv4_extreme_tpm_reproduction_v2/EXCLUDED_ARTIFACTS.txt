@@ -1,0 +1,8 @@
+Excluded from GitHub:
+- Model weights
+- C53/C56 manifests and Locust payloads
+- JSONL request data
+- Logs, test output, telemetry, and caches
+- Any credential-like content
+
+Exact test data must be retrieved through approved internal storage.
