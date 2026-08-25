@@ -31,6 +31,18 @@ def read_json(path: pathlib.Path) -> dict[str, Any]:
     return json.loads(path.read_text())
 
 
+def read_optional_json(path: pathlib.Path) -> dict[str, Any] | None:
+    """Return None only when a state file has never been created.
+
+    Invalid or unreadable existing state remains a hard failure so service
+    ownership is never guessed from incomplete provenance.
+    """
+    try:
+        return read_json(path)
+    except FileNotFoundError:
+        return None
+
+
 def atomic_json(path: pathlib.Path, value: Any) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     temporary = path.with_suffix(path.suffix + f".{os.getpid()}.tmp")

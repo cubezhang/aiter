@@ -66,7 +66,35 @@ def occupied_ports() -> list[int]:
 
 
 def exact_active_pair() -> tuple[dict[str, Any], list[dict[str, Any]]]:
-    active = read_json(CAMPAIGN / "state/active_service.json")
+    state_path = CAMPAIGN / "state/active_service.json"
+    if not state_path.is_file():
+        listeners: dict[int, str] = {}
+        for port in occupied_ports():
+            result = subprocess.run(
+                ["ss", "-ltnpH", f"sport = :{port}"],
+                text=True,
+                capture_output=True,
+                check=False,
+            )
+            listeners[port] = result.stdout.strip()
+        docker_ps = subprocess.run(
+            [
+                "docker",
+                "ps",
+                "--no-trunc",
+                "--format",
+                "{{.ID}}\t{{.Names}}\t{{.Image}}\t{{.Status}}",
+            ],
+            text=True,
+            capture_output=True,
+            check=False,
+        ).stdout.strip()
+        raise RuntimeError(
+            "service ports are occupied but state/active_service.json is missing; "
+            "refusing to stop unknown listeners. "
+            f"listeners={listeners!r} running_containers={docker_ps!r}"
+        )
+    active = read_json(state_path)
     names = [str(active["router_container"]), str(active["service_container"])]
     inspected = json.loads(
         subprocess.run(

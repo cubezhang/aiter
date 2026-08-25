@@ -106,6 +106,13 @@ The launcher runs `verify_service_inputs.sh` internally. That verifier checks
 only the MI325X identity and partitioning, model directory, service commands,
 and pinned service image. It never checks test files or the Locust image.
 
+On a clean first launch, `state/active_service.json` does not exist and all
+four service ports must be free. If a state file is missing while any service
+port is occupied, the launcher prints the listener and running-container
+evidence and exits without stopping anything. Resolve ownership of those
+listeners before retrying; never remove an unidentified service merely to free
+the ports.
+
 Verify the endpoints:
 
 ```bash

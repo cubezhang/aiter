@@ -18,7 +18,7 @@ import subprocess
 import time
 from typing import Any
 
-from common import CAMPAIGN, WORK, atomic_json, read_json
+from common import CAMPAIGN, WORK, atomic_json, read_json, read_optional_json
 from iter_042 import occupied_ports, stop_exact_active_pair
 
 
@@ -49,6 +49,24 @@ AITER_FMOE_HSA_OVERRIDE: pathlib.Path | None = None
 AITER_FMOE_SOURCE_OVERRIDE: pathlib.Path | None = None
 TRITON_FP8_MOE_BLOCK_M_OVERRIDE = 16
 TRITON_FP8_MOE_CONFIG_JSON_OVERRIDE = "{}"
+
+
+def prepare_previous_pair(evidence_name: str) -> dict[str, Any]:
+    """Resolve the previous service without guessing ownership.
+
+    A missing state file is normal on a clean first launch only when all
+    service ports are free. Occupied ports still require an exact recorded
+    container pair before anything may be stopped.
+    """
+    ports = occupied_ports()
+    if ports:
+        return stop_exact_active_pair(evidence_name)
+    return {
+        "ports_free": True,
+        "stale_active_service": read_optional_json(
+            CAMPAIGN / "state/active_service.json"
+        ),
+    }
 
 
 SERVICE_SCRIPT = r"""
@@ -649,13 +667,7 @@ def launch_clean(variant: str, evidence_name: str) -> dict[str, Any]:
     bad_before_clear, bad_before = _bad_pages_clear()
     if not bad_before_clear:
         raise RuntimeError(f"bad pages present before official transition: {bad_before}")
-    if occupied_ports():
-        transition["previous_pair"] = stop_exact_active_pair(evidence_name)
-    else:
-        transition["previous_pair"] = {
-            "ports_free": True,
-            "stale_active_service": read_json(CAMPAIGN / "state/active_service.json"),
-        }
+    transition["previous_pair"] = prepare_previous_pair(evidence_name)
     atomic_json(WORK / f"{evidence_name}_transition.json", transition)
     try:
         overlay_mount_args = (
