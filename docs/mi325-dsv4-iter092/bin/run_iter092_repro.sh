@@ -21,7 +21,9 @@ mkdir -p \
   "$repro_root/service/logs" \
   "$repro_root/service/work"
 
-"$repro_root/bin/verify_external_inputs.sh"
+# Test-only gate. Service state and health are checked below; this script never
+# starts, stops, or replaces the service.
+"$repro_root/bin/verify_test_inputs.sh"
 
 [[ -f $state_file ]] || {
   echo "missing active service state; run ./bin/restore_iter092_service.sh first" >&2

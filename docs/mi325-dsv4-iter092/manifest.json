@@ -15,6 +15,8 @@
   "client": {
     "historical_image_id": "sha256:7df3afaaaf1cca96eb9898ba7f23d9c5e4f531d86e8c02ab9f2f488eb9448631",
     "historical_image_publicly_available": false,
+    "build_script": "bin/build_locust_image.sh",
+    "verify_script": "bin/verify_test_inputs.sh",
     "rebuild_dockerfile": "Dockerfile.locust",
     "rebuild_lock_sha256": "7c6d030fc6b3547c84b6b78a5a0626e2479c0e17e225b47e2e4f2b024b67aecb",
     "rebuild_evidence_class": "SOURCE_REBUILT_COMPATIBILITY",
@@ -34,6 +36,9 @@
     "topology": "2xTP4",
     "speculative_method": "mtp",
     "num_speculative_tokens": 2,
+    "prepare_script": "bin/prepare_service_image.sh",
+    "start_script": "bin/restore_iter092_service.sh",
+    "verify_script": "bin/verify_service_inputs.sh",
     "atom_image": "rocm/atom-dev:nightly_202608201458@sha256:a5cfa1ab503af6e0f55e0ed83cd7e999edbea6940a38dba44aaeee9a22758976",
     "atom_image_id": "sha256:a5cfa1ab503af6e0f55e0ed83cd7e999edbea6940a38dba44aaeee9a22758976",
     "atom_commit": "1e7659fde32eeaa0d9aa868c3e90847e5e46a51c",
