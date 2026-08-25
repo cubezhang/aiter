@@ -42,7 +42,7 @@ Only these external inputs are required to start the service:
 | GPU devices | `/dev/kfd` and `/dev/dri` |
 | Model | `/data/DeepSeek-V4-Flash-FP8` |
 | Service image | public pinned ATOM image shown below |
-| Free ports | 18000, 18001, 18080, and 6568 |
+| Free service ports | 18000, 18001, and 18080 |
 
 Required host commands are `docker`, `curl`, `jq`, `python3`, `rocm-smi`,
 `amd-smi`, `journalctl`, and `ss`.
@@ -135,35 +135,105 @@ performed later or on a separate test preparation schedule.
 Workflow B requires an already healthy service from Workflow A, but it never
 starts, stops, or replaces that service.
 
-### B1. Test-only private inputs
+### B1. Point to the existing local test environment
 
 | Test dependency | Required location or identity |
 |---|---|
-| Customer Locust script | `contract/locustfile-request-count-0916.py` |
+| Customer Locust script | `$CUSTOMER_TEST_ROOT/contract/locustfile-request-count-0916.py` |
 | Script SHA256 | `f01146774dd3b05b6a105918f444cec03ed9d5575e2c92d40ac58522bb327850` |
-| Dataset | `input/llm_test_datasets-prod/*.json` |
+| Dataset | `$CUSTOMER_TEST_ROOT/input/llm_test_datasets-prod/*.json` |
 | Dataset files | 3997 |
 | Dataset aggregate SHA256 | `c774104d35e521baddb4dc7d57646ac9aac68eeedb57c6962f9d1c85cbe0d7d8` |
+| Frozen Locust image | local `locust-awcloud:1.5` |
+| Frozen image ID | `sha256:7df3afaaaf1cca96eb9898ba7f23d9c5e4f531d86e8c02ab9f2f488eb9448631` |
+| Test-only port | 6568 for Locust master/worker coordination |
+
+Do not copy the private script or dataset into this Git repository. On the
+captured source host, the runner defaults directly to:
+
+```text
+/data/hxh/0823/deepseek_v4_iter092_final
+```
+
+Therefore the exact local test needs only the already loaded frozen image:
+
+```bash
+export LOCUST_IMAGE='locust-awcloud:1.5'
+export LOCUST_IMAGE_ID='sha256:7df3afaaaf1cca96eb9898ba7f23d9c5e4f531d86e8c02ab9f2f488eb9448631'
+```
+
+On another host, override the captured root:
+
+```bash
+export CUSTOMER_TEST_ROOT='/absolute/path/to/the/captured/test/environment'
+```
+
+The expected layout under `CUSTOMER_TEST_ROOT` is:
+
+```text
+$CUSTOMER_TEST_ROOT/
+├── contract/locustfile-request-count-0916.py
+└── input/llm_test_datasets-prod/*.json
+```
+
+If the two inputs do not share a root, export their absolute paths directly:
+
+```bash
+export LOCUST_SCRIPT='/absolute/path/locustfile-request-count-0916.py'
+export DATASET_DIR='/absolute/path/llm_test_datasets-prod'
+```
+
+The test container mounts both host paths read-only. Results and logs still go
+under this repository's ignored `runs/` directory.
 
 The normalized dataset aggregate is calculated as:
 
 ```bash
+dataset_dir=${DATASET_DIR:-$CUSTOMER_TEST_ROOT/input/llm_test_datasets-prod}
 (
-  cd input/llm_test_datasets-prod
+  cd "$dataset_dir"
   find . -maxdepth 1 -type f -name '*.json' -print0 |
     sort -z |
     xargs -0 sha256sum
 ) | sha256sum
 ```
 
-### B2. Build only the public Locust compatibility image
+### B2. Verify the local formal test inputs
+
+```bash
+./bin/verify_test_inputs.sh
+```
+
+This checks the external script path and SHA256, all 3997 external dataset
+files and their aggregate SHA256, and the exact local Locust image ID. It does
+not copy private inputs, prepare the service, or replace the running service.
+
+If `locust-awcloud:1.5` is not present, transfer it from the captured host:
+
+```bash
+# Captured source host
+docker save -o locust-awcloud-iter092.tar locust-awcloud:1.5
+sha256sum locust-awcloud-iter092.tar
+
+# Test host
+docker load -i locust-awcloud-iter092.tar
+docker image inspect locust-awcloud:1.5 --format '{{.Id}}'
+```
+
+### B3. Optional public compatibility client
+
+When the frozen local image is unavailable, build the public compatibility
+client and explicitly select compatibility mode:
 
 ```bash
 ./bin/build_locust_image.sh
+export LOCUST_IMAGE='locust-awcloud:iter092-rebuild'
+export LOCUST_IMAGE_ID=
+./bin/verify_test_inputs.sh
 ```
 
 `Dockerfile.locust` starts from the digest-pinned public
-`python:3.12.11-slim-bookworm` image and installs the complete observed Python
+`python:3.12.11-slim-bookworm` image and installs the observed Python
 environment from `requirements-locust.lock`. The lock SHA256 is:
 
 ```text
@@ -173,41 +243,6 @@ environment from `requirements-locust.lock`. The lock SHA256 is:
 The rebuilt client is independently buildable from public sources, but PyPI
 wheels are not vendored, so its Docker manifest ID is not expected to remain
 byte-identical across BuildKit exports.
-
-The historical score used the unavailable frozen client image:
-
-```text
-locust-awcloud@sha256:7df3afaaaf1cca96eb9898ba7f23d9c5e4f531d86e8c02ab9f2f488eb9448631
-```
-
-To use that historical image when it has been transferred to the test host:
-
-```bash
-export LOCUST_IMAGE='locust-awcloud@sha256:7df3afaaaf1cca96eb9898ba7f23d9c5e4f531d86e8c02ab9f2f488eb9448631'
-export LOCUST_IMAGE_ID='sha256:7df3afaaaf1cca96eb9898ba7f23d9c5e4f531d86e8c02ab9f2f488eb9448631'
-```
-
-Optional transfer procedure:
-
-```bash
-# Source host
-docker save -o locust-awcloud-iter092.tar locust-awcloud:1.5
-sha256sum locust-awcloud-iter092.tar
-
-# Test host
-docker load -i locust-awcloud-iter092.tar
-docker image inspect locust-awcloud:1.5 --format '{{.Id}}'
-```
-
-### B3. Verify only the test inputs
-
-```bash
-./bin/verify_test_inputs.sh
-```
-
-This command checks the private script hash, all 3997 dataset files and their
-aggregate hash, and the selected Locust image. It does not prepare or replace
-the service.
 
 ### B4. Run the accepted workload sequence
 

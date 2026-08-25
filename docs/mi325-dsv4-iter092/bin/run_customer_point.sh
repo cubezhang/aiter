@@ -60,7 +60,8 @@ actual_dataset_count=$(find "$DATASET_DIR" -maxdepth 1 -type f -name '*.json' | 
   echo "dataset count mismatch: $actual_dataset_count/$DATASET_FILE_COUNT" >&2
   exit 66
 }
-"$root/bin/verify_locust_image.sh" >/dev/null
+LOCUST_IMAGE="$LOCUST_IMAGE" LOCUST_IMAGE_ID="$LOCUST_IMAGE_ID" \
+  "$root/bin/verify_locust_image.sh" >/dev/null
 
 service_state=$root/state/active_service.json
 [[ -s $service_state ]] || { echo "missing active service state" >&2; exit 67; }

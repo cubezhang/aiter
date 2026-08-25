@@ -5,6 +5,12 @@ repro_root=$(readlink -f "$(dirname "${BASH_SOURCE[0]}")/..")
 profile=official_clean_1e7659f_dual_tp4_mtp2_leg_noprefix_flysort
 image_id=sha256:a5cfa1ab503af6e0f55e0ed83cd7e999edbea6940a38dba44aaeee9a22758976
 state_file="$repro_root/state/active_service.json"
+export CAMPAIGN_ROOT="$repro_root"
+# Resolve local host inputs once, then pass the same frozen contract to every
+# child point runner.
+# shellcheck disable=SC1091
+source "$repro_root/config/contract.env"
+export CUSTOMER_TEST_ROOT LOCUST_SCRIPT DATASET_DIR LOCUST_IMAGE LOCUST_IMAGE_ID
 
 case ${1:-} in
   ""|--preflight-only) ;;

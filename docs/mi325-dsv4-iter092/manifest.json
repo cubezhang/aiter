@@ -13,8 +13,11 @@
   "dataset_file_count": 3997,
   "dataset_normalized_aggregate_sha256": "c774104d35e521baddb4dc7d57646ac9aac68eeedb57c6962f9d1c85cbe0d7d8",
   "client": {
+    "default_local_test_root": "/data/hxh/0823/deepseek_v4_iter092_final",
+    "default_local_image": "locust-awcloud:1.5",
     "historical_image_id": "sha256:7df3afaaaf1cca96eb9898ba7f23d9c5e4f531d86e8c02ab9f2f488eb9448631",
     "historical_image_publicly_available": false,
+    "private_inputs_source": "external host paths via CUSTOMER_TEST_ROOT or LOCUST_SCRIPT and DATASET_DIR",
     "build_script": "bin/build_locust_image.sh",
     "verify_script": "bin/verify_test_inputs.sh",
     "rebuild_dockerfile": "Dockerfile.locust",
