@@ -26,6 +26,15 @@ actual_service_id=$(docker image inspect "$service_tag" --format '{{.Id}}')
   exit 1
 }
 
+# Revision checks do not need GPU access. Importing AITER does: its import path
+# probes rocminfo, so keep that GPU-aware preflight in REPRODUCTION.md.
+docker run --rm --entrypoint bash "$service_tag" -lc '
+  test "$(git -C /app/ATOM rev-parse HEAD)" = \
+    1e7659fde32eeaa0d9aa868c3e90847e5e46a51c
+  test "$(git -C /app/aiter-test rev-parse HEAD)" = \
+    eb84cb02200b1707f1076edf3f4930d3626adfb2
+'
+
 actual_lock_sha=$(
   docker image inspect "$client_tag" \
     --format '{{index .Config.Labels "io.aiter.iter092.locust-lock-sha256"}}'

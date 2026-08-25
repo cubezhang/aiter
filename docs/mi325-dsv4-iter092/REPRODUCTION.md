@@ -55,10 +55,17 @@ Expected ID:
 sha256:a5cfa1ab503af6e0f55e0ed83cd7e999edbea6940a38dba44aaeee9a22758976
 ```
 
-Validate the embedded source revisions:
+`build_images.sh` validates the embedded source revisions without importing
+AITER, so this part does not require GPU device access. To validate the runtime
+imports, expose the AMD devices explicitly:
 
 ```bash
-docker run --rm --entrypoint bash rocm/atom-dev:iter092-replay -lc '
+docker run --rm \
+  --device=/dev/kfd \
+  --device=/dev/dri \
+  --security-opt seccomp=unconfined \
+  --entrypoint bash \
+  rocm/atom-dev:iter092-replay -lc '
   test "$(git -C /app/ATOM rev-parse HEAD)" = \
     1e7659fde32eeaa0d9aa868c3e90847e5e46a51c
   test "$(git -C /app/aiter-test rev-parse HEAD)" = \
@@ -66,6 +73,11 @@ docker run --rm --entrypoint bash rocm/atom-dev:iter092-replay -lc '
   python -c "import atom, aiter; print(atom.__file__); print(aiter.__file__)"
 '
 ```
+
+Without `/dev/kfd` and `/dev/dri`, `import aiter` calls `rocminfo`, which exits
+nonzero and produces `Get GPU arch from rocminfo failed`. That error means the
+validation container lacks GPU access; it does not mean the pinned image or
+embedded revisions are wrong.
 
 `Dockerfile.locust` starts from the public, digest-pinned
 `python:3.12.11-slim-bookworm` image and installs every Python package version
