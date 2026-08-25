@@ -7,24 +7,15 @@ export CAMPAIGN_ROOT="$repro_root"
 source "$repro_root/config/contract.env"
 
 actual_image_id=$(docker image inspect "$LOCUST_IMAGE" --format '{{.Id}}')
-if [[ -n $LOCUST_IMAGE_ID ]]; then
-  [[ $actual_image_id == "$LOCUST_IMAGE_ID" ]] || {
-    echo "Locust image ID mismatch: $actual_image_id" >&2
-    exit 1
-  }
-  evidence_class=FROZEN_FORMAL_IMAGE
-else
-  expected_lock_sha=$(sha256sum "$repro_root/requirements-locust.lock" | awk '{print $1}')
-  actual_lock_sha=$(
-    docker image inspect "$LOCUST_IMAGE" \
-      --format '{{index .Config.Labels "io.aiter.iter092.locust-lock-sha256"}}'
-  )
-  [[ $actual_lock_sha == "$expected_lock_sha" ]] || {
-    echo "Locust compatibility image lock mismatch: $actual_lock_sha" >&2
-    exit 1
-  }
-  evidence_class=SOURCE_REBUILT_COMPATIBILITY
-fi
+[[ $LOCUST_IMAGE == locust-awcloud:1.5 ]] || {
+  echo "unsupported Locust image: $LOCUST_IMAGE" >&2
+  exit 1
+}
+[[ $actual_image_id == "$LOCUST_IMAGE_ID" ]] || {
+  printf 'Locust image ID mismatch:\n  image=%s\n  actual=%s\n  expected=%s\n' \
+    "$LOCUST_IMAGE" "$actual_image_id" "$LOCUST_IMAGE_ID" >&2
+  exit 1
+}
 
 docker run --rm \
   --entrypoint /root/locust_test/.venv/bin/python \
@@ -44,4 +35,4 @@ for package, version in expected.items():
 '
 
 printf 'Locust image verified: %s %s %s\n' \
-  "$LOCUST_IMAGE" "$actual_image_id" "$evidence_class"
+  "$LOCUST_IMAGE" "$actual_image_id" FROZEN_FORMAL_IMAGE

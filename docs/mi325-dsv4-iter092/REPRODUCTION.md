@@ -177,9 +177,17 @@ captured source host, the runner defaults directly to:
 Therefore the exact local test needs only the already loaded frozen image:
 
 ```bash
-export LOCUST_IMAGE='locust-awcloud:1.5'
-export LOCUST_IMAGE_ID='sha256:7df3afaaaf1cca96eb9898ba7f23d9c5e4f531d86e8c02ab9f2f488eb9448631'
+docker image inspect locust-awcloud:1.5 --format '{{.Id}}'
 ```
+
+Expected image ID:
+
+```text
+sha256:7df3afaaaf1cca96eb9898ba7f23d9c5e4f531d86e8c02ab9f2f488eb9448631
+```
+
+`config/contract.env` fixes this local image name and ID. The runner does not
+build, pull, save, load, or accept a substitute Locust image.
 
 The checked local test root is already the default in `config/contract.env`.
 The following explicit export is equivalent and can be used to make the host
@@ -227,11 +235,10 @@ orders the same filenames differently and produces
 ### B2. Verify the local formal test inputs
 
 The captured host already has the exact frozen image `locust-awcloud:1.5`.
-Do not run `build_images.sh`, `build_locust_image.sh`, `docker save`, or
-`docker load` for the local exact replay. Run only:
+The repository contains no Locust image builder or alternate-image path.
+Run only:
 
 ```bash
-docker image inspect locust-awcloud:1.5 --format '{{.Id}}'
 ./bin/verify_test_inputs.sh
 ```
 
@@ -239,44 +246,10 @@ This checks the external script path and SHA256, all 3997 external dataset
 files and their aggregate SHA256, and the exact local Locust image ID. It does
 not copy private inputs, prepare the service, or replace the running service.
 
-Only if `locust-awcloud:1.5` is absent on a different test host, transfer it
-from the captured host:
+If that local image or its exact ID is missing, the formal test stops. Service
+startup remains independent and is not affected.
 
-```bash
-# Captured source host
-docker save -o locust-awcloud-iter092.tar locust-awcloud:1.5
-sha256sum locust-awcloud-iter092.tar
-
-# Test host
-docker load -i locust-awcloud-iter092.tar
-docker image inspect locust-awcloud:1.5 --format '{{.Id}}'
-```
-
-### B3. Optional public compatibility client
-
-When the frozen local image is unavailable, build the public compatibility
-client and explicitly select compatibility mode:
-
-```bash
-./bin/build_locust_image.sh
-export LOCUST_IMAGE='locust-awcloud:iter092-rebuild'
-export LOCUST_IMAGE_ID=
-./bin/verify_test_inputs.sh
-```
-
-`Dockerfile.locust` starts from the digest-pinned public
-`python:3.12.11-slim-bookworm` image and installs the observed Python
-environment from `requirements-locust.lock`. The lock SHA256 is:
-
-```text
-7c6d030fc6b3547c84b6b78a5a0626e2479c0e17e225b47e2e4f2b024b67aecb
-```
-
-The rebuilt client is independently buildable from public sources, but PyPI
-wheels are not vendored, so its Docker manifest ID is not expected to remain
-byte-identical across BuildKit exports.
-
-### B4. Run the accepted workload sequence
+### B3. Run the accepted workload sequence
 
 After Workflow A has started the service and B2 passes, these are the complete
 local test commands; no image build or load step is between them:
@@ -298,28 +271,5 @@ ignored by Git. Random-with-replacement sampling and per-request thinking
 selection mean the exact value 144.3996 is not deterministic. The target is
 approximately 144 ten-thousand TPM with TPOT no greater than 20.00 ms.
 
-The public rebuilt Locust client produces new compatibility evidence, not the
-same frozen-image evidence as the historical result. For promotion-quality
-evidence, perform three independent formal runs and require every run to pass
-the 20.00 ms TPOT gate.
-
-## Optional compatibility wrappers
-
-The following commands are not part of the local exact replay. Use them only
-when deliberately preparing both public images or validating both independent
-workflows together.
-
-To prepare both images in one command:
-
-```bash
-./bin/build_images.sh
-```
-
-To verify both service and test inputs in one command:
-
-```bash
-./bin/verify_external_inputs.sh
-```
-
-These aggregate wrappers are conveniences only. Neither independent workflow
-uses `verify_external_inputs.sh`.
+For promotion-quality evidence, perform three independent formal runs and
+require every run to pass the 20.00 ms TPOT gate.
