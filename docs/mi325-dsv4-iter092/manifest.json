@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "artifact": "deepseek_v4_iter092_final",
+  "evidence_label": "MI325X_MEASURED",
+  "contract_id": "CUSTOMER_LOCUST_TPOT20_V2",
+  "strict_result_used": false,
+  "iteration": 92,
+  "formal_run": "i092_formal1_c60_attempt_1_20260823_122450",
+  "concurrency": 60,
+  "complete_5x_blocks": 20,
+  "scored_complete_requests": 6000,
+  "locust_script_sha256": "f01146774dd3b05b6a105918f444cec03ed9d5575e2c92d40ac58522bb327850",
+  "dataset_file_count": 3997,
+  "dataset_normalized_aggregate_sha256": "c774104d35e521baddb4dc7d57646ac9aac68eeedb57c6962f9d1c85cbe0d7d8",
+  "result": {
+    "total_tpm_w": 144.3996,
+    "input_tpm_w": 126.1966,
+    "output_tpm_w": 18.203,
+    "tpot_ms": 19.70,
+    "customer_locust_ttft_ms": 361.94,
+    "e2e_s": 17.14,
+    "failure_count": 0
+  },
+  "service": {
+    "profile": "official_clean_1e7659f_dual_tp4_mtp2_leg_noprefix_flysort",
+    "topology": "2xTP4",
+    "speculative_method": "mtp",
+    "num_speculative_tokens": 2,
+    "atom_image_id": "sha256:a5cfa1ab503af6e0f55e0ed83cd7e999edbea6940a38dba44aaeee9a22758976",
+    "atom_commit": "1e7659fde32eeaa0d9aa868c3e90847e5e46a51c",
+    "aiter_commit": "eb84cb02200b1707f1076edf3f4930d3626adfb2"
+  }
+}

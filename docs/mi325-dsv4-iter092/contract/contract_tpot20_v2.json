@@ -1,0 +1,24 @@
+{
+  "schema_version": 2,
+  "contract_id": "CUSTOMER_LOCUST_TPOT20_V2",
+  "parent_contract_id": "CUSTOMER_LOCUST_LONGRUN_V1",
+  "workload_frozen": true,
+  "strict_result_used": false,
+  "scoring": {
+    "statistic": "first_20_complete_5x_history_mean",
+    "complete_segments": 20,
+    "requests_per_segment": "5*C",
+    "scored_requests": "100*C",
+    "final_drain_in_score": false,
+    "partial_tail_in_score": false
+  },
+  "slo": {
+    "metric": "customer_score_line_mean_tpot_ms",
+    "operator": "<=",
+    "limit_ms": 20.0,
+    "rounding_tolerance_ms": 0.0,
+    "all_promotion_repetitions_must_pass": true,
+    "minimum_promotion_repetitions": 3
+  },
+  "ranking": "maximum_total_tpm_among_integrity_valid_slo_pass_points"
+}

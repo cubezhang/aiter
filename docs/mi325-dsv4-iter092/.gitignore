@@ -1,0 +1,7 @@
+__pycache__/
+*.py[cod]
+logs/
+runs/
+state/active_service.json
+service/logs/
+service/work/

@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "contract_id": "CUSTOMER_LOCUST_LONGRUN_V1",
+  "source_method": "customer_general_locust_2026-08-14",
+  "strict_contract_allowed": false,
+  "locust_script": "contract/locustfile-request-count-0916.py",
+  "locust_script_sha256": "f01146774dd3b05b6a105918f444cec03ed9d5575e2c92d40ac58522bb327850",
+  "dataset_dir": "input/llm_test_datasets-prod",
+  "dataset_file_count": 3997,
+  "dataset_aggregate_sha256": "c774104d35e521baddb4dc7d57646ac9aac68eeedb57c6962f9d1c85cbe0d7d8",
+  "locust_image": "locust-awcloud@sha256:7df3afaaaf1cca96eb9898ba7f23d9c5e4f531d86e8c02ab9f2f488eb9448631",
+  "model_name": "DeepSeek-V4",
+  "max_tokens": 16384,
+  "ignore_eos": false,
+  "natural_eos": true,
+  "include_usage": true,
+  "thinking_probability_per_request": 0.4,
+  "sampling": "random_with_replacement",
+  "locust_processes": 8,
+  "scoring": {
+    "statistic": "first_20_complete_5x_history_mean",
+    "complete_segments": 20,
+    "requests_per_segment": "5*C",
+    "scored_requests": "100*C",
+    "final_drain_in_score": false,
+    "partial_tail_in_score": false
+  },
+  "reference_lineage": {
+    "customer_total_tpm_w": 123.0312,
+    "customer_complete_5x_segments": 11,
+    "directly_comparable_to_v1_score": false
+  }
+}
