@@ -40,7 +40,7 @@ Only these external inputs are required to start the service:
 | Hardware | 8 unpartitioned MI325X GPUs in SPX/NPS1 mode |
 | GPU identity | `1002:74a5`, `gfx942` |
 | GPU devices | `/dev/kfd` and `/dev/dri` |
-| Model payload | absolute `$SERVICE_MODEL_DIR` (default `/data/DeepSeek-V4-Flash-FP8`) |
+| Model payload | `/data/DeepSeek-V4-Flash-FP8` (the local default for `$SERVICE_MODEL_DIR`) |
 | Service image | public pinned ATOM image shown below |
 | Free service ports | 18000, 18001, and 18080 |
 
@@ -158,9 +158,9 @@ starts, stops, or replaces that service.
 
 | Test dependency | Required location or identity |
 |---|---|
-| Customer Locust script | `$CUSTOMER_TEST_ROOT/contract/locustfile-request-count-0916.py` |
+| Customer Locust script | `/data/hxh/0823/deepseek_v4_iter092_final/contract/locustfile-request-count-0916.py` |
 | Script SHA256 | `f01146774dd3b05b6a105918f444cec03ed9d5575e2c92d40ac58522bb327850` |
-| Dataset | `$CUSTOMER_TEST_ROOT/input/llm_test_datasets-prod/*.json` |
+| Dataset | `/data/hxh/0823/deepseek_v4_iter092_final/input/llm_test_datasets-prod/*.json` |
 | Dataset files | 3997 |
 | Dataset aggregate SHA256 | `c774104d35e521baddb4dc7d57646ac9aac68eeedb57c6962f9d1c85cbe0d7d8` |
 | Frozen Locust image | local `locust-awcloud:1.5` |
@@ -181,10 +181,12 @@ export LOCUST_IMAGE='locust-awcloud:1.5'
 export LOCUST_IMAGE_ID='sha256:7df3afaaaf1cca96eb9898ba7f23d9c5e4f531d86e8c02ab9f2f488eb9448631'
 ```
 
-On another host, override the captured root:
+The checked local test root is already the default in `config/contract.env`.
+The following explicit export is equivalent and can be used to make the host
+path visible in the shell session:
 
 ```bash
-export CUSTOMER_TEST_ROOT='/data/captured/test/environment'
+export CUSTOMER_TEST_ROOT='/data/hxh/0823/deepseek_v4_iter092_final'
 ```
 
 The expected layout under `CUSTOMER_TEST_ROOT` is:
@@ -195,11 +197,12 @@ $CUSTOMER_TEST_ROOT/
 └── input/llm_test_datasets-prod/*.json
 ```
 
-If the two inputs do not share a root, export their absolute paths directly:
+The same local inputs can also be selected with their fully expanded absolute
+paths:
 
 ```bash
-export LOCUST_SCRIPT='/absolute/path/locustfile-request-count-0916.py'
-export DATASET_DIR='/absolute/path/llm_test_datasets-prod'
+export LOCUST_SCRIPT='/data/hxh/0823/deepseek_v4_iter092_final/contract/locustfile-request-count-0916.py'
+export DATASET_DIR='/data/hxh/0823/deepseek_v4_iter092_final/input/llm_test_datasets-prod'
 ```
 
 The test container mounts both host paths read-only. Results and logs still go
