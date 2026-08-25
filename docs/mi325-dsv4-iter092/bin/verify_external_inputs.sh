@@ -9,10 +9,8 @@ model_dir=/data/DeepSeek-V4-Flash-FP8
 expected_script_sha=f01146774dd3b05b6a105918f444cec03ed9d5575e2c92d40ac58522bb327850
 expected_dataset_count=3997
 expected_dataset_sha=c774104d35e521baddb4dc7d57646ac9aac68eeedb57c6962f9d1c85cbe0d7d8
-service_image=rocm/atom-dev@sha256:a5cfa1ab503af6e0f55e0ed83cd7e999edbea6940a38dba44aaeee9a22758976
+service_image=rocm/atom-dev:nightly_202608201458@sha256:a5cfa1ab503af6e0f55e0ed83cd7e999edbea6940a38dba44aaeee9a22758976
 service_image_id=sha256:a5cfa1ab503af6e0f55e0ed83cd7e999edbea6940a38dba44aaeee9a22758976
-locust_image=locust-awcloud@sha256:7df3afaaaf1cca96eb9898ba7f23d9c5e4f531d86e8c02ab9f2f488eb9448631
-locust_image_id=sha256:7df3afaaaf1cca96eb9898ba7f23d9c5e4f531d86e8c02ab9f2f488eb9448631
 expected_gpu_count=8
 
 for required_command in docker curl jq rg sha256sum rocm-smi amd-smi journalctl ss; do
@@ -86,10 +84,6 @@ actual_service_image_id=$(docker image inspect "$service_image" --format '{{.Id}
   echo "service image ID mismatch: $actual_service_image_id" >&2
   exit 1
 }
-actual_locust_image_id=$(docker image inspect "$locust_image" --format '{{.Id}}')
-[[ $actual_locust_image_id == "$locust_image_id" ]] || {
-  echo "Locust image ID mismatch: $actual_locust_image_id" >&2
-  exit 1
-}
+"$repro_root/bin/verify_locust_image.sh"
 
 echo "External inputs verified: 8 x MI325X SPX/NPS1, model, client script, 3997 datasets, and both images."

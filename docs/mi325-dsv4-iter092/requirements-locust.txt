@@ -1,4 +1,5 @@
-# Versions read from the frozen Locust client image.
+# Top-level versions read from the frozen Locust client image.
+# requirements-locust.lock contains the complete source-build environment.
 locust==2.37.4
 gevent==24.11.1
 requests==2.32.3

@@ -1,0 +1,28 @@
+# Publicly rebuildable compatibility client for the Iteration-92 workload.
+# This is not the unavailable historical locust-awcloud image ID.
+ARG PYTHON_BASE_IMAGE="python:3.12.11-slim-bookworm@sha256:519591d6871b7bc437060736b9f7456b8731f1499a57e22e6c285135ae657bf7"
+FROM ${PYTHON_BASE_IMAGE}
+
+ARG LOCUST_LOCK_SHA256
+LABEL org.opencontainers.image.title="MI325X Iteration-92 Locust compatibility client" \
+      org.opencontainers.image.base.name="python:3.12.11-slim-bookworm@sha256:519591d6871b7bc437060736b9f7456b8731f1499a57e22e6c285135ae657bf7" \
+      io.aiter.iter092.locust-lock-sha256="${LOCUST_LOCK_SHA256}" \
+      io.aiter.iter092.evidence-class="SOURCE_REBUILT_COMPATIBILITY"
+
+ENV VIRTUAL_ENV=/root/locust_test/.venv
+ENV PATH="${VIRTUAL_ENV}/bin:${PATH}"
+
+COPY requirements-locust.lock /tmp/requirements-locust.lock
+
+RUN test -n "${LOCUST_LOCK_SHA256}" && \
+    python -m venv "${VIRTUAL_ENV}" && \
+    "${VIRTUAL_ENV}/bin/python" -m pip install --no-cache-dir --upgrade "pip==25.1.1" && \
+    "${VIRTUAL_ENV}/bin/python" -m pip install --no-cache-dir \
+      -r /tmp/requirements-locust.lock && \
+    "${VIRTUAL_ENV}/bin/python" -m pip check && \
+    "${VIRTUAL_ENV}/bin/python" -c \
+      'import locust, numpy, sys; assert sys.version.split()[0] == "3.12.11"; assert locust.__version__ == "2.37.4"; assert numpy.__version__ == "2.3.3"' && \
+    rm -f /tmp/requirements-locust.lock
+
+ENTRYPOINT ["/root/locust_test/.venv/bin/locust"]
+CMD ["--help"]

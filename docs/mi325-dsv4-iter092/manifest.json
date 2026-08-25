@@ -12,6 +12,14 @@
   "locust_script_sha256": "f01146774dd3b05b6a105918f444cec03ed9d5575e2c92d40ac58522bb327850",
   "dataset_file_count": 3997,
   "dataset_normalized_aggregate_sha256": "c774104d35e521baddb4dc7d57646ac9aac68eeedb57c6962f9d1c85cbe0d7d8",
+  "client": {
+    "historical_image_id": "sha256:7df3afaaaf1cca96eb9898ba7f23d9c5e4f531d86e8c02ab9f2f488eb9448631",
+    "historical_image_publicly_available": false,
+    "rebuild_dockerfile": "Dockerfile.locust",
+    "rebuild_lock_sha256": "7c6d030fc6b3547c84b6b78a5a0626e2479c0e17e225b47e2e4f2b024b67aecb",
+    "rebuild_evidence_class": "SOURCE_REBUILT_COMPATIBILITY",
+    "python_base": "python:3.12.11-slim-bookworm@sha256:519591d6871b7bc437060736b9f7456b8731f1499a57e22e6c285135ae657bf7"
+  },
   "result": {
     "total_tpm_w": 144.3996,
     "input_tpm_w": 126.1966,
@@ -26,6 +34,7 @@
     "topology": "2xTP4",
     "speculative_method": "mtp",
     "num_speculative_tokens": 2,
+    "atom_image": "rocm/atom-dev:nightly_202608201458@sha256:a5cfa1ab503af6e0f55e0ed83cd7e999edbea6940a38dba44aaeee9a22758976",
     "atom_image_id": "sha256:a5cfa1ab503af6e0f55e0ed83cd7e999edbea6940a38dba44aaeee9a22758976",
     "atom_commit": "1e7659fde32eeaa0d9aa868c3e90847e5e46a51c",
     "aiter_commit": "eb84cb02200b1707f1076edf3f4930d3626adfb2"
