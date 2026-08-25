@@ -184,7 +184,7 @@ export LOCUST_IMAGE_ID='sha256:7df3afaaaf1cca96eb9898ba7f23d9c5e4f531d86e8c02ab9
 On another host, override the captured root:
 
 ```bash
-export CUSTOMER_TEST_ROOT='/absolute/path/to/the/captured/test/environment'
+export CUSTOMER_TEST_ROOT='/data/captured/test/environment'
 ```
 
 The expected layout under `CUSTOMER_TEST_ROOT` is:
