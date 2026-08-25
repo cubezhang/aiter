@@ -57,7 +57,7 @@ they are mounted elsewhere, set their absolute location without changing any
 serving code:
 
 ```bash
-export SERVICE_MODEL_DIR='/absolute/path/to/DeepSeek-V4-Flash-FP8'
+export SERVICE_MODEL_DIR='/data/DeepSeek-V4-Flash-FP8'
 ```
 
 Eliminating that final external payload would require a publicly accessible
