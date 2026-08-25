@@ -44,12 +44,13 @@ actual_dataset_sha=$(
   (
     cd "$DATASET_DIR"
     find . -maxdepth 1 -type f -name '*.json' -print0 |
-      sort -z |
+      LC_ALL=C sort -z |
       xargs -0 sha256sum
   ) | sha256sum | awk '{print $1}'
 )
 [[ $actual_dataset_sha == "$DATASET_AGGREGATE_SHA256" ]] || {
-  echo "dataset aggregate SHA256 mismatch: $actual_dataset_sha" >&2
+  printf 'dataset aggregate SHA256 mismatch:\n  DATASET_DIR=%s\n  actual=%s\n  expected=%s\n' \
+    "$DATASET_DIR" "$actual_dataset_sha" "$DATASET_AGGREGATE_SHA256" >&2
   exit 1
 }
 

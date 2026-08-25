@@ -215,14 +215,23 @@ dataset_dir=${DATASET_DIR:-$CUSTOMER_TEST_ROOT/input/llm_test_datasets-prod}
 (
   cd "$dataset_dir"
   find . -maxdepth 1 -type f -name '*.json' -print0 |
-    sort -z |
+    LC_ALL=C sort -z |
     xargs -0 sha256sum
 ) | sha256sum
 ```
 
+`LC_ALL=C` is part of the hash contract. Without it, `en_US.UTF-8` collation
+orders the same filenames differently and produces
+`c02830128fe38ba00fc4ea2d3cfb14624192366c05b68b175417814473f6e9f3`.
+
 ### B2. Verify the local formal test inputs
 
+The captured host already has the exact frozen image `locust-awcloud:1.5`.
+Do not run `build_images.sh`, `build_locust_image.sh`, `docker save`, or
+`docker load` for the local exact replay. Run only:
+
 ```bash
+docker image inspect locust-awcloud:1.5 --format '{{.Id}}'
 ./bin/verify_test_inputs.sh
 ```
 
@@ -230,7 +239,8 @@ This checks the external script path and SHA256, all 3997 external dataset
 files and their aggregate SHA256, and the exact local Locust image ID. It does
 not copy private inputs, prepare the service, or replace the running service.
 
-If `locust-awcloud:1.5` is not present, transfer it from the captured host:
+Only if `locust-awcloud:1.5` is absent on a different test host, transfer it
+from the captured host:
 
 ```bash
 # Captured source host
@@ -268,6 +278,9 @@ byte-identical across BuildKit exports.
 
 ### B4. Run the accepted workload sequence
 
+After Workflow A has started the service and B2 passes, these are the complete
+local test commands; no image build or load step is between them:
+
 ```bash
 # Read-only check of test inputs and the already running service:
 ./bin/run_iter092_repro.sh --preflight-only
@@ -291,6 +304,10 @@ evidence, perform three independent formal runs and require every run to pass
 the 20.00 ms TPOT gate.
 
 ## Optional compatibility wrappers
+
+The following commands are not part of the local exact replay. Use them only
+when deliberately preparing both public images or validating both independent
+workflows together.
 
 To prepare both images in one command:
 
