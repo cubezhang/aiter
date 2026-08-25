@@ -35,6 +35,9 @@
     "failure_count": 0
   },
   "service": {
+    "contract_file": "config/service.env",
+    "model_dir_env": "SERVICE_MODEL_DIR",
+    "model_payload_publicly_available": false,
     "profile": "official_clean_1e7659f_dual_tp4_mtp2_leg_noprefix_flysort",
     "topology": "2xTP4",
     "speculative_method": "mtp",

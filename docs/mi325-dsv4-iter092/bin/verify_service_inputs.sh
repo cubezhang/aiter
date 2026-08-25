@@ -1,10 +1,9 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-model_dir=/data/DeepSeek-V4-Flash-FP8
-service_image=rocm/atom-dev:nightly_202608201458@sha256:a5cfa1ab503af6e0f55e0ed83cd7e999edbea6940a38dba44aaeee9a22758976
-service_image_id=sha256:a5cfa1ab503af6e0f55e0ed83cd7e999edbea6940a38dba44aaeee9a22758976
-expected_gpu_count=8
+repro_root=$(readlink -f "$(dirname "${BASH_SOURCE[0]}")/..")
+# shellcheck disable=SC1091
+source "$repro_root/config/service.env"
 
 for required_command in docker curl jq python3 rocm-smi amd-smi journalctl ss; do
   command -v "$required_command" >/dev/null || {
@@ -19,7 +18,7 @@ done
 }
 
 asic_json=$(amd-smi static --asic --json)
-jq -e --argjson expected_gpu_count "$expected_gpu_count" '
+jq -e --argjson expected_gpu_count "$EXPECTED_GPU_COUNT" '
   (.gpu_data | length) == $expected_gpu_count and
   all(.gpu_data[];
     .asic.vendor_id == "0x1002" and
@@ -33,7 +32,7 @@ jq -e --argjson expected_gpu_count "$expected_gpu_count" '
 }
 
 partition_json=$(amd-smi partition --current --json)
-jq -e --argjson expected_gpu_count "$expected_gpu_count" '
+jq -e --argjson expected_gpu_count "$EXPECTED_GPU_COUNT" '
   (.current_partition | length) == $expected_gpu_count and
   all(.current_partition[];
     .memory == "NPS1" and .accelerator_type == "SPX"
@@ -43,12 +42,20 @@ jq -e --argjson expected_gpu_count "$expected_gpu_count" '
   exit 1
 }
 
-[[ -d $model_dir ]] || { echo "missing model directory: $model_dir" >&2; exit 1; }
+[[ $SERVICE_MODEL_DIR == /* ]] || {
+  echo "SERVICE_MODEL_DIR must be an absolute host path: $SERVICE_MODEL_DIR" >&2
+  exit 1
+}
+[[ -d $SERVICE_MODEL_DIR ]] || {
+  echo "missing model directory: $SERVICE_MODEL_DIR" >&2
+  exit 1
+}
 
-actual_service_image_id=$(docker image inspect "$service_image" --format '{{.Id}}')
-[[ $actual_service_image_id == "$service_image_id" ]] || {
+actual_service_image_id=$(docker image inspect "$SERVICE_IMAGE" --format '{{.Id}}')
+[[ $actual_service_image_id == "$SERVICE_IMAGE_ID" ]] || {
   echo "service image ID mismatch: $actual_service_image_id" >&2
   exit 1
 }
 
-echo "Service inputs verified: 8 x MI325X SPX/NPS1, model, and pinned ATOM image."
+printf 'Service inputs verified: %s x MI325X SPX/NPS1, model=%s, pinned ATOM image.\n' \
+  "$EXPECTED_GPU_COUNT" "$SERVICE_MODEL_DIR"

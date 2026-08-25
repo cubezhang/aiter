@@ -12,6 +12,7 @@ import datetime as dt
 import csv
 import hashlib
 import json
+import os
 import pathlib
 import re
 import subprocess
@@ -26,7 +27,7 @@ IMAGE = "rocm/atom-dev@sha256:066841903594e8d691b1c528123dfd2e17eacd293acfde947d
 IMAGE_ID = "sha256:066841903594e8d691b1c528123dfd2e17eacd293acfde947d4fb02afffd57db"
 ATOM_COMMIT = "ffdf3bb5ddf8a15a64d521a2eeb3bc7438f9ac21"
 AITER_COMMIT = "d78f4797ba4e16927d83f5ede412767dd5430f5a"
-MODEL = "/data/DeepSeek-V4-Flash-FP8"
+MODEL = os.environ.get("ITER092_MODEL_DIR", "/data/DeepSeek-V4-Flash-FP8")
 ROUTER = str(pathlib.Path(__file__).resolve().parent.parent / "router.py")
 SERVICE_LOG_ROOT = CAMPAIGN / "logs/official_clean"
 DENSE_CAPTURE_SIZES = "[1,2,4,8,12,16,20,24,28,32,33,34,35,36,40,44,48,52,56,60,64,68,72,76,80,84,88,92,96,100,104,108,112,116,120,124,128,132,136,140,144,148,152,156,160,164,168,172,176,180,184,188,192,196,200,204,208,212,216,220,224,228,232,236,240,244,248,252,256]"

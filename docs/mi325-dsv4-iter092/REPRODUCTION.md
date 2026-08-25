@@ -40,12 +40,29 @@ Only these external inputs are required to start the service:
 | Hardware | 8 unpartitioned MI325X GPUs in SPX/NPS1 mode |
 | GPU identity | `1002:74a5`, `gfx942` |
 | GPU devices | `/dev/kfd` and `/dev/dri` |
-| Model | `/data/DeepSeek-V4-Flash-FP8` |
+| Model payload | absolute `$SERVICE_MODEL_DIR` (default `/data/DeepSeek-V4-Flash-FP8`) |
 | Service image | public pinned ATOM image shown below |
 | Free service ports | 18000, 18001, and 18080 |
 
 Required host commands are `docker`, `curl`, `jq`, `python3`, `rocm-smi`,
 `amd-smi`, `journalctl`, and `ss`.
+
+The service chain sources only `config/service.env`. It never sources the
+customer test contract and never reads `CUSTOMER_TEST_ROOT`, `LOCUST_SCRIPT`,
+`DATASET_DIR`, or a Locust image. The runtime image and all serving code are
+reconstructed from this Git repository and the public pinned image.
+
+The model weights remain an unavoidable service data input. On a host where
+they are mounted elsewhere, set their absolute location without changing any
+serving code:
+
+```bash
+export SERVICE_MODEL_DIR='/absolute/path/to/DeepSeek-V4-Flash-FP8'
+```
+
+Eliminating that final external payload would require a publicly accessible
+model artifact plus an immutable revision/hash; this handoff does not publish
+one.
 
 The accepted runtime is pinned to:
 
@@ -99,6 +116,8 @@ detect the architecture. That does not indicate an image or revision mismatch.
 ### A3. Start or reuse the service
 
 ```bash
+# Optional when the model uses the default /data path:
+export SERVICE_MODEL_DIR='/data/DeepSeek-V4-Flash-FP8'
 ./bin/restore_iter092_service.sh
 ```
 
